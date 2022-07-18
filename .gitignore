@@ -1,0 +1,12 @@
+.idea
+generate.sh
+rest/generate.sh
+rest/Makefile
+core/generate.sh
+.env
+rest/.env
+core/.env
+dashboard/app
+dashboard/app/node_modules
+dashboard/app/.idea
+dashboard/app/build
