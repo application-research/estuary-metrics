@@ -14,6 +14,29 @@ var (
 	_ = uuid.UUID{}
 )
 
+func GetUsersDynamicQuery(ctx context.Context, query map[string]interface{}, page, pagesize int, order string) (results []*model.User, err error) {
+	resultOrm := DB.Model(&model.User{})
+
+	if page > 0 {
+		offset := (page - 1) * pagesize
+		resultOrm = resultOrm.Offset(offset).Limit(pagesize)
+	} else {
+		resultOrm = resultOrm.Limit(pagesize)
+	}
+
+	if order != "" {
+		resultOrm = resultOrm.Order(order)
+	}
+
+	if err = resultOrm.Where(query).Find(&results).Error; err != nil {
+		err = ErrNotFound
+		return nil, err
+	}
+
+	return results, nil
+
+}
+
 func GetNumberOfUsersWithinRange(ctx context.Context, start, end time.Time) ([]*model.User, error) {
 	var users []*model.User
 	err := DB.Model(&model.User{}).Select("id", "username", "user_email", "perm").Where("created_at >= ? AND created_at <= ?", start, end).Find(&users).Error

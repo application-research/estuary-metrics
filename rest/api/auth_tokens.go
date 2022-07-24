@@ -1,6 +1,7 @@
 package api
 
 import (
+	"encoding/json"
 	"net/http"
 
 	"github.com/application-research/estuary-metrics/core/dao"
@@ -17,9 +18,46 @@ var (
 func configGinAuthTokensRouter(router gin.IRoutes) {
 	router.GET("/authtokens", ConverHttpRouterToGin(GetAllAuthTokens))
 	router.POST("/authtokens", ConverHttpRouterToGin(AddAuthTokens))
+	router.POST("/authtokens/dynamic", ConverHttpRouterToGin(GetAuthTokensDynamicQuery))
 	router.GET("/authtokens/:argID", ConverHttpRouterToGin(GetAuthTokens))
 	router.PUT("/authtokens/:argID", ConverHttpRouterToGin(UpdateAuthTokens))
 	router.DELETE("/authtokens/:argID", ConverHttpRouterToGin(DeleteAuthTokens))
+}
+
+func GetAuthTokensDynamicQuery(w http.ResponseWriter, r *http.Request, ps httprouter.Params) {
+	ctx := initializeContext(r)
+	page, err := readInt(r, "page", 0)
+	if err != nil || page < 0 {
+		returnError(ctx, w, r, dao.ErrBadParams)
+		return
+	}
+
+	pagesize, err := readInt(r, "pagesize", 20)
+	if err != nil || pagesize <= 0 {
+		returnError(ctx, w, r, dao.ErrBadParams)
+		return
+	}
+
+	order := r.FormValue("order")
+	query := r.FormValue("query")
+
+	var queryMap map[string]interface{}
+	json.Unmarshal([]byte(query), &queryMap)
+
+	if err := ValidateRequest(ctx, r, "auth_tokens", model.RetrieveMany); err != nil {
+		returnError(ctx, w, r, err)
+		return
+	}
+
+	records, totalRows, err := dao.GetAuthTokensDynamicQuery(ctx, queryMap, int(page), int(pagesize), order)
+	if err != nil {
+		returnError(ctx, w, r, err)
+		return
+	}
+
+	result := &PagedResults{Page: page, PageSize: pagesize, Data: records, TotalRecords: int(totalRows)}
+
+	writeJSON(ctx, w, result)
 }
 
 // GetAllAuthTokens is a function to get a slice of record(s) from auth_tokens table in the estuary database

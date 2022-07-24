@@ -16,6 +16,40 @@ var (
 	_ = uuid.UUID{}
 )
 
+// GetAuthTokensDynamicQuery is a function to get a slice of record(s) from auth_tokens table in the estuary database
+// params - page     - page requested (defaults to 0)
+// params - pagesize - number of records in a page  (defaults to 20)
+// params - order    - db sort order column
+// results - slice of record(s)
+// totalRows - total number of records in the auth_tokens table
+// error - ErrNotFound, db Find error
+func GetAuthTokensDynamicQuery(ctx context.Context, query map[string]interface{}, page, pagesize int, order string) (results []*model.AuthToken, totalRows int64, err error) {
+	resultOrm := DB.Model(&model.AuthToken{})
+	resultOrm.Count(&totalRows)
+
+	if page > 0 {
+		offset := (page - 1) * pagesize
+		resultOrm = resultOrm.Offset(offset).Limit(pagesize)
+	} else {
+		resultOrm = resultOrm.Limit(pagesize)
+	}
+
+	if order != "" {
+		resultOrm = resultOrm.Order(order)
+	}
+
+	if err = resultOrm.Where(query).Find(&results).Error; err != nil {
+		err = ErrNotFound
+		return nil, -1, err
+	}
+
+	return results, totalRows, nil
+
+}
+
+// GetAllActiveAuthTokenCount is a function to get the count of all active records in auth_tokens table in the estuary database
+// count - count of active records
+// error - ErrNotFound, db Find error
 func GetAllActiveAuthTokenCount(ctx context.Context) (count int64, err error) {
 	resultOrm := DB.Model(&model.AuthToken{})
 	resultOrm.Where("deleted_at <> ?", nil).Count(&count)

@@ -1,6 +1,7 @@
 package api
 
 import (
+	"encoding/json"
 	"github.com/application-research/estuary-metrics/core/dao"
 	"github.com/application-research/estuary-metrics/core/generated/model"
 	"net/http"
@@ -18,11 +19,48 @@ var (
 func configGinUsersRouter(router gin.IRoutes) {
 	router.GET("/users", ConverHttpRouterToGin(GetAllUsers))
 	router.POST("/users", ConverHttpRouterToGin(AddUsers))
+	router.POST("/users/dynamic", ConverHttpRouterToGin(GetUsersDynamicQuery))
 	router.GET("/users/count", ConverHttpRouterToGin(GetNumberOfUsers))
 	router.GET("/users/within-range", ConverHttpRouterToGin(GetNumberOfUsersWithinRange))
 	router.GET("/users/:argID", ConverHttpRouterToGin(GetUsers))
 	router.PUT("/users/:argID", ConverHttpRouterToGin(UpdateUsers))
 	router.DELETE("/users/:argID", ConverHttpRouterToGin(DeleteUsers))
+}
+
+func GetUsersDynamicQuery(w http.ResponseWriter, r *http.Request, ps httprouter.Params) {
+	ctx := initializeContext(r)
+	page, err := readInt(r, "page", 0)
+	if err != nil || page < 0 {
+		returnError(ctx, w, r, dao.ErrBadParams)
+		return
+	}
+
+	pagesize, err := readInt(r, "pagesize", 20)
+	if err != nil || pagesize <= 0 {
+		returnError(ctx, w, r, dao.ErrBadParams)
+		return
+	}
+
+	order := r.FormValue("order")
+	query := r.FormValue("query")
+
+	var queryMap map[string]interface{}
+	json.Unmarshal([]byte(query), &queryMap)
+
+	if err := ValidateRequest(ctx, r, "users", model.RetrieveMany); err != nil {
+		returnError(ctx, w, r, err)
+		return
+	}
+
+	records, err := dao.GetUsersDynamicQuery(ctx, queryMap, int(page), int(pagesize), order)
+	if err != nil {
+		returnError(ctx, w, r, err)
+		return
+	}
+
+	result := &PagedResults{Page: page, PageSize: pagesize, Data: records, TotalRecords: len(records)}
+
+	writeJSON(ctx, w, result)
 }
 
 // GetNumberOfUsersWithinRange is a function to get the number of record(s) from users table in the estuary database
