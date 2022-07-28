@@ -16,6 +16,7 @@ type User struct {
 	DeletedAt       gorm.DeletedAt `gorm:"column:deleted_at" json:"deleted_at"`
 	UUID            string         `gorm:"column:uuid" json:"uuid"`
 	Username        string         `gorm:"column:username" json:"username"`
+	Salt            string         `gorm:"column:salt" json:"salt"`
 	PassHash        string         `gorm:"column:pass_hash" json:"pass_hash"`
 	UserEmail       string         `gorm:"column:user_email" json:"user_email"`
 	Perm            int64          `gorm:"column:perm" json:"perm"`
