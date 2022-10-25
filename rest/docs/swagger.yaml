@@ -522,6 +522,8 @@ definitions:
         type: string
       perm:
         type: integer
+      salt:
+        type: string
       storage_disabled:
         type: boolean
       updated_at:

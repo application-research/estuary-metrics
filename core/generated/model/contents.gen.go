@@ -15,7 +15,7 @@ type Content struct {
 	UpdatedAt    time.Time      `gorm:"column:updated_at" json:"updated_at"`
 	DeletedAt    gorm.DeletedAt `gorm:"column:deleted_at" json:"deleted_at"`
 	Cid          []uint8        `gorm:"column:cid" json:"cid"`
-	Name         string         `gorm:"column:name" json:"filename"`
+	Name         string         `gorm:"column:name" json:"name"`
 	User         string         `gorm:"column:user" json:"user"`
 	Size         int64          `gorm:"column:size" json:"size"`
 	Active       bool           `gorm:"column:active" json:"active"`

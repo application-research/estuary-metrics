@@ -1,6 +1,5 @@
 select * from content_deals
 where failed = false;
-
 select count(*) from obj_refs;
 
 select * from obj_refs a, content_deals b
@@ -12,8 +11,6 @@ where a.content = b.content and b.content = c.id;
 
 select ((t.failed * 1.0 / t.total * 1.0) * 100) as "fail_rate",((t.success  * 1.0 /t.total  * 1.0) * 100) as "success_rate" from (select
                                                                                                                                       (select count(*) from content_deals as c1 where deal_id > 0) as total,
-                                                                                                                                      (select count(*) from content_deals as c1 where failed = false and deal_id > 0) as success,
-                                                                                                                                      (select count(*) from content_deals as c1 where failed = false and deal_id = 0) as failed) as t;
 
 select count(*) from content_deals as c1, contents as c2
 where c1.id = c2.id; // 813495 (total)

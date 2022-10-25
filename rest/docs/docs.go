@@ -5703,6 +5703,9 @@ const docTemplate = `{
                 "perm": {
                     "type": "integer"
                 },
+                "salt": {
+                    "type": "string"
+                },
                 "storage_disabled": {
                     "type": "boolean"
                 },

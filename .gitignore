@@ -9,3 +9,7 @@ core/.env
 dashboard/app/node_modules
 dashboard/app/.idea
 dashboard/app/build
+
+# binary
+cmd/metrics-cmd
+rest/metrics-rest-api
