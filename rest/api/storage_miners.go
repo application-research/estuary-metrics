@@ -17,10 +17,7 @@ var (
 
 func configGinStorageMinersRouter(router gin.IRoutes) {
 	router.GET("/storageminers", ConverHttpRouterToGin(GetAllStorageMiners))
-	router.POST("/storageminers", ConverHttpRouterToGin(AddStorageMiners))
 	router.GET("/storageminers/:argID", ConverHttpRouterToGin(GetStorageMiners))
-	router.PUT("/storageminers/:argID", ConverHttpRouterToGin(UpdateStorageMiners))
-	router.DELETE("/storageminers/:argID", ConverHttpRouterToGin(DeleteStorageMiners))
 }
 
 // GetAllStorageMiners is a function to get a slice of record(s) from storage_miners table in the estuary database

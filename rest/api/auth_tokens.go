@@ -17,10 +17,8 @@ var (
 
 func configGinAuthTokensRouter(router gin.IRoutes) {
 	router.GET("/authtokens", ConverHttpRouterToGin(GetAllAuthTokens))
-	router.POST("/authtokens", ConverHttpRouterToGin(AddAuthTokens))
 	router.POST("/authtokens/dynamic", ConverHttpRouterToGin(GetAuthTokensDynamicQuery))
 	router.GET("/authtokens/:argID", ConverHttpRouterToGin(GetAuthTokens))
-	router.PUT("/authtokens/:argID", ConverHttpRouterToGin(UpdateAuthTokens))
 	router.DELETE("/authtokens/:argID", ConverHttpRouterToGin(DeleteAuthTokens))
 }
 

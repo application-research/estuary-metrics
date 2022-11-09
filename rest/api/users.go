@@ -18,13 +18,9 @@ var (
 
 func configGinUsersRouter(router gin.IRoutes) {
 	router.GET("/users", ConverHttpRouterToGin(GetAllUsers))
-	router.POST("/users", ConverHttpRouterToGin(AddUsers))
-	router.POST("/users/dynamic", ConverHttpRouterToGin(GetUsersDynamicQuery))
 	router.GET("/users/count", ConverHttpRouterToGin(GetNumberOfUsers))
 	router.GET("/users/within-range", ConverHttpRouterToGin(GetNumberOfUsersWithinRange))
 	router.GET("/users/:argID", ConverHttpRouterToGin(GetUsers))
-	router.PUT("/users/:argID", ConverHttpRouterToGin(UpdateUsers))
-	router.DELETE("/users/:argID", ConverHttpRouterToGin(DeleteUsers))
 }
 
 func GetUsersDynamicQuery(w http.ResponseWriter, r *http.Request, ps httprouter.Params) {

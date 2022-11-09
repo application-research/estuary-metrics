@@ -17,10 +17,7 @@ var (
 
 func configGinObjectsRouter(router gin.IRoutes) {
 	router.GET("/objects", ConverHttpRouterToGin(GetAllObjects))
-	router.POST("/objects", ConverHttpRouterToGin(AddObjects))
 	router.GET("/objects/:argID", ConverHttpRouterToGin(GetObjects))
-	router.PUT("/objects/:argID", ConverHttpRouterToGin(UpdateObjects))
-	router.DELETE("/objects/:argID", ConverHttpRouterToGin(DeleteObjects))
 }
 
 // GetAllObjects is a function to get a slice of record(s) from objects table in the estuary database
@@ -71,7 +68,7 @@ func GetAllObjects(w http.ResponseWriter, r *http.Request, ps httprouter.Params)
 // GetObjects is a function to get a single record from the objects table in the estuary database
 // @Summary Get record from table Objects by  argID
 // @Tags Objects
-// 
+//
 // @Description GetObjects is a function to get a single record from the objects table in the estuary database
 // @Accept  json
 // @Produce  json

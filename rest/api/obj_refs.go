@@ -17,10 +17,7 @@ var (
 
 func configGinObjRefsRouter(router gin.IRoutes) {
 	router.GET("/objrefs", ConverHttpRouterToGin(GetAllObjRefs))
-	router.POST("/objrefs", ConverHttpRouterToGin(AddObjRefs))
 	router.GET("/objrefs/:argID", ConverHttpRouterToGin(GetObjRefs))
-	router.PUT("/objrefs/:argID", ConverHttpRouterToGin(UpdateObjRefs))
-	router.DELETE("/objrefs/:argID", ConverHttpRouterToGin(DeleteObjRefs))
 }
 
 // GetAllObjRefs is a function to get a slice of record(s) from obj_refs table in the estuary database

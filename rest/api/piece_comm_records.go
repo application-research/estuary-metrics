@@ -17,10 +17,7 @@ var (
 
 func configGinPieceCommRecordsRouter(router gin.IRoutes) {
 	router.GET("/piececommrecords", ConverHttpRouterToGin(GetAllPieceCommRecords))
-	router.POST("/piececommrecords", ConverHttpRouterToGin(AddPieceCommRecords))
 	router.GET("/piececommrecords/:argData", ConverHttpRouterToGin(GetPieceCommRecords))
-	router.PUT("/piececommrecords/:argData", ConverHttpRouterToGin(UpdatePieceCommRecords))
-	router.DELETE("/piececommrecords/:argData", ConverHttpRouterToGin(DeletePieceCommRecords))
 }
 
 // GetAllPieceCommRecords is a function to get a slice of record(s) from piece_comm_records table in the estuary database

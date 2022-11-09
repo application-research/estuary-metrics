@@ -41,9 +41,9 @@ var (
 	OsSignal chan os.Signal
 )
 
-// @title Sample CRUD api for estuary db
+// @title Estuary Metrics API
 // @version 1.0
-// @description Sample CRUD api for estuary db
+// @description Estuary Metrics API
 // @termsOfService
 
 // @contact.name Me

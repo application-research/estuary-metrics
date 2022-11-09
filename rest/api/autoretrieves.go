@@ -17,9 +17,7 @@ var (
 
 func configGinAutoretrievesRouter(router gin.IRoutes) {
 	router.GET("/autoretrieves", ConverHttpRouterToGin(GetAllAutoretrieves))
-	router.POST("/autoretrieves", ConverHttpRouterToGin(AddAutoretrieves))
 	router.GET("/autoretrieves/:argID", ConverHttpRouterToGin(GetAutoretrieves))
-	router.PUT("/autoretrieves/:argID", ConverHttpRouterToGin(UpdateAutoretrieves))
 	router.DELETE("/autoretrieves/:argID", ConverHttpRouterToGin(DeleteAutoretrieves))
 }
 

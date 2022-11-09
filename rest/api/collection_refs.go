@@ -16,9 +16,7 @@ var (
 
 func configGinCollectionRefsRouter(router gin.IRoutes) {
 	router.GET("/collectionrefs", ConverHttpRouterToGin(GetAllCollectionRefs))
-	router.POST("/collectionrefs", ConverHttpRouterToGin(AddCollectionRefs))
 	router.GET("/collectionrefs/:argID", ConverHttpRouterToGin(GetCollectionRefs))
-	router.PUT("/collectionrefs/:argID", ConverHttpRouterToGin(UpdateCollectionRefs))
 	router.DELETE("/collectionrefs/:argID", ConverHttpRouterToGin(DeleteCollectionRefs))
 }
 

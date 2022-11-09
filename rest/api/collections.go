@@ -16,10 +16,7 @@ var (
 
 func configGinCollectionsRouter(router gin.IRoutes) {
 	router.GET("/collections", ConverHttpRouterToGin(GetAllCollections))
-	router.POST("/collections", ConverHttpRouterToGin(AddCollections))
 	router.GET("/collections/:argID", ConverHttpRouterToGin(GetCollections))
-	router.PUT("/collections/:argID", ConverHttpRouterToGin(UpdateCollections))
-	router.DELETE("/collections/:argID", ConverHttpRouterToGin(DeleteCollections))
 }
 
 // GetAllCollections is a function to get a slice of record(s) from collections table in the estuary database

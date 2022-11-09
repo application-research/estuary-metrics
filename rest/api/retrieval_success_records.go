@@ -17,10 +17,7 @@ var (
 
 func configGinRetrievalSuccessRecordsRouter(router gin.IRoutes) {
 	router.GET("/retrievalsuccessrecords", ConverHttpRouterToGin(GetAllRetrievalSuccessRecords))
-	router.POST("/retrievalsuccessrecords", ConverHttpRouterToGin(AddRetrievalSuccessRecords))
 	router.GET("/retrievalsuccessrecords/:argPropCid", ConverHttpRouterToGin(GetRetrievalSuccessRecords))
-	router.PUT("/retrievalsuccessrecords/:argPropCid", ConverHttpRouterToGin(UpdateRetrievalSuccessRecords))
-	router.DELETE("/retrievalsuccessrecords/:argPropCid", ConverHttpRouterToGin(DeleteRetrievalSuccessRecords))
 }
 
 // GetAllRetrievalSuccessRecords is a function to get a slice of record(s) from retrieval_success_records table in the estuary database
@@ -71,7 +68,7 @@ func GetAllRetrievalSuccessRecords(w http.ResponseWriter, r *http.Request, ps ht
 // GetRetrievalSuccessRecords is a function to get a single record from the retrieval_success_records table in the estuary database
 // @Summary Get record from table RetrievalSuccessRecords by  argPropCid
 // @Tags RetrievalSuccessRecords
-// 
+//
 // @Description GetRetrievalSuccessRecords is a function to get a single record from the retrieval_success_records table in the estuary database
 // @Accept  json
 // @Produce  json

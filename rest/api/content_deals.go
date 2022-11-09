@@ -16,10 +16,7 @@ var (
 
 func configGinContentDealsRouter(router gin.IRoutes) {
 	router.GET("/contentdeals", ConverHttpRouterToGin(GetAllContentDeals))
-	router.POST("/contentdeals", ConverHttpRouterToGin(AddContentDeals))
 	router.GET("/contentdeals/:argID", ConverHttpRouterToGin(GetContentDeals))
-	router.PUT("/contentdeals/:argID", ConverHttpRouterToGin(UpdateContentDeals))
-	router.DELETE("/contentdeals/:argID", ConverHttpRouterToGin(DeleteContentDeals))
 }
 
 // GetAllContentDeals is a function to get a slice of record(s) from content_deals table in the estuary database
