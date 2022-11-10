@@ -23,7 +23,7 @@ CACHE_DEFAULT_TTL=10
 
 ## Build 
 ```
-go build -o estuary-metrics-api main.go
+go build -o estuary-metrics-api api.go
 ```
 
 # Run

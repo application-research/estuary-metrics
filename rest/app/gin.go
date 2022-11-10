@@ -14,8 +14,7 @@ func GinServer() (err error) {
 	router := gin.Default()
 	router.GET("/swagger/*any", ginSwagger.WrapHandler(swaggerFiles.Handler, url))
 
-	//	TODO: wrap in a version group
-	router.Group("/api/v0")
+	router.Group("/objects-api/v0")
 	api.ConfigGinRouter(router)
 
 	router.Static("/web", "./web")

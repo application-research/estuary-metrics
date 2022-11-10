@@ -5,6 +5,7 @@ import (
 	"errors"
 	"fmt"
 	"github.com/application-research/estuary-metrics/core"
+	"github.com/application-research/estuary-metrics/core/generated/model"
 	"github.com/whyrusleeping/memo"
 	"gorm.io/gorm"
 	"reflect"
@@ -93,4 +94,28 @@ func Copy(dst interface{}, src interface{}) error {
 
 func isZeroOfUnderlyingType(x interface{}) bool {
 	return x == nil || reflect.DeepEqual(x, reflect.Zero(reflect.TypeOf(x)).Interface())
+}
+
+func RunDynamicQuery(ctx context.Context, modelForQuery interface{}, query map[string]interface{}, page, pagesize int, order string) (results []*model.AuthToken, totalRows int64, err error) {
+
+	resultOrm := DB.Model(modelForQuery)
+	resultOrm.Count(&totalRows)
+
+	if page > 0 {
+		offset := (page - 1) * pagesize
+		resultOrm = resultOrm.Offset(offset).Limit(pagesize)
+	} else {
+		resultOrm = resultOrm.Limit(pagesize)
+	}
+
+	if order != "" {
+		resultOrm = resultOrm.Order(order)
+	}
+
+	if err = resultOrm.Where(query).Find(&results).Error; err != nil {
+		err = ErrNotFound
+		return nil, -1, err
+	}
+
+	return results, totalRows, nil
 }

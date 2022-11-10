@@ -97,3 +97,13 @@ func GetTableInfo(name string) (*TableInfo, bool) {
 	val, ok := tables[name]
 	return val, ok
 }
+
+func CheckType(model interface{}) interface{} {
+	switch model.(type) {
+	case AuthToken:
+		return AuthToken{}
+	default:
+		panic(fmt.Sprintf("model %T does not implement Model interface", model))
+	}
+	return nil
+}

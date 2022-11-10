@@ -541,11 +541,11 @@ info:
     email: me@me.com
     name: Me
     url: http://me.com/terms.html
-  description: Sample CRUD api for estuary db
+  description: Sample CRUD objects-api for estuary db
   license:
     name: Apache 2.0
     url: http://www.apache.org/licenses/LICENSE-2.0.html
-  title: Sample CRUD api for estuary db
+  title: Sample CRUD objects-api for estuary db
   version: "1.0"
 paths:
   /authtokens:

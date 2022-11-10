@@ -5,6 +5,9 @@ import (
 	"encoding/json"
 	"fmt"
 	auth "github.com/alvin-reyes/estuary-auth"
+	devicesapi "github.com/application-research/estuary-metrics/rest/api/devices-api"
+	"github.com/application-research/estuary-metrics/rest/api/objects-api"
+	"github.com/application-research/estuary-metrics/rest/api/reporting-api"
 	_ "github.com/satori/go.uuid"
 	"io/ioutil"
 	"net/http"
@@ -21,7 +24,7 @@ import (
 )
 
 var (
-	_             = time.Second // import time.Second for unknown usage in api
+	_             = time.Second // import time.Second for unknown usage in objects-api
 	crudEndpoints map[string]*CrudAPI
 )
 
@@ -76,25 +79,34 @@ func ConfigGinRouter(router gin.IRoutes) {
 		}
 	})
 
-	configGinAuthTokensRouter(router)
-	configGinAutoretrievesRouter(router)
-	configGinCollectionRefsRouter(router)
-	configGinCollectionsRouter(router)
-	configGinContentDealsRouter(router)
-	configGinContentsRouter(router)
-	configGinDealersRouter(router)
-	configGinDfeRecordsRouter(router)
-	configGinInviteCodesRouter(router)
-	configGinMinerStorageAsksRouter(router)
-	configGinObjRefsRouter(router)
-	configGinObjectsRouter(router)
-	configGinPieceCommRecordsRouter(router)
-	configGinProposalRecordsRouter(router)
-	configGinRetrievalFailureRecordsRouter(router)
-	configGinRetrievalSuccessRecordsRouter(router)
-	configGinShuttlesRouter(router)
-	configGinStorageMinersRouter(router)
-	configGinUsersRouter(router)
+	//	all estuary objects objects-api
+	objectsapi.ConfigAuthTokensRouter(router)
+	objectsapi.ConfigAutoretrievesRouter(router)
+	objectsapi.ConfigCollectionRefsRouter(router)
+	objectsapi.ConfigCollectionsRouter(router)
+	objectsapi.ConfigContentDealsRouter(router)
+	objectsapi.ConfigContentsRouter(router)
+	objectsapi.ConfigDealersRouter(router)
+	objectsapi.ConfigDfeRecordsRouter(router)
+	objectsapi.ConfigInviteCodesRouter(router)
+	objectsapi.ConfigMinerStorageAsksRouter(router)
+	objectsapi.ConfigObjRefsRouter(router)
+	objectsapi.ConfigObjectsRouter(router)
+	objectsapi.ConfigPieceCommRecordsRouter(router)
+	objectsapi.ConfigProposalRecordsRouter(router)
+	objectsapi.ConfigRetrievalFailureRecordsRouter(router)
+	objectsapi.ConfigRetrievalSuccessRecordsRouter(router)
+	objectsapi.ConfigShuttlesRouter(router)
+	objectsapi.ConfigStorageMinersRouter(router)
+	objectsapi.ConfigUsersRouter(router)
+
+	//	reporting objects-api
+	pushapi.ConfigMetricsPushRouter(router)
+
+	//	TODO: blockstore objects-api
+
+	//	devices-api
+	devicesapi.ConfigEquinixDevicesRouter(router)
 
 	router.GET("/ddl/:argID", ConverHttpRouterToGin(GetDdl))
 	router.GET("/ddl", ConverHttpRouterToGin(GetDdlEndpoints))
@@ -116,7 +128,7 @@ func ConverHttpRouterToGin(f httprouter.Handle) gin.HandlerFunc {
 	}
 }
 
-func initializeContext(r *http.Request) (ctx context.Context) {
+func InitializeContext(r *http.Request) (ctx context.Context) {
 	if ContextInitializer != nil {
 		ctx = ContextInitializer(r)
 	} else {
@@ -141,7 +153,7 @@ type ContextInitializerFunc func(r *http.Request) (ctx context.Context)
 
 var ContextInitializer ContextInitializerFunc
 
-func readInt(r *http.Request, param string, v int64) (int64, error) {
+func ReadInt(r *http.Request, param string, v int64) (int64, error) {
 	p := r.FormValue(param)
 	if p == "" {
 		return v, nil
@@ -150,21 +162,21 @@ func readInt(r *http.Request, param string, v int64) (int64, error) {
 	return strconv.ParseInt(p, 10, 64)
 }
 
-func writeJSON(ctx context.Context, w http.ResponseWriter, v interface{}) {
+func WriteJSON(ctx context.Context, w http.ResponseWriter, v interface{}) {
 	data, _ := json.Marshal(v)
 	w.Header().Set("Content-Type", "application/json; charset=utf-8")
 	w.Header().Set("Cache-Control", "no-cache")
 	w.Write(data)
 }
 
-func writeRowsAffected(w http.ResponseWriter, rowsAffected int64) {
+func WriteRowsAffected(w http.ResponseWriter, rowsAffected int64) {
 	data, _ := json.Marshal(rowsAffected)
 	w.Header().Set("Content-Type", "application/json; charset=utf-8")
 	w.Header().Set("Cache-Control", "no-cache")
 	w.Write(data)
 }
 
-func readJSON(r *http.Request, v interface{}) error {
+func ReadJSON(r *http.Request, v interface{}) error {
 	buf, err := ioutil.ReadAll(r.Body)
 	if err != nil {
 		return err
@@ -173,7 +185,7 @@ func readJSON(r *http.Request, v interface{}) error {
 	return json.Unmarshal(buf, v)
 }
 
-func returnError(ctx context.Context, w http.ResponseWriter, r *http.Request, err error) {
+func ReturnError(ctx context.Context, w http.ResponseWriter, r *http.Request, err error) {
 	status := 0
 	switch err {
 	case dao.ErrNotFound:
@@ -196,7 +208,7 @@ func returnError(ctx context.Context, w http.ResponseWriter, r *http.Request, er
 		Message: err.Error(),
 	}
 
-	SendJSON(w, r, er.Code, er)
+	objectsapi.SendJSON(w, r, er.Code, er)
 }
 
 // NewError example
@@ -272,7 +284,7 @@ func parseInt32(ps httprouter.Params, key string) (int32, error) {
 	}
 	return int32(id), err
 }
-func parseInt64(ps httprouter.Params, key string) (int64, error) {
+func ParseInt64(ps httprouter.Params, key string) (int64, error) {
 	idStr := ps.ByName(key)
 	id, err := strconv.ParseInt(idStr, 10, 54)
 	if err != nil {
@@ -280,11 +292,11 @@ func parseInt64(ps httprouter.Params, key string) (int64, error) {
 	}
 	return id, err
 }
-func parseString(ps httprouter.Params, key string) (string, error) {
+func ParseString(ps httprouter.Params, key string) (string, error) {
 	idStr := ps.ByName(key)
 	return idStr, nil
 }
-func parseUUID(ps httprouter.Params, key string) (string, error) {
+func ParseUUID(ps httprouter.Params, key string) (string, error) {
 	idStr := ps.ByName(key)
 	return idStr, nil
 }
@@ -297,28 +309,28 @@ func parseUUID(ps httprouter.Params, key string) (string, error) {
 // @Accept  json
 // @Produce  json
 // @Param  argID path int true "id"
-// @Success 200 {object} api.CrudAPI
-// @Failure 400 {object} api.HTTPError
-// @Failure 404 {object} api.HTTPError "ErrNotFound, db record for id not found - returns NotFound HTTP 404 not found error"
+// @Success 200 {object} objects-api.CrudAPI
+// @Failure 400 {object} objects-api.HTTPError
+// @Failure 404 {object} objects-api.HTTPError "ErrNotFound, db record for id not found - returns NotFound HTTP 404 not found error"
 // @Router /ddl/{argID} [get]
 // http "http://localhost:3030/ddl/xyz" X-Api-User:user123
 func GetDdl(w http.ResponseWriter, r *http.Request, ps httprouter.Params) {
-	ctx := initializeContext(r)
+	ctx := InitializeContext(r)
 
 	argID := ps.ByName("argID")
 
 	if err := ValidateRequest(ctx, r, "ddl", model.FetchDDL); err != nil {
-		returnError(ctx, w, r, err)
+		ReturnError(ctx, w, r, err)
 		return
 	}
 
 	record, ok := crudEndpoints[argID]
 	if !ok {
-		returnError(ctx, w, r, fmt.Errorf("unable to find table: %s", argID))
+		ReturnError(ctx, w, r, fmt.Errorf("unable to find table: %s", argID))
 		return
 	}
 
-	writeJSON(ctx, w, record)
+	WriteJSON(ctx, w, record)
 }
 
 // GetDdlEndpoints is a function to get a list of ddl endpoints available for tables in the estuary database
@@ -327,18 +339,18 @@ func GetDdl(w http.ResponseWriter, r *http.Request, ps httprouter.Params) {
 // @Description GetDdlEndpoints is a function to get a list of ddl endpoints available for tables in the estuary database
 // @Accept  json
 // @Produce  json
-// @Success 200 {object} api.CrudAPI
+// @Success 200 {object} objects-api.CrudAPI
 // @Router /ddl [get]
 // http "http://localhost:3030/ddl" X-Api-User:user123
 func GetDdlEndpoints(w http.ResponseWriter, r *http.Request, ps httprouter.Params) {
-	ctx := initializeContext(r)
+	ctx := InitializeContext(r)
 
 	if err := ValidateRequest(ctx, r, "ddl", model.FetchDDL); err != nil {
-		returnError(ctx, w, r, err)
+		ReturnError(ctx, w, r, err)
 		return
 	}
 
-	writeJSON(ctx, w, crudEndpoints)
+	WriteJSON(ctx, w, crudEndpoints)
 }
 
 func init() {

@@ -63,7 +63,7 @@ const docTemplate = `{
                         "schema": {
                             "allOf": [
                                 {
-                                    "$ref": "#/definitions/api.PagedResults"
+                                    "$ref": "#/definitions/objects-api.PagedResults"
                                 },
                                 {
                                     "type": "object",
@@ -82,13 +82,13 @@ const docTemplate = `{
                     "400": {
                         "description": "Bad Request",
                         "schema": {
-                            "$ref": "#/definitions/api.HTTPError"
+                            "$ref": "#/definitions/objects-api.HTTPError"
                         }
                     },
                     "404": {
                         "description": "Not Found",
                         "schema": {
-                            "$ref": "#/definitions/api.HTTPError"
+                            "$ref": "#/definitions/objects-api.HTTPError"
                         }
                     }
                 }
@@ -126,13 +126,13 @@ const docTemplate = `{
                     "400": {
                         "description": "Bad Request",
                         "schema": {
-                            "$ref": "#/definitions/api.HTTPError"
+                            "$ref": "#/definitions/objects-api.HTTPError"
                         }
                     },
                     "404": {
                         "description": "Not Found",
                         "schema": {
-                            "$ref": "#/definitions/api.HTTPError"
+                            "$ref": "#/definitions/objects-api.HTTPError"
                         }
                     }
                 }
@@ -170,13 +170,13 @@ const docTemplate = `{
                     "400": {
                         "description": "Bad Request",
                         "schema": {
-                            "$ref": "#/definitions/api.HTTPError"
+                            "$ref": "#/definitions/objects-api.HTTPError"
                         }
                     },
                     "404": {
                         "description": "ErrNotFound, db record for id not found - returns NotFound HTTP 404 not found error",
                         "schema": {
-                            "$ref": "#/definitions/api.HTTPError"
+                            "$ref": "#/definitions/objects-api.HTTPError"
                         }
                     }
                 }
@@ -221,13 +221,13 @@ const docTemplate = `{
                     "400": {
                         "description": "Bad Request",
                         "schema": {
-                            "$ref": "#/definitions/api.HTTPError"
+                            "$ref": "#/definitions/objects-api.HTTPError"
                         }
                     },
                     "404": {
                         "description": "Not Found",
                         "schema": {
-                            "$ref": "#/definitions/api.HTTPError"
+                            "$ref": "#/definitions/objects-api.HTTPError"
                         }
                     }
                 }
@@ -263,13 +263,13 @@ const docTemplate = `{
                     "400": {
                         "description": "Bad Request",
                         "schema": {
-                            "$ref": "#/definitions/api.HTTPError"
+                            "$ref": "#/definitions/objects-api.HTTPError"
                         }
                     },
                     "500": {
                         "description": "Internal Server Error",
                         "schema": {
-                            "$ref": "#/definitions/api.HTTPError"
+                            "$ref": "#/definitions/objects-api.HTTPError"
                         }
                     }
                 }
@@ -314,7 +314,7 @@ const docTemplate = `{
                         "schema": {
                             "allOf": [
                                 {
-                                    "$ref": "#/definitions/api.PagedResults"
+                                    "$ref": "#/definitions/objects-api.PagedResults"
                                 },
                                 {
                                     "type": "object",
@@ -333,13 +333,13 @@ const docTemplate = `{
                     "400": {
                         "description": "Bad Request",
                         "schema": {
-                            "$ref": "#/definitions/api.HTTPError"
+                            "$ref": "#/definitions/objects-api.HTTPError"
                         }
                     },
                     "404": {
                         "description": "Not Found",
                         "schema": {
-                            "$ref": "#/definitions/api.HTTPError"
+                            "$ref": "#/definitions/objects-api.HTTPError"
                         }
                     }
                 }
@@ -377,13 +377,13 @@ const docTemplate = `{
                     "400": {
                         "description": "Bad Request",
                         "schema": {
-                            "$ref": "#/definitions/api.HTTPError"
+                            "$ref": "#/definitions/objects-api.HTTPError"
                         }
                     },
                     "404": {
                         "description": "Not Found",
                         "schema": {
-                            "$ref": "#/definitions/api.HTTPError"
+                            "$ref": "#/definitions/objects-api.HTTPError"
                         }
                     }
                 }
@@ -421,13 +421,13 @@ const docTemplate = `{
                     "400": {
                         "description": "Bad Request",
                         "schema": {
-                            "$ref": "#/definitions/api.HTTPError"
+                            "$ref": "#/definitions/objects-api.HTTPError"
                         }
                     },
                     "404": {
                         "description": "ErrNotFound, db record for id not found - returns NotFound HTTP 404 not found error",
                         "schema": {
-                            "$ref": "#/definitions/api.HTTPError"
+                            "$ref": "#/definitions/objects-api.HTTPError"
                         }
                     }
                 }
@@ -472,13 +472,13 @@ const docTemplate = `{
                     "400": {
                         "description": "Bad Request",
                         "schema": {
-                            "$ref": "#/definitions/api.HTTPError"
+                            "$ref": "#/definitions/objects-api.HTTPError"
                         }
                     },
                     "404": {
                         "description": "Not Found",
                         "schema": {
-                            "$ref": "#/definitions/api.HTTPError"
+                            "$ref": "#/definitions/objects-api.HTTPError"
                         }
                     }
                 }
@@ -514,13 +514,13 @@ const docTemplate = `{
                     "400": {
                         "description": "Bad Request",
                         "schema": {
-                            "$ref": "#/definitions/api.HTTPError"
+                            "$ref": "#/definitions/objects-api.HTTPError"
                         }
                     },
                     "500": {
                         "description": "Internal Server Error",
                         "schema": {
-                            "$ref": "#/definitions/api.HTTPError"
+                            "$ref": "#/definitions/objects-api.HTTPError"
                         }
                     }
                 }
@@ -565,7 +565,7 @@ const docTemplate = `{
                         "schema": {
                             "allOf": [
                                 {
-                                    "$ref": "#/definitions/api.PagedResults"
+                                    "$ref": "#/definitions/objects-api.PagedResults"
                                 },
                                 {
                                     "type": "object",
@@ -584,13 +584,13 @@ const docTemplate = `{
                     "400": {
                         "description": "Bad Request",
                         "schema": {
-                            "$ref": "#/definitions/api.HTTPError"
+                            "$ref": "#/definitions/objects-api.HTTPError"
                         }
                     },
                     "404": {
                         "description": "Not Found",
                         "schema": {
-                            "$ref": "#/definitions/api.HTTPError"
+                            "$ref": "#/definitions/objects-api.HTTPError"
                         }
                     }
                 }
@@ -628,13 +628,13 @@ const docTemplate = `{
                     "400": {
                         "description": "Bad Request",
                         "schema": {
-                            "$ref": "#/definitions/api.HTTPError"
+                            "$ref": "#/definitions/objects-api.HTTPError"
                         }
                     },
                     "404": {
                         "description": "Not Found",
                         "schema": {
-                            "$ref": "#/definitions/api.HTTPError"
+                            "$ref": "#/definitions/objects-api.HTTPError"
                         }
                     }
                 }
@@ -672,13 +672,13 @@ const docTemplate = `{
                     "400": {
                         "description": "Bad Request",
                         "schema": {
-                            "$ref": "#/definitions/api.HTTPError"
+                            "$ref": "#/definitions/objects-api.HTTPError"
                         }
                     },
                     "404": {
                         "description": "ErrNotFound, db record for id not found - returns NotFound HTTP 404 not found error",
                         "schema": {
-                            "$ref": "#/definitions/api.HTTPError"
+                            "$ref": "#/definitions/objects-api.HTTPError"
                         }
                     }
                 }
@@ -723,13 +723,13 @@ const docTemplate = `{
                     "400": {
                         "description": "Bad Request",
                         "schema": {
-                            "$ref": "#/definitions/api.HTTPError"
+                            "$ref": "#/definitions/objects-api.HTTPError"
                         }
                     },
                     "404": {
                         "description": "Not Found",
                         "schema": {
-                            "$ref": "#/definitions/api.HTTPError"
+                            "$ref": "#/definitions/objects-api.HTTPError"
                         }
                     }
                 }
@@ -765,13 +765,13 @@ const docTemplate = `{
                     "400": {
                         "description": "Bad Request",
                         "schema": {
-                            "$ref": "#/definitions/api.HTTPError"
+                            "$ref": "#/definitions/objects-api.HTTPError"
                         }
                     },
                     "500": {
                         "description": "Internal Server Error",
                         "schema": {
-                            "$ref": "#/definitions/api.HTTPError"
+                            "$ref": "#/definitions/objects-api.HTTPError"
                         }
                     }
                 }
@@ -816,7 +816,7 @@ const docTemplate = `{
                         "schema": {
                             "allOf": [
                                 {
-                                    "$ref": "#/definitions/api.PagedResults"
+                                    "$ref": "#/definitions/objects-api.PagedResults"
                                 },
                                 {
                                     "type": "object",
@@ -835,13 +835,13 @@ const docTemplate = `{
                     "400": {
                         "description": "Bad Request",
                         "schema": {
-                            "$ref": "#/definitions/api.HTTPError"
+                            "$ref": "#/definitions/objects-api.HTTPError"
                         }
                     },
                     "404": {
                         "description": "Not Found",
                         "schema": {
-                            "$ref": "#/definitions/api.HTTPError"
+                            "$ref": "#/definitions/objects-api.HTTPError"
                         }
                     }
                 }
@@ -879,13 +879,13 @@ const docTemplate = `{
                     "400": {
                         "description": "Bad Request",
                         "schema": {
-                            "$ref": "#/definitions/api.HTTPError"
+                            "$ref": "#/definitions/objects-api.HTTPError"
                         }
                     },
                     "404": {
                         "description": "Not Found",
                         "schema": {
-                            "$ref": "#/definitions/api.HTTPError"
+                            "$ref": "#/definitions/objects-api.HTTPError"
                         }
                     }
                 }
@@ -923,13 +923,13 @@ const docTemplate = `{
                     "400": {
                         "description": "Bad Request",
                         "schema": {
-                            "$ref": "#/definitions/api.HTTPError"
+                            "$ref": "#/definitions/objects-api.HTTPError"
                         }
                     },
                     "404": {
                         "description": "ErrNotFound, db record for id not found - returns NotFound HTTP 404 not found error",
                         "schema": {
-                            "$ref": "#/definitions/api.HTTPError"
+                            "$ref": "#/definitions/objects-api.HTTPError"
                         }
                     }
                 }
@@ -974,13 +974,13 @@ const docTemplate = `{
                     "400": {
                         "description": "Bad Request",
                         "schema": {
-                            "$ref": "#/definitions/api.HTTPError"
+                            "$ref": "#/definitions/objects-api.HTTPError"
                         }
                     },
                     "404": {
                         "description": "Not Found",
                         "schema": {
-                            "$ref": "#/definitions/api.HTTPError"
+                            "$ref": "#/definitions/objects-api.HTTPError"
                         }
                     }
                 }
@@ -1016,13 +1016,13 @@ const docTemplate = `{
                     "400": {
                         "description": "Bad Request",
                         "schema": {
-                            "$ref": "#/definitions/api.HTTPError"
+                            "$ref": "#/definitions/objects-api.HTTPError"
                         }
                     },
                     "500": {
                         "description": "Internal Server Error",
                         "schema": {
-                            "$ref": "#/definitions/api.HTTPError"
+                            "$ref": "#/definitions/objects-api.HTTPError"
                         }
                     }
                 }
@@ -1067,7 +1067,7 @@ const docTemplate = `{
                         "schema": {
                             "allOf": [
                                 {
-                                    "$ref": "#/definitions/api.PagedResults"
+                                    "$ref": "#/definitions/objects-api.PagedResults"
                                 },
                                 {
                                     "type": "object",
@@ -1086,13 +1086,13 @@ const docTemplate = `{
                     "400": {
                         "description": "Bad Request",
                         "schema": {
-                            "$ref": "#/definitions/api.HTTPError"
+                            "$ref": "#/definitions/objects-api.HTTPError"
                         }
                     },
                     "404": {
                         "description": "Not Found",
                         "schema": {
-                            "$ref": "#/definitions/api.HTTPError"
+                            "$ref": "#/definitions/objects-api.HTTPError"
                         }
                     }
                 }
@@ -1130,13 +1130,13 @@ const docTemplate = `{
                     "400": {
                         "description": "Bad Request",
                         "schema": {
-                            "$ref": "#/definitions/api.HTTPError"
+                            "$ref": "#/definitions/objects-api.HTTPError"
                         }
                     },
                     "404": {
                         "description": "Not Found",
                         "schema": {
-                            "$ref": "#/definitions/api.HTTPError"
+                            "$ref": "#/definitions/objects-api.HTTPError"
                         }
                     }
                 }
@@ -1174,13 +1174,13 @@ const docTemplate = `{
                     "400": {
                         "description": "Bad Request",
                         "schema": {
-                            "$ref": "#/definitions/api.HTTPError"
+                            "$ref": "#/definitions/objects-api.HTTPError"
                         }
                     },
                     "404": {
                         "description": "ErrNotFound, db record for id not found - returns NotFound HTTP 404 not found error",
                         "schema": {
-                            "$ref": "#/definitions/api.HTTPError"
+                            "$ref": "#/definitions/objects-api.HTTPError"
                         }
                     }
                 }
@@ -1225,13 +1225,13 @@ const docTemplate = `{
                     "400": {
                         "description": "Bad Request",
                         "schema": {
-                            "$ref": "#/definitions/api.HTTPError"
+                            "$ref": "#/definitions/objects-api.HTTPError"
                         }
                     },
                     "404": {
                         "description": "Not Found",
                         "schema": {
-                            "$ref": "#/definitions/api.HTTPError"
+                            "$ref": "#/definitions/objects-api.HTTPError"
                         }
                     }
                 }
@@ -1267,13 +1267,13 @@ const docTemplate = `{
                     "400": {
                         "description": "Bad Request",
                         "schema": {
-                            "$ref": "#/definitions/api.HTTPError"
+                            "$ref": "#/definitions/objects-api.HTTPError"
                         }
                     },
                     "500": {
                         "description": "Internal Server Error",
                         "schema": {
-                            "$ref": "#/definitions/api.HTTPError"
+                            "$ref": "#/definitions/objects-api.HTTPError"
                         }
                     }
                 }
@@ -1318,7 +1318,7 @@ const docTemplate = `{
                         "schema": {
                             "allOf": [
                                 {
-                                    "$ref": "#/definitions/api.PagedResults"
+                                    "$ref": "#/definitions/objects-api.PagedResults"
                                 },
                                 {
                                     "type": "object",
@@ -1337,13 +1337,13 @@ const docTemplate = `{
                     "400": {
                         "description": "Bad Request",
                         "schema": {
-                            "$ref": "#/definitions/api.HTTPError"
+                            "$ref": "#/definitions/objects-api.HTTPError"
                         }
                     },
                     "404": {
                         "description": "Not Found",
                         "schema": {
-                            "$ref": "#/definitions/api.HTTPError"
+                            "$ref": "#/definitions/objects-api.HTTPError"
                         }
                     }
                 }
@@ -1381,13 +1381,13 @@ const docTemplate = `{
                     "400": {
                         "description": "Bad Request",
                         "schema": {
-                            "$ref": "#/definitions/api.HTTPError"
+                            "$ref": "#/definitions/objects-api.HTTPError"
                         }
                     },
                     "404": {
                         "description": "Not Found",
                         "schema": {
-                            "$ref": "#/definitions/api.HTTPError"
+                            "$ref": "#/definitions/objects-api.HTTPError"
                         }
                     }
                 }
@@ -1425,13 +1425,13 @@ const docTemplate = `{
                     "400": {
                         "description": "Bad Request",
                         "schema": {
-                            "$ref": "#/definitions/api.HTTPError"
+                            "$ref": "#/definitions/objects-api.HTTPError"
                         }
                     },
                     "404": {
                         "description": "ErrNotFound, db record for id not found - returns NotFound HTTP 404 not found error",
                         "schema": {
-                            "$ref": "#/definitions/api.HTTPError"
+                            "$ref": "#/definitions/objects-api.HTTPError"
                         }
                     }
                 }
@@ -1476,13 +1476,13 @@ const docTemplate = `{
                     "400": {
                         "description": "Bad Request",
                         "schema": {
-                            "$ref": "#/definitions/api.HTTPError"
+                            "$ref": "#/definitions/objects-api.HTTPError"
                         }
                     },
                     "404": {
                         "description": "Not Found",
                         "schema": {
-                            "$ref": "#/definitions/api.HTTPError"
+                            "$ref": "#/definitions/objects-api.HTTPError"
                         }
                     }
                 }
@@ -1518,13 +1518,13 @@ const docTemplate = `{
                     "400": {
                         "description": "Bad Request",
                         "schema": {
-                            "$ref": "#/definitions/api.HTTPError"
+                            "$ref": "#/definitions/objects-api.HTTPError"
                         }
                     },
                     "500": {
                         "description": "Internal Server Error",
                         "schema": {
-                            "$ref": "#/definitions/api.HTTPError"
+                            "$ref": "#/definitions/objects-api.HTTPError"
                         }
                     }
                 }
@@ -1547,7 +1547,7 @@ const docTemplate = `{
                     "200": {
                         "description": "OK",
                         "schema": {
-                            "$ref": "#/definitions/api.CrudAPI"
+                            "$ref": "#/definitions/objects-api.CrudAPI"
                         }
                     }
                 }
@@ -1579,19 +1579,19 @@ const docTemplate = `{
                     "200": {
                         "description": "OK",
                         "schema": {
-                            "$ref": "#/definitions/api.CrudAPI"
+                            "$ref": "#/definitions/objects-api.CrudAPI"
                         }
                     },
                     "400": {
                         "description": "Bad Request",
                         "schema": {
-                            "$ref": "#/definitions/api.HTTPError"
+                            "$ref": "#/definitions/objects-api.HTTPError"
                         }
                     },
                     "404": {
                         "description": "ErrNotFound, db record for id not found - returns NotFound HTTP 404 not found error",
                         "schema": {
-                            "$ref": "#/definitions/api.HTTPError"
+                            "$ref": "#/definitions/objects-api.HTTPError"
                         }
                     }
                 }
@@ -1636,7 +1636,7 @@ const docTemplate = `{
                         "schema": {
                             "allOf": [
                                 {
-                                    "$ref": "#/definitions/api.PagedResults"
+                                    "$ref": "#/definitions/objects-api.PagedResults"
                                 },
                                 {
                                     "type": "object",
@@ -1655,13 +1655,13 @@ const docTemplate = `{
                     "400": {
                         "description": "Bad Request",
                         "schema": {
-                            "$ref": "#/definitions/api.HTTPError"
+                            "$ref": "#/definitions/objects-api.HTTPError"
                         }
                     },
                     "404": {
                         "description": "Not Found",
                         "schema": {
-                            "$ref": "#/definitions/api.HTTPError"
+                            "$ref": "#/definitions/objects-api.HTTPError"
                         }
                     }
                 }
@@ -1699,13 +1699,13 @@ const docTemplate = `{
                     "400": {
                         "description": "Bad Request",
                         "schema": {
-                            "$ref": "#/definitions/api.HTTPError"
+                            "$ref": "#/definitions/objects-api.HTTPError"
                         }
                     },
                     "404": {
                         "description": "Not Found",
                         "schema": {
-                            "$ref": "#/definitions/api.HTTPError"
+                            "$ref": "#/definitions/objects-api.HTTPError"
                         }
                     }
                 }
@@ -1743,13 +1743,13 @@ const docTemplate = `{
                     "400": {
                         "description": "Bad Request",
                         "schema": {
-                            "$ref": "#/definitions/api.HTTPError"
+                            "$ref": "#/definitions/objects-api.HTTPError"
                         }
                     },
                     "404": {
                         "description": "ErrNotFound, db record for id not found - returns NotFound HTTP 404 not found error",
                         "schema": {
-                            "$ref": "#/definitions/api.HTTPError"
+                            "$ref": "#/definitions/objects-api.HTTPError"
                         }
                     }
                 }
@@ -1794,13 +1794,13 @@ const docTemplate = `{
                     "400": {
                         "description": "Bad Request",
                         "schema": {
-                            "$ref": "#/definitions/api.HTTPError"
+                            "$ref": "#/definitions/objects-api.HTTPError"
                         }
                     },
                     "404": {
                         "description": "Not Found",
                         "schema": {
-                            "$ref": "#/definitions/api.HTTPError"
+                            "$ref": "#/definitions/objects-api.HTTPError"
                         }
                     }
                 }
@@ -1836,13 +1836,13 @@ const docTemplate = `{
                     "400": {
                         "description": "Bad Request",
                         "schema": {
-                            "$ref": "#/definitions/api.HTTPError"
+                            "$ref": "#/definitions/objects-api.HTTPError"
                         }
                     },
                     "500": {
                         "description": "Internal Server Error",
                         "schema": {
-                            "$ref": "#/definitions/api.HTTPError"
+                            "$ref": "#/definitions/objects-api.HTTPError"
                         }
                     }
                 }
@@ -1887,7 +1887,7 @@ const docTemplate = `{
                         "schema": {
                             "allOf": [
                                 {
-                                    "$ref": "#/definitions/api.PagedResults"
+                                    "$ref": "#/definitions/objects-api.PagedResults"
                                 },
                                 {
                                     "type": "object",
@@ -1906,13 +1906,13 @@ const docTemplate = `{
                     "400": {
                         "description": "Bad Request",
                         "schema": {
-                            "$ref": "#/definitions/api.HTTPError"
+                            "$ref": "#/definitions/objects-api.HTTPError"
                         }
                     },
                     "404": {
                         "description": "Not Found",
                         "schema": {
-                            "$ref": "#/definitions/api.HTTPError"
+                            "$ref": "#/definitions/objects-api.HTTPError"
                         }
                     }
                 }
@@ -1950,13 +1950,13 @@ const docTemplate = `{
                     "400": {
                         "description": "Bad Request",
                         "schema": {
-                            "$ref": "#/definitions/api.HTTPError"
+                            "$ref": "#/definitions/objects-api.HTTPError"
                         }
                     },
                     "404": {
                         "description": "Not Found",
                         "schema": {
-                            "$ref": "#/definitions/api.HTTPError"
+                            "$ref": "#/definitions/objects-api.HTTPError"
                         }
                     }
                 }
@@ -1994,13 +1994,13 @@ const docTemplate = `{
                     "400": {
                         "description": "Bad Request",
                         "schema": {
-                            "$ref": "#/definitions/api.HTTPError"
+                            "$ref": "#/definitions/objects-api.HTTPError"
                         }
                     },
                     "404": {
                         "description": "ErrNotFound, db record for id not found - returns NotFound HTTP 404 not found error",
                         "schema": {
-                            "$ref": "#/definitions/api.HTTPError"
+                            "$ref": "#/definitions/objects-api.HTTPError"
                         }
                     }
                 }
@@ -2045,13 +2045,13 @@ const docTemplate = `{
                     "400": {
                         "description": "Bad Request",
                         "schema": {
-                            "$ref": "#/definitions/api.HTTPError"
+                            "$ref": "#/definitions/objects-api.HTTPError"
                         }
                     },
                     "404": {
                         "description": "Not Found",
                         "schema": {
-                            "$ref": "#/definitions/api.HTTPError"
+                            "$ref": "#/definitions/objects-api.HTTPError"
                         }
                     }
                 }
@@ -2087,13 +2087,13 @@ const docTemplate = `{
                     "400": {
                         "description": "Bad Request",
                         "schema": {
-                            "$ref": "#/definitions/api.HTTPError"
+                            "$ref": "#/definitions/objects-api.HTTPError"
                         }
                     },
                     "500": {
                         "description": "Internal Server Error",
                         "schema": {
-                            "$ref": "#/definitions/api.HTTPError"
+                            "$ref": "#/definitions/objects-api.HTTPError"
                         }
                     }
                 }
@@ -2138,7 +2138,7 @@ const docTemplate = `{
                         "schema": {
                             "allOf": [
                                 {
-                                    "$ref": "#/definitions/api.PagedResults"
+                                    "$ref": "#/definitions/objects-api.PagedResults"
                                 },
                                 {
                                     "type": "object",
@@ -2157,13 +2157,13 @@ const docTemplate = `{
                     "400": {
                         "description": "Bad Request",
                         "schema": {
-                            "$ref": "#/definitions/api.HTTPError"
+                            "$ref": "#/definitions/objects-api.HTTPError"
                         }
                     },
                     "404": {
                         "description": "Not Found",
                         "schema": {
-                            "$ref": "#/definitions/api.HTTPError"
+                            "$ref": "#/definitions/objects-api.HTTPError"
                         }
                     }
                 }
@@ -2201,13 +2201,13 @@ const docTemplate = `{
                     "400": {
                         "description": "Bad Request",
                         "schema": {
-                            "$ref": "#/definitions/api.HTTPError"
+                            "$ref": "#/definitions/objects-api.HTTPError"
                         }
                     },
                     "404": {
                         "description": "Not Found",
                         "schema": {
-                            "$ref": "#/definitions/api.HTTPError"
+                            "$ref": "#/definitions/objects-api.HTTPError"
                         }
                     }
                 }
@@ -2245,13 +2245,13 @@ const docTemplate = `{
                     "400": {
                         "description": "Bad Request",
                         "schema": {
-                            "$ref": "#/definitions/api.HTTPError"
+                            "$ref": "#/definitions/objects-api.HTTPError"
                         }
                     },
                     "404": {
                         "description": "ErrNotFound, db record for id not found - returns NotFound HTTP 404 not found error",
                         "schema": {
-                            "$ref": "#/definitions/api.HTTPError"
+                            "$ref": "#/definitions/objects-api.HTTPError"
                         }
                     }
                 }
@@ -2296,13 +2296,13 @@ const docTemplate = `{
                     "400": {
                         "description": "Bad Request",
                         "schema": {
-                            "$ref": "#/definitions/api.HTTPError"
+                            "$ref": "#/definitions/objects-api.HTTPError"
                         }
                     },
                     "404": {
                         "description": "Not Found",
                         "schema": {
-                            "$ref": "#/definitions/api.HTTPError"
+                            "$ref": "#/definitions/objects-api.HTTPError"
                         }
                     }
                 }
@@ -2338,13 +2338,13 @@ const docTemplate = `{
                     "400": {
                         "description": "Bad Request",
                         "schema": {
-                            "$ref": "#/definitions/api.HTTPError"
+                            "$ref": "#/definitions/objects-api.HTTPError"
                         }
                     },
                     "500": {
                         "description": "Internal Server Error",
                         "schema": {
-                            "$ref": "#/definitions/api.HTTPError"
+                            "$ref": "#/definitions/objects-api.HTTPError"
                         }
                     }
                 }
@@ -2389,7 +2389,7 @@ const docTemplate = `{
                         "schema": {
                             "allOf": [
                                 {
-                                    "$ref": "#/definitions/api.PagedResults"
+                                    "$ref": "#/definitions/objects-api.PagedResults"
                                 },
                                 {
                                     "type": "object",
@@ -2408,13 +2408,13 @@ const docTemplate = `{
                     "400": {
                         "description": "Bad Request",
                         "schema": {
-                            "$ref": "#/definitions/api.HTTPError"
+                            "$ref": "#/definitions/objects-api.HTTPError"
                         }
                     },
                     "404": {
                         "description": "Not Found",
                         "schema": {
-                            "$ref": "#/definitions/api.HTTPError"
+                            "$ref": "#/definitions/objects-api.HTTPError"
                         }
                     }
                 }
@@ -2452,13 +2452,13 @@ const docTemplate = `{
                     "400": {
                         "description": "Bad Request",
                         "schema": {
-                            "$ref": "#/definitions/api.HTTPError"
+                            "$ref": "#/definitions/objects-api.HTTPError"
                         }
                     },
                     "404": {
                         "description": "Not Found",
                         "schema": {
-                            "$ref": "#/definitions/api.HTTPError"
+                            "$ref": "#/definitions/objects-api.HTTPError"
                         }
                     }
                 }
@@ -2496,13 +2496,13 @@ const docTemplate = `{
                     "400": {
                         "description": "Bad Request",
                         "schema": {
-                            "$ref": "#/definitions/api.HTTPError"
+                            "$ref": "#/definitions/objects-api.HTTPError"
                         }
                     },
                     "404": {
                         "description": "ErrNotFound, db record for id not found - returns NotFound HTTP 404 not found error",
                         "schema": {
-                            "$ref": "#/definitions/api.HTTPError"
+                            "$ref": "#/definitions/objects-api.HTTPError"
                         }
                     }
                 }
@@ -2547,13 +2547,13 @@ const docTemplate = `{
                     "400": {
                         "description": "Bad Request",
                         "schema": {
-                            "$ref": "#/definitions/api.HTTPError"
+                            "$ref": "#/definitions/objects-api.HTTPError"
                         }
                     },
                     "404": {
                         "description": "Not Found",
                         "schema": {
-                            "$ref": "#/definitions/api.HTTPError"
+                            "$ref": "#/definitions/objects-api.HTTPError"
                         }
                     }
                 }
@@ -2589,13 +2589,13 @@ const docTemplate = `{
                     "400": {
                         "description": "Bad Request",
                         "schema": {
-                            "$ref": "#/definitions/api.HTTPError"
+                            "$ref": "#/definitions/objects-api.HTTPError"
                         }
                     },
                     "500": {
                         "description": "Internal Server Error",
                         "schema": {
-                            "$ref": "#/definitions/api.HTTPError"
+                            "$ref": "#/definitions/objects-api.HTTPError"
                         }
                     }
                 }
@@ -2640,7 +2640,7 @@ const docTemplate = `{
                         "schema": {
                             "allOf": [
                                 {
-                                    "$ref": "#/definitions/api.PagedResults"
+                                    "$ref": "#/definitions/objects-api.PagedResults"
                                 },
                                 {
                                     "type": "object",
@@ -2659,13 +2659,13 @@ const docTemplate = `{
                     "400": {
                         "description": "Bad Request",
                         "schema": {
-                            "$ref": "#/definitions/api.HTTPError"
+                            "$ref": "#/definitions/objects-api.HTTPError"
                         }
                     },
                     "404": {
                         "description": "Not Found",
                         "schema": {
-                            "$ref": "#/definitions/api.HTTPError"
+                            "$ref": "#/definitions/objects-api.HTTPError"
                         }
                     }
                 }
@@ -2703,13 +2703,13 @@ const docTemplate = `{
                     "400": {
                         "description": "Bad Request",
                         "schema": {
-                            "$ref": "#/definitions/api.HTTPError"
+                            "$ref": "#/definitions/objects-api.HTTPError"
                         }
                     },
                     "404": {
                         "description": "Not Found",
                         "schema": {
-                            "$ref": "#/definitions/api.HTTPError"
+                            "$ref": "#/definitions/objects-api.HTTPError"
                         }
                     }
                 }
@@ -2747,13 +2747,13 @@ const docTemplate = `{
                     "400": {
                         "description": "Bad Request",
                         "schema": {
-                            "$ref": "#/definitions/api.HTTPError"
+                            "$ref": "#/definitions/objects-api.HTTPError"
                         }
                     },
                     "404": {
                         "description": "ErrNotFound, db record for id not found - returns NotFound HTTP 404 not found error",
                         "schema": {
-                            "$ref": "#/definitions/api.HTTPError"
+                            "$ref": "#/definitions/objects-api.HTTPError"
                         }
                     }
                 }
@@ -2798,13 +2798,13 @@ const docTemplate = `{
                     "400": {
                         "description": "Bad Request",
                         "schema": {
-                            "$ref": "#/definitions/api.HTTPError"
+                            "$ref": "#/definitions/objects-api.HTTPError"
                         }
                     },
                     "404": {
                         "description": "Not Found",
                         "schema": {
-                            "$ref": "#/definitions/api.HTTPError"
+                            "$ref": "#/definitions/objects-api.HTTPError"
                         }
                     }
                 }
@@ -2840,13 +2840,13 @@ const docTemplate = `{
                     "400": {
                         "description": "Bad Request",
                         "schema": {
-                            "$ref": "#/definitions/api.HTTPError"
+                            "$ref": "#/definitions/objects-api.HTTPError"
                         }
                     },
                     "500": {
                         "description": "Internal Server Error",
                         "schema": {
-                            "$ref": "#/definitions/api.HTTPError"
+                            "$ref": "#/definitions/objects-api.HTTPError"
                         }
                     }
                 }
@@ -2891,7 +2891,7 @@ const docTemplate = `{
                         "schema": {
                             "allOf": [
                                 {
-                                    "$ref": "#/definitions/api.PagedResults"
+                                    "$ref": "#/definitions/objects-api.PagedResults"
                                 },
                                 {
                                     "type": "object",
@@ -2910,13 +2910,13 @@ const docTemplate = `{
                     "400": {
                         "description": "Bad Request",
                         "schema": {
-                            "$ref": "#/definitions/api.HTTPError"
+                            "$ref": "#/definitions/objects-api.HTTPError"
                         }
                     },
                     "404": {
                         "description": "Not Found",
                         "schema": {
-                            "$ref": "#/definitions/api.HTTPError"
+                            "$ref": "#/definitions/objects-api.HTTPError"
                         }
                     }
                 }
@@ -2954,13 +2954,13 @@ const docTemplate = `{
                     "400": {
                         "description": "Bad Request",
                         "schema": {
-                            "$ref": "#/definitions/api.HTTPError"
+                            "$ref": "#/definitions/objects-api.HTTPError"
                         }
                     },
                     "404": {
                         "description": "Not Found",
                         "schema": {
-                            "$ref": "#/definitions/api.HTTPError"
+                            "$ref": "#/definitions/objects-api.HTTPError"
                         }
                     }
                 }
@@ -2998,13 +2998,13 @@ const docTemplate = `{
                     "400": {
                         "description": "Bad Request",
                         "schema": {
-                            "$ref": "#/definitions/api.HTTPError"
+                            "$ref": "#/definitions/objects-api.HTTPError"
                         }
                     },
                     "404": {
                         "description": "ErrNotFound, db record for id not found - returns NotFound HTTP 404 not found error",
                         "schema": {
-                            "$ref": "#/definitions/api.HTTPError"
+                            "$ref": "#/definitions/objects-api.HTTPError"
                         }
                     }
                 }
@@ -3049,13 +3049,13 @@ const docTemplate = `{
                     "400": {
                         "description": "Bad Request",
                         "schema": {
-                            "$ref": "#/definitions/api.HTTPError"
+                            "$ref": "#/definitions/objects-api.HTTPError"
                         }
                     },
                     "404": {
                         "description": "Not Found",
                         "schema": {
-                            "$ref": "#/definitions/api.HTTPError"
+                            "$ref": "#/definitions/objects-api.HTTPError"
                         }
                     }
                 }
@@ -3091,13 +3091,13 @@ const docTemplate = `{
                     "400": {
                         "description": "Bad Request",
                         "schema": {
-                            "$ref": "#/definitions/api.HTTPError"
+                            "$ref": "#/definitions/objects-api.HTTPError"
                         }
                     },
                     "500": {
                         "description": "Internal Server Error",
                         "schema": {
-                            "$ref": "#/definitions/api.HTTPError"
+                            "$ref": "#/definitions/objects-api.HTTPError"
                         }
                     }
                 }
@@ -3142,7 +3142,7 @@ const docTemplate = `{
                         "schema": {
                             "allOf": [
                                 {
-                                    "$ref": "#/definitions/api.PagedResults"
+                                    "$ref": "#/definitions/objects-api.PagedResults"
                                 },
                                 {
                                     "type": "object",
@@ -3161,13 +3161,13 @@ const docTemplate = `{
                     "400": {
                         "description": "Bad Request",
                         "schema": {
-                            "$ref": "#/definitions/api.HTTPError"
+                            "$ref": "#/definitions/objects-api.HTTPError"
                         }
                     },
                     "404": {
                         "description": "Not Found",
                         "schema": {
-                            "$ref": "#/definitions/api.HTTPError"
+                            "$ref": "#/definitions/objects-api.HTTPError"
                         }
                     }
                 }
@@ -3205,13 +3205,13 @@ const docTemplate = `{
                     "400": {
                         "description": "Bad Request",
                         "schema": {
-                            "$ref": "#/definitions/api.HTTPError"
+                            "$ref": "#/definitions/objects-api.HTTPError"
                         }
                     },
                     "404": {
                         "description": "Not Found",
                         "schema": {
-                            "$ref": "#/definitions/api.HTTPError"
+                            "$ref": "#/definitions/objects-api.HTTPError"
                         }
                     }
                 }
@@ -3250,13 +3250,13 @@ const docTemplate = `{
                     "400": {
                         "description": "Bad Request",
                         "schema": {
-                            "$ref": "#/definitions/api.HTTPError"
+                            "$ref": "#/definitions/objects-api.HTTPError"
                         }
                     },
                     "404": {
                         "description": "ErrNotFound, db record for id not found - returns NotFound HTTP 404 not found error",
                         "schema": {
-                            "$ref": "#/definitions/api.HTTPError"
+                            "$ref": "#/definitions/objects-api.HTTPError"
                         }
                     }
                 }
@@ -3301,13 +3301,13 @@ const docTemplate = `{
                     "400": {
                         "description": "Bad Request",
                         "schema": {
-                            "$ref": "#/definitions/api.HTTPError"
+                            "$ref": "#/definitions/objects-api.HTTPError"
                         }
                     },
                     "404": {
                         "description": "Not Found",
                         "schema": {
-                            "$ref": "#/definitions/api.HTTPError"
+                            "$ref": "#/definitions/objects-api.HTTPError"
                         }
                     }
                 }
@@ -3343,13 +3343,13 @@ const docTemplate = `{
                     "400": {
                         "description": "Bad Request",
                         "schema": {
-                            "$ref": "#/definitions/api.HTTPError"
+                            "$ref": "#/definitions/objects-api.HTTPError"
                         }
                     },
                     "500": {
                         "description": "Internal Server Error",
                         "schema": {
-                            "$ref": "#/definitions/api.HTTPError"
+                            "$ref": "#/definitions/objects-api.HTTPError"
                         }
                     }
                 }
@@ -3394,7 +3394,7 @@ const docTemplate = `{
                         "schema": {
                             "allOf": [
                                 {
-                                    "$ref": "#/definitions/api.PagedResults"
+                                    "$ref": "#/definitions/objects-api.PagedResults"
                                 },
                                 {
                                     "type": "object",
@@ -3413,13 +3413,13 @@ const docTemplate = `{
                     "400": {
                         "description": "Bad Request",
                         "schema": {
-                            "$ref": "#/definitions/api.HTTPError"
+                            "$ref": "#/definitions/objects-api.HTTPError"
                         }
                     },
                     "404": {
                         "description": "Not Found",
                         "schema": {
-                            "$ref": "#/definitions/api.HTTPError"
+                            "$ref": "#/definitions/objects-api.HTTPError"
                         }
                     }
                 }
@@ -3457,13 +3457,13 @@ const docTemplate = `{
                     "400": {
                         "description": "Bad Request",
                         "schema": {
-                            "$ref": "#/definitions/api.HTTPError"
+                            "$ref": "#/definitions/objects-api.HTTPError"
                         }
                     },
                     "404": {
                         "description": "Not Found",
                         "schema": {
-                            "$ref": "#/definitions/api.HTTPError"
+                            "$ref": "#/definitions/objects-api.HTTPError"
                         }
                     }
                 }
@@ -3501,13 +3501,13 @@ const docTemplate = `{
                     "400": {
                         "description": "Bad Request",
                         "schema": {
-                            "$ref": "#/definitions/api.HTTPError"
+                            "$ref": "#/definitions/objects-api.HTTPError"
                         }
                     },
                     "404": {
                         "description": "ErrNotFound, db record for id not found - returns NotFound HTTP 404 not found error",
                         "schema": {
-                            "$ref": "#/definitions/api.HTTPError"
+                            "$ref": "#/definitions/objects-api.HTTPError"
                         }
                     }
                 }
@@ -3552,13 +3552,13 @@ const docTemplate = `{
                     "400": {
                         "description": "Bad Request",
                         "schema": {
-                            "$ref": "#/definitions/api.HTTPError"
+                            "$ref": "#/definitions/objects-api.HTTPError"
                         }
                     },
                     "404": {
                         "description": "Not Found",
                         "schema": {
-                            "$ref": "#/definitions/api.HTTPError"
+                            "$ref": "#/definitions/objects-api.HTTPError"
                         }
                     }
                 }
@@ -3594,13 +3594,13 @@ const docTemplate = `{
                     "400": {
                         "description": "Bad Request",
                         "schema": {
-                            "$ref": "#/definitions/api.HTTPError"
+                            "$ref": "#/definitions/objects-api.HTTPError"
                         }
                     },
                     "500": {
                         "description": "Internal Server Error",
                         "schema": {
-                            "$ref": "#/definitions/api.HTTPError"
+                            "$ref": "#/definitions/objects-api.HTTPError"
                         }
                     }
                 }
@@ -3645,7 +3645,7 @@ const docTemplate = `{
                         "schema": {
                             "allOf": [
                                 {
-                                    "$ref": "#/definitions/api.PagedResults"
+                                    "$ref": "#/definitions/objects-api.PagedResults"
                                 },
                                 {
                                     "type": "object",
@@ -3664,13 +3664,13 @@ const docTemplate = `{
                     "400": {
                         "description": "Bad Request",
                         "schema": {
-                            "$ref": "#/definitions/api.HTTPError"
+                            "$ref": "#/definitions/objects-api.HTTPError"
                         }
                     },
                     "404": {
                         "description": "Not Found",
                         "schema": {
-                            "$ref": "#/definitions/api.HTTPError"
+                            "$ref": "#/definitions/objects-api.HTTPError"
                         }
                     }
                 }
@@ -3708,13 +3708,13 @@ const docTemplate = `{
                     "400": {
                         "description": "Bad Request",
                         "schema": {
-                            "$ref": "#/definitions/api.HTTPError"
+                            "$ref": "#/definitions/objects-api.HTTPError"
                         }
                     },
                     "404": {
                         "description": "Not Found",
                         "schema": {
-                            "$ref": "#/definitions/api.HTTPError"
+                            "$ref": "#/definitions/objects-api.HTTPError"
                         }
                     }
                 }
@@ -3752,13 +3752,13 @@ const docTemplate = `{
                     "400": {
                         "description": "Bad Request",
                         "schema": {
-                            "$ref": "#/definitions/api.HTTPError"
+                            "$ref": "#/definitions/objects-api.HTTPError"
                         }
                     },
                     "404": {
                         "description": "ErrNotFound, db record for id not found - returns NotFound HTTP 404 not found error",
                         "schema": {
-                            "$ref": "#/definitions/api.HTTPError"
+                            "$ref": "#/definitions/objects-api.HTTPError"
                         }
                     }
                 }
@@ -3803,13 +3803,13 @@ const docTemplate = `{
                     "400": {
                         "description": "Bad Request",
                         "schema": {
-                            "$ref": "#/definitions/api.HTTPError"
+                            "$ref": "#/definitions/objects-api.HTTPError"
                         }
                     },
                     "404": {
                         "description": "Not Found",
                         "schema": {
-                            "$ref": "#/definitions/api.HTTPError"
+                            "$ref": "#/definitions/objects-api.HTTPError"
                         }
                     }
                 }
@@ -3845,13 +3845,13 @@ const docTemplate = `{
                     "400": {
                         "description": "Bad Request",
                         "schema": {
-                            "$ref": "#/definitions/api.HTTPError"
+                            "$ref": "#/definitions/objects-api.HTTPError"
                         }
                     },
                     "500": {
                         "description": "Internal Server Error",
                         "schema": {
-                            "$ref": "#/definitions/api.HTTPError"
+                            "$ref": "#/definitions/objects-api.HTTPError"
                         }
                     }
                 }
@@ -3896,7 +3896,7 @@ const docTemplate = `{
                         "schema": {
                             "allOf": [
                                 {
-                                    "$ref": "#/definitions/api.PagedResults"
+                                    "$ref": "#/definitions/objects-api.PagedResults"
                                 },
                                 {
                                     "type": "object",
@@ -3915,13 +3915,13 @@ const docTemplate = `{
                     "400": {
                         "description": "Bad Request",
                         "schema": {
-                            "$ref": "#/definitions/api.HTTPError"
+                            "$ref": "#/definitions/objects-api.HTTPError"
                         }
                     },
                     "404": {
                         "description": "Not Found",
                         "schema": {
-                            "$ref": "#/definitions/api.HTTPError"
+                            "$ref": "#/definitions/objects-api.HTTPError"
                         }
                     }
                 }
@@ -3959,13 +3959,13 @@ const docTemplate = `{
                     "400": {
                         "description": "Bad Request",
                         "schema": {
-                            "$ref": "#/definitions/api.HTTPError"
+                            "$ref": "#/definitions/objects-api.HTTPError"
                         }
                     },
                     "404": {
                         "description": "Not Found",
                         "schema": {
-                            "$ref": "#/definitions/api.HTTPError"
+                            "$ref": "#/definitions/objects-api.HTTPError"
                         }
                     }
                 }
@@ -4003,13 +4003,13 @@ const docTemplate = `{
                     "400": {
                         "description": "Bad Request",
                         "schema": {
-                            "$ref": "#/definitions/api.HTTPError"
+                            "$ref": "#/definitions/objects-api.HTTPError"
                         }
                     },
                     "404": {
                         "description": "ErrNotFound, db record for id not found - returns NotFound HTTP 404 not found error",
                         "schema": {
-                            "$ref": "#/definitions/api.HTTPError"
+                            "$ref": "#/definitions/objects-api.HTTPError"
                         }
                     }
                 }
@@ -4054,13 +4054,13 @@ const docTemplate = `{
                     "400": {
                         "description": "Bad Request",
                         "schema": {
-                            "$ref": "#/definitions/api.HTTPError"
+                            "$ref": "#/definitions/objects-api.HTTPError"
                         }
                     },
                     "404": {
                         "description": "Not Found",
                         "schema": {
-                            "$ref": "#/definitions/api.HTTPError"
+                            "$ref": "#/definitions/objects-api.HTTPError"
                         }
                     }
                 }
@@ -4096,13 +4096,13 @@ const docTemplate = `{
                     "400": {
                         "description": "Bad Request",
                         "schema": {
-                            "$ref": "#/definitions/api.HTTPError"
+                            "$ref": "#/definitions/objects-api.HTTPError"
                         }
                     },
                     "500": {
                         "description": "Internal Server Error",
                         "schema": {
-                            "$ref": "#/definitions/api.HTTPError"
+                            "$ref": "#/definitions/objects-api.HTTPError"
                         }
                     }
                 }
@@ -4147,7 +4147,7 @@ const docTemplate = `{
                         "schema": {
                             "allOf": [
                                 {
-                                    "$ref": "#/definitions/api.PagedResults"
+                                    "$ref": "#/definitions/objects-api.PagedResults"
                                 },
                                 {
                                     "type": "object",
@@ -4166,13 +4166,13 @@ const docTemplate = `{
                     "400": {
                         "description": "Bad Request",
                         "schema": {
-                            "$ref": "#/definitions/api.HTTPError"
+                            "$ref": "#/definitions/objects-api.HTTPError"
                         }
                     },
                     "404": {
                         "description": "Not Found",
                         "schema": {
-                            "$ref": "#/definitions/api.HTTPError"
+                            "$ref": "#/definitions/objects-api.HTTPError"
                         }
                     }
                 }
@@ -4210,13 +4210,13 @@ const docTemplate = `{
                     "400": {
                         "description": "Bad Request",
                         "schema": {
-                            "$ref": "#/definitions/api.HTTPError"
+                            "$ref": "#/definitions/objects-api.HTTPError"
                         }
                     },
                     "404": {
                         "description": "Not Found",
                         "schema": {
-                            "$ref": "#/definitions/api.HTTPError"
+                            "$ref": "#/definitions/objects-api.HTTPError"
                         }
                     }
                 }
@@ -4254,13 +4254,13 @@ const docTemplate = `{
                     "400": {
                         "description": "Bad Request",
                         "schema": {
-                            "$ref": "#/definitions/api.HTTPError"
+                            "$ref": "#/definitions/objects-api.HTTPError"
                         }
                     },
                     "404": {
                         "description": "ErrNotFound, db record for id not found - returns NotFound HTTP 404 not found error",
                         "schema": {
-                            "$ref": "#/definitions/api.HTTPError"
+                            "$ref": "#/definitions/objects-api.HTTPError"
                         }
                     }
                 }
@@ -4305,13 +4305,13 @@ const docTemplate = `{
                     "400": {
                         "description": "Bad Request",
                         "schema": {
-                            "$ref": "#/definitions/api.HTTPError"
+                            "$ref": "#/definitions/objects-api.HTTPError"
                         }
                     },
                     "404": {
                         "description": "Not Found",
                         "schema": {
-                            "$ref": "#/definitions/api.HTTPError"
+                            "$ref": "#/definitions/objects-api.HTTPError"
                         }
                     }
                 }
@@ -4347,13 +4347,13 @@ const docTemplate = `{
                     "400": {
                         "description": "Bad Request",
                         "schema": {
-                            "$ref": "#/definitions/api.HTTPError"
+                            "$ref": "#/definitions/objects-api.HTTPError"
                         }
                     },
                     "500": {
                         "description": "Internal Server Error",
                         "schema": {
-                            "$ref": "#/definitions/api.HTTPError"
+                            "$ref": "#/definitions/objects-api.HTTPError"
                         }
                     }
                 }
@@ -4398,7 +4398,7 @@ const docTemplate = `{
                         "schema": {
                             "allOf": [
                                 {
-                                    "$ref": "#/definitions/api.PagedResults"
+                                    "$ref": "#/definitions/objects-api.PagedResults"
                                 },
                                 {
                                     "type": "object",
@@ -4417,13 +4417,13 @@ const docTemplate = `{
                     "400": {
                         "description": "Bad Request",
                         "schema": {
-                            "$ref": "#/definitions/api.HTTPError"
+                            "$ref": "#/definitions/objects-api.HTTPError"
                         }
                     },
                     "404": {
                         "description": "Not Found",
                         "schema": {
-                            "$ref": "#/definitions/api.HTTPError"
+                            "$ref": "#/definitions/objects-api.HTTPError"
                         }
                     }
                 }
@@ -4461,13 +4461,13 @@ const docTemplate = `{
                     "400": {
                         "description": "Bad Request",
                         "schema": {
-                            "$ref": "#/definitions/api.HTTPError"
+                            "$ref": "#/definitions/objects-api.HTTPError"
                         }
                     },
                     "404": {
                         "description": "Not Found",
                         "schema": {
-                            "$ref": "#/definitions/api.HTTPError"
+                            "$ref": "#/definitions/objects-api.HTTPError"
                         }
                     }
                 }
@@ -4505,13 +4505,13 @@ const docTemplate = `{
                     "400": {
                         "description": "Bad Request",
                         "schema": {
-                            "$ref": "#/definitions/api.HTTPError"
+                            "$ref": "#/definitions/objects-api.HTTPError"
                         }
                     },
                     "404": {
                         "description": "ErrNotFound, db record for id not found - returns NotFound HTTP 404 not found error",
                         "schema": {
-                            "$ref": "#/definitions/api.HTTPError"
+                            "$ref": "#/definitions/objects-api.HTTPError"
                         }
                     }
                 }
@@ -4556,13 +4556,13 @@ const docTemplate = `{
                     "400": {
                         "description": "Bad Request",
                         "schema": {
-                            "$ref": "#/definitions/api.HTTPError"
+                            "$ref": "#/definitions/objects-api.HTTPError"
                         }
                     },
                     "404": {
                         "description": "Not Found",
                         "schema": {
-                            "$ref": "#/definitions/api.HTTPError"
+                            "$ref": "#/definitions/objects-api.HTTPError"
                         }
                     }
                 }
@@ -4598,13 +4598,13 @@ const docTemplate = `{
                     "400": {
                         "description": "Bad Request",
                         "schema": {
-                            "$ref": "#/definitions/api.HTTPError"
+                            "$ref": "#/definitions/objects-api.HTTPError"
                         }
                     },
                     "500": {
                         "description": "Internal Server Error",
                         "schema": {
-                            "$ref": "#/definitions/api.HTTPError"
+                            "$ref": "#/definitions/objects-api.HTTPError"
                         }
                     }
                 }
@@ -4649,7 +4649,7 @@ const docTemplate = `{
                         "schema": {
                             "allOf": [
                                 {
-                                    "$ref": "#/definitions/api.PagedResults"
+                                    "$ref": "#/definitions/objects-api.PagedResults"
                                 },
                                 {
                                     "type": "object",
@@ -4668,13 +4668,13 @@ const docTemplate = `{
                     "400": {
                         "description": "Bad Request",
                         "schema": {
-                            "$ref": "#/definitions/api.HTTPError"
+                            "$ref": "#/definitions/objects-api.HTTPError"
                         }
                     },
                     "404": {
                         "description": "Not Found",
                         "schema": {
-                            "$ref": "#/definitions/api.HTTPError"
+                            "$ref": "#/definitions/objects-api.HTTPError"
                         }
                     }
                 }
@@ -4712,13 +4712,13 @@ const docTemplate = `{
                     "400": {
                         "description": "Bad Request",
                         "schema": {
-                            "$ref": "#/definitions/api.HTTPError"
+                            "$ref": "#/definitions/objects-api.HTTPError"
                         }
                     },
                     "404": {
                         "description": "Not Found",
                         "schema": {
-                            "$ref": "#/definitions/api.HTTPError"
+                            "$ref": "#/definitions/objects-api.HTTPError"
                         }
                     }
                 }
@@ -4743,7 +4743,7 @@ const docTemplate = `{
                         "schema": {
                             "allOf": [
                                 {
-                                    "$ref": "#/definitions/api.PagedResults"
+                                    "$ref": "#/definitions/objects-api.PagedResults"
                                 },
                                 {
                                     "type": "object",
@@ -4759,13 +4759,13 @@ const docTemplate = `{
                     "400": {
                         "description": "Bad Request",
                         "schema": {
-                            "$ref": "#/definitions/api.HTTPError"
+                            "$ref": "#/definitions/objects-api.HTTPError"
                         }
                     },
                     "404": {
                         "description": "Not Found",
                         "schema": {
-                            "$ref": "#/definitions/api.HTTPError"
+                            "$ref": "#/definitions/objects-api.HTTPError"
                         }
                     }
                 }
@@ -4803,13 +4803,13 @@ const docTemplate = `{
                     "400": {
                         "description": "Bad Request",
                         "schema": {
-                            "$ref": "#/definitions/api.HTTPError"
+                            "$ref": "#/definitions/objects-api.HTTPError"
                         }
                     },
                     "404": {
                         "description": "ErrNotFound, db record for id not found - returns NotFound HTTP 404 not found error",
                         "schema": {
-                            "$ref": "#/definitions/api.HTTPError"
+                            "$ref": "#/definitions/objects-api.HTTPError"
                         }
                     }
                 }
@@ -4854,13 +4854,13 @@ const docTemplate = `{
                     "400": {
                         "description": "Bad Request",
                         "schema": {
-                            "$ref": "#/definitions/api.HTTPError"
+                            "$ref": "#/definitions/objects-api.HTTPError"
                         }
                     },
                     "404": {
                         "description": "Not Found",
                         "schema": {
-                            "$ref": "#/definitions/api.HTTPError"
+                            "$ref": "#/definitions/objects-api.HTTPError"
                         }
                     }
                 }
@@ -4896,13 +4896,13 @@ const docTemplate = `{
                     "400": {
                         "description": "Bad Request",
                         "schema": {
-                            "$ref": "#/definitions/api.HTTPError"
+                            "$ref": "#/definitions/objects-api.HTTPError"
                         }
                     },
                     "500": {
                         "description": "Internal Server Error",
                         "schema": {
-                            "$ref": "#/definitions/api.HTTPError"
+                            "$ref": "#/definitions/objects-api.HTTPError"
                         }
                     }
                 }
@@ -4910,7 +4910,7 @@ const docTemplate = `{
         }
     },
     "definitions": {
-        "api.CrudAPI": {
+        "objects-api.CrudAPI": {
             "type": "object",
             "properties": {
                 "create_url": {
@@ -4939,7 +4939,7 @@ const docTemplate = `{
                 }
             }
         },
-        "api.HTTPError": {
+        "objects-api.HTTPError": {
             "type": "object",
             "properties": {
                 "code": {
@@ -4952,7 +4952,7 @@ const docTemplate = `{
                 }
             }
         },
-        "api.PagedResults": {
+        "objects-api.PagedResults": {
             "type": "object",
             "properties": {
                 "data": {},
@@ -5732,8 +5732,8 @@ var SwaggerInfo = &swag.Spec{
 	Host:             "localhost:3030",
 	BasePath:         "/",
 	Schemes:          []string{},
-	Title:            "Sample CRUD api for estuary db",
-	Description:      "Sample CRUD api for estuary db",
+	Title:            "Sample CRUD objects-api for estuary db",
+	Description:      "Sample CRUD objects-api for estuary db",
 	InfoInstanceName: "swagger",
 	SwaggerTemplate:  docTemplate,
 }

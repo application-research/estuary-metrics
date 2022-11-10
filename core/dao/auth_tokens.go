@@ -24,27 +24,7 @@ var (
 // totalRows - total number of records in the auth_tokens table
 // error - ErrNotFound, db Find error
 func GetAuthTokensDynamicQuery(ctx context.Context, query map[string]interface{}, page, pagesize int, order string) (results []*model.AuthToken, totalRows int64, err error) {
-	resultOrm := DB.Model(&model.AuthToken{})
-	resultOrm.Count(&totalRows)
-
-	if page > 0 {
-		offset := (page - 1) * pagesize
-		resultOrm = resultOrm.Offset(offset).Limit(pagesize)
-	} else {
-		resultOrm = resultOrm.Limit(pagesize)
-	}
-
-	if order != "" {
-		resultOrm = resultOrm.Order(order)
-	}
-
-	if err = resultOrm.Where(query).Find(&results).Error; err != nil {
-		err = ErrNotFound
-		return nil, -1, err
-	}
-
-	return results, totalRows, nil
-
+	return RunDynamicQuery(ctx, &model.AuthToken{}, query, page, pagesize, order)
 }
 
 // GetAllActiveAuthTokenCount is a function to get the count of all active records in auth_tokens table in the estuary database
@@ -94,57 +74,4 @@ func GetAuthTokens(ctx context.Context, argID int64) (record *model.AuthToken, e
 	}
 
 	return record, nil
-}
-
-// AddAuthTokens is a function to add a single record to auth_tokens table in the estuary database
-// error - ErrInsertFailed, db save call failed
-func AddAuthTokens(ctx context.Context, record *model.AuthToken) (result *model.AuthToken, RowsAffected int64, err error) {
-	db := DB.Save(record)
-	if err = db.Error; err != nil {
-		return nil, -1, ErrInsertFailed
-	}
-
-	return record, db.RowsAffected, nil
-}
-
-// UpdateAuthTokens is a function to update a single record from auth_tokens table in the estuary database
-// error - ErrNotFound, db record for id not found
-// error - ErrUpdateFailed, db meta data copy failed or db.Save call failed
-func UpdateAuthTokens(ctx context.Context, argID int64, updated *model.AuthToken) (result *model.AuthToken, RowsAffected int64, err error) {
-
-	result = &model.AuthToken{}
-	db := DB.First(result, argID)
-	if err = db.Error; err != nil {
-		return nil, -1, ErrNotFound
-	}
-
-	if err = Copy(result, updated); err != nil {
-		return nil, -1, ErrUpdateFailed
-	}
-
-	db = db.Save(result)
-	if err = db.Error; err != nil {
-		return nil, -1, ErrUpdateFailed
-	}
-
-	return result, db.RowsAffected, nil
-}
-
-// DeleteAuthTokens is a function to delete a single record from auth_tokens table in the estuary database
-// error - ErrNotFound, db Find error
-// error - ErrDeleteFailed, db Delete failed error
-func DeleteAuthTokens(ctx context.Context, argID int64) (rowsAffected int64, err error) {
-
-	record := &model.AuthToken{}
-	db := DB.First(record, argID)
-	if db.Error != nil {
-		return -1, ErrNotFound
-	}
-
-	db = db.Delete(record)
-	if err = db.Error; err != nil {
-		return -1, ErrDeleteFailed
-	}
-
-	return db.RowsAffected, nil
 }
