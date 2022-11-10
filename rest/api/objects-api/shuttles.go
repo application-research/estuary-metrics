@@ -17,9 +17,9 @@ var (
 )
 
 func ConfigShuttlesRouter(router gin.IRoutes) {
-	router.GET("/shuttles", api.ConverHttpRouterToGin(GetAllShuttles))
-	router.GET("/shuttles/count", api.ConverHttpRouterToGin(GetNumberOfRegisteredShuttles))
-	router.GET("/shuttles/:argID", api.ConverHttpRouterToGin(GetShuttles))
+	router.GET("/shuttles", api.ConvertHttpRouterToGin(GetAllShuttles))
+	router.GET("/shuttles/count", api.ConvertHttpRouterToGin(GetNumberOfRegisteredShuttles))
+	router.GET("/shuttles/:argID", api.ConvertHttpRouterToGin(GetShuttles))
 }
 
 func GetNumberOfRegisteredShuttles(w http.ResponseWriter, r *http.Request, ps httprouter.Params) {

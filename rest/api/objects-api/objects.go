@@ -17,8 +17,8 @@ var (
 )
 
 func ConfigObjectsRouter(router gin.IRoutes) {
-	router.GET("/objects", api.ConverHttpRouterToGin(GetAllObjects))
-	router.GET("/objects/:argID", api.ConverHttpRouterToGin(GetObjects))
+	router.GET("/objects", api.ConvertHttpRouterToGin(GetAllObjects))
+	router.GET("/objects/:argID", api.ConvertHttpRouterToGin(GetObjects))
 }
 
 // GetAllObjects is a function to get a slice of record(s) from objects table in the estuary database

@@ -16,9 +16,9 @@ var (
 )
 
 func ConfigContentDealsRouter(router gin.IRoutes) {
-	router.GET("/contentdeals", api.ConverHttpRouterToGin(GetAllContentDeals))
-	router.GET("/contentdeals/:argID", api.ConverHttpRouterToGin(GetContentDeals))
-	router.GET("/contentdeals/dynamicquery", api.ConverHttpRouterToGin(GetContentDealsDynamicQuery))
+	router.GET("/contentdeals", api.ConvertHttpRouterToGin(GetAllContentDeals))
+	router.GET("/contentdeals/:argID", api.ConvertHttpRouterToGin(GetContentDeals))
+	router.GET("/contentdeals/dynamicquery", api.ConvertHttpRouterToGin(GetContentDealsDynamicQuery))
 }
 
 func GetContentDealsDynamicQuery(w http.ResponseWriter, r *http.Request, ps httprouter.Params) {

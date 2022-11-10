@@ -17,8 +17,8 @@ var (
 )
 
 func ConfigInviteCodesRouter(router gin.IRoutes) {
-	router.GET("/invitecodes", api.ConverHttpRouterToGin(GetAllInviteCodes))
-	router.GET("/invitecodes/:argID", api.ConverHttpRouterToGin(GetInviteCodes))
+	router.GET("/invitecodes", api.ConvertHttpRouterToGin(GetAllInviteCodes))
+	router.GET("/invitecodes/:argID", api.ConvertHttpRouterToGin(GetInviteCodes))
 }
 
 // GetAllInviteCodes is a function to get a slice of record(s) from invite_codes table in the estuary database

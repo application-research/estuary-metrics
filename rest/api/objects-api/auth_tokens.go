@@ -16,10 +16,10 @@ var (
 )
 
 func ConfigAuthTokensRouter(router gin.IRoutes) {
-	router.GET("/authtokens", api.ConverHttpRouterToGin(GetAllAuthTokens))
-	router.GET("/authtokens/:argID", api.ConverHttpRouterToGin(GetAuthTokens))
-	router.GET("/authtokens/dynamicquery", api.ConverHttpRouterToGin(GetAuthTokensDynamicQuery))
-	router.GET("/authtokens/activecount", api.ConverHttpRouterToGin(GetAllActiveAuthTokenCount))
+	router.GET("/authtokens", api.ConvertHttpRouterToGin(GetAllAuthTokens))
+	router.GET("/authtokens/:argID", api.ConvertHttpRouterToGin(GetAuthTokens))
+	router.GET("/authtokens/dynamicquery", api.ConvertHttpRouterToGin(GetAuthTokensDynamicQuery))
+	router.GET("/authtokens/activecount", api.ConvertHttpRouterToGin(GetAllActiveAuthTokenCount))
 }
 
 func GetAuthTokensDynamicQuery(w http.ResponseWriter, r *http.Request, ps httprouter.Params) {

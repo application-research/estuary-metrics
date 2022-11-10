@@ -17,8 +17,8 @@ var (
 )
 
 func ConfigProposalRecordsRouter(router gin.IRoutes) {
-	router.GET("/proposalrecords", api.ConverHttpRouterToGin(GetAllProposalRecords))
-	router.GET("/proposalrecords/:argPropCid", api.ConverHttpRouterToGin(GetProposalRecords))
+	router.GET("/proposalrecords", api.ConvertHttpRouterToGin(GetAllProposalRecords))
+	router.GET("/proposalrecords/:argPropCid", api.ConvertHttpRouterToGin(GetProposalRecords))
 }
 
 // GetAllProposalRecords is a function to get a slice of record(s) from proposal_records table in the estuary database

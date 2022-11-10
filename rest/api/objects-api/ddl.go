@@ -18,8 +18,8 @@ var (
 func ConfigDDLRouter(router gin.IRoutes) {
 	//
 	getCrudEndpoints() // get the endpoints
-	router.GET("/ddl/:argID", api.ConverHttpRouterToGin(GetDdl))
-	router.GET("/ddl", api.ConverHttpRouterToGin(GetDdlEndpoints))
+	router.GET("/ddl/:argID", api.ConvertHttpRouterToGin(GetDdl))
+	router.GET("/ddl", api.ConvertHttpRouterToGin(GetDdlEndpoints))
 
 }
 
@@ -95,11 +95,8 @@ func getCrudEndpoints() map[string]*CrudAPI {
 
 	tmp = &CrudAPI{
 		Name:            "auth_tokens",
-		CreateURL:       "/authtokens",
 		RetrieveOneURL:  "/authtokens",
 		RetrieveManyURL: "/authtokens",
-		UpdateURL:       "/authtokens",
-		DeleteURL:       "/authtokens",
 		FetchDDLURL:     "/ddl/auth_tokens",
 	}
 
@@ -108,11 +105,8 @@ func getCrudEndpoints() map[string]*CrudAPI {
 
 	tmp = &CrudAPI{
 		Name:            "autoretrieves",
-		CreateURL:       "/autoretrieves",
 		RetrieveOneURL:  "/autoretrieves",
 		RetrieveManyURL: "/autoretrieves",
-		UpdateURL:       "/autoretrieves",
-		DeleteURL:       "/autoretrieves",
 		FetchDDLURL:     "/ddl/autoretrieves",
 	}
 
@@ -121,11 +115,8 @@ func getCrudEndpoints() map[string]*CrudAPI {
 
 	tmp = &CrudAPI{
 		Name:            "collection_refs",
-		CreateURL:       "/collectionrefs",
 		RetrieveOneURL:  "/collectionrefs",
 		RetrieveManyURL: "/collectionrefs",
-		UpdateURL:       "/collectionrefs",
-		DeleteURL:       "/collectionrefs",
 		FetchDDLURL:     "/ddl/collection_refs",
 	}
 
@@ -160,11 +151,8 @@ func getCrudEndpoints() map[string]*CrudAPI {
 
 	tmp = &CrudAPI{
 		Name:            "contents",
-		CreateURL:       "/contents",
 		RetrieveOneURL:  "/contents",
 		RetrieveManyURL: "/contents",
-		UpdateURL:       "/contents",
-		DeleteURL:       "/contents",
 		FetchDDLURL:     "/ddl/contents",
 	}
 
@@ -173,11 +161,8 @@ func getCrudEndpoints() map[string]*CrudAPI {
 
 	tmp = &CrudAPI{
 		Name:            "dealers",
-		CreateURL:       "/dealers",
 		RetrieveOneURL:  "/dealers",
 		RetrieveManyURL: "/dealers",
-		UpdateURL:       "/dealers",
-		DeleteURL:       "/dealers",
 		FetchDDLURL:     "/ddl/dealers",
 	}
 
@@ -186,11 +171,8 @@ func getCrudEndpoints() map[string]*CrudAPI {
 
 	tmp = &CrudAPI{
 		Name:            "dfe_records",
-		CreateURL:       "/dferecords",
 		RetrieveOneURL:  "/dferecords",
 		RetrieveManyURL: "/dferecords",
-		UpdateURL:       "/dferecords",
-		DeleteURL:       "/dferecords",
 		FetchDDLURL:     "/ddl/dfe_records",
 	}
 
@@ -199,11 +181,8 @@ func getCrudEndpoints() map[string]*CrudAPI {
 
 	tmp = &CrudAPI{
 		Name:            "invite_codes",
-		CreateURL:       "/invitecodes",
 		RetrieveOneURL:  "/invitecodes",
 		RetrieveManyURL: "/invitecodes",
-		UpdateURL:       "/invitecodes",
-		DeleteURL:       "/invitecodes",
 		FetchDDLURL:     "/ddl/invite_codes",
 	}
 
@@ -212,11 +191,8 @@ func getCrudEndpoints() map[string]*CrudAPI {
 
 	tmp = &CrudAPI{
 		Name:            "miner_storage_asks",
-		CreateURL:       "/minerstorageasks",
 		RetrieveOneURL:  "/minerstorageasks",
 		RetrieveManyURL: "/minerstorageasks",
-		UpdateURL:       "/minerstorageasks",
-		DeleteURL:       "/minerstorageasks",
 		FetchDDLURL:     "/ddl/miner_storage_asks",
 	}
 
@@ -225,11 +201,8 @@ func getCrudEndpoints() map[string]*CrudAPI {
 
 	tmp = &CrudAPI{
 		Name:            "obj_refs",
-		CreateURL:       "/objrefs",
 		RetrieveOneURL:  "/objrefs",
 		RetrieveManyURL: "/objrefs",
-		UpdateURL:       "/objrefs",
-		DeleteURL:       "/objrefs",
 		FetchDDLURL:     "/ddl/obj_refs",
 	}
 
@@ -238,11 +211,8 @@ func getCrudEndpoints() map[string]*CrudAPI {
 
 	tmp = &CrudAPI{
 		Name:            "objects",
-		CreateURL:       "/objects",
 		RetrieveOneURL:  "/objects",
 		RetrieveManyURL: "/objects",
-		UpdateURL:       "/objects",
-		DeleteURL:       "/objects",
 		FetchDDLURL:     "/ddl/objects",
 	}
 
@@ -251,11 +221,8 @@ func getCrudEndpoints() map[string]*CrudAPI {
 
 	tmp = &CrudAPI{
 		Name:            "piece_comm_records",
-		CreateURL:       "/piececommrecords",
 		RetrieveOneURL:  "/piececommrecords",
 		RetrieveManyURL: "/piececommrecords",
-		UpdateURL:       "/piececommrecords",
-		DeleteURL:       "/piececommrecords",
 		FetchDDLURL:     "/ddl/piece_comm_records",
 	}
 
@@ -264,11 +231,8 @@ func getCrudEndpoints() map[string]*CrudAPI {
 
 	tmp = &CrudAPI{
 		Name:            "piece_comm_records_backup_20220125",
-		CreateURL:       "/piececommrecordsbackup20220125",
 		RetrieveOneURL:  "/piececommrecordsbackup20220125",
 		RetrieveManyURL: "/piececommrecordsbackup20220125",
-		UpdateURL:       "/piececommrecordsbackup20220125",
-		DeleteURL:       "/piececommrecordsbackup20220125",
 		FetchDDLURL:     "/ddl/piece_comm_records_backup_20220125",
 	}
 
@@ -277,11 +241,8 @@ func getCrudEndpoints() map[string]*CrudAPI {
 
 	tmp = &CrudAPI{
 		Name:            "proposal_records",
-		CreateURL:       "/proposalrecords",
 		RetrieveOneURL:  "/proposalrecords",
 		RetrieveManyURL: "/proposalrecords",
-		UpdateURL:       "/proposalrecords",
-		DeleteURL:       "/proposalrecords",
 		FetchDDLURL:     "/ddl/proposal_records",
 	}
 
@@ -290,11 +251,8 @@ func getCrudEndpoints() map[string]*CrudAPI {
 
 	tmp = &CrudAPI{
 		Name:            "retrieval_failure_records",
-		CreateURL:       "/retrievalfailurerecords",
 		RetrieveOneURL:  "/retrievalfailurerecords",
 		RetrieveManyURL: "/retrievalfailurerecords",
-		UpdateURL:       "/retrievalfailurerecords",
-		DeleteURL:       "/retrievalfailurerecords",
 		FetchDDLURL:     "/ddl/retrieval_failure_records",
 	}
 
@@ -303,11 +261,8 @@ func getCrudEndpoints() map[string]*CrudAPI {
 
 	tmp = &CrudAPI{
 		Name:            "retrieval_success_records",
-		CreateURL:       "/retrievalsuccessrecords",
 		RetrieveOneURL:  "/retrievalsuccessrecords",
 		RetrieveManyURL: "/retrievalsuccessrecords",
-		UpdateURL:       "/retrievalsuccessrecords",
-		DeleteURL:       "/retrievalsuccessrecords",
 		FetchDDLURL:     "/ddl/retrieval_success_records",
 	}
 

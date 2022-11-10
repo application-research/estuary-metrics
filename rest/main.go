@@ -76,12 +76,12 @@ func main() {
 	// Define version information
 	goopt.Version = fmt.Sprintf(
 		`Application build information
-  Build date      : %s
-  Build number    : %s
-  Git commit      : %s
-  Runtime version : %s
-  Built on OS     : %s
-`, BuildDate, BuildNumber, LatestCommit, RuntimeVer, BuiltOnOs)
+				  Build date      : %s
+				  Build number    : %s
+				  Git commit      : %s
+				  Runtime version : %s
+				  Built on OS     : %s
+				`, BuildDate, BuildNumber, LatestCommit, RuntimeVer, BuiltOnOs)
 	goopt.Parse(nil)
 
 	dsn := "host=" + dbHost + " user=" + dbUser + " password=" + dbPass + " dbname=" + dbName + " port=" + dbPort + " sslmode=disable TimeZone=Asia/Shanghai"

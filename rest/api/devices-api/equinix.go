@@ -1,6 +1,7 @@
 package devicesapi
 
 import (
+	"fmt"
 	"github.com/application-research/estuary-metrics/core/dao"
 	"github.com/application-research/estuary-metrics/rest/api"
 	"github.com/gin-gonic/gin"
@@ -9,15 +10,17 @@ import (
 )
 
 func ConfigEquinixDevicesRouter(router gin.IRoutes) {
-	router.GET("/equinix/usage", api.ConverHttpRouterToGin(GetUsage))
+	router.GET("/equinix/usage", api.ConvertHttpRouterToGin(GetUsage))
 }
 
 func GetUsage(w http.ResponseWriter, r *http.Request, ps httprouter.Params) {
 	ctx := api.InitializeContext(r)
-	uuid := ps.ByName("uuid")
-	createdBefore := ps.ByName("createdBefore")
-	createdAfter := ps.ByName("createdAfter")
+	uuid := r.FormValue("uuid")
 
+	createdBefore := r.FormValue("createdBefore")
+	createdAfter := r.FormValue("createdAfter")
+
+	fmt.Println("uuid: ", uuid)
 	info, err := dao.Metrics.GetDeviceInfo(uuid, createdBefore, createdAfter)
 	if err != nil {
 		return

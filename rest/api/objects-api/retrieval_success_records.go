@@ -17,8 +17,8 @@ var (
 )
 
 func ConfigRetrievalSuccessRecordsRouter(router gin.IRoutes) {
-	router.GET("/retrievalsuccessrecords", api.ConverHttpRouterToGin(GetAllRetrievalSuccessRecords))
-	router.GET("/retrievalsuccessrecords/:argPropCid", api.ConverHttpRouterToGin(GetRetrievalSuccessRecords))
+	router.GET("/retrievalsuccessrecords", api.ConvertHttpRouterToGin(GetAllRetrievalSuccessRecords))
+	router.GET("/retrievalsuccessrecords/:argPropCid", api.ConvertHttpRouterToGin(GetRetrievalSuccessRecords))
 }
 
 // GetAllRetrievalSuccessRecords is a function to get a slice of record(s) from retrieval_success_records table in the estuary database

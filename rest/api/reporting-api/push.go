@@ -8,7 +8,7 @@ import (
 )
 
 func ConfigMetricsPushRouter(router gin.IRoutes) {
-	router.POST("/push/log", api.ConverHttpRouterToGin(AddPushToLog))
+	router.POST("/push/log", api.ConvertHttpRouterToGin(AddPushToLog))
 }
 
 func AddPushToLog(w http.ResponseWriter, r *http.Request, ps httprouter.Params) {

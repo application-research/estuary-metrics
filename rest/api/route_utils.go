@@ -28,8 +28,8 @@ type HTTPError struct {
 	Message string `json:"message" example:"status bad request"`
 }
 
-// ConverHttpRouterToGin wrap httprouter.Handle to gin.HandlerFunc
-func ConverHttpRouterToGin(f httprouter.Handle) gin.HandlerFunc {
+// ConvertHttpRouterToGin wrap httprouter.Handle to gin.HandlerFunc
+func ConvertHttpRouterToGin(f httprouter.Handle) gin.HandlerFunc {
 	return func(c *gin.Context) {
 		var params httprouter.Params
 		_len := len(c.Params)

@@ -16,9 +16,9 @@ var (
 )
 
 func ConfigCollectionRefsRouter(router gin.IRoutes) {
-	router.GET("/collectionrefs", api.ConverHttpRouterToGin(GetAllCollectionRefs))
-	router.GET("/collectionrefs/:argID", api.ConverHttpRouterToGin(GetCollectionRefs))
-	router.GET("/collectionrefs/dynamicquery", api.ConverHttpRouterToGin(GetCollectionsRefDynamicQuery))
+	router.GET("/collectionrefs", api.ConvertHttpRouterToGin(GetAllCollectionRefs))
+	router.GET("/collectionrefs/:argID", api.ConvertHttpRouterToGin(GetCollectionRefs))
+	router.GET("/collectionrefs/dynamicquery", api.ConvertHttpRouterToGin(GetCollectionsRefDynamicQuery))
 }
 
 func GetCollectionsRefDynamicQuery(w http.ResponseWriter, r *http.Request, ps httprouter.Params) {
