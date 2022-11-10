@@ -18,6 +18,11 @@ var (
 func ConfigContentDealsRouter(router gin.IRoutes) {
 	router.GET("/contentdeals", api.ConverHttpRouterToGin(GetAllContentDeals))
 	router.GET("/contentdeals/:argID", api.ConverHttpRouterToGin(GetContentDeals))
+	router.GET("/contentdeals/dynamicquery", api.ConverHttpRouterToGin(GetContentDealsDynamicQuery))
+}
+
+func GetContentDealsDynamicQuery(w http.ResponseWriter, r *http.Request, ps httprouter.Params) {
+	HandleDynamicQuery(w, r, ps, model.ContentDeal{})
 }
 
 // GetAllContentDeals is a function to get a slice of record(s) from content_deals table in the estuary database

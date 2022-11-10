@@ -18,6 +18,11 @@ var (
 func ConfigCollectionsRouter(router gin.IRoutes) {
 	router.GET("/collections", api.ConverHttpRouterToGin(GetAllCollections))
 	router.GET("/collections/:argID", api.ConverHttpRouterToGin(GetCollections))
+	router.GET("/collections/dynamicquery", api.ConverHttpRouterToGin(GetCollectionsDynamicQuery))
+}
+
+func GetCollectionsDynamicQuery(w http.ResponseWriter, r *http.Request, ps httprouter.Params) {
+	HandleDynamicQuery(w, r, ps, model.Collection{})
 }
 
 // GetAllCollections is a function to get a slice of record(s) from collections table in the estuary database

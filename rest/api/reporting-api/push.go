@@ -1,4 +1,4 @@
-package pushapi
+package reportingapi
 
 import (
 	"github.com/application-research/estuary-metrics/rest/api"

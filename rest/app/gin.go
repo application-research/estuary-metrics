@@ -1,7 +1,7 @@
 package app
 
 import (
-	"github.com/application-research/estuary-metrics/rest/api"
+	"github.com/application-research/estuary-metrics/rest/route"
 	"github.com/gin-gonic/gin"
 	swaggerFiles "github.com/swaggo/files"
 	ginSwagger "github.com/swaggo/gin-swagger"
@@ -14,8 +14,8 @@ func GinServer() (err error) {
 	router := gin.Default()
 	router.GET("/swagger/*any", ginSwagger.WrapHandler(swaggerFiles.Handler, url))
 
-	router.Group("/objects-api/v0")
-	api.ConfigGinRouter(router)
+	router.Group("/api/v0")
+	route.ConfigRouter(router)
 
 	router.Static("/web", "./web")
 

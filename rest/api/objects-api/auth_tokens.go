@@ -19,10 +19,28 @@ func ConfigAuthTokensRouter(router gin.IRoutes) {
 	router.GET("/authtokens", api.ConverHttpRouterToGin(GetAllAuthTokens))
 	router.GET("/authtokens/:argID", api.ConverHttpRouterToGin(GetAuthTokens))
 	router.GET("/authtokens/dynamicquery", api.ConverHttpRouterToGin(GetAuthTokensDynamicQuery))
+	router.GET("/authtokens/activecount", api.ConverHttpRouterToGin(GetAllActiveAuthTokenCount))
 }
 
 func GetAuthTokensDynamicQuery(w http.ResponseWriter, r *http.Request, ps httprouter.Params) {
 	HandleDynamicQuery(w, r, ps, model.AuthToken{})
+}
+
+func GetAllActiveAuthTokenCount(w http.ResponseWriter, r *http.Request, ps httprouter.Params) {
+	ctx := api.InitializeContext(r)
+
+	if err := api.ValidateRequest(ctx, r, "auth_tokens", model.RetrieveMany); err != nil {
+		api.ReturnError(ctx, w, r, err)
+		return
+	}
+
+	record, err := dao.GetAllActiveAuthTokenCount(ctx)
+	if err != nil {
+		api.ReturnError(ctx, w, r, err)
+		return
+	}
+
+	api.WriteJSON(ctx, w, record)
 }
 
 // GetAllAuthTokens is a function to get a slice of record(s) from auth_tokens table in the estuary database
