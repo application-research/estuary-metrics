@@ -2,6 +2,7 @@ package core
 
 import (
 	"context"
+	"github.com/spf13/viper"
 	"github.com/whyrusleeping/memo"
 	"gorm.io/gorm"
 )
@@ -14,10 +15,10 @@ var (
 	DB              *gorm.DB
 	Cacher          *memo.Cacher
 	DefaultCacheTTL = 10
-	EquinixEndpoint = "https://objects-api.equinix.go.com/metal/v1/devices/"
+	EquinixEndpoint = "https://api.equinix.com/metal/v1/devices/"
 )
 
 var (
 	//	should not be here. Environment variable instead.
-	EquinixAuthToken = "JTB647zpDi2i8sThgvG9W4c98rkdMQAY"
+	EquinixAuthToken = viper.Get("EQUINIX_AUTH_TOKEN")
 )

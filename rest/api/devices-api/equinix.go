@@ -10,7 +10,7 @@ import (
 )
 
 func ConfigEquinixDevicesRouter(router gin.IRoutes) {
-	router.GET("/equinix/usage", api.ConvertHttpRouterToGin(GetUsage))
+	router.GET("/environment/equinix/usage", api.ConvertHttpRouterToGin(GetUsage))
 }
 
 func GetUsage(w http.ResponseWriter, r *http.Request, ps httprouter.Params) {

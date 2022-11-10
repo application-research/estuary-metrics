@@ -56,7 +56,6 @@ func ValidateRequest(ctx context.Context, r *http.Request, table string, action 
 	if RequestValidator != nil {
 		return RequestValidator(ctx, r, table, action)
 	}
-
 	return nil
 }
 
