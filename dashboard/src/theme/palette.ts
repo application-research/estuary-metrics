@@ -1,4 +1,4 @@
-import { PaletteMode } from '@mui/material';
+import {PaletteMode} from '@mui/material';
 
 export const light = {
   alternate: {

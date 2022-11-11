@@ -1,6 +1,6 @@
 import http from "./utils/HttpCommons";
 import {VerifyResult} from "./models/VerifyResult";
-import {EvaluationResult, Evaluation} from "./models/Evaluation";
+import {EvaluationResult} from "./models/Evaluation";
 
 const getTotalUsers = () => {
     return http.get<String>("/users/count");

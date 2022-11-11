@@ -1,12 +1,12 @@
-import React, { useState } from 'react';
-import { alpha, useTheme } from '@mui/material/styles';
+import React, {useState} from 'react';
+import {alpha, useTheme} from '@mui/material/styles';
 import useMediaQuery from '@mui/material/useMediaQuery';
 import Box from '@mui/material/Box';
 import Divider from '@mui/material/Divider';
 import AppBar from '@mui/material/AppBar';
 
 import Container from 'components/Container';
-import { Topbar, Sidebar, Footer } from './components';
+import {Footer, Sidebar, Topbar} from './components';
 import pages from '../navigation--docs';
 
 interface Props {

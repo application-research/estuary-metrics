@@ -8,12 +8,12 @@ import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp';
 import Zoom from '@mui/material/Zoom';
 import NoSsr from '@mui/material/NoSsr';
 import useMediaQuery from '@mui/material/useMediaQuery';
-import { useTheme } from '@mui/material/styles';
+import {useTheme} from '@mui/material/styles';
 
 import Main from 'layouts/Main';
 import Container from 'components/Container';
 
-import { Hero, OverviewSection } from './components';
+import {Hero, OverviewSection} from './components';
 
 import data from './data';
 

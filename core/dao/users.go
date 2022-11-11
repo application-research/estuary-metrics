@@ -88,55 +88,22 @@ func GetUsers(ctx context.Context, argID int64) (record *model.User, err error) 
 	return record, nil
 }
 
-// AddUsers is a function to add a single record to users table in the estuary database
-// error - ErrInsertFailed, db save call failed
-func AddUsers(ctx context.Context, record *model.User) (result *model.User, RowsAffected int64, err error) {
-	db := DB.Save(record)
-	if err = db.Error; err != nil {
-		return nil, -1, ErrInsertFailed
+func GetTopUsers(ctx context.Context, top int) (record []*model.User, err error) {
+	record = []*model.User{}
+	if err = DB.Order("total_bytes DESC").Limit(top).Find(&record).Error; err != nil {
+		err = ErrNotFound
+		return record, err
 	}
 
-	return record, db.RowsAffected, nil
+	return record, nil
 }
 
-// UpdateUsers is a function to update a single record from users table in the estuary database
-// error - ErrNotFound, db record for id not found
-// error - ErrUpdateFailed, db meta data copy failed or db.Save call failed
-func UpdateUsers(ctx context.Context, argID int64, updated *model.User) (result *model.User, RowsAffected int64, err error) {
-
-	result = &model.User{}
-	db := DB.First(result, argID)
-	if err = db.Error; err != nil {
-		return nil, -1, ErrNotFound
+func GetTopUsersWithCollections(ctx context.Context, top int) (record []*model.User, err error) {
+	record = []*model.User{}
+	if err = DB.Order("total_bytes DESC").Limit(top).Find(&record).Error; err != nil {
+		err = ErrNotFound
+		return record, err
 	}
 
-	if err = Copy(result, updated); err != nil {
-		return nil, -1, ErrUpdateFailed
-	}
-
-	db = db.Save(result)
-	if err = db.Error; err != nil {
-		return nil, -1, ErrUpdateFailed
-	}
-
-	return result, db.RowsAffected, nil
-}
-
-// DeleteUsers is a function to delete a single record from users table in the estuary database
-// error - ErrNotFound, db Find error
-// error - ErrDeleteFailed, db Delete failed error
-func DeleteUsers(ctx context.Context, argID int64) (rowsAffected int64, err error) {
-
-	record := &model.User{}
-	db := DB.First(record, argID)
-	if db.Error != nil {
-		return -1, ErrNotFound
-	}
-
-	db = db.Delete(record)
-	if err = db.Error; err != nil {
-		return -1, ErrDeleteFailed
-	}
-
-	return db.RowsAffected, nil
+	return record, nil
 }

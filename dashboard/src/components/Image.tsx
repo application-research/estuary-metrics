@@ -1,6 +1,6 @@
 import React from 'react';
 import Box from '@mui/material/Box';
-import { SxProps, Theme } from '@mui/material/styles';
+import {SxProps, Theme} from '@mui/material/styles';
 
 interface Props {
   src: string;

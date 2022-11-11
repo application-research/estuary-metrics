@@ -1,16 +1,9 @@
 import React from 'react';
-import { alpha, useTheme } from '@mui/material/styles';
+import {alpha, useTheme} from '@mui/material/styles';
 import Box from '@mui/material/Box';
 import Main from 'layouts/Main';
 import Container from 'components/Container';
-import {
-  GetStarted,
-  Features,
-  QuickStart,
-  Services,
-  Benefits,
-  Hero,
-} from './components';
+import {Benefits, Features, GetStarted, Hero, QuickStart, Services,} from './components';
 
 const IndexView = (): JSX.Element => {
   const theme = useTheme();

@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import { useTheme } from '@mui/material/styles';
+import React, {useState} from 'react';
+import {useTheme} from '@mui/material/styles';
 import useMediaQuery from '@mui/material/useMediaQuery';
 import Box from '@mui/material/Box';
 import Divider from '@mui/material/Divider';
@@ -9,7 +9,7 @@ import useScrollTrigger from '@mui/material/useScrollTrigger';
 import Container from 'components/Container';
 import TopNav from 'components/TopNav';
 
-import { Topbar, Sidebar, Footer } from './components';
+import {Footer, Sidebar, Topbar} from './components';
 
 import pages from '../navigation';
 

@@ -1,5 +1,5 @@
 import React from 'react';
-import { useTheme } from '@mui/material/styles';
+import {useTheme} from '@mui/material/styles';
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import Divider from '@mui/material/Divider';
@@ -13,7 +13,7 @@ import NoSsr from '@mui/material/NoSsr';
 import Container from 'components/Container';
 import TopNav from 'components/TopNav';
 
-import { Footer } from './components';
+import {Footer} from './components';
 
 interface Props {
   children: React.ReactNode;

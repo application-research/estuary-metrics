@@ -15,7 +15,6 @@ import (
 
 // ConfigRouter configure gin route
 func ConfigRouter(router gin.IRoutes) {
-
 	router.Use(func(c *gin.Context) {
 		// authenticate here
 		authServer := auth.Init().SetDB(dao.DB).Connect()
@@ -27,7 +26,7 @@ func ConfigRouter(router gin.IRoutes) {
 
 		}
 		// 	tokens
-		token, err := authServer.CheckAuthorizationToken(authParts[1], 100)
+		token, err := authServer.CheckAuthorizationToken(authParts[1], 100) // user needs to be 100 (super admin to access)
 		if err != nil {
 			http.Error(c.Writer, "invalid authorization token", http.StatusUnauthorized)
 		}
@@ -69,7 +68,11 @@ func ConfigRouter(router gin.IRoutes) {
 
 	//	stats-api
 	statsapi.ConfigStatsRouter(router)
+	statsapi.ConfigHeartbeatRoute(router)
+	statsapi.ConfigDistributionRoute(router)
+	statsapi.ConfigRankingRoute(router)
 
+	//	DDL
 	objectsapi.ConfigDDLRouter(router)
 	return
 }

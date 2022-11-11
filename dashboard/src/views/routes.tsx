@@ -1,8 +1,6 @@
 import React from 'react';
 
-import {
-  IndexView,
-} from 'views';
+import {IndexView,} from 'views';
 
 const routes = [
   {
