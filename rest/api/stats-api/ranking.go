@@ -44,7 +44,7 @@ func GetTopCollectionUsers(w http.ResponseWriter, r *http.Request, ps httprouter
 	ctx := api.InitializeContext(r)
 	top := ps.ByName("top")
 	topInt, err := strconv.Atoi(top)
-	users, err := dao.GetTopUsers(ctx, topInt)
+	users, err := dao.GetTopCollectionUsers(ctx, topInt)
 	if err != nil {
 		api.ReturnError(ctx, w, r, err)
 		return

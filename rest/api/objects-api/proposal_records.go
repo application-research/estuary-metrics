@@ -30,9 +30,9 @@ func ConfigProposalRecordsRouter(router gin.IRoutes) {
 // @Param   page     query    int     false        "page requested (defaults to 0)"
 // @Param   pagesize query    int     false        "number of records in a page  (defaults to 20)"
 // @Param   order    query    string  false        "db sort order column"
-// @Success 200 {object} objects-api.PagedResults{data=[]model.ProposalRecord}
-// @Failure 400 {object} objects-api.HTTPError
-// @Failure 404 {object} objects-api.HTTPError
+// @Success 200 {object} api.PagedResults{data=[]model.ProposalRecord}
+// @Failure 400 {object} api.HTTPError
+// @Failure 404 {object} api.HTTPError
 // @Router /proposalrecords [get]
 // http "http://localhost:3030/proposalrecords?page=0&pagesize=20" X-Api-User:user123
 func GetAllProposalRecords(w http.ResponseWriter, r *http.Request, ps httprouter.Params) {
@@ -75,8 +75,8 @@ func GetAllProposalRecords(w http.ResponseWriter, r *http.Request, ps httprouter
 // @Produce  json
 // @Param  argPropCid path string true "prop_cid"
 // @Success 200 {object} model.ProposalRecord
-// @Failure 400 {object} objects-api.HTTPError
-// @Failure 404 {object} objects-api.HTTPError "ErrNotFound, db record for id not found - returns NotFound HTTP 404 not found error"
+// @Failure 400 {object} api.HTTPError
+// @Failure 404 {object} api.HTTPError "ErrNotFound, db record for id not found - returns NotFound HTTP 404 not found error"
 // @Router /proposalrecords/{argPropCid} [get]
 // http "http://localhost:3030/proposalrecords/hello world" X-Api-User:user123
 func GetProposalRecords(w http.ResponseWriter, r *http.Request, ps httprouter.Params) {
@@ -110,8 +110,8 @@ func GetProposalRecords(w http.ResponseWriter, r *http.Request, ps httprouter.Pa
 // @Produce  json
 // @Param ProposalRecords body model.ProposalRecord true "Add ProposalRecords"
 // @Success 200 {object} model.ProposalRecord
-// @Failure 400 {object} objects-api.HTTPError
-// @Failure 404 {object} objects-api.HTTPError
+// @Failure 400 {object} api.HTTPError
+// @Failure 404 {object} api.HTTPError
 // @Router /proposalrecords [post]
 // echo '{"prop_cid": "uvImofLDyVAaNglqdbNUeVqLO","data": "MowQanJEuGZJZpVqAPUxLYLSq"}' | http POST "http://localhost:3030/proposalrecords" X-Api-User:user123
 func AddProposalRecords(w http.ResponseWriter, r *http.Request, ps httprouter.Params) {
@@ -158,8 +158,8 @@ func AddProposalRecords(w http.ResponseWriter, r *http.Request, ps httprouter.Pa
 // @Param  argPropCid path string true "prop_cid"
 // @Param  ProposalRecords body model.ProposalRecord true "Update ProposalRecords record"
 // @Success 200 {object} model.ProposalRecord
-// @Failure 400 {object} objects-api.HTTPError
-// @Failure 404 {object} objects-api.HTTPError
+// @Failure 400 {object} api.HTTPError
+// @Failure 404 {object} api.HTTPError
 // @Router /proposalrecords/{argPropCid} [put]
 // echo '{"prop_cid": "uvImofLDyVAaNglqdbNUeVqLO","data": "MowQanJEuGZJZpVqAPUxLYLSq"}' | http PUT "http://localhost:3030/proposalrecords/hello world"  X-Api-User:user123
 func UpdateProposalRecords(w http.ResponseWriter, r *http.Request, ps httprouter.Params) {
@@ -212,8 +212,8 @@ func UpdateProposalRecords(w http.ResponseWriter, r *http.Request, ps httprouter
 // @Produce  json
 // @Param  argPropCid path string true "prop_cid"
 // @Success 204 {object} model.ProposalRecord
-// @Failure 400 {object} objects-api.HTTPError
-// @Failure 500 {object} objects-api.HTTPError
+// @Failure 400 {object} api.HTTPError
+// @Failure 500 {object} api.HTTPError
 // @Router /proposalrecords/{argPropCid} [delete]
 // http DELETE "http://localhost:3030/proposalrecords/hello world" X-Api-User:user123
 func DeleteProposalRecords(w http.ResponseWriter, r *http.Request, ps httprouter.Params) {

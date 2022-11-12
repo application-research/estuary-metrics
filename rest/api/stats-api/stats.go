@@ -14,7 +14,10 @@ import (
 
 func ConfigStatsRouter(router gin.IRoutes) {
 	router.GET("/stats/retrieval", api.ConvertHttpRouterToGin(GetRetrievalStats))
-	router.GET("/stats/storage", api.ConvertHttpRouterToGin(GetStorageStats))
+	router.GET("/stats/total-content-deals-attempted", api.ConvertHttpRouterToGin(GetContentDealsAttempted))
+	router.GET("/stats/total-storage-tib", api.ConvertHttpRouterToGin(GetTotalStorageInTib))
+	router.GET("/stats/total-files", api.ConvertHttpRouterToGin(GetTotalFiles))
+	router.GET("/stats/storage-rates", api.ConvertHttpRouterToGin(GetStorageRateStats))
 	router.GET("/stats/system", api.ConvertHttpRouterToGin(GetSystemStats))
 	router.GET("/stats/users", api.ConvertHttpRouterToGin(GetUserStats))
 	router.GET("/stats/info", api.ConvertHttpRouterToGin(GetPublicStats))
@@ -66,9 +69,12 @@ type RetrievalStats struct {
 	//Total number of retrieval deals attempted (per day and per week breakdown)
 }
 
+type StorageRateStats struct {
+	DealSuccessRate string `json:"dealSuccessRate"`
+	DealFailureRate string `json:"dealFailureRate"`
+}
 type StorageStats struct {
-	DealSuccessRate                    string `json:"dealSuccessRate"`
-	DealFailureRate                    string `json:"dealFailureRate"`
+	StorageRateStats
 	DealAcceptanceRate                 string `json:"dealAcceptanceRate"`
 	TotalStorageDealsProposed          string `json:"totalStorageDealsProposed"`
 	TotalStorageDealProposalAccepted   string `json:"totalStorageDealProposalAccepted"`
@@ -110,8 +116,63 @@ func GetRetrievalStats(w http.ResponseWriter, r *http.Request, ps httprouter.Par
 
 }
 
-func GetStorageStats(w http.ResponseWriter, r *http.Request, ps httprouter.Params) {
+func GetContentDealsAttempted(w http.ResponseWriter, r *http.Request, ps httprouter.Params) {
+	//select count(*) from content_deals as c1, contents as c2 where c1.id = c2.id;
+	ctx := api.InitializeContext(r)
+	var totalDealsAttempted int
+	err := dao.DB.Raw("select count(*) from content_deals as c1, contents as c2 where c1.id = c2.id").Scan(&totalDealsAttempted).Error
+	if err != nil {
+		api.ReturnError(ctx, w, r, err)
+		return
+	}
+	api.WriteJSON(ctx, w, totalDealsAttempted)
 
+}
+func GetTotalFiles(w http.ResponseWriter, r *http.Request, ps httprouter.Params) {
+	ctx := api.InitializeContext(r)
+	var totalFiles int64
+	// select count(*) as "Total Files" from contents where active and not aggregate
+	err := dao.DB.Raw("select count(*) from contents where active and not aggregate").Scan(&totalFiles).Error
+	if err != nil {
+		api.ReturnError(ctx, w, r, err)
+		return
+	}
+	api.WriteJSON(ctx, w, totalFiles)
+}
+
+func GetTotalStorageInTib(w http.ResponseWriter, r *http.Request, ps httprouter.Params) {
+	//select (sum(size)/1000000000000) as "Total Storage" from contents where active and not aggregated_in > 0
+	ctx := api.InitializeContext(r)
+	var totalStorage int64
+	err := dao.DB.Raw("select (sum(size)/1000000000000) from contents where active and not aggregated_in > 0").Scan(&totalStorage).Error
+	if err != nil {
+		api.ReturnError(ctx, w, r, err)
+		return
+	}
+	api.WriteJSON(ctx, w, totalStorage)
+}
+func GetStorageRateStats(w http.ResponseWriter, r *http.Request, ps httprouter.Params) {
+	var storageRateStats StorageRateStats
+	//select ((t.success  * 1.0 /t.total  * 1.0) * 100) as "Success", ((t.failed * 1.0 / t.total * 1.0) * 100) as "Failure" from (select
+	// (select count(*) from content_deals as c1 where failed = false) as total,
+	// (select count(*) from content_deals as c1 where failed = false and deal_id > 0) as success,
+	// (select count(*) from content_deals as c1 where failed = false and deal_id = 0) as failed) as t;
+	ctx := api.InitializeContext(r)
+	successFailRate := dao.DB.Raw("" +
+		"select " +
+		" ((t.success  * 1.0 /t.total  * 1.0) * 100)," +
+		" ((t.failed * 1.0 / t.total * 1.0) * 100)" +
+		"from (select (select count(*) from content_deals as c1 where failed = false) as total, " +
+		"	(select count(*) from content_deals as c1 where failed = false and deal_id > 0) as success, " +
+		"	(select count(*) from content_deals as c1 where failed = false and deal_id = 0) as failed" +
+		") as t").Scan(&storageRateStats).Error
+
+	if successFailRate != nil {
+		api.ReturnError(ctx, w, r, successFailRate)
+		return
+	}
+
+	api.WriteJSON(ctx, w, storageRateStats)
 }
 
 func GetSystemStats(w http.ResponseWriter, r *http.Request, ps httprouter.Params) {

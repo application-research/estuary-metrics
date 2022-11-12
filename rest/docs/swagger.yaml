@@ -1,24 +1,5 @@
 basePath: /
 definitions:
-  api.CrudAPI:
-    properties:
-      create_url:
-        type: string
-      delete_url:
-        type: string
-      fetch_ddl_url:
-        type: string
-      name:
-        type: string
-      retrieve_many_url:
-        type: string
-      retrieve_one_url:
-        type: string
-      table_info:
-        $ref: '#/definitions/model.TableInfo'
-      update_url:
-        type: string
-    type: object
   api.HTTPError:
     properties:
       code:
@@ -535,17 +516,36 @@ definitions:
       uuid:
         type: string
     type: object
+  objectsapi.CrudAPI:
+    properties:
+      create_url:
+        type: string
+      delete_url:
+        type: string
+      fetch_ddl_url:
+        type: string
+      name:
+        type: string
+      retrieve_many_url:
+        type: string
+      retrieve_one_url:
+        type: string
+      table_info:
+        $ref: '#/definitions/model.TableInfo'
+      update_url:
+        type: string
+    type: object
 host: localhost:3030
 info:
   contact:
     email: me@me.com
     name: Me
     url: http://me.com/terms.html
-  description: Sample CRUD objects-api for estuary db
+  description: Estuary Metrics API
   license:
     name: Apache 2.0
     url: http://www.apache.org/licenses/LICENSE-2.0.html
-  title: Sample CRUD objects-api for estuary db
+  title: Estuary Metrics API
   version: "1.0"
 paths:
   /authtokens:
@@ -592,65 +592,7 @@ paths:
       summary: Get list of AuthTokens
       tags:
       - AuthTokens
-    post:
-      consumes:
-      - application/json
-      description: add to add a single record to auth_tokens table in the estuary
-        database
-      parameters:
-      - description: Add AuthTokens
-        in: body
-        name: AuthTokens
-        required: true
-        schema:
-          $ref: '#/definitions/model.AuthToken'
-      produces:
-      - application/json
-      responses:
-        "200":
-          description: OK
-          schema:
-            $ref: '#/definitions/model.AuthToken'
-        "400":
-          description: Bad Request
-          schema:
-            $ref: '#/definitions/api.HTTPError'
-        "404":
-          description: Not Found
-          schema:
-            $ref: '#/definitions/api.HTTPError'
-      summary: Add an record to auth_tokens table
-      tags:
-      - AuthTokens
   /authtokens/{argID}:
-    delete:
-      consumes:
-      - application/json
-      description: Delete a single record from auth_tokens table in the estuary database
-      parameters:
-      - description: id
-        in: path
-        name: argID
-        required: true
-        type: integer
-      produces:
-      - application/json
-      responses:
-        "204":
-          description: No Content
-          schema:
-            $ref: '#/definitions/model.AuthToken'
-        "400":
-          description: Bad Request
-          schema:
-            $ref: '#/definitions/api.HTTPError'
-        "500":
-          description: Internal Server Error
-          schema:
-            $ref: '#/definitions/api.HTTPError'
-      summary: Delete a record from auth_tokens
-      tags:
-      - AuthTokens
     get:
       consumes:
       - application/json
@@ -679,40 +621,6 @@ paths:
           schema:
             $ref: '#/definitions/api.HTTPError'
       summary: Get record from table AuthTokens by  argID
-      tags:
-      - AuthTokens
-    put:
-      consumes:
-      - application/json
-      description: Update a single record from auth_tokens table in the estuary database
-      parameters:
-      - description: id
-        in: path
-        name: argID
-        required: true
-        type: integer
-      - description: Update AuthTokens record
-        in: body
-        name: AuthTokens
-        required: true
-        schema:
-          $ref: '#/definitions/model.AuthToken'
-      produces:
-      - application/json
-      responses:
-        "200":
-          description: OK
-          schema:
-            $ref: '#/definitions/model.AuthToken'
-        "400":
-          description: Bad Request
-          schema:
-            $ref: '#/definitions/api.HTTPError'
-        "404":
-          description: Not Found
-          schema:
-            $ref: '#/definitions/api.HTTPError'
-      summary: Update an record in table auth_tokens
       tags:
       - AuthTokens
   /autoretrieves:
@@ -759,66 +667,7 @@ paths:
       summary: Get list of Autoretrieves
       tags:
       - Autoretrieves
-    post:
-      consumes:
-      - application/json
-      description: add to add a single record to autoretrieves table in the estuary
-        database
-      parameters:
-      - description: Add Autoretrieves
-        in: body
-        name: Autoretrieves
-        required: true
-        schema:
-          $ref: '#/definitions/model.Autoretrieve'
-      produces:
-      - application/json
-      responses:
-        "200":
-          description: OK
-          schema:
-            $ref: '#/definitions/model.Autoretrieve'
-        "400":
-          description: Bad Request
-          schema:
-            $ref: '#/definitions/api.HTTPError'
-        "404":
-          description: Not Found
-          schema:
-            $ref: '#/definitions/api.HTTPError'
-      summary: Add an record to autoretrieves table
-      tags:
-      - Autoretrieves
   /autoretrieves/{argID}:
-    delete:
-      consumes:
-      - application/json
-      description: Delete a single record from autoretrieves table in the estuary
-        database
-      parameters:
-      - description: id
-        in: path
-        name: argID
-        required: true
-        type: integer
-      produces:
-      - application/json
-      responses:
-        "204":
-          description: No Content
-          schema:
-            $ref: '#/definitions/model.Autoretrieve'
-        "400":
-          description: Bad Request
-          schema:
-            $ref: '#/definitions/api.HTTPError'
-        "500":
-          description: Internal Server Error
-          schema:
-            $ref: '#/definitions/api.HTTPError'
-      summary: Delete a record from autoretrieves
-      tags:
-      - Autoretrieves
     get:
       consumes:
       - application/json
@@ -847,41 +696,6 @@ paths:
           schema:
             $ref: '#/definitions/api.HTTPError'
       summary: Get record from table Autoretrieves by  argID
-      tags:
-      - Autoretrieves
-    put:
-      consumes:
-      - application/json
-      description: Update a single record from autoretrieves table in the estuary
-        database
-      parameters:
-      - description: id
-        in: path
-        name: argID
-        required: true
-        type: integer
-      - description: Update Autoretrieves record
-        in: body
-        name: Autoretrieves
-        required: true
-        schema:
-          $ref: '#/definitions/model.Autoretrieve'
-      produces:
-      - application/json
-      responses:
-        "200":
-          description: OK
-          schema:
-            $ref: '#/definitions/model.Autoretrieve'
-        "400":
-          description: Bad Request
-          schema:
-            $ref: '#/definitions/api.HTTPError'
-        "404":
-          description: Not Found
-          schema:
-            $ref: '#/definitions/api.HTTPError'
-      summary: Update an record in table autoretrieves
       tags:
       - Autoretrieves
   /collectionrefs:
@@ -928,66 +742,7 @@ paths:
       summary: Get list of CollectionRefs
       tags:
       - CollectionRefs
-    post:
-      consumes:
-      - application/json
-      description: add to add a single record to collection_refs table in the estuary
-        database
-      parameters:
-      - description: Add CollectionRefs
-        in: body
-        name: CollectionRefs
-        required: true
-        schema:
-          $ref: '#/definitions/model.CollectionRef'
-      produces:
-      - application/json
-      responses:
-        "200":
-          description: OK
-          schema:
-            $ref: '#/definitions/model.CollectionRef'
-        "400":
-          description: Bad Request
-          schema:
-            $ref: '#/definitions/api.HTTPError'
-        "404":
-          description: Not Found
-          schema:
-            $ref: '#/definitions/api.HTTPError'
-      summary: Add an record to collection_refs table
-      tags:
-      - CollectionRefs
   /collectionrefs/{argID}:
-    delete:
-      consumes:
-      - application/json
-      description: Delete a single record from collection_refs table in the estuary
-        database
-      parameters:
-      - description: id
-        in: path
-        name: argID
-        required: true
-        type: integer
-      produces:
-      - application/json
-      responses:
-        "204":
-          description: No Content
-          schema:
-            $ref: '#/definitions/model.CollectionRef'
-        "400":
-          description: Bad Request
-          schema:
-            $ref: '#/definitions/api.HTTPError'
-        "500":
-          description: Internal Server Error
-          schema:
-            $ref: '#/definitions/api.HTTPError'
-      summary: Delete a record from collection_refs
-      tags:
-      - CollectionRefs
     get:
       consumes:
       - application/json
@@ -1016,41 +771,6 @@ paths:
           schema:
             $ref: '#/definitions/api.HTTPError'
       summary: Get record from table CollectionRefs by  argID
-      tags:
-      - CollectionRefs
-    put:
-      consumes:
-      - application/json
-      description: Update a single record from collection_refs table in the estuary
-        database
-      parameters:
-      - description: id
-        in: path
-        name: argID
-        required: true
-        type: integer
-      - description: Update CollectionRefs record
-        in: body
-        name: CollectionRefs
-        required: true
-        schema:
-          $ref: '#/definitions/model.CollectionRef'
-      produces:
-      - application/json
-      responses:
-        "200":
-          description: OK
-          schema:
-            $ref: '#/definitions/model.CollectionRef'
-        "400":
-          description: Bad Request
-          schema:
-            $ref: '#/definitions/api.HTTPError'
-        "404":
-          description: Not Found
-          schema:
-            $ref: '#/definitions/api.HTTPError'
-      summary: Update an record in table collection_refs
       tags:
       - CollectionRefs
   /collections:
@@ -1097,65 +817,7 @@ paths:
       summary: Get list of Collections
       tags:
       - Collections
-    post:
-      consumes:
-      - application/json
-      description: add to add a single record to collections table in the estuary
-        database
-      parameters:
-      - description: Add Collections
-        in: body
-        name: Collections
-        required: true
-        schema:
-          $ref: '#/definitions/model.Collection'
-      produces:
-      - application/json
-      responses:
-        "200":
-          description: OK
-          schema:
-            $ref: '#/definitions/model.Collection'
-        "400":
-          description: Bad Request
-          schema:
-            $ref: '#/definitions/api.HTTPError'
-        "404":
-          description: Not Found
-          schema:
-            $ref: '#/definitions/api.HTTPError'
-      summary: Add an record to collections table
-      tags:
-      - Collections
   /collections/{argID}:
-    delete:
-      consumes:
-      - application/json
-      description: Delete a single record from collections table in the estuary database
-      parameters:
-      - description: id
-        in: path
-        name: argID
-        required: true
-        type: integer
-      produces:
-      - application/json
-      responses:
-        "204":
-          description: No Content
-          schema:
-            $ref: '#/definitions/model.Collection'
-        "400":
-          description: Bad Request
-          schema:
-            $ref: '#/definitions/api.HTTPError'
-        "500":
-          description: Internal Server Error
-          schema:
-            $ref: '#/definitions/api.HTTPError'
-      summary: Delete a record from collections
-      tags:
-      - Collections
     get:
       consumes:
       - application/json
@@ -1184,40 +846,6 @@ paths:
           schema:
             $ref: '#/definitions/api.HTTPError'
       summary: Get record from table Collections by  argID
-      tags:
-      - Collections
-    put:
-      consumes:
-      - application/json
-      description: Update a single record from collections table in the estuary database
-      parameters:
-      - description: id
-        in: path
-        name: argID
-        required: true
-        type: integer
-      - description: Update Collections record
-        in: body
-        name: Collections
-        required: true
-        schema:
-          $ref: '#/definitions/model.Collection'
-      produces:
-      - application/json
-      responses:
-        "200":
-          description: OK
-          schema:
-            $ref: '#/definitions/model.Collection'
-        "400":
-          description: Bad Request
-          schema:
-            $ref: '#/definitions/api.HTTPError'
-        "404":
-          description: Not Found
-          schema:
-            $ref: '#/definitions/api.HTTPError'
-      summary: Update an record in table collections
       tags:
       - Collections
   /contentdeals:
@@ -1264,66 +892,7 @@ paths:
       summary: Get list of ContentDeals
       tags:
       - ContentDeals
-    post:
-      consumes:
-      - application/json
-      description: add to add a single record to content_deals table in the estuary
-        database
-      parameters:
-      - description: Add ContentDeals
-        in: body
-        name: ContentDeals
-        required: true
-        schema:
-          $ref: '#/definitions/model.ContentDeal'
-      produces:
-      - application/json
-      responses:
-        "200":
-          description: OK
-          schema:
-            $ref: '#/definitions/model.ContentDeal'
-        "400":
-          description: Bad Request
-          schema:
-            $ref: '#/definitions/api.HTTPError'
-        "404":
-          description: Not Found
-          schema:
-            $ref: '#/definitions/api.HTTPError'
-      summary: Add an record to content_deals table
-      tags:
-      - ContentDeals
   /contentdeals/{argID}:
-    delete:
-      consumes:
-      - application/json
-      description: Delete a single record from content_deals table in the estuary
-        database
-      parameters:
-      - description: id
-        in: path
-        name: argID
-        required: true
-        type: integer
-      produces:
-      - application/json
-      responses:
-        "204":
-          description: No Content
-          schema:
-            $ref: '#/definitions/model.ContentDeal'
-        "400":
-          description: Bad Request
-          schema:
-            $ref: '#/definitions/api.HTTPError'
-        "500":
-          description: Internal Server Error
-          schema:
-            $ref: '#/definitions/api.HTTPError'
-      summary: Delete a record from content_deals
-      tags:
-      - ContentDeals
     get:
       consumes:
       - application/json
@@ -1352,41 +921,6 @@ paths:
           schema:
             $ref: '#/definitions/api.HTTPError'
       summary: Get record from table ContentDeals by  argID
-      tags:
-      - ContentDeals
-    put:
-      consumes:
-      - application/json
-      description: Update a single record from content_deals table in the estuary
-        database
-      parameters:
-      - description: id
-        in: path
-        name: argID
-        required: true
-        type: integer
-      - description: Update ContentDeals record
-        in: body
-        name: ContentDeals
-        required: true
-        schema:
-          $ref: '#/definitions/model.ContentDeal'
-      produces:
-      - application/json
-      responses:
-        "200":
-          description: OK
-          schema:
-            $ref: '#/definitions/model.ContentDeal'
-        "400":
-          description: Bad Request
-          schema:
-            $ref: '#/definitions/api.HTTPError'
-        "404":
-          description: Not Found
-          schema:
-            $ref: '#/definitions/api.HTTPError'
-      summary: Update an record in table content_deals
       tags:
       - ContentDeals
   /contents:
@@ -1433,64 +967,7 @@ paths:
       summary: Get list of Contents
       tags:
       - Contents
-    post:
-      consumes:
-      - application/json
-      description: add to add a single record to contents table in the estuary database
-      parameters:
-      - description: Add Contents
-        in: body
-        name: Contents
-        required: true
-        schema:
-          $ref: '#/definitions/model.Content'
-      produces:
-      - application/json
-      responses:
-        "200":
-          description: OK
-          schema:
-            $ref: '#/definitions/model.Content'
-        "400":
-          description: Bad Request
-          schema:
-            $ref: '#/definitions/api.HTTPError'
-        "404":
-          description: Not Found
-          schema:
-            $ref: '#/definitions/api.HTTPError'
-      summary: Add an record to contents table
-      tags:
-      - Contents
   /contents/{argID}:
-    delete:
-      consumes:
-      - application/json
-      description: Delete a single record from contents table in the estuary database
-      parameters:
-      - description: id
-        in: path
-        name: argID
-        required: true
-        type: integer
-      produces:
-      - application/json
-      responses:
-        "204":
-          description: No Content
-          schema:
-            $ref: '#/definitions/model.Content'
-        "400":
-          description: Bad Request
-          schema:
-            $ref: '#/definitions/api.HTTPError'
-        "500":
-          description: Internal Server Error
-          schema:
-            $ref: '#/definitions/api.HTTPError'
-      summary: Delete a record from contents
-      tags:
-      - Contents
     get:
       consumes:
       - application/json
@@ -1521,40 +998,6 @@ paths:
       summary: Get record from table Contents by  argID
       tags:
       - Contents
-    put:
-      consumes:
-      - application/json
-      description: Update a single record from contents table in the estuary database
-      parameters:
-      - description: id
-        in: path
-        name: argID
-        required: true
-        type: integer
-      - description: Update Contents record
-        in: body
-        name: Contents
-        required: true
-        schema:
-          $ref: '#/definitions/model.Content'
-      produces:
-      - application/json
-      responses:
-        "200":
-          description: OK
-          schema:
-            $ref: '#/definitions/model.Content'
-        "400":
-          description: Bad Request
-          schema:
-            $ref: '#/definitions/api.HTTPError'
-        "404":
-          description: Not Found
-          schema:
-            $ref: '#/definitions/api.HTTPError'
-      summary: Update an record in table contents
-      tags:
-      - Contents
   /ddl:
     get:
       consumes:
@@ -1567,7 +1010,7 @@ paths:
         "200":
           description: OK
           schema:
-            $ref: '#/definitions/api.CrudAPI'
+            $ref: '#/definitions/objectsapi.CrudAPI'
       summary: Gets a list of ddl endpoints available for tables in the estuary database
       tags:
       - TableInfo
@@ -1589,7 +1032,7 @@ paths:
         "200":
           description: OK
           schema:
-            $ref: '#/definitions/api.CrudAPI'
+            $ref: '#/definitions/objectsapi.CrudAPI'
         "400":
           description: Bad Request
           schema:
@@ -1646,64 +1089,7 @@ paths:
       summary: Get list of Dealers
       tags:
       - Dealers
-    post:
-      consumes:
-      - application/json
-      description: add to add a single record to dealers table in the estuary database
-      parameters:
-      - description: Add Dealers
-        in: body
-        name: Dealers
-        required: true
-        schema:
-          $ref: '#/definitions/model.Dealer'
-      produces:
-      - application/json
-      responses:
-        "200":
-          description: OK
-          schema:
-            $ref: '#/definitions/model.Dealer'
-        "400":
-          description: Bad Request
-          schema:
-            $ref: '#/definitions/api.HTTPError'
-        "404":
-          description: Not Found
-          schema:
-            $ref: '#/definitions/api.HTTPError'
-      summary: Add an record to dealers table
-      tags:
-      - Dealers
   /dealers/{argID}:
-    delete:
-      consumes:
-      - application/json
-      description: Delete a single record from dealers table in the estuary database
-      parameters:
-      - description: id
-        in: path
-        name: argID
-        required: true
-        type: integer
-      produces:
-      - application/json
-      responses:
-        "204":
-          description: No Content
-          schema:
-            $ref: '#/definitions/model.Dealer'
-        "400":
-          description: Bad Request
-          schema:
-            $ref: '#/definitions/api.HTTPError'
-        "500":
-          description: Internal Server Error
-          schema:
-            $ref: '#/definitions/api.HTTPError'
-      summary: Delete a record from dealers
-      tags:
-      - Dealers
     get:
       consumes:
       - application/json
@@ -1732,40 +1118,6 @@ paths:
           schema:
             $ref: '#/definitions/api.HTTPError'
       summary: Get record from table Dealers by  argID
-      tags:
-      - Dealers
-    put:
-      consumes:
-      - application/json
-      description: Update a single record from dealers table in the estuary database
-      parameters:
-      - description: id
-        in: path
-        name: argID
-        required: true
-        type: integer
-      - description: Update Dealers record
-        in: body
-        name: Dealers
-        required: true
-        schema:
-          $ref: '#/definitions/model.Dealer'
-      produces:
-      - application/json
-      responses:
-        "200":
-          description: OK
-          schema:
-            $ref: '#/definitions/model.Dealer'
-        "400":
-          description: Bad Request
-          schema:
-            $ref: '#/definitions/api.HTTPError'
-        "404":
-          description: Not Found
-          schema:
-            $ref: '#/definitions/api.HTTPError'
-      summary: Update an record in table dealers
       tags:
       - Dealers
   /dferecords:
@@ -1812,65 +1164,7 @@ paths:
       summary: Get list of DfeRecords
       tags:
       - DfeRecords
-    post:
-      consumes:
-      - application/json
-      description: add to add a single record to dfe_records table in the estuary
-        database
-      parameters:
-      - description: Add DfeRecords
-        in: body
-        name: DfeRecords
-        required: true
-        schema:
-          $ref: '#/definitions/model.DfeRecord'
-      produces:
-      - application/json
-      responses:
-        "200":
-          description: OK
-          schema:
-            $ref: '#/definitions/model.DfeRecord'
-        "400":
-          description: Bad Request
-          schema:
-            $ref: '#/definitions/api.HTTPError'
-        "404":
-          description: Not Found
-          schema:
-            $ref: '#/definitions/api.HTTPError'
-      summary: Add an record to dfe_records table
-      tags:
-      - DfeRecords
   /dferecords/{argID}:
-    delete:
-      consumes:
-      - application/json
-      description: Delete a single record from dfe_records table in the estuary database
-      parameters:
-      - description: id
-        in: path
-        name: argID
-        required: true
-        type: integer
-      produces:
-      - application/json
-      responses:
-        "204":
-          description: No Content
-          schema:
-            $ref: '#/definitions/model.DfeRecord'
-        "400":
-          description: Bad Request
-          schema:
-            $ref: '#/definitions/api.HTTPError'
-        "500":
-          description: Internal Server Error
-          schema:
-            $ref: '#/definitions/api.HTTPError'
-      summary: Delete a record from dfe_records
-      tags:
-      - DfeRecords
     get:
       consumes:
       - application/json
@@ -1899,40 +1193,6 @@ paths:
           schema:
             $ref: '#/definitions/api.HTTPError'
       summary: Get record from table DfeRecords by  argID
-      tags:
-      - DfeRecords
-    put:
-      consumes:
-      - application/json
-      description: Update a single record from dfe_records table in the estuary database
-      parameters:
-      - description: id
-        in: path
-        name: argID
-        required: true
-        type: integer
-      - description: Update DfeRecords record
-        in: body
-        name: DfeRecords
-        required: true
-        schema:
-          $ref: '#/definitions/model.DfeRecord'
-      produces:
-      - application/json
-      responses:
-        "200":
-          description: OK
-          schema:
-            $ref: '#/definitions/model.DfeRecord'
-        "400":
-          description: Bad Request
-          schema:
-            $ref: '#/definitions/api.HTTPError'
-        "404":
-          description: Not Found
-          schema:
-            $ref: '#/definitions/api.HTTPError'
-      summary: Update an record in table dfe_records
       tags:
       - DfeRecords
   /invitecodes:
@@ -1979,65 +1239,7 @@ paths:
       summary: Get list of InviteCodes
       tags:
       - InviteCodes
-    post:
-      consumes:
-      - application/json
-      description: add to add a single record to invite_codes table in the estuary
-        database
-      parameters:
-      - description: Add InviteCodes
-        in: body
-        name: InviteCodes
-        required: true
-        schema:
-          $ref: '#/definitions/model.InviteCode'
-      produces:
-      - application/json
-      responses:
-        "200":
-          description: OK
-          schema:
-            $ref: '#/definitions/model.InviteCode'
-        "400":
-          description: Bad Request
-          schema:
-            $ref: '#/definitions/api.HTTPError'
-        "404":
-          description: Not Found
-          schema:
-            $ref: '#/definitions/api.HTTPError'
-      summary: Add an record to invite_codes table
-      tags:
-      - InviteCodes
   /invitecodes/{argID}:
-    delete:
-      consumes:
-      - application/json
-      description: Delete a single record from invite_codes table in the estuary database
-      parameters:
-      - description: id
-        in: path
-        name: argID
-        required: true
-        type: integer
-      produces:
-      - application/json
-      responses:
-        "204":
-          description: No Content
-          schema:
-            $ref: '#/definitions/model.InviteCode'
-        "400":
-          description: Bad Request
-          schema:
-            $ref: '#/definitions/api.HTTPError'
-        "500":
-          description: Internal Server Error
-          schema:
-            $ref: '#/definitions/api.HTTPError'
-      summary: Delete a record from invite_codes
-      tags:
-      - InviteCodes
     get:
       consumes:
       - application/json
@@ -2066,40 +1268,6 @@ paths:
           schema:
             $ref: '#/definitions/api.HTTPError'
       summary: Get record from table InviteCodes by  argID
-      tags:
-      - InviteCodes
-    put:
-      consumes:
-      - application/json
-      description: Update a single record from invite_codes table in the estuary database
-      parameters:
-      - description: id
-        in: path
-        name: argID
-        required: true
-        type: integer
-      - description: Update InviteCodes record
-        in: body
-        name: InviteCodes
-        required: true
-        schema:
-          $ref: '#/definitions/model.InviteCode'
-      produces:
-      - application/json
-      responses:
-        "200":
-          description: OK
-          schema:
-            $ref: '#/definitions/model.InviteCode'
-        "400":
-          description: Bad Request
-          schema:
-            $ref: '#/definitions/api.HTTPError'
-        "404":
-          description: Not Found
-          schema:
-            $ref: '#/definitions/api.HTTPError'
-      summary: Update an record in table invite_codes
       tags:
       - InviteCodes
   /minerstorageasks:
@@ -2146,66 +1314,7 @@ paths:
       summary: Get list of MinerStorageAsks
       tags:
       - MinerStorageAsks
-    post:
-      consumes:
-      - application/json
-      description: add to add a single record to miner_storage_asks table in the estuary
-        database
-      parameters:
-      - description: Add MinerStorageAsks
-        in: body
-        name: MinerStorageAsks
-        required: true
-        schema:
-          $ref: '#/definitions/model.MinerStorageAsk'
-      produces:
-      - application/json
-      responses:
-        "200":
-          description: OK
-          schema:
-            $ref: '#/definitions/model.MinerStorageAsk'
-        "400":
-          description: Bad Request
-          schema:
-            $ref: '#/definitions/api.HTTPError'
-        "404":
-          description: Not Found
-          schema:
-            $ref: '#/definitions/api.HTTPError'
-      summary: Add an record to miner_storage_asks table
-      tags:
-      - MinerStorageAsks
   /minerstorageasks/{argID}:
-    delete:
-      consumes:
-      - application/json
-      description: Delete a single record from miner_storage_asks table in the estuary
-        database
-      parameters:
-      - description: id
-        in: path
-        name: argID
-        required: true
-        type: integer
-      produces:
-      - application/json
-      responses:
-        "204":
-          description: No Content
-          schema:
-            $ref: '#/definitions/model.MinerStorageAsk'
-        "400":
-          description: Bad Request
-          schema:
-            $ref: '#/definitions/api.HTTPError'
-        "500":
-          description: Internal Server Error
-          schema:
-            $ref: '#/definitions/api.HTTPError'
-      summary: Delete a record from miner_storage_asks
-      tags:
-      - MinerStorageAsks
     get:
       consumes:
       - application/json
@@ -2234,41 +1343,6 @@ paths:
           schema:
             $ref: '#/definitions/api.HTTPError'
       summary: Get record from table MinerStorageAsks by  argID
-      tags:
-      - MinerStorageAsks
-    put:
-      consumes:
-      - application/json
-      description: Update a single record from miner_storage_asks table in the estuary
-        database
-      parameters:
-      - description: id
-        in: path
-        name: argID
-        required: true
-        type: integer
-      - description: Update MinerStorageAsks record
-        in: body
-        name: MinerStorageAsks
-        required: true
-        schema:
-          $ref: '#/definitions/model.MinerStorageAsk'
-      produces:
-      - application/json
-      responses:
-        "200":
-          description: OK
-          schema:
-            $ref: '#/definitions/model.MinerStorageAsk'
-        "400":
-          description: Bad Request
-          schema:
-            $ref: '#/definitions/api.HTTPError'
-        "404":
-          description: Not Found
-          schema:
-            $ref: '#/definitions/api.HTTPError'
-      summary: Update an record in table miner_storage_asks
       tags:
       - MinerStorageAsks
   /objects:
@@ -2315,64 +1389,7 @@ paths:
       summary: Get list of Objects
       tags:
       - Objects
-    post:
-      consumes:
-      - application/json
-      description: add to add a single record to objects table in the estuary database
-      parameters:
-      - description: Add Objects
-        in: body
-        name: Objects
-        required: true
-        schema:
-          $ref: '#/definitions/model.Object'
-      produces:
-      - application/json
-      responses:
-        "200":
-          description: OK
-          schema:
-            $ref: '#/definitions/model.Object'
-        "400":
-          description: Bad Request
-          schema:
-            $ref: '#/definitions/api.HTTPError'
-        "404":
-          description: Not Found
-          schema:
-            $ref: '#/definitions/api.HTTPError'
-      summary: Add an record to objects table
-      tags:
-      - Objects
   /objects/{argID}:
-    delete:
-      consumes:
-      - application/json
-      description: Delete a single record from objects table in the estuary database
-      parameters:
-      - description: id
-        in: path
-        name: argID
-        required: true
-        type: integer
-      produces:
-      - application/json
-      responses:
-        "204":
-          description: No Content
-          schema:
-            $ref: '#/definitions/model.Object'
-        "400":
-          description: Bad Request
-          schema:
-            $ref: '#/definitions/api.HTTPError'
-        "500":
-          description: Internal Server Error
-          schema:
-            $ref: '#/definitions/api.HTTPError'
-      summary: Delete a record from objects
-      tags:
-      - Objects
     get:
       consumes:
       - application/json
@@ -2401,40 +1418,6 @@ paths:
           schema:
             $ref: '#/definitions/api.HTTPError'
       summary: Get record from table Objects by  argID
-      tags:
-      - Objects
-    put:
-      consumes:
-      - application/json
-      description: Update a single record from objects table in the estuary database
-      parameters:
-      - description: id
-        in: path
-        name: argID
-        required: true
-        type: integer
-      - description: Update Objects record
-        in: body
-        name: Objects
-        required: true
-        schema:
-          $ref: '#/definitions/model.Object'
-      produces:
-      - application/json
-      responses:
-        "200":
-          description: OK
-          schema:
-            $ref: '#/definitions/model.Object'
-        "400":
-          description: Bad Request
-          schema:
-            $ref: '#/definitions/api.HTTPError'
-        "404":
-          description: Not Found
-          schema:
-            $ref: '#/definitions/api.HTTPError'
-      summary: Update an record in table objects
       tags:
       - Objects
   /objrefs:
@@ -2481,64 +1464,7 @@ paths:
       summary: Get list of ObjRefs
       tags:
       - ObjRefs
-    post:
-      consumes:
-      - application/json
-      description: add to add a single record to obj_refs table in the estuary database
-      parameters:
-      - description: Add ObjRefs
-        in: body
-        name: ObjRefs
-        required: true
-        schema:
-          $ref: '#/definitions/model.ObjRef'
-      produces:
-      - application/json
-      responses:
-        "200":
-          description: OK
-          schema:
-            $ref: '#/definitions/model.ObjRef'
-        "400":
-          description: Bad Request
-          schema:
-            $ref: '#/definitions/api.HTTPError'
-        "404":
-          description: Not Found
-          schema:
-            $ref: '#/definitions/api.HTTPError'
-      summary: Add an record to obj_refs table
-      tags:
-      - ObjRefs
   /objrefs/{argID}:
-    delete:
-      consumes:
-      - application/json
-      description: Delete a single record from obj_refs table in the estuary database
-      parameters:
-      - description: id
-        in: path
-        name: argID
-        required: true
-        type: integer
-      produces:
-      - application/json
-      responses:
-        "204":
-          description: No Content
-          schema:
-            $ref: '#/definitions/model.ObjRef'
-        "400":
-          description: Bad Request
-          schema:
-            $ref: '#/definitions/api.HTTPError'
-        "500":
-          description: Internal Server Error
-          schema:
-            $ref: '#/definitions/api.HTTPError'
-      summary: Delete a record from obj_refs
-      tags:
-      - ObjRefs
     get:
       consumes:
       - application/json
@@ -2567,40 +1493,6 @@ paths:
           schema:
             $ref: '#/definitions/api.HTTPError'
       summary: Get record from table ObjRefs by  argID
-      tags:
-      - ObjRefs
-    put:
-      consumes:
-      - application/json
-      description: Update a single record from obj_refs table in the estuary database
-      parameters:
-      - description: id
-        in: path
-        name: argID
-        required: true
-        type: integer
-      - description: Update ObjRefs record
-        in: body
-        name: ObjRefs
-        required: true
-        schema:
-          $ref: '#/definitions/model.ObjRef'
-      produces:
-      - application/json
-      responses:
-        "200":
-          description: OK
-          schema:
-            $ref: '#/definitions/model.ObjRef'
-        "400":
-          description: Bad Request
-          schema:
-            $ref: '#/definitions/api.HTTPError'
-        "404":
-          description: Not Found
-          schema:
-            $ref: '#/definitions/api.HTTPError'
-      summary: Update an record in table obj_refs
       tags:
       - ObjRefs
   /piececommrecords:
@@ -2647,66 +1539,7 @@ paths:
       summary: Get list of PieceCommRecords
       tags:
       - PieceCommRecords
-    post:
-      consumes:
-      - application/json
-      description: add to add a single record to piece_comm_records table in the estuary
-        database
-      parameters:
-      - description: Add PieceCommRecords
-        in: body
-        name: PieceCommRecords
-        required: true
-        schema:
-          $ref: '#/definitions/model.PieceCommRecord'
-      produces:
-      - application/json
-      responses:
-        "200":
-          description: OK
-          schema:
-            $ref: '#/definitions/model.PieceCommRecord'
-        "400":
-          description: Bad Request
-          schema:
-            $ref: '#/definitions/api.HTTPError'
-        "404":
-          description: Not Found
-          schema:
-            $ref: '#/definitions/api.HTTPError'
-      summary: Add an record to piece_comm_records table
-      tags:
-      - PieceCommRecords
   /piececommrecords/{argData}:
-    delete:
-      consumes:
-      - application/json
-      description: Delete a single record from piece_comm_records table in the estuary
-        database
-      parameters:
-      - description: data
-        in: path
-        name: argData
-        required: true
-        type: string
-      produces:
-      - application/json
-      responses:
-        "204":
-          description: No Content
-          schema:
-            $ref: '#/definitions/model.PieceCommRecord'
-        "400":
-          description: Bad Request
-          schema:
-            $ref: '#/definitions/api.HTTPError'
-        "500":
-          description: Internal Server Error
-          schema:
-            $ref: '#/definitions/api.HTTPError'
-      summary: Delete a record from piece_comm_records
-      tags:
-      - PieceCommRecords
     get:
       consumes:
       - application/json
@@ -2736,41 +1569,6 @@ paths:
           schema:
             $ref: '#/definitions/api.HTTPError'
       summary: Get record from table PieceCommRecords by  argData
-      tags:
-      - PieceCommRecords
-    put:
-      consumes:
-      - application/json
-      description: Update a single record from piece_comm_records table in the estuary
-        database
-      parameters:
-      - description: data
-        in: path
-        name: argData
-        required: true
-        type: string
-      - description: Update PieceCommRecords record
-        in: body
-        name: PieceCommRecords
-        required: true
-        schema:
-          $ref: '#/definitions/model.PieceCommRecord'
-      produces:
-      - application/json
-      responses:
-        "200":
-          description: OK
-          schema:
-            $ref: '#/definitions/model.PieceCommRecord'
-        "400":
-          description: Bad Request
-          schema:
-            $ref: '#/definitions/api.HTTPError'
-        "404":
-          description: Not Found
-          schema:
-            $ref: '#/definitions/api.HTTPError'
-      summary: Update an record in table piece_comm_records
       tags:
       - PieceCommRecords
   /proposalrecords:
@@ -2986,66 +1784,7 @@ paths:
       summary: Get list of RetrievalFailureRecords
       tags:
       - RetrievalFailureRecords
-    post:
-      consumes:
-      - application/json
-      description: add to add a single record to retrieval_failure_records table in
-        the estuary database
-      parameters:
-      - description: Add RetrievalFailureRecords
-        in: body
-        name: RetrievalFailureRecords
-        required: true
-        schema:
-          $ref: '#/definitions/model.RetrievalFailureRecord'
-      produces:
-      - application/json
-      responses:
-        "200":
-          description: OK
-          schema:
-            $ref: '#/definitions/model.RetrievalFailureRecord'
-        "400":
-          description: Bad Request
-          schema:
-            $ref: '#/definitions/api.HTTPError'
-        "404":
-          description: Not Found
-          schema:
-            $ref: '#/definitions/api.HTTPError'
-      summary: Add an record to retrieval_failure_records table
-      tags:
-      - RetrievalFailureRecords
   /retrievalfailurerecords/{argID}:
-    delete:
-      consumes:
-      - application/json
-      description: Delete a single record from retrieval_failure_records table in
-        the estuary database
-      parameters:
-      - description: id
-        in: path
-        name: argID
-        required: true
-        type: integer
-      produces:
-      - application/json
-      responses:
-        "204":
-          description: No Content
-          schema:
-            $ref: '#/definitions/model.RetrievalFailureRecord'
-        "400":
-          description: Bad Request
-          schema:
-            $ref: '#/definitions/api.HTTPError'
-        "500":
-          description: Internal Server Error
-          schema:
-            $ref: '#/definitions/api.HTTPError'
-      summary: Delete a record from retrieval_failure_records
-      tags:
-      - RetrievalFailureRecords
     get:
       consumes:
       - application/json
@@ -3074,41 +1813,6 @@ paths:
           schema:
             $ref: '#/definitions/api.HTTPError'
       summary: Get record from table RetrievalFailureRecords by  argID
-      tags:
-      - RetrievalFailureRecords
-    put:
-      consumes:
-      - application/json
-      description: Update a single record from retrieval_failure_records table in
-        the estuary database
-      parameters:
-      - description: id
-        in: path
-        name: argID
-        required: true
-        type: integer
-      - description: Update RetrievalFailureRecords record
-        in: body
-        name: RetrievalFailureRecords
-        required: true
-        schema:
-          $ref: '#/definitions/model.RetrievalFailureRecord'
-      produces:
-      - application/json
-      responses:
-        "200":
-          description: OK
-          schema:
-            $ref: '#/definitions/model.RetrievalFailureRecord'
-        "400":
-          description: Bad Request
-          schema:
-            $ref: '#/definitions/api.HTTPError'
-        "404":
-          description: Not Found
-          schema:
-            $ref: '#/definitions/api.HTTPError'
-      summary: Update an record in table retrieval_failure_records
       tags:
       - RetrievalFailureRecords
   /retrievalsuccessrecords:
@@ -3155,66 +1859,7 @@ paths:
       summary: Get list of RetrievalSuccessRecords
       tags:
       - RetrievalSuccessRecords
-    post:
-      consumes:
-      - application/json
-      description: add to add a single record to retrieval_success_records table in
-        the estuary database
-      parameters:
-      - description: Add RetrievalSuccessRecords
-        in: body
-        name: RetrievalSuccessRecords
-        required: true
-        schema:
-          $ref: '#/definitions/model.RetrievalSuccessRecord'
-      produces:
-      - application/json
-      responses:
-        "200":
-          description: OK
-          schema:
-            $ref: '#/definitions/model.RetrievalSuccessRecord'
-        "400":
-          description: Bad Request
-          schema:
-            $ref: '#/definitions/api.HTTPError'
-        "404":
-          description: Not Found
-          schema:
-            $ref: '#/definitions/api.HTTPError'
-      summary: Add an record to retrieval_success_records table
-      tags:
-      - RetrievalSuccessRecords
   /retrievalsuccessrecords/{argPropCid}:
-    delete:
-      consumes:
-      - application/json
-      description: Delete a single record from retrieval_success_records table in
-        the estuary database
-      parameters:
-      - description: prop_cid
-        in: path
-        name: argPropCid
-        required: true
-        type: string
-      produces:
-      - application/json
-      responses:
-        "204":
-          description: No Content
-          schema:
-            $ref: '#/definitions/model.RetrievalSuccessRecord'
-        "400":
-          description: Bad Request
-          schema:
-            $ref: '#/definitions/api.HTTPError'
-        "500":
-          description: Internal Server Error
-          schema:
-            $ref: '#/definitions/api.HTTPError'
-      summary: Delete a record from retrieval_success_records
-      tags:
-      - RetrievalSuccessRecords
     get:
       consumes:
       - application/json
@@ -3243,41 +1888,6 @@ paths:
           schema:
             $ref: '#/definitions/api.HTTPError'
       summary: Get record from table RetrievalSuccessRecords by  argPropCid
-      tags:
-      - RetrievalSuccessRecords
-    put:
-      consumes:
-      - application/json
-      description: Update a single record from retrieval_success_records table in
-        the estuary database
-      parameters:
-      - description: prop_cid
-        in: path
-        name: argPropCid
-        required: true
-        type: string
-      - description: Update RetrievalSuccessRecords record
-        in: body
-        name: RetrievalSuccessRecords
-        required: true
-        schema:
-          $ref: '#/definitions/model.RetrievalSuccessRecord'
-      produces:
-      - application/json
-      responses:
-        "200":
-          description: OK
-          schema:
-            $ref: '#/definitions/model.RetrievalSuccessRecord'
-        "400":
-          description: Bad Request
-          schema:
-            $ref: '#/definitions/api.HTTPError'
-        "404":
-          description: Not Found
-          schema:
-            $ref: '#/definitions/api.HTTPError'
-      summary: Update an record in table retrieval_success_records
       tags:
       - RetrievalSuccessRecords
   /shuttles:
@@ -3324,64 +1934,7 @@ paths:
       summary: Get list of Shuttles
       tags:
       - Shuttles
-    post:
-      consumes:
-      - application/json
-      description: add to add a single record to shuttles table in the estuary database
-      parameters:
-      - description: Add Shuttles
-        in: body
-        name: Shuttles
-        required: true
-        schema:
-          $ref: '#/definitions/model.Shuttle'
-      produces:
-      - application/json
-      responses:
-        "200":
-          description: OK
-          schema:
-            $ref: '#/definitions/model.Shuttle'
-        "400":
-          description: Bad Request
-          schema:
-            $ref: '#/definitions/api.HTTPError'
-        "404":
-          description: Not Found
-          schema:
-            $ref: '#/definitions/api.HTTPError'
-      summary: Add an record to shuttles table
-      tags:
-      - Shuttles
   /shuttles/{argID}:
-    delete:
-      consumes:
-      - application/json
-      description: Delete a single record from shuttles table in the estuary database
-      parameters:
-      - description: id
-        in: path
-        name: argID
-        required: true
-        type: integer
-      produces:
-      - application/json
-      responses:
-        "204":
-          description: No Content
-          schema:
-            $ref: '#/definitions/model.Shuttle'
-        "400":
-          description: Bad Request
-          schema:
-            $ref: '#/definitions/api.HTTPError'
-        "500":
-          description: Internal Server Error
-          schema:
-            $ref: '#/definitions/api.HTTPError'
-      summary: Delete a record from shuttles
-      tags:
-      - Shuttles
     get:
       consumes:
       - application/json
@@ -3410,40 +1963,6 @@ paths:
           schema:
             $ref: '#/definitions/api.HTTPError'
       summary: Get record from table Shuttles by  argID
-      tags:
-      - Shuttles
-    put:
-      consumes:
-      - application/json
-      description: Update a single record from shuttles table in the estuary database
-      parameters:
-      - description: id
-        in: path
-        name: argID
-        required: true
-        type: integer
-      - description: Update Shuttles record
-        in: body
-        name: Shuttles
-        required: true
-        schema:
-          $ref: '#/definitions/model.Shuttle'
-      produces:
-      - application/json
-      responses:
-        "200":
-          description: OK
-          schema:
-            $ref: '#/definitions/model.Shuttle'
-        "400":
-          description: Bad Request
-          schema:
-            $ref: '#/definitions/api.HTTPError'
-        "404":
-          description: Not Found
-          schema:
-            $ref: '#/definitions/api.HTTPError'
-      summary: Update an record in table shuttles
       tags:
       - Shuttles
   /storageminers:
@@ -3490,66 +2009,7 @@ paths:
       summary: Get list of StorageMiners
       tags:
       - StorageMiners
-    post:
-      consumes:
-      - application/json
-      description: add to add a single record to storage_miners table in the estuary
-        database
-      parameters:
-      - description: Add StorageMiners
-        in: body
-        name: StorageMiners
-        required: true
-        schema:
-          $ref: '#/definitions/model.StorageMiner'
-      produces:
-      - application/json
-      responses:
-        "200":
-          description: OK
-          schema:
-            $ref: '#/definitions/model.StorageMiner'
-        "400":
-          description: Bad Request
-          schema:
-            $ref: '#/definitions/api.HTTPError'
-        "404":
-          description: Not Found
-          schema:
-            $ref: '#/definitions/api.HTTPError'
-      summary: Add an record to storage_miners table
-      tags:
-      - StorageMiners
   /storageminers/{argID}:
-    delete:
-      consumes:
-      - application/json
-      description: Delete a single record from storage_miners table in the estuary
-        database
-      parameters:
-      - description: id
-        in: path
-        name: argID
-        required: true
-        type: integer
-      produces:
-      - application/json
-      responses:
-        "204":
-          description: No Content
-          schema:
-            $ref: '#/definitions/model.StorageMiner'
-        "400":
-          description: Bad Request
-          schema:
-            $ref: '#/definitions/api.HTTPError'
-        "500":
-          description: Internal Server Error
-          schema:
-            $ref: '#/definitions/api.HTTPError'
-      summary: Delete a record from storage_miners
-      tags:
-      - StorageMiners
     get:
       consumes:
       - application/json
@@ -3578,41 +2038,6 @@ paths:
           schema:
             $ref: '#/definitions/api.HTTPError'
       summary: Get record from table StorageMiners by  argID
-      tags:
-      - StorageMiners
-    put:
-      consumes:
-      - application/json
-      description: Update a single record from storage_miners table in the estuary
-        database
-      parameters:
-      - description: id
-        in: path
-        name: argID
-        required: true
-        type: integer
-      - description: Update StorageMiners record
-        in: body
-        name: StorageMiners
-        required: true
-        schema:
-          $ref: '#/definitions/model.StorageMiner'
-      produces:
-      - application/json
-      responses:
-        "200":
-          description: OK
-          schema:
-            $ref: '#/definitions/model.StorageMiner'
-        "400":
-          description: Bad Request
-          schema:
-            $ref: '#/definitions/api.HTTPError'
-        "404":
-          description: Not Found
-          schema:
-            $ref: '#/definitions/api.HTTPError'
-      summary: Update an record in table storage_miners
       tags:
       - StorageMiners
   /users:
@@ -3659,64 +2084,7 @@ paths:
       summary: Get list of Users
       tags:
       - Users
-    post:
-      consumes:
-      - application/json
-      description: add to add a single record to users table in the estuary database
-      parameters:
-      - description: Add Users
-        in: body
-        name: Users
-        required: true
-        schema:
-          $ref: '#/definitions/model.User'
-      produces:
-      - application/json
-      responses:
-        "200":
-          description: OK
-          schema:
-            $ref: '#/definitions/model.User'
-        "400":
-          description: Bad Request
-          schema:
-            $ref: '#/definitions/api.HTTPError'
-        "404":
-          description: Not Found
-          schema:
-            $ref: '#/definitions/api.HTTPError'
-      summary: Add an record to users table
-      tags:
-      - Users
   /users/{argID}:
-    delete:
-      consumes:
-      - application/json
-      description: Delete a single record from users table in the estuary database
-      parameters:
-      - description: id
-        in: path
-        name: argID
-        required: true
-        type: integer
-      produces:
-      - application/json
-      responses:
-        "204":
-          description: No Content
-          schema:
-            $ref: '#/definitions/model.User'
-        "400":
-          description: Bad Request
-          schema:
-            $ref: '#/definitions/api.HTTPError'
-        "500":
-          description: Internal Server Error
-          schema:
-            $ref: '#/definitions/api.HTTPError'
-      summary: Delete a record from users
-      tags:
-      - Users
     get:
       consumes:
       - application/json
@@ -3745,40 +2113,6 @@ paths:
           schema:
             $ref: '#/definitions/api.HTTPError'
       summary: Get record from table Users by  argID
-      tags:
-      - Users
-    put:
-      consumes:
-      - application/json
-      description: Update a single record from users table in the estuary database
-      parameters:
-      - description: id
-        in: path
-        name: argID
-        required: true
-        type: integer
-      - description: Update Users record
-        in: body
-        name: Users
-        required: true
-        schema:
-          $ref: '#/definitions/model.User'
-      produces:
-      - application/json
-      responses:
-        "200":
-          description: OK
-          schema:
-            $ref: '#/definitions/model.User'
-        "400":
-          description: Bad Request
-          schema:
-            $ref: '#/definitions/api.HTTPError'
-        "404":
-          description: Not Found
-          schema:
-            $ref: '#/definitions/api.HTTPError'
-      summary: Update an record in table users
       tags:
       - Users
   /users/count:

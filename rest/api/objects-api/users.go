@@ -66,9 +66,9 @@ func GetUsersDynamicQuery(w http.ResponseWriter, r *http.Request, ps httprouter.
 // @Description GetNumberOfUsersWithinRange is a handler to get the number of record(s) from users table in the estuary database
 // @Accept  json
 // @Produce  json
-// @Success 200 {object} objects-api.PagedResults{data=int64}
-// @Failure 400 {object} objects-api.HTTPError
-// @Failure 404 {object} objects-api.HTTPError
+// @Success 200 {object} api.PagedResults{data=int64}
+// @Failure 400 {object} api.HTTPError
+// @Failure 404 {object} api.HTTPError
 // @Router /users/count [get]
 // http "http://localhost:3030/users/count" X-Api-User:user123
 func GetNumberOfUsersWithinRange(w http.ResponseWriter, r *http.Request, ps httprouter.Params) {
@@ -107,9 +107,9 @@ func GetNumberOfUsersWithinRange(w http.ResponseWriter, r *http.Request, ps http
 // @Description GetNumberOfUsers is a handler to get the number of record(s) from users table in the estuary database
 // @Accept  json
 // @Produce  json
-// @Success 200 {object} objects-api.PagedResults{data=int64}
-// @Failure 400 {object} objects-api.HTTPError
-// @Failure 404 {object} objects-api.HTTPError
+// @Success 200 {object} api.PagedResults{data=int64}
+// @Failure 400 {object} api.HTTPError
+// @Failure 404 {object} api.HTTPError
 // @Router /users/count [get]
 // http "http://localhost:3030/users/within-range" X-Api-User:user123
 func GetNumberOfUsers(w http.ResponseWriter, r *http.Request, ps httprouter.Params) {
@@ -138,9 +138,9 @@ func GetNumberOfUsers(w http.ResponseWriter, r *http.Request, ps httprouter.Para
 // @Param   page     query    int     false        "page requested (defaults to 0)"
 // @Param   pagesize query    int     false        "number of records in a page  (defaults to 20)"
 // @Param   order    query    string  false        "db sort order column"
-// @Success 200 {object} objects-api.PagedResults{data=[]model.User}
-// @Failure 400 {object} objects-api.HTTPError
-// @Failure 404 {object} objects-api.HTTPError
+// @Success 200 {object} api.PagedResults{data=[]model.User}
+// @Failure 400 {object} api.HTTPError
+// @Failure 404 {object} api.HTTPError
 // @Router /users [get]
 // http "http://localhost:3030/users?page=0&pagesize=20" X-Api-User:user123
 func GetAllUsers(w http.ResponseWriter, r *http.Request, ps httprouter.Params) {
@@ -192,8 +192,8 @@ func GetAllUsers(w http.ResponseWriter, r *http.Request, ps httprouter.Params) {
 // @Produce  json
 // @Param  argID path int64 true "id"
 // @Success 200 {object} model.User
-// @Failure 400 {object} objects-api.HTTPError
-// @Failure 404 {object} objects-api.HTTPError "ErrNotFound, db record for id not found - returns NotFound HTTP 404 not found error"
+// @Failure 400 {object} api.HTTPError
+// @Failure 404 {object} api.HTTPError "ErrNotFound, db record for id not found - returns NotFound HTTP 404 not found error"
 // @Router /users/{argID} [get]
 // http "http://localhost:3030/users/1" X-Api-User:user123
 func GetUsers(w http.ResponseWriter, r *http.Request, ps httprouter.Params) {

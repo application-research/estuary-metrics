@@ -35,9 +35,9 @@ func GetAutoretrievesDynamicQuery(w http.ResponseWriter, r *http.Request, ps htt
 // @Param   page     query    int     false        "page requested (defaults to 0)"
 // @Param   pagesize query    int     false        "number of records in a page  (defaults to 20)"
 // @Param   order    query    string  false        "db sort order column"
-// @Success 200 {object} objects-api.PagedResults{data=[]model.Autoretrieve}
-// @Failure 400 {object} objects-api.HTTPError
-// @Failure 404 {object} objects-api.HTTPError
+// @Success 200 {object} api.PagedResults{data=[]model.Autoretrieve}
+// @Failure 400 {object} api.HTTPError
+// @Failure 404 {object} api.HTTPError
 // @Router /autoretrieves [get]
 // http "http://localhost:3030/autoretrieves?page=0&pagesize=20" X-Api-User:user123
 func GetAllAutoretrieves(w http.ResponseWriter, r *http.Request, ps httprouter.Params) {
@@ -80,8 +80,8 @@ func GetAllAutoretrieves(w http.ResponseWriter, r *http.Request, ps httprouter.P
 // @Produce  json
 // @Param  argID path int64 true "id"
 // @Success 200 {object} model.Autoretrieve
-// @Failure 400 {object} objects-api.HTTPError
-// @Failure 404 {object} objects-api.HTTPError "ErrNotFound, db record for id not found - returns NotFound HTTP 404 not found error"
+// @Failure 400 {object} api.HTTPError
+// @Failure 404 {object} api.HTTPError "ErrNotFound, db record for id not found - returns NotFound HTTP 404 not found error"
 // @Router /autoretrieves/{argID} [get]
 // http "http://localhost:3030/autoretrieves/1" X-Api-User:user123
 func GetAutoretrieves(w http.ResponseWriter, r *http.Request, ps httprouter.Params) {

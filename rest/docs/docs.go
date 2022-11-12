@@ -63,7 +63,7 @@ const docTemplate = `{
                         "schema": {
                             "allOf": [
                                 {
-                                    "$ref": "#/definitions/objects-api.PagedResults"
+                                    "$ref": "#/definitions/api.PagedResults"
                                 },
                                 {
                                     "type": "object",
@@ -82,57 +82,13 @@ const docTemplate = `{
                     "400": {
                         "description": "Bad Request",
                         "schema": {
-                            "$ref": "#/definitions/objects-api.HTTPError"
+                            "$ref": "#/definitions/api.HTTPError"
                         }
                     },
                     "404": {
                         "description": "Not Found",
                         "schema": {
-                            "$ref": "#/definitions/objects-api.HTTPError"
-                        }
-                    }
-                }
-            },
-            "post": {
-                "description": "add to add a single record to auth_tokens table in the estuary database",
-                "consumes": [
-                    "application/json"
-                ],
-                "produces": [
-                    "application/json"
-                ],
-                "tags": [
-                    "AuthTokens"
-                ],
-                "summary": "Add an record to auth_tokens table",
-                "parameters": [
-                    {
-                        "description": "Add AuthTokens",
-                        "name": "AuthTokens",
-                        "in": "body",
-                        "required": true,
-                        "schema": {
-                            "$ref": "#/definitions/model.AuthToken"
-                        }
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "OK",
-                        "schema": {
-                            "$ref": "#/definitions/model.AuthToken"
-                        }
-                    },
-                    "400": {
-                        "description": "Bad Request",
-                        "schema": {
-                            "$ref": "#/definitions/objects-api.HTTPError"
-                        }
-                    },
-                    "404": {
-                        "description": "Not Found",
-                        "schema": {
-                            "$ref": "#/definitions/objects-api.HTTPError"
+                            "$ref": "#/definitions/api.HTTPError"
                         }
                     }
                 }
@@ -170,106 +126,13 @@ const docTemplate = `{
                     "400": {
                         "description": "Bad Request",
                         "schema": {
-                            "$ref": "#/definitions/objects-api.HTTPError"
+                            "$ref": "#/definitions/api.HTTPError"
                         }
                     },
                     "404": {
                         "description": "ErrNotFound, db record for id not found - returns NotFound HTTP 404 not found error",
                         "schema": {
-                            "$ref": "#/definitions/objects-api.HTTPError"
-                        }
-                    }
-                }
-            },
-            "put": {
-                "description": "Update a single record from auth_tokens table in the estuary database",
-                "consumes": [
-                    "application/json"
-                ],
-                "produces": [
-                    "application/json"
-                ],
-                "tags": [
-                    "AuthTokens"
-                ],
-                "summary": "Update an record in table auth_tokens",
-                "parameters": [
-                    {
-                        "type": "integer",
-                        "description": "id",
-                        "name": "argID",
-                        "in": "path",
-                        "required": true
-                    },
-                    {
-                        "description": "Update AuthTokens record",
-                        "name": "AuthTokens",
-                        "in": "body",
-                        "required": true,
-                        "schema": {
-                            "$ref": "#/definitions/model.AuthToken"
-                        }
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "OK",
-                        "schema": {
-                            "$ref": "#/definitions/model.AuthToken"
-                        }
-                    },
-                    "400": {
-                        "description": "Bad Request",
-                        "schema": {
-                            "$ref": "#/definitions/objects-api.HTTPError"
-                        }
-                    },
-                    "404": {
-                        "description": "Not Found",
-                        "schema": {
-                            "$ref": "#/definitions/objects-api.HTTPError"
-                        }
-                    }
-                }
-            },
-            "delete": {
-                "description": "Delete a single record from auth_tokens table in the estuary database",
-                "consumes": [
-                    "application/json"
-                ],
-                "produces": [
-                    "application/json"
-                ],
-                "tags": [
-                    "AuthTokens"
-                ],
-                "summary": "Delete a record from auth_tokens",
-                "parameters": [
-                    {
-                        "type": "integer",
-                        "description": "id",
-                        "name": "argID",
-                        "in": "path",
-                        "required": true
-                    }
-                ],
-                "responses": {
-                    "204": {
-                        "description": "No Content",
-                        "schema": {
-                            "$ref": "#/definitions/model.AuthToken"
-                        }
-                    },
-                    "400": {
-                        "description": "Bad Request",
-                        "schema": {
-                            "$ref": "#/definitions/objects-api.HTTPError"
-                        }
-                    },
-                    "500": {
-                        "description": "Internal Server Error",
-                        "schema": {
-                            "$ref": "#/definitions/objects-api.HTTPError"
+                            "$ref": "#/definitions/api.HTTPError"
                         }
                     }
                 }
@@ -314,7 +177,7 @@ const docTemplate = `{
                         "schema": {
                             "allOf": [
                                 {
-                                    "$ref": "#/definitions/objects-api.PagedResults"
+                                    "$ref": "#/definitions/api.PagedResults"
                                 },
                                 {
                                     "type": "object",
@@ -333,57 +196,13 @@ const docTemplate = `{
                     "400": {
                         "description": "Bad Request",
                         "schema": {
-                            "$ref": "#/definitions/objects-api.HTTPError"
+                            "$ref": "#/definitions/api.HTTPError"
                         }
                     },
                     "404": {
                         "description": "Not Found",
                         "schema": {
-                            "$ref": "#/definitions/objects-api.HTTPError"
-                        }
-                    }
-                }
-            },
-            "post": {
-                "description": "add to add a single record to autoretrieves table in the estuary database",
-                "consumes": [
-                    "application/json"
-                ],
-                "produces": [
-                    "application/json"
-                ],
-                "tags": [
-                    "Autoretrieves"
-                ],
-                "summary": "Add an record to autoretrieves table",
-                "parameters": [
-                    {
-                        "description": "Add Autoretrieves",
-                        "name": "Autoretrieves",
-                        "in": "body",
-                        "required": true,
-                        "schema": {
-                            "$ref": "#/definitions/model.Autoretrieve"
-                        }
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "OK",
-                        "schema": {
-                            "$ref": "#/definitions/model.Autoretrieve"
-                        }
-                    },
-                    "400": {
-                        "description": "Bad Request",
-                        "schema": {
-                            "$ref": "#/definitions/objects-api.HTTPError"
-                        }
-                    },
-                    "404": {
-                        "description": "Not Found",
-                        "schema": {
-                            "$ref": "#/definitions/objects-api.HTTPError"
+                            "$ref": "#/definitions/api.HTTPError"
                         }
                     }
                 }
@@ -421,106 +240,13 @@ const docTemplate = `{
                     "400": {
                         "description": "Bad Request",
                         "schema": {
-                            "$ref": "#/definitions/objects-api.HTTPError"
+                            "$ref": "#/definitions/api.HTTPError"
                         }
                     },
                     "404": {
                         "description": "ErrNotFound, db record for id not found - returns NotFound HTTP 404 not found error",
                         "schema": {
-                            "$ref": "#/definitions/objects-api.HTTPError"
-                        }
-                    }
-                }
-            },
-            "put": {
-                "description": "Update a single record from autoretrieves table in the estuary database",
-                "consumes": [
-                    "application/json"
-                ],
-                "produces": [
-                    "application/json"
-                ],
-                "tags": [
-                    "Autoretrieves"
-                ],
-                "summary": "Update an record in table autoretrieves",
-                "parameters": [
-                    {
-                        "type": "integer",
-                        "description": "id",
-                        "name": "argID",
-                        "in": "path",
-                        "required": true
-                    },
-                    {
-                        "description": "Update Autoretrieves record",
-                        "name": "Autoretrieves",
-                        "in": "body",
-                        "required": true,
-                        "schema": {
-                            "$ref": "#/definitions/model.Autoretrieve"
-                        }
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "OK",
-                        "schema": {
-                            "$ref": "#/definitions/model.Autoretrieve"
-                        }
-                    },
-                    "400": {
-                        "description": "Bad Request",
-                        "schema": {
-                            "$ref": "#/definitions/objects-api.HTTPError"
-                        }
-                    },
-                    "404": {
-                        "description": "Not Found",
-                        "schema": {
-                            "$ref": "#/definitions/objects-api.HTTPError"
-                        }
-                    }
-                }
-            },
-            "delete": {
-                "description": "Delete a single record from autoretrieves table in the estuary database",
-                "consumes": [
-                    "application/json"
-                ],
-                "produces": [
-                    "application/json"
-                ],
-                "tags": [
-                    "Autoretrieves"
-                ],
-                "summary": "Delete a record from autoretrieves",
-                "parameters": [
-                    {
-                        "type": "integer",
-                        "description": "id",
-                        "name": "argID",
-                        "in": "path",
-                        "required": true
-                    }
-                ],
-                "responses": {
-                    "204": {
-                        "description": "No Content",
-                        "schema": {
-                            "$ref": "#/definitions/model.Autoretrieve"
-                        }
-                    },
-                    "400": {
-                        "description": "Bad Request",
-                        "schema": {
-                            "$ref": "#/definitions/objects-api.HTTPError"
-                        }
-                    },
-                    "500": {
-                        "description": "Internal Server Error",
-                        "schema": {
-                            "$ref": "#/definitions/objects-api.HTTPError"
+                            "$ref": "#/definitions/api.HTTPError"
                         }
                     }
                 }
@@ -565,7 +291,7 @@ const docTemplate = `{
                         "schema": {
                             "allOf": [
                                 {
-                                    "$ref": "#/definitions/objects-api.PagedResults"
+                                    "$ref": "#/definitions/api.PagedResults"
                                 },
                                 {
                                     "type": "object",
@@ -584,57 +310,13 @@ const docTemplate = `{
                     "400": {
                         "description": "Bad Request",
                         "schema": {
-                            "$ref": "#/definitions/objects-api.HTTPError"
+                            "$ref": "#/definitions/api.HTTPError"
                         }
                     },
                     "404": {
                         "description": "Not Found",
                         "schema": {
-                            "$ref": "#/definitions/objects-api.HTTPError"
-                        }
-                    }
-                }
-            },
-            "post": {
-                "description": "add to add a single record to collection_refs table in the estuary database",
-                "consumes": [
-                    "application/json"
-                ],
-                "produces": [
-                    "application/json"
-                ],
-                "tags": [
-                    "CollectionRefs"
-                ],
-                "summary": "Add an record to collection_refs table",
-                "parameters": [
-                    {
-                        "description": "Add CollectionRefs",
-                        "name": "CollectionRefs",
-                        "in": "body",
-                        "required": true,
-                        "schema": {
-                            "$ref": "#/definitions/model.CollectionRef"
-                        }
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "OK",
-                        "schema": {
-                            "$ref": "#/definitions/model.CollectionRef"
-                        }
-                    },
-                    "400": {
-                        "description": "Bad Request",
-                        "schema": {
-                            "$ref": "#/definitions/objects-api.HTTPError"
-                        }
-                    },
-                    "404": {
-                        "description": "Not Found",
-                        "schema": {
-                            "$ref": "#/definitions/objects-api.HTTPError"
+                            "$ref": "#/definitions/api.HTTPError"
                         }
                     }
                 }
@@ -672,106 +354,13 @@ const docTemplate = `{
                     "400": {
                         "description": "Bad Request",
                         "schema": {
-                            "$ref": "#/definitions/objects-api.HTTPError"
+                            "$ref": "#/definitions/api.HTTPError"
                         }
                     },
                     "404": {
                         "description": "ErrNotFound, db record for id not found - returns NotFound HTTP 404 not found error",
                         "schema": {
-                            "$ref": "#/definitions/objects-api.HTTPError"
-                        }
-                    }
-                }
-            },
-            "put": {
-                "description": "Update a single record from collection_refs table in the estuary database",
-                "consumes": [
-                    "application/json"
-                ],
-                "produces": [
-                    "application/json"
-                ],
-                "tags": [
-                    "CollectionRefs"
-                ],
-                "summary": "Update an record in table collection_refs",
-                "parameters": [
-                    {
-                        "type": "integer",
-                        "description": "id",
-                        "name": "argID",
-                        "in": "path",
-                        "required": true
-                    },
-                    {
-                        "description": "Update CollectionRefs record",
-                        "name": "CollectionRefs",
-                        "in": "body",
-                        "required": true,
-                        "schema": {
-                            "$ref": "#/definitions/model.CollectionRef"
-                        }
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "OK",
-                        "schema": {
-                            "$ref": "#/definitions/model.CollectionRef"
-                        }
-                    },
-                    "400": {
-                        "description": "Bad Request",
-                        "schema": {
-                            "$ref": "#/definitions/objects-api.HTTPError"
-                        }
-                    },
-                    "404": {
-                        "description": "Not Found",
-                        "schema": {
-                            "$ref": "#/definitions/objects-api.HTTPError"
-                        }
-                    }
-                }
-            },
-            "delete": {
-                "description": "Delete a single record from collection_refs table in the estuary database",
-                "consumes": [
-                    "application/json"
-                ],
-                "produces": [
-                    "application/json"
-                ],
-                "tags": [
-                    "CollectionRefs"
-                ],
-                "summary": "Delete a record from collection_refs",
-                "parameters": [
-                    {
-                        "type": "integer",
-                        "description": "id",
-                        "name": "argID",
-                        "in": "path",
-                        "required": true
-                    }
-                ],
-                "responses": {
-                    "204": {
-                        "description": "No Content",
-                        "schema": {
-                            "$ref": "#/definitions/model.CollectionRef"
-                        }
-                    },
-                    "400": {
-                        "description": "Bad Request",
-                        "schema": {
-                            "$ref": "#/definitions/objects-api.HTTPError"
-                        }
-                    },
-                    "500": {
-                        "description": "Internal Server Error",
-                        "schema": {
-                            "$ref": "#/definitions/objects-api.HTTPError"
+                            "$ref": "#/definitions/api.HTTPError"
                         }
                     }
                 }
@@ -816,7 +405,7 @@ const docTemplate = `{
                         "schema": {
                             "allOf": [
                                 {
-                                    "$ref": "#/definitions/objects-api.PagedResults"
+                                    "$ref": "#/definitions/api.PagedResults"
                                 },
                                 {
                                     "type": "object",
@@ -835,57 +424,13 @@ const docTemplate = `{
                     "400": {
                         "description": "Bad Request",
                         "schema": {
-                            "$ref": "#/definitions/objects-api.HTTPError"
+                            "$ref": "#/definitions/api.HTTPError"
                         }
                     },
                     "404": {
                         "description": "Not Found",
                         "schema": {
-                            "$ref": "#/definitions/objects-api.HTTPError"
-                        }
-                    }
-                }
-            },
-            "post": {
-                "description": "add to add a single record to collections table in the estuary database",
-                "consumes": [
-                    "application/json"
-                ],
-                "produces": [
-                    "application/json"
-                ],
-                "tags": [
-                    "Collections"
-                ],
-                "summary": "Add an record to collections table",
-                "parameters": [
-                    {
-                        "description": "Add Collections",
-                        "name": "Collections",
-                        "in": "body",
-                        "required": true,
-                        "schema": {
-                            "$ref": "#/definitions/model.Collection"
-                        }
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "OK",
-                        "schema": {
-                            "$ref": "#/definitions/model.Collection"
-                        }
-                    },
-                    "400": {
-                        "description": "Bad Request",
-                        "schema": {
-                            "$ref": "#/definitions/objects-api.HTTPError"
-                        }
-                    },
-                    "404": {
-                        "description": "Not Found",
-                        "schema": {
-                            "$ref": "#/definitions/objects-api.HTTPError"
+                            "$ref": "#/definitions/api.HTTPError"
                         }
                     }
                 }
@@ -923,106 +468,13 @@ const docTemplate = `{
                     "400": {
                         "description": "Bad Request",
                         "schema": {
-                            "$ref": "#/definitions/objects-api.HTTPError"
+                            "$ref": "#/definitions/api.HTTPError"
                         }
                     },
                     "404": {
                         "description": "ErrNotFound, db record for id not found - returns NotFound HTTP 404 not found error",
                         "schema": {
-                            "$ref": "#/definitions/objects-api.HTTPError"
-                        }
-                    }
-                }
-            },
-            "put": {
-                "description": "Update a single record from collections table in the estuary database",
-                "consumes": [
-                    "application/json"
-                ],
-                "produces": [
-                    "application/json"
-                ],
-                "tags": [
-                    "Collections"
-                ],
-                "summary": "Update an record in table collections",
-                "parameters": [
-                    {
-                        "type": "integer",
-                        "description": "id",
-                        "name": "argID",
-                        "in": "path",
-                        "required": true
-                    },
-                    {
-                        "description": "Update Collections record",
-                        "name": "Collections",
-                        "in": "body",
-                        "required": true,
-                        "schema": {
-                            "$ref": "#/definitions/model.Collection"
-                        }
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "OK",
-                        "schema": {
-                            "$ref": "#/definitions/model.Collection"
-                        }
-                    },
-                    "400": {
-                        "description": "Bad Request",
-                        "schema": {
-                            "$ref": "#/definitions/objects-api.HTTPError"
-                        }
-                    },
-                    "404": {
-                        "description": "Not Found",
-                        "schema": {
-                            "$ref": "#/definitions/objects-api.HTTPError"
-                        }
-                    }
-                }
-            },
-            "delete": {
-                "description": "Delete a single record from collections table in the estuary database",
-                "consumes": [
-                    "application/json"
-                ],
-                "produces": [
-                    "application/json"
-                ],
-                "tags": [
-                    "Collections"
-                ],
-                "summary": "Delete a record from collections",
-                "parameters": [
-                    {
-                        "type": "integer",
-                        "description": "id",
-                        "name": "argID",
-                        "in": "path",
-                        "required": true
-                    }
-                ],
-                "responses": {
-                    "204": {
-                        "description": "No Content",
-                        "schema": {
-                            "$ref": "#/definitions/model.Collection"
-                        }
-                    },
-                    "400": {
-                        "description": "Bad Request",
-                        "schema": {
-                            "$ref": "#/definitions/objects-api.HTTPError"
-                        }
-                    },
-                    "500": {
-                        "description": "Internal Server Error",
-                        "schema": {
-                            "$ref": "#/definitions/objects-api.HTTPError"
+                            "$ref": "#/definitions/api.HTTPError"
                         }
                     }
                 }
@@ -1067,7 +519,7 @@ const docTemplate = `{
                         "schema": {
                             "allOf": [
                                 {
-                                    "$ref": "#/definitions/objects-api.PagedResults"
+                                    "$ref": "#/definitions/api.PagedResults"
                                 },
                                 {
                                     "type": "object",
@@ -1086,57 +538,13 @@ const docTemplate = `{
                     "400": {
                         "description": "Bad Request",
                         "schema": {
-                            "$ref": "#/definitions/objects-api.HTTPError"
+                            "$ref": "#/definitions/api.HTTPError"
                         }
                     },
                     "404": {
                         "description": "Not Found",
                         "schema": {
-                            "$ref": "#/definitions/objects-api.HTTPError"
-                        }
-                    }
-                }
-            },
-            "post": {
-                "description": "add to add a single record to content_deals table in the estuary database",
-                "consumes": [
-                    "application/json"
-                ],
-                "produces": [
-                    "application/json"
-                ],
-                "tags": [
-                    "ContentDeals"
-                ],
-                "summary": "Add an record to content_deals table",
-                "parameters": [
-                    {
-                        "description": "Add ContentDeals",
-                        "name": "ContentDeals",
-                        "in": "body",
-                        "required": true,
-                        "schema": {
-                            "$ref": "#/definitions/model.ContentDeal"
-                        }
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "OK",
-                        "schema": {
-                            "$ref": "#/definitions/model.ContentDeal"
-                        }
-                    },
-                    "400": {
-                        "description": "Bad Request",
-                        "schema": {
-                            "$ref": "#/definitions/objects-api.HTTPError"
-                        }
-                    },
-                    "404": {
-                        "description": "Not Found",
-                        "schema": {
-                            "$ref": "#/definitions/objects-api.HTTPError"
+                            "$ref": "#/definitions/api.HTTPError"
                         }
                     }
                 }
@@ -1174,106 +582,13 @@ const docTemplate = `{
                     "400": {
                         "description": "Bad Request",
                         "schema": {
-                            "$ref": "#/definitions/objects-api.HTTPError"
+                            "$ref": "#/definitions/api.HTTPError"
                         }
                     },
                     "404": {
                         "description": "ErrNotFound, db record for id not found - returns NotFound HTTP 404 not found error",
                         "schema": {
-                            "$ref": "#/definitions/objects-api.HTTPError"
-                        }
-                    }
-                }
-            },
-            "put": {
-                "description": "Update a single record from content_deals table in the estuary database",
-                "consumes": [
-                    "application/json"
-                ],
-                "produces": [
-                    "application/json"
-                ],
-                "tags": [
-                    "ContentDeals"
-                ],
-                "summary": "Update an record in table content_deals",
-                "parameters": [
-                    {
-                        "type": "integer",
-                        "description": "id",
-                        "name": "argID",
-                        "in": "path",
-                        "required": true
-                    },
-                    {
-                        "description": "Update ContentDeals record",
-                        "name": "ContentDeals",
-                        "in": "body",
-                        "required": true,
-                        "schema": {
-                            "$ref": "#/definitions/model.ContentDeal"
-                        }
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "OK",
-                        "schema": {
-                            "$ref": "#/definitions/model.ContentDeal"
-                        }
-                    },
-                    "400": {
-                        "description": "Bad Request",
-                        "schema": {
-                            "$ref": "#/definitions/objects-api.HTTPError"
-                        }
-                    },
-                    "404": {
-                        "description": "Not Found",
-                        "schema": {
-                            "$ref": "#/definitions/objects-api.HTTPError"
-                        }
-                    }
-                }
-            },
-            "delete": {
-                "description": "Delete a single record from content_deals table in the estuary database",
-                "consumes": [
-                    "application/json"
-                ],
-                "produces": [
-                    "application/json"
-                ],
-                "tags": [
-                    "ContentDeals"
-                ],
-                "summary": "Delete a record from content_deals",
-                "parameters": [
-                    {
-                        "type": "integer",
-                        "description": "id",
-                        "name": "argID",
-                        "in": "path",
-                        "required": true
-                    }
-                ],
-                "responses": {
-                    "204": {
-                        "description": "No Content",
-                        "schema": {
-                            "$ref": "#/definitions/model.ContentDeal"
-                        }
-                    },
-                    "400": {
-                        "description": "Bad Request",
-                        "schema": {
-                            "$ref": "#/definitions/objects-api.HTTPError"
-                        }
-                    },
-                    "500": {
-                        "description": "Internal Server Error",
-                        "schema": {
-                            "$ref": "#/definitions/objects-api.HTTPError"
+                            "$ref": "#/definitions/api.HTTPError"
                         }
                     }
                 }
@@ -1318,7 +633,7 @@ const docTemplate = `{
                         "schema": {
                             "allOf": [
                                 {
-                                    "$ref": "#/definitions/objects-api.PagedResults"
+                                    "$ref": "#/definitions/api.PagedResults"
                                 },
                                 {
                                     "type": "object",
@@ -1337,57 +652,13 @@ const docTemplate = `{
                     "400": {
                         "description": "Bad Request",
                         "schema": {
-                            "$ref": "#/definitions/objects-api.HTTPError"
+                            "$ref": "#/definitions/api.HTTPError"
                         }
                     },
                     "404": {
                         "description": "Not Found",
                         "schema": {
-                            "$ref": "#/definitions/objects-api.HTTPError"
-                        }
-                    }
-                }
-            },
-            "post": {
-                "description": "add to add a single record to contents table in the estuary database",
-                "consumes": [
-                    "application/json"
-                ],
-                "produces": [
-                    "application/json"
-                ],
-                "tags": [
-                    "Contents"
-                ],
-                "summary": "Add an record to contents table",
-                "parameters": [
-                    {
-                        "description": "Add Contents",
-                        "name": "Contents",
-                        "in": "body",
-                        "required": true,
-                        "schema": {
-                            "$ref": "#/definitions/model.Content"
-                        }
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "OK",
-                        "schema": {
-                            "$ref": "#/definitions/model.Content"
-                        }
-                    },
-                    "400": {
-                        "description": "Bad Request",
-                        "schema": {
-                            "$ref": "#/definitions/objects-api.HTTPError"
-                        }
-                    },
-                    "404": {
-                        "description": "Not Found",
-                        "schema": {
-                            "$ref": "#/definitions/objects-api.HTTPError"
+                            "$ref": "#/definitions/api.HTTPError"
                         }
                     }
                 }
@@ -1425,106 +696,13 @@ const docTemplate = `{
                     "400": {
                         "description": "Bad Request",
                         "schema": {
-                            "$ref": "#/definitions/objects-api.HTTPError"
+                            "$ref": "#/definitions/api.HTTPError"
                         }
                     },
                     "404": {
                         "description": "ErrNotFound, db record for id not found - returns NotFound HTTP 404 not found error",
                         "schema": {
-                            "$ref": "#/definitions/objects-api.HTTPError"
-                        }
-                    }
-                }
-            },
-            "put": {
-                "description": "Update a single record from contents table in the estuary database",
-                "consumes": [
-                    "application/json"
-                ],
-                "produces": [
-                    "application/json"
-                ],
-                "tags": [
-                    "Contents"
-                ],
-                "summary": "Update an record in table contents",
-                "parameters": [
-                    {
-                        "type": "integer",
-                        "description": "id",
-                        "name": "argID",
-                        "in": "path",
-                        "required": true
-                    },
-                    {
-                        "description": "Update Contents record",
-                        "name": "Contents",
-                        "in": "body",
-                        "required": true,
-                        "schema": {
-                            "$ref": "#/definitions/model.Content"
-                        }
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "OK",
-                        "schema": {
-                            "$ref": "#/definitions/model.Content"
-                        }
-                    },
-                    "400": {
-                        "description": "Bad Request",
-                        "schema": {
-                            "$ref": "#/definitions/objects-api.HTTPError"
-                        }
-                    },
-                    "404": {
-                        "description": "Not Found",
-                        "schema": {
-                            "$ref": "#/definitions/objects-api.HTTPError"
-                        }
-                    }
-                }
-            },
-            "delete": {
-                "description": "Delete a single record from contents table in the estuary database",
-                "consumes": [
-                    "application/json"
-                ],
-                "produces": [
-                    "application/json"
-                ],
-                "tags": [
-                    "Contents"
-                ],
-                "summary": "Delete a record from contents",
-                "parameters": [
-                    {
-                        "type": "integer",
-                        "description": "id",
-                        "name": "argID",
-                        "in": "path",
-                        "required": true
-                    }
-                ],
-                "responses": {
-                    "204": {
-                        "description": "No Content",
-                        "schema": {
-                            "$ref": "#/definitions/model.Content"
-                        }
-                    },
-                    "400": {
-                        "description": "Bad Request",
-                        "schema": {
-                            "$ref": "#/definitions/objects-api.HTTPError"
-                        }
-                    },
-                    "500": {
-                        "description": "Internal Server Error",
-                        "schema": {
-                            "$ref": "#/definitions/objects-api.HTTPError"
+                            "$ref": "#/definitions/api.HTTPError"
                         }
                     }
                 }
@@ -1547,7 +725,7 @@ const docTemplate = `{
                     "200": {
                         "description": "OK",
                         "schema": {
-                            "$ref": "#/definitions/objects-api.CrudAPI"
+                            "$ref": "#/definitions/objectsapi.CrudAPI"
                         }
                     }
                 }
@@ -1579,19 +757,19 @@ const docTemplate = `{
                     "200": {
                         "description": "OK",
                         "schema": {
-                            "$ref": "#/definitions/objects-api.CrudAPI"
+                            "$ref": "#/definitions/objectsapi.CrudAPI"
                         }
                     },
                     "400": {
                         "description": "Bad Request",
                         "schema": {
-                            "$ref": "#/definitions/objects-api.HTTPError"
+                            "$ref": "#/definitions/api.HTTPError"
                         }
                     },
                     "404": {
                         "description": "ErrNotFound, db record for id not found - returns NotFound HTTP 404 not found error",
                         "schema": {
-                            "$ref": "#/definitions/objects-api.HTTPError"
+                            "$ref": "#/definitions/api.HTTPError"
                         }
                     }
                 }
@@ -1636,7 +814,7 @@ const docTemplate = `{
                         "schema": {
                             "allOf": [
                                 {
-                                    "$ref": "#/definitions/objects-api.PagedResults"
+                                    "$ref": "#/definitions/api.PagedResults"
                                 },
                                 {
                                     "type": "object",
@@ -1655,57 +833,13 @@ const docTemplate = `{
                     "400": {
                         "description": "Bad Request",
                         "schema": {
-                            "$ref": "#/definitions/objects-api.HTTPError"
+                            "$ref": "#/definitions/api.HTTPError"
                         }
                     },
                     "404": {
                         "description": "Not Found",
                         "schema": {
-                            "$ref": "#/definitions/objects-api.HTTPError"
-                        }
-                    }
-                }
-            },
-            "post": {
-                "description": "add to add a single record to dealers table in the estuary database",
-                "consumes": [
-                    "application/json"
-                ],
-                "produces": [
-                    "application/json"
-                ],
-                "tags": [
-                    "Dealers"
-                ],
-                "summary": "Add an record to dealers table",
-                "parameters": [
-                    {
-                        "description": "Add Dealers",
-                        "name": "Dealers",
-                        "in": "body",
-                        "required": true,
-                        "schema": {
-                            "$ref": "#/definitions/model.Dealer"
-                        }
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "OK",
-                        "schema": {
-                            "$ref": "#/definitions/model.Dealer"
-                        }
-                    },
-                    "400": {
-                        "description": "Bad Request",
-                        "schema": {
-                            "$ref": "#/definitions/objects-api.HTTPError"
-                        }
-                    },
-                    "404": {
-                        "description": "Not Found",
-                        "schema": {
-                            "$ref": "#/definitions/objects-api.HTTPError"
+                            "$ref": "#/definitions/api.HTTPError"
                         }
                     }
                 }
@@ -1743,106 +877,13 @@ const docTemplate = `{
                     "400": {
                         "description": "Bad Request",
                         "schema": {
-                            "$ref": "#/definitions/objects-api.HTTPError"
+                            "$ref": "#/definitions/api.HTTPError"
                         }
                     },
                     "404": {
                         "description": "ErrNotFound, db record for id not found - returns NotFound HTTP 404 not found error",
                         "schema": {
-                            "$ref": "#/definitions/objects-api.HTTPError"
-                        }
-                    }
-                }
-            },
-            "put": {
-                "description": "Update a single record from dealers table in the estuary database",
-                "consumes": [
-                    "application/json"
-                ],
-                "produces": [
-                    "application/json"
-                ],
-                "tags": [
-                    "Dealers"
-                ],
-                "summary": "Update an record in table dealers",
-                "parameters": [
-                    {
-                        "type": "integer",
-                        "description": "id",
-                        "name": "argID",
-                        "in": "path",
-                        "required": true
-                    },
-                    {
-                        "description": "Update Dealers record",
-                        "name": "Dealers",
-                        "in": "body",
-                        "required": true,
-                        "schema": {
-                            "$ref": "#/definitions/model.Dealer"
-                        }
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "OK",
-                        "schema": {
-                            "$ref": "#/definitions/model.Dealer"
-                        }
-                    },
-                    "400": {
-                        "description": "Bad Request",
-                        "schema": {
-                            "$ref": "#/definitions/objects-api.HTTPError"
-                        }
-                    },
-                    "404": {
-                        "description": "Not Found",
-                        "schema": {
-                            "$ref": "#/definitions/objects-api.HTTPError"
-                        }
-                    }
-                }
-            },
-            "delete": {
-                "description": "Delete a single record from dealers table in the estuary database",
-                "consumes": [
-                    "application/json"
-                ],
-                "produces": [
-                    "application/json"
-                ],
-                "tags": [
-                    "Dealers"
-                ],
-                "summary": "Delete a record from dealers",
-                "parameters": [
-                    {
-                        "type": "integer",
-                        "description": "id",
-                        "name": "argID",
-                        "in": "path",
-                        "required": true
-                    }
-                ],
-                "responses": {
-                    "204": {
-                        "description": "No Content",
-                        "schema": {
-                            "$ref": "#/definitions/model.Dealer"
-                        }
-                    },
-                    "400": {
-                        "description": "Bad Request",
-                        "schema": {
-                            "$ref": "#/definitions/objects-api.HTTPError"
-                        }
-                    },
-                    "500": {
-                        "description": "Internal Server Error",
-                        "schema": {
-                            "$ref": "#/definitions/objects-api.HTTPError"
+                            "$ref": "#/definitions/api.HTTPError"
                         }
                     }
                 }
@@ -1887,7 +928,7 @@ const docTemplate = `{
                         "schema": {
                             "allOf": [
                                 {
-                                    "$ref": "#/definitions/objects-api.PagedResults"
+                                    "$ref": "#/definitions/api.PagedResults"
                                 },
                                 {
                                     "type": "object",
@@ -1906,57 +947,13 @@ const docTemplate = `{
                     "400": {
                         "description": "Bad Request",
                         "schema": {
-                            "$ref": "#/definitions/objects-api.HTTPError"
+                            "$ref": "#/definitions/api.HTTPError"
                         }
                     },
                     "404": {
                         "description": "Not Found",
                         "schema": {
-                            "$ref": "#/definitions/objects-api.HTTPError"
-                        }
-                    }
-                }
-            },
-            "post": {
-                "description": "add to add a single record to dfe_records table in the estuary database",
-                "consumes": [
-                    "application/json"
-                ],
-                "produces": [
-                    "application/json"
-                ],
-                "tags": [
-                    "DfeRecords"
-                ],
-                "summary": "Add an record to dfe_records table",
-                "parameters": [
-                    {
-                        "description": "Add DfeRecords",
-                        "name": "DfeRecords",
-                        "in": "body",
-                        "required": true,
-                        "schema": {
-                            "$ref": "#/definitions/model.DfeRecord"
-                        }
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "OK",
-                        "schema": {
-                            "$ref": "#/definitions/model.DfeRecord"
-                        }
-                    },
-                    "400": {
-                        "description": "Bad Request",
-                        "schema": {
-                            "$ref": "#/definitions/objects-api.HTTPError"
-                        }
-                    },
-                    "404": {
-                        "description": "Not Found",
-                        "schema": {
-                            "$ref": "#/definitions/objects-api.HTTPError"
+                            "$ref": "#/definitions/api.HTTPError"
                         }
                     }
                 }
@@ -1994,106 +991,13 @@ const docTemplate = `{
                     "400": {
                         "description": "Bad Request",
                         "schema": {
-                            "$ref": "#/definitions/objects-api.HTTPError"
+                            "$ref": "#/definitions/api.HTTPError"
                         }
                     },
                     "404": {
                         "description": "ErrNotFound, db record for id not found - returns NotFound HTTP 404 not found error",
                         "schema": {
-                            "$ref": "#/definitions/objects-api.HTTPError"
-                        }
-                    }
-                }
-            },
-            "put": {
-                "description": "Update a single record from dfe_records table in the estuary database",
-                "consumes": [
-                    "application/json"
-                ],
-                "produces": [
-                    "application/json"
-                ],
-                "tags": [
-                    "DfeRecords"
-                ],
-                "summary": "Update an record in table dfe_records",
-                "parameters": [
-                    {
-                        "type": "integer",
-                        "description": "id",
-                        "name": "argID",
-                        "in": "path",
-                        "required": true
-                    },
-                    {
-                        "description": "Update DfeRecords record",
-                        "name": "DfeRecords",
-                        "in": "body",
-                        "required": true,
-                        "schema": {
-                            "$ref": "#/definitions/model.DfeRecord"
-                        }
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "OK",
-                        "schema": {
-                            "$ref": "#/definitions/model.DfeRecord"
-                        }
-                    },
-                    "400": {
-                        "description": "Bad Request",
-                        "schema": {
-                            "$ref": "#/definitions/objects-api.HTTPError"
-                        }
-                    },
-                    "404": {
-                        "description": "Not Found",
-                        "schema": {
-                            "$ref": "#/definitions/objects-api.HTTPError"
-                        }
-                    }
-                }
-            },
-            "delete": {
-                "description": "Delete a single record from dfe_records table in the estuary database",
-                "consumes": [
-                    "application/json"
-                ],
-                "produces": [
-                    "application/json"
-                ],
-                "tags": [
-                    "DfeRecords"
-                ],
-                "summary": "Delete a record from dfe_records",
-                "parameters": [
-                    {
-                        "type": "integer",
-                        "description": "id",
-                        "name": "argID",
-                        "in": "path",
-                        "required": true
-                    }
-                ],
-                "responses": {
-                    "204": {
-                        "description": "No Content",
-                        "schema": {
-                            "$ref": "#/definitions/model.DfeRecord"
-                        }
-                    },
-                    "400": {
-                        "description": "Bad Request",
-                        "schema": {
-                            "$ref": "#/definitions/objects-api.HTTPError"
-                        }
-                    },
-                    "500": {
-                        "description": "Internal Server Error",
-                        "schema": {
-                            "$ref": "#/definitions/objects-api.HTTPError"
+                            "$ref": "#/definitions/api.HTTPError"
                         }
                     }
                 }
@@ -2138,7 +1042,7 @@ const docTemplate = `{
                         "schema": {
                             "allOf": [
                                 {
-                                    "$ref": "#/definitions/objects-api.PagedResults"
+                                    "$ref": "#/definitions/api.PagedResults"
                                 },
                                 {
                                     "type": "object",
@@ -2157,57 +1061,13 @@ const docTemplate = `{
                     "400": {
                         "description": "Bad Request",
                         "schema": {
-                            "$ref": "#/definitions/objects-api.HTTPError"
+                            "$ref": "#/definitions/api.HTTPError"
                         }
                     },
                     "404": {
                         "description": "Not Found",
                         "schema": {
-                            "$ref": "#/definitions/objects-api.HTTPError"
-                        }
-                    }
-                }
-            },
-            "post": {
-                "description": "add to add a single record to invite_codes table in the estuary database",
-                "consumes": [
-                    "application/json"
-                ],
-                "produces": [
-                    "application/json"
-                ],
-                "tags": [
-                    "InviteCodes"
-                ],
-                "summary": "Add an record to invite_codes table",
-                "parameters": [
-                    {
-                        "description": "Add InviteCodes",
-                        "name": "InviteCodes",
-                        "in": "body",
-                        "required": true,
-                        "schema": {
-                            "$ref": "#/definitions/model.InviteCode"
-                        }
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "OK",
-                        "schema": {
-                            "$ref": "#/definitions/model.InviteCode"
-                        }
-                    },
-                    "400": {
-                        "description": "Bad Request",
-                        "schema": {
-                            "$ref": "#/definitions/objects-api.HTTPError"
-                        }
-                    },
-                    "404": {
-                        "description": "Not Found",
-                        "schema": {
-                            "$ref": "#/definitions/objects-api.HTTPError"
+                            "$ref": "#/definitions/api.HTTPError"
                         }
                     }
                 }
@@ -2245,106 +1105,13 @@ const docTemplate = `{
                     "400": {
                         "description": "Bad Request",
                         "schema": {
-                            "$ref": "#/definitions/objects-api.HTTPError"
+                            "$ref": "#/definitions/api.HTTPError"
                         }
                     },
                     "404": {
                         "description": "ErrNotFound, db record for id not found - returns NotFound HTTP 404 not found error",
                         "schema": {
-                            "$ref": "#/definitions/objects-api.HTTPError"
-                        }
-                    }
-                }
-            },
-            "put": {
-                "description": "Update a single record from invite_codes table in the estuary database",
-                "consumes": [
-                    "application/json"
-                ],
-                "produces": [
-                    "application/json"
-                ],
-                "tags": [
-                    "InviteCodes"
-                ],
-                "summary": "Update an record in table invite_codes",
-                "parameters": [
-                    {
-                        "type": "integer",
-                        "description": "id",
-                        "name": "argID",
-                        "in": "path",
-                        "required": true
-                    },
-                    {
-                        "description": "Update InviteCodes record",
-                        "name": "InviteCodes",
-                        "in": "body",
-                        "required": true,
-                        "schema": {
-                            "$ref": "#/definitions/model.InviteCode"
-                        }
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "OK",
-                        "schema": {
-                            "$ref": "#/definitions/model.InviteCode"
-                        }
-                    },
-                    "400": {
-                        "description": "Bad Request",
-                        "schema": {
-                            "$ref": "#/definitions/objects-api.HTTPError"
-                        }
-                    },
-                    "404": {
-                        "description": "Not Found",
-                        "schema": {
-                            "$ref": "#/definitions/objects-api.HTTPError"
-                        }
-                    }
-                }
-            },
-            "delete": {
-                "description": "Delete a single record from invite_codes table in the estuary database",
-                "consumes": [
-                    "application/json"
-                ],
-                "produces": [
-                    "application/json"
-                ],
-                "tags": [
-                    "InviteCodes"
-                ],
-                "summary": "Delete a record from invite_codes",
-                "parameters": [
-                    {
-                        "type": "integer",
-                        "description": "id",
-                        "name": "argID",
-                        "in": "path",
-                        "required": true
-                    }
-                ],
-                "responses": {
-                    "204": {
-                        "description": "No Content",
-                        "schema": {
-                            "$ref": "#/definitions/model.InviteCode"
-                        }
-                    },
-                    "400": {
-                        "description": "Bad Request",
-                        "schema": {
-                            "$ref": "#/definitions/objects-api.HTTPError"
-                        }
-                    },
-                    "500": {
-                        "description": "Internal Server Error",
-                        "schema": {
-                            "$ref": "#/definitions/objects-api.HTTPError"
+                            "$ref": "#/definitions/api.HTTPError"
                         }
                     }
                 }
@@ -2389,7 +1156,7 @@ const docTemplate = `{
                         "schema": {
                             "allOf": [
                                 {
-                                    "$ref": "#/definitions/objects-api.PagedResults"
+                                    "$ref": "#/definitions/api.PagedResults"
                                 },
                                 {
                                     "type": "object",
@@ -2408,57 +1175,13 @@ const docTemplate = `{
                     "400": {
                         "description": "Bad Request",
                         "schema": {
-                            "$ref": "#/definitions/objects-api.HTTPError"
+                            "$ref": "#/definitions/api.HTTPError"
                         }
                     },
                     "404": {
                         "description": "Not Found",
                         "schema": {
-                            "$ref": "#/definitions/objects-api.HTTPError"
-                        }
-                    }
-                }
-            },
-            "post": {
-                "description": "add to add a single record to miner_storage_asks table in the estuary database",
-                "consumes": [
-                    "application/json"
-                ],
-                "produces": [
-                    "application/json"
-                ],
-                "tags": [
-                    "MinerStorageAsks"
-                ],
-                "summary": "Add an record to miner_storage_asks table",
-                "parameters": [
-                    {
-                        "description": "Add MinerStorageAsks",
-                        "name": "MinerStorageAsks",
-                        "in": "body",
-                        "required": true,
-                        "schema": {
-                            "$ref": "#/definitions/model.MinerStorageAsk"
-                        }
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "OK",
-                        "schema": {
-                            "$ref": "#/definitions/model.MinerStorageAsk"
-                        }
-                    },
-                    "400": {
-                        "description": "Bad Request",
-                        "schema": {
-                            "$ref": "#/definitions/objects-api.HTTPError"
-                        }
-                    },
-                    "404": {
-                        "description": "Not Found",
-                        "schema": {
-                            "$ref": "#/definitions/objects-api.HTTPError"
+                            "$ref": "#/definitions/api.HTTPError"
                         }
                     }
                 }
@@ -2496,106 +1219,13 @@ const docTemplate = `{
                     "400": {
                         "description": "Bad Request",
                         "schema": {
-                            "$ref": "#/definitions/objects-api.HTTPError"
+                            "$ref": "#/definitions/api.HTTPError"
                         }
                     },
                     "404": {
                         "description": "ErrNotFound, db record for id not found - returns NotFound HTTP 404 not found error",
                         "schema": {
-                            "$ref": "#/definitions/objects-api.HTTPError"
-                        }
-                    }
-                }
-            },
-            "put": {
-                "description": "Update a single record from miner_storage_asks table in the estuary database",
-                "consumes": [
-                    "application/json"
-                ],
-                "produces": [
-                    "application/json"
-                ],
-                "tags": [
-                    "MinerStorageAsks"
-                ],
-                "summary": "Update an record in table miner_storage_asks",
-                "parameters": [
-                    {
-                        "type": "integer",
-                        "description": "id",
-                        "name": "argID",
-                        "in": "path",
-                        "required": true
-                    },
-                    {
-                        "description": "Update MinerStorageAsks record",
-                        "name": "MinerStorageAsks",
-                        "in": "body",
-                        "required": true,
-                        "schema": {
-                            "$ref": "#/definitions/model.MinerStorageAsk"
-                        }
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "OK",
-                        "schema": {
-                            "$ref": "#/definitions/model.MinerStorageAsk"
-                        }
-                    },
-                    "400": {
-                        "description": "Bad Request",
-                        "schema": {
-                            "$ref": "#/definitions/objects-api.HTTPError"
-                        }
-                    },
-                    "404": {
-                        "description": "Not Found",
-                        "schema": {
-                            "$ref": "#/definitions/objects-api.HTTPError"
-                        }
-                    }
-                }
-            },
-            "delete": {
-                "description": "Delete a single record from miner_storage_asks table in the estuary database",
-                "consumes": [
-                    "application/json"
-                ],
-                "produces": [
-                    "application/json"
-                ],
-                "tags": [
-                    "MinerStorageAsks"
-                ],
-                "summary": "Delete a record from miner_storage_asks",
-                "parameters": [
-                    {
-                        "type": "integer",
-                        "description": "id",
-                        "name": "argID",
-                        "in": "path",
-                        "required": true
-                    }
-                ],
-                "responses": {
-                    "204": {
-                        "description": "No Content",
-                        "schema": {
-                            "$ref": "#/definitions/model.MinerStorageAsk"
-                        }
-                    },
-                    "400": {
-                        "description": "Bad Request",
-                        "schema": {
-                            "$ref": "#/definitions/objects-api.HTTPError"
-                        }
-                    },
-                    "500": {
-                        "description": "Internal Server Error",
-                        "schema": {
-                            "$ref": "#/definitions/objects-api.HTTPError"
+                            "$ref": "#/definitions/api.HTTPError"
                         }
                     }
                 }
@@ -2640,7 +1270,7 @@ const docTemplate = `{
                         "schema": {
                             "allOf": [
                                 {
-                                    "$ref": "#/definitions/objects-api.PagedResults"
+                                    "$ref": "#/definitions/api.PagedResults"
                                 },
                                 {
                                     "type": "object",
@@ -2659,57 +1289,13 @@ const docTemplate = `{
                     "400": {
                         "description": "Bad Request",
                         "schema": {
-                            "$ref": "#/definitions/objects-api.HTTPError"
+                            "$ref": "#/definitions/api.HTTPError"
                         }
                     },
                     "404": {
                         "description": "Not Found",
                         "schema": {
-                            "$ref": "#/definitions/objects-api.HTTPError"
-                        }
-                    }
-                }
-            },
-            "post": {
-                "description": "add to add a single record to objects table in the estuary database",
-                "consumes": [
-                    "application/json"
-                ],
-                "produces": [
-                    "application/json"
-                ],
-                "tags": [
-                    "Objects"
-                ],
-                "summary": "Add an record to objects table",
-                "parameters": [
-                    {
-                        "description": "Add Objects",
-                        "name": "Objects",
-                        "in": "body",
-                        "required": true,
-                        "schema": {
-                            "$ref": "#/definitions/model.Object"
-                        }
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "OK",
-                        "schema": {
-                            "$ref": "#/definitions/model.Object"
-                        }
-                    },
-                    "400": {
-                        "description": "Bad Request",
-                        "schema": {
-                            "$ref": "#/definitions/objects-api.HTTPError"
-                        }
-                    },
-                    "404": {
-                        "description": "Not Found",
-                        "schema": {
-                            "$ref": "#/definitions/objects-api.HTTPError"
+                            "$ref": "#/definitions/api.HTTPError"
                         }
                     }
                 }
@@ -2747,106 +1333,13 @@ const docTemplate = `{
                     "400": {
                         "description": "Bad Request",
                         "schema": {
-                            "$ref": "#/definitions/objects-api.HTTPError"
+                            "$ref": "#/definitions/api.HTTPError"
                         }
                     },
                     "404": {
                         "description": "ErrNotFound, db record for id not found - returns NotFound HTTP 404 not found error",
                         "schema": {
-                            "$ref": "#/definitions/objects-api.HTTPError"
-                        }
-                    }
-                }
-            },
-            "put": {
-                "description": "Update a single record from objects table in the estuary database",
-                "consumes": [
-                    "application/json"
-                ],
-                "produces": [
-                    "application/json"
-                ],
-                "tags": [
-                    "Objects"
-                ],
-                "summary": "Update an record in table objects",
-                "parameters": [
-                    {
-                        "type": "integer",
-                        "description": "id",
-                        "name": "argID",
-                        "in": "path",
-                        "required": true
-                    },
-                    {
-                        "description": "Update Objects record",
-                        "name": "Objects",
-                        "in": "body",
-                        "required": true,
-                        "schema": {
-                            "$ref": "#/definitions/model.Object"
-                        }
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "OK",
-                        "schema": {
-                            "$ref": "#/definitions/model.Object"
-                        }
-                    },
-                    "400": {
-                        "description": "Bad Request",
-                        "schema": {
-                            "$ref": "#/definitions/objects-api.HTTPError"
-                        }
-                    },
-                    "404": {
-                        "description": "Not Found",
-                        "schema": {
-                            "$ref": "#/definitions/objects-api.HTTPError"
-                        }
-                    }
-                }
-            },
-            "delete": {
-                "description": "Delete a single record from objects table in the estuary database",
-                "consumes": [
-                    "application/json"
-                ],
-                "produces": [
-                    "application/json"
-                ],
-                "tags": [
-                    "Objects"
-                ],
-                "summary": "Delete a record from objects",
-                "parameters": [
-                    {
-                        "type": "integer",
-                        "description": "id",
-                        "name": "argID",
-                        "in": "path",
-                        "required": true
-                    }
-                ],
-                "responses": {
-                    "204": {
-                        "description": "No Content",
-                        "schema": {
-                            "$ref": "#/definitions/model.Object"
-                        }
-                    },
-                    "400": {
-                        "description": "Bad Request",
-                        "schema": {
-                            "$ref": "#/definitions/objects-api.HTTPError"
-                        }
-                    },
-                    "500": {
-                        "description": "Internal Server Error",
-                        "schema": {
-                            "$ref": "#/definitions/objects-api.HTTPError"
+                            "$ref": "#/definitions/api.HTTPError"
                         }
                     }
                 }
@@ -2891,7 +1384,7 @@ const docTemplate = `{
                         "schema": {
                             "allOf": [
                                 {
-                                    "$ref": "#/definitions/objects-api.PagedResults"
+                                    "$ref": "#/definitions/api.PagedResults"
                                 },
                                 {
                                     "type": "object",
@@ -2910,57 +1403,13 @@ const docTemplate = `{
                     "400": {
                         "description": "Bad Request",
                         "schema": {
-                            "$ref": "#/definitions/objects-api.HTTPError"
+                            "$ref": "#/definitions/api.HTTPError"
                         }
                     },
                     "404": {
                         "description": "Not Found",
                         "schema": {
-                            "$ref": "#/definitions/objects-api.HTTPError"
-                        }
-                    }
-                }
-            },
-            "post": {
-                "description": "add to add a single record to obj_refs table in the estuary database",
-                "consumes": [
-                    "application/json"
-                ],
-                "produces": [
-                    "application/json"
-                ],
-                "tags": [
-                    "ObjRefs"
-                ],
-                "summary": "Add an record to obj_refs table",
-                "parameters": [
-                    {
-                        "description": "Add ObjRefs",
-                        "name": "ObjRefs",
-                        "in": "body",
-                        "required": true,
-                        "schema": {
-                            "$ref": "#/definitions/model.ObjRef"
-                        }
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "OK",
-                        "schema": {
-                            "$ref": "#/definitions/model.ObjRef"
-                        }
-                    },
-                    "400": {
-                        "description": "Bad Request",
-                        "schema": {
-                            "$ref": "#/definitions/objects-api.HTTPError"
-                        }
-                    },
-                    "404": {
-                        "description": "Not Found",
-                        "schema": {
-                            "$ref": "#/definitions/objects-api.HTTPError"
+                            "$ref": "#/definitions/api.HTTPError"
                         }
                     }
                 }
@@ -2998,106 +1447,13 @@ const docTemplate = `{
                     "400": {
                         "description": "Bad Request",
                         "schema": {
-                            "$ref": "#/definitions/objects-api.HTTPError"
+                            "$ref": "#/definitions/api.HTTPError"
                         }
                     },
                     "404": {
                         "description": "ErrNotFound, db record for id not found - returns NotFound HTTP 404 not found error",
                         "schema": {
-                            "$ref": "#/definitions/objects-api.HTTPError"
-                        }
-                    }
-                }
-            },
-            "put": {
-                "description": "Update a single record from obj_refs table in the estuary database",
-                "consumes": [
-                    "application/json"
-                ],
-                "produces": [
-                    "application/json"
-                ],
-                "tags": [
-                    "ObjRefs"
-                ],
-                "summary": "Update an record in table obj_refs",
-                "parameters": [
-                    {
-                        "type": "integer",
-                        "description": "id",
-                        "name": "argID",
-                        "in": "path",
-                        "required": true
-                    },
-                    {
-                        "description": "Update ObjRefs record",
-                        "name": "ObjRefs",
-                        "in": "body",
-                        "required": true,
-                        "schema": {
-                            "$ref": "#/definitions/model.ObjRef"
-                        }
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "OK",
-                        "schema": {
-                            "$ref": "#/definitions/model.ObjRef"
-                        }
-                    },
-                    "400": {
-                        "description": "Bad Request",
-                        "schema": {
-                            "$ref": "#/definitions/objects-api.HTTPError"
-                        }
-                    },
-                    "404": {
-                        "description": "Not Found",
-                        "schema": {
-                            "$ref": "#/definitions/objects-api.HTTPError"
-                        }
-                    }
-                }
-            },
-            "delete": {
-                "description": "Delete a single record from obj_refs table in the estuary database",
-                "consumes": [
-                    "application/json"
-                ],
-                "produces": [
-                    "application/json"
-                ],
-                "tags": [
-                    "ObjRefs"
-                ],
-                "summary": "Delete a record from obj_refs",
-                "parameters": [
-                    {
-                        "type": "integer",
-                        "description": "id",
-                        "name": "argID",
-                        "in": "path",
-                        "required": true
-                    }
-                ],
-                "responses": {
-                    "204": {
-                        "description": "No Content",
-                        "schema": {
-                            "$ref": "#/definitions/model.ObjRef"
-                        }
-                    },
-                    "400": {
-                        "description": "Bad Request",
-                        "schema": {
-                            "$ref": "#/definitions/objects-api.HTTPError"
-                        }
-                    },
-                    "500": {
-                        "description": "Internal Server Error",
-                        "schema": {
-                            "$ref": "#/definitions/objects-api.HTTPError"
+                            "$ref": "#/definitions/api.HTTPError"
                         }
                     }
                 }
@@ -3142,7 +1498,7 @@ const docTemplate = `{
                         "schema": {
                             "allOf": [
                                 {
-                                    "$ref": "#/definitions/objects-api.PagedResults"
+                                    "$ref": "#/definitions/api.PagedResults"
                                 },
                                 {
                                     "type": "object",
@@ -3161,57 +1517,13 @@ const docTemplate = `{
                     "400": {
                         "description": "Bad Request",
                         "schema": {
-                            "$ref": "#/definitions/objects-api.HTTPError"
+                            "$ref": "#/definitions/api.HTTPError"
                         }
                     },
                     "404": {
                         "description": "Not Found",
                         "schema": {
-                            "$ref": "#/definitions/objects-api.HTTPError"
-                        }
-                    }
-                }
-            },
-            "post": {
-                "description": "add to add a single record to piece_comm_records table in the estuary database",
-                "consumes": [
-                    "application/json"
-                ],
-                "produces": [
-                    "application/json"
-                ],
-                "tags": [
-                    "PieceCommRecords"
-                ],
-                "summary": "Add an record to piece_comm_records table",
-                "parameters": [
-                    {
-                        "description": "Add PieceCommRecords",
-                        "name": "PieceCommRecords",
-                        "in": "body",
-                        "required": true,
-                        "schema": {
-                            "$ref": "#/definitions/model.PieceCommRecord"
-                        }
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "OK",
-                        "schema": {
-                            "$ref": "#/definitions/model.PieceCommRecord"
-                        }
-                    },
-                    "400": {
-                        "description": "Bad Request",
-                        "schema": {
-                            "$ref": "#/definitions/objects-api.HTTPError"
-                        }
-                    },
-                    "404": {
-                        "description": "Not Found",
-                        "schema": {
-                            "$ref": "#/definitions/objects-api.HTTPError"
+                            "$ref": "#/definitions/api.HTTPError"
                         }
                     }
                 }
@@ -3250,106 +1562,13 @@ const docTemplate = `{
                     "400": {
                         "description": "Bad Request",
                         "schema": {
-                            "$ref": "#/definitions/objects-api.HTTPError"
+                            "$ref": "#/definitions/api.HTTPError"
                         }
                     },
                     "404": {
                         "description": "ErrNotFound, db record for id not found - returns NotFound HTTP 404 not found error",
                         "schema": {
-                            "$ref": "#/definitions/objects-api.HTTPError"
-                        }
-                    }
-                }
-            },
-            "put": {
-                "description": "Update a single record from piece_comm_records table in the estuary database",
-                "consumes": [
-                    "application/json"
-                ],
-                "produces": [
-                    "application/json"
-                ],
-                "tags": [
-                    "PieceCommRecords"
-                ],
-                "summary": "Update an record in table piece_comm_records",
-                "parameters": [
-                    {
-                        "type": "string",
-                        "description": "data",
-                        "name": "argData",
-                        "in": "path",
-                        "required": true
-                    },
-                    {
-                        "description": "Update PieceCommRecords record",
-                        "name": "PieceCommRecords",
-                        "in": "body",
-                        "required": true,
-                        "schema": {
-                            "$ref": "#/definitions/model.PieceCommRecord"
-                        }
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "OK",
-                        "schema": {
-                            "$ref": "#/definitions/model.PieceCommRecord"
-                        }
-                    },
-                    "400": {
-                        "description": "Bad Request",
-                        "schema": {
-                            "$ref": "#/definitions/objects-api.HTTPError"
-                        }
-                    },
-                    "404": {
-                        "description": "Not Found",
-                        "schema": {
-                            "$ref": "#/definitions/objects-api.HTTPError"
-                        }
-                    }
-                }
-            },
-            "delete": {
-                "description": "Delete a single record from piece_comm_records table in the estuary database",
-                "consumes": [
-                    "application/json"
-                ],
-                "produces": [
-                    "application/json"
-                ],
-                "tags": [
-                    "PieceCommRecords"
-                ],
-                "summary": "Delete a record from piece_comm_records",
-                "parameters": [
-                    {
-                        "type": "string",
-                        "description": "data",
-                        "name": "argData",
-                        "in": "path",
-                        "required": true
-                    }
-                ],
-                "responses": {
-                    "204": {
-                        "description": "No Content",
-                        "schema": {
-                            "$ref": "#/definitions/model.PieceCommRecord"
-                        }
-                    },
-                    "400": {
-                        "description": "Bad Request",
-                        "schema": {
-                            "$ref": "#/definitions/objects-api.HTTPError"
-                        }
-                    },
-                    "500": {
-                        "description": "Internal Server Error",
-                        "schema": {
-                            "$ref": "#/definitions/objects-api.HTTPError"
+                            "$ref": "#/definitions/api.HTTPError"
                         }
                     }
                 }
@@ -3394,7 +1613,7 @@ const docTemplate = `{
                         "schema": {
                             "allOf": [
                                 {
-                                    "$ref": "#/definitions/objects-api.PagedResults"
+                                    "$ref": "#/definitions/api.PagedResults"
                                 },
                                 {
                                     "type": "object",
@@ -3413,13 +1632,13 @@ const docTemplate = `{
                     "400": {
                         "description": "Bad Request",
                         "schema": {
-                            "$ref": "#/definitions/objects-api.HTTPError"
+                            "$ref": "#/definitions/api.HTTPError"
                         }
                     },
                     "404": {
                         "description": "Not Found",
                         "schema": {
-                            "$ref": "#/definitions/objects-api.HTTPError"
+                            "$ref": "#/definitions/api.HTTPError"
                         }
                     }
                 }
@@ -3457,13 +1676,13 @@ const docTemplate = `{
                     "400": {
                         "description": "Bad Request",
                         "schema": {
-                            "$ref": "#/definitions/objects-api.HTTPError"
+                            "$ref": "#/definitions/api.HTTPError"
                         }
                     },
                     "404": {
                         "description": "Not Found",
                         "schema": {
-                            "$ref": "#/definitions/objects-api.HTTPError"
+                            "$ref": "#/definitions/api.HTTPError"
                         }
                     }
                 }
@@ -3501,13 +1720,13 @@ const docTemplate = `{
                     "400": {
                         "description": "Bad Request",
                         "schema": {
-                            "$ref": "#/definitions/objects-api.HTTPError"
+                            "$ref": "#/definitions/api.HTTPError"
                         }
                     },
                     "404": {
                         "description": "ErrNotFound, db record for id not found - returns NotFound HTTP 404 not found error",
                         "schema": {
-                            "$ref": "#/definitions/objects-api.HTTPError"
+                            "$ref": "#/definitions/api.HTTPError"
                         }
                     }
                 }
@@ -3552,13 +1771,13 @@ const docTemplate = `{
                     "400": {
                         "description": "Bad Request",
                         "schema": {
-                            "$ref": "#/definitions/objects-api.HTTPError"
+                            "$ref": "#/definitions/api.HTTPError"
                         }
                     },
                     "404": {
                         "description": "Not Found",
                         "schema": {
-                            "$ref": "#/definitions/objects-api.HTTPError"
+                            "$ref": "#/definitions/api.HTTPError"
                         }
                     }
                 }
@@ -3594,13 +1813,13 @@ const docTemplate = `{
                     "400": {
                         "description": "Bad Request",
                         "schema": {
-                            "$ref": "#/definitions/objects-api.HTTPError"
+                            "$ref": "#/definitions/api.HTTPError"
                         }
                     },
                     "500": {
                         "description": "Internal Server Error",
                         "schema": {
-                            "$ref": "#/definitions/objects-api.HTTPError"
+                            "$ref": "#/definitions/api.HTTPError"
                         }
                     }
                 }
@@ -3645,7 +1864,7 @@ const docTemplate = `{
                         "schema": {
                             "allOf": [
                                 {
-                                    "$ref": "#/definitions/objects-api.PagedResults"
+                                    "$ref": "#/definitions/api.PagedResults"
                                 },
                                 {
                                     "type": "object",
@@ -3664,57 +1883,13 @@ const docTemplate = `{
                     "400": {
                         "description": "Bad Request",
                         "schema": {
-                            "$ref": "#/definitions/objects-api.HTTPError"
+                            "$ref": "#/definitions/api.HTTPError"
                         }
                     },
                     "404": {
                         "description": "Not Found",
                         "schema": {
-                            "$ref": "#/definitions/objects-api.HTTPError"
-                        }
-                    }
-                }
-            },
-            "post": {
-                "description": "add to add a single record to retrieval_failure_records table in the estuary database",
-                "consumes": [
-                    "application/json"
-                ],
-                "produces": [
-                    "application/json"
-                ],
-                "tags": [
-                    "RetrievalFailureRecords"
-                ],
-                "summary": "Add an record to retrieval_failure_records table",
-                "parameters": [
-                    {
-                        "description": "Add RetrievalFailureRecords",
-                        "name": "RetrievalFailureRecords",
-                        "in": "body",
-                        "required": true,
-                        "schema": {
-                            "$ref": "#/definitions/model.RetrievalFailureRecord"
-                        }
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "OK",
-                        "schema": {
-                            "$ref": "#/definitions/model.RetrievalFailureRecord"
-                        }
-                    },
-                    "400": {
-                        "description": "Bad Request",
-                        "schema": {
-                            "$ref": "#/definitions/objects-api.HTTPError"
-                        }
-                    },
-                    "404": {
-                        "description": "Not Found",
-                        "schema": {
-                            "$ref": "#/definitions/objects-api.HTTPError"
+                            "$ref": "#/definitions/api.HTTPError"
                         }
                     }
                 }
@@ -3752,106 +1927,13 @@ const docTemplate = `{
                     "400": {
                         "description": "Bad Request",
                         "schema": {
-                            "$ref": "#/definitions/objects-api.HTTPError"
+                            "$ref": "#/definitions/api.HTTPError"
                         }
                     },
                     "404": {
                         "description": "ErrNotFound, db record for id not found - returns NotFound HTTP 404 not found error",
                         "schema": {
-                            "$ref": "#/definitions/objects-api.HTTPError"
-                        }
-                    }
-                }
-            },
-            "put": {
-                "description": "Update a single record from retrieval_failure_records table in the estuary database",
-                "consumes": [
-                    "application/json"
-                ],
-                "produces": [
-                    "application/json"
-                ],
-                "tags": [
-                    "RetrievalFailureRecords"
-                ],
-                "summary": "Update an record in table retrieval_failure_records",
-                "parameters": [
-                    {
-                        "type": "integer",
-                        "description": "id",
-                        "name": "argID",
-                        "in": "path",
-                        "required": true
-                    },
-                    {
-                        "description": "Update RetrievalFailureRecords record",
-                        "name": "RetrievalFailureRecords",
-                        "in": "body",
-                        "required": true,
-                        "schema": {
-                            "$ref": "#/definitions/model.RetrievalFailureRecord"
-                        }
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "OK",
-                        "schema": {
-                            "$ref": "#/definitions/model.RetrievalFailureRecord"
-                        }
-                    },
-                    "400": {
-                        "description": "Bad Request",
-                        "schema": {
-                            "$ref": "#/definitions/objects-api.HTTPError"
-                        }
-                    },
-                    "404": {
-                        "description": "Not Found",
-                        "schema": {
-                            "$ref": "#/definitions/objects-api.HTTPError"
-                        }
-                    }
-                }
-            },
-            "delete": {
-                "description": "Delete a single record from retrieval_failure_records table in the estuary database",
-                "consumes": [
-                    "application/json"
-                ],
-                "produces": [
-                    "application/json"
-                ],
-                "tags": [
-                    "RetrievalFailureRecords"
-                ],
-                "summary": "Delete a record from retrieval_failure_records",
-                "parameters": [
-                    {
-                        "type": "integer",
-                        "description": "id",
-                        "name": "argID",
-                        "in": "path",
-                        "required": true
-                    }
-                ],
-                "responses": {
-                    "204": {
-                        "description": "No Content",
-                        "schema": {
-                            "$ref": "#/definitions/model.RetrievalFailureRecord"
-                        }
-                    },
-                    "400": {
-                        "description": "Bad Request",
-                        "schema": {
-                            "$ref": "#/definitions/objects-api.HTTPError"
-                        }
-                    },
-                    "500": {
-                        "description": "Internal Server Error",
-                        "schema": {
-                            "$ref": "#/definitions/objects-api.HTTPError"
+                            "$ref": "#/definitions/api.HTTPError"
                         }
                     }
                 }
@@ -3896,7 +1978,7 @@ const docTemplate = `{
                         "schema": {
                             "allOf": [
                                 {
-                                    "$ref": "#/definitions/objects-api.PagedResults"
+                                    "$ref": "#/definitions/api.PagedResults"
                                 },
                                 {
                                     "type": "object",
@@ -3915,57 +1997,13 @@ const docTemplate = `{
                     "400": {
                         "description": "Bad Request",
                         "schema": {
-                            "$ref": "#/definitions/objects-api.HTTPError"
+                            "$ref": "#/definitions/api.HTTPError"
                         }
                     },
                     "404": {
                         "description": "Not Found",
                         "schema": {
-                            "$ref": "#/definitions/objects-api.HTTPError"
-                        }
-                    }
-                }
-            },
-            "post": {
-                "description": "add to add a single record to retrieval_success_records table in the estuary database",
-                "consumes": [
-                    "application/json"
-                ],
-                "produces": [
-                    "application/json"
-                ],
-                "tags": [
-                    "RetrievalSuccessRecords"
-                ],
-                "summary": "Add an record to retrieval_success_records table",
-                "parameters": [
-                    {
-                        "description": "Add RetrievalSuccessRecords",
-                        "name": "RetrievalSuccessRecords",
-                        "in": "body",
-                        "required": true,
-                        "schema": {
-                            "$ref": "#/definitions/model.RetrievalSuccessRecord"
-                        }
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "OK",
-                        "schema": {
-                            "$ref": "#/definitions/model.RetrievalSuccessRecord"
-                        }
-                    },
-                    "400": {
-                        "description": "Bad Request",
-                        "schema": {
-                            "$ref": "#/definitions/objects-api.HTTPError"
-                        }
-                    },
-                    "404": {
-                        "description": "Not Found",
-                        "schema": {
-                            "$ref": "#/definitions/objects-api.HTTPError"
+                            "$ref": "#/definitions/api.HTTPError"
                         }
                     }
                 }
@@ -4003,106 +2041,13 @@ const docTemplate = `{
                     "400": {
                         "description": "Bad Request",
                         "schema": {
-                            "$ref": "#/definitions/objects-api.HTTPError"
+                            "$ref": "#/definitions/api.HTTPError"
                         }
                     },
                     "404": {
                         "description": "ErrNotFound, db record for id not found - returns NotFound HTTP 404 not found error",
                         "schema": {
-                            "$ref": "#/definitions/objects-api.HTTPError"
-                        }
-                    }
-                }
-            },
-            "put": {
-                "description": "Update a single record from retrieval_success_records table in the estuary database",
-                "consumes": [
-                    "application/json"
-                ],
-                "produces": [
-                    "application/json"
-                ],
-                "tags": [
-                    "RetrievalSuccessRecords"
-                ],
-                "summary": "Update an record in table retrieval_success_records",
-                "parameters": [
-                    {
-                        "type": "string",
-                        "description": "prop_cid",
-                        "name": "argPropCid",
-                        "in": "path",
-                        "required": true
-                    },
-                    {
-                        "description": "Update RetrievalSuccessRecords record",
-                        "name": "RetrievalSuccessRecords",
-                        "in": "body",
-                        "required": true,
-                        "schema": {
-                            "$ref": "#/definitions/model.RetrievalSuccessRecord"
-                        }
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "OK",
-                        "schema": {
-                            "$ref": "#/definitions/model.RetrievalSuccessRecord"
-                        }
-                    },
-                    "400": {
-                        "description": "Bad Request",
-                        "schema": {
-                            "$ref": "#/definitions/objects-api.HTTPError"
-                        }
-                    },
-                    "404": {
-                        "description": "Not Found",
-                        "schema": {
-                            "$ref": "#/definitions/objects-api.HTTPError"
-                        }
-                    }
-                }
-            },
-            "delete": {
-                "description": "Delete a single record from retrieval_success_records table in the estuary database",
-                "consumes": [
-                    "application/json"
-                ],
-                "produces": [
-                    "application/json"
-                ],
-                "tags": [
-                    "RetrievalSuccessRecords"
-                ],
-                "summary": "Delete a record from retrieval_success_records",
-                "parameters": [
-                    {
-                        "type": "string",
-                        "description": "prop_cid",
-                        "name": "argPropCid",
-                        "in": "path",
-                        "required": true
-                    }
-                ],
-                "responses": {
-                    "204": {
-                        "description": "No Content",
-                        "schema": {
-                            "$ref": "#/definitions/model.RetrievalSuccessRecord"
-                        }
-                    },
-                    "400": {
-                        "description": "Bad Request",
-                        "schema": {
-                            "$ref": "#/definitions/objects-api.HTTPError"
-                        }
-                    },
-                    "500": {
-                        "description": "Internal Server Error",
-                        "schema": {
-                            "$ref": "#/definitions/objects-api.HTTPError"
+                            "$ref": "#/definitions/api.HTTPError"
                         }
                     }
                 }
@@ -4147,7 +2092,7 @@ const docTemplate = `{
                         "schema": {
                             "allOf": [
                                 {
-                                    "$ref": "#/definitions/objects-api.PagedResults"
+                                    "$ref": "#/definitions/api.PagedResults"
                                 },
                                 {
                                     "type": "object",
@@ -4166,57 +2111,13 @@ const docTemplate = `{
                     "400": {
                         "description": "Bad Request",
                         "schema": {
-                            "$ref": "#/definitions/objects-api.HTTPError"
+                            "$ref": "#/definitions/api.HTTPError"
                         }
                     },
                     "404": {
                         "description": "Not Found",
                         "schema": {
-                            "$ref": "#/definitions/objects-api.HTTPError"
-                        }
-                    }
-                }
-            },
-            "post": {
-                "description": "add to add a single record to shuttles table in the estuary database",
-                "consumes": [
-                    "application/json"
-                ],
-                "produces": [
-                    "application/json"
-                ],
-                "tags": [
-                    "Shuttles"
-                ],
-                "summary": "Add an record to shuttles table",
-                "parameters": [
-                    {
-                        "description": "Add Shuttles",
-                        "name": "Shuttles",
-                        "in": "body",
-                        "required": true,
-                        "schema": {
-                            "$ref": "#/definitions/model.Shuttle"
-                        }
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "OK",
-                        "schema": {
-                            "$ref": "#/definitions/model.Shuttle"
-                        }
-                    },
-                    "400": {
-                        "description": "Bad Request",
-                        "schema": {
-                            "$ref": "#/definitions/objects-api.HTTPError"
-                        }
-                    },
-                    "404": {
-                        "description": "Not Found",
-                        "schema": {
-                            "$ref": "#/definitions/objects-api.HTTPError"
+                            "$ref": "#/definitions/api.HTTPError"
                         }
                     }
                 }
@@ -4254,106 +2155,13 @@ const docTemplate = `{
                     "400": {
                         "description": "Bad Request",
                         "schema": {
-                            "$ref": "#/definitions/objects-api.HTTPError"
+                            "$ref": "#/definitions/api.HTTPError"
                         }
                     },
                     "404": {
                         "description": "ErrNotFound, db record for id not found - returns NotFound HTTP 404 not found error",
                         "schema": {
-                            "$ref": "#/definitions/objects-api.HTTPError"
-                        }
-                    }
-                }
-            },
-            "put": {
-                "description": "Update a single record from shuttles table in the estuary database",
-                "consumes": [
-                    "application/json"
-                ],
-                "produces": [
-                    "application/json"
-                ],
-                "tags": [
-                    "Shuttles"
-                ],
-                "summary": "Update an record in table shuttles",
-                "parameters": [
-                    {
-                        "type": "integer",
-                        "description": "id",
-                        "name": "argID",
-                        "in": "path",
-                        "required": true
-                    },
-                    {
-                        "description": "Update Shuttles record",
-                        "name": "Shuttles",
-                        "in": "body",
-                        "required": true,
-                        "schema": {
-                            "$ref": "#/definitions/model.Shuttle"
-                        }
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "OK",
-                        "schema": {
-                            "$ref": "#/definitions/model.Shuttle"
-                        }
-                    },
-                    "400": {
-                        "description": "Bad Request",
-                        "schema": {
-                            "$ref": "#/definitions/objects-api.HTTPError"
-                        }
-                    },
-                    "404": {
-                        "description": "Not Found",
-                        "schema": {
-                            "$ref": "#/definitions/objects-api.HTTPError"
-                        }
-                    }
-                }
-            },
-            "delete": {
-                "description": "Delete a single record from shuttles table in the estuary database",
-                "consumes": [
-                    "application/json"
-                ],
-                "produces": [
-                    "application/json"
-                ],
-                "tags": [
-                    "Shuttles"
-                ],
-                "summary": "Delete a record from shuttles",
-                "parameters": [
-                    {
-                        "type": "integer",
-                        "description": "id",
-                        "name": "argID",
-                        "in": "path",
-                        "required": true
-                    }
-                ],
-                "responses": {
-                    "204": {
-                        "description": "No Content",
-                        "schema": {
-                            "$ref": "#/definitions/model.Shuttle"
-                        }
-                    },
-                    "400": {
-                        "description": "Bad Request",
-                        "schema": {
-                            "$ref": "#/definitions/objects-api.HTTPError"
-                        }
-                    },
-                    "500": {
-                        "description": "Internal Server Error",
-                        "schema": {
-                            "$ref": "#/definitions/objects-api.HTTPError"
+                            "$ref": "#/definitions/api.HTTPError"
                         }
                     }
                 }
@@ -4398,7 +2206,7 @@ const docTemplate = `{
                         "schema": {
                             "allOf": [
                                 {
-                                    "$ref": "#/definitions/objects-api.PagedResults"
+                                    "$ref": "#/definitions/api.PagedResults"
                                 },
                                 {
                                     "type": "object",
@@ -4417,57 +2225,13 @@ const docTemplate = `{
                     "400": {
                         "description": "Bad Request",
                         "schema": {
-                            "$ref": "#/definitions/objects-api.HTTPError"
+                            "$ref": "#/definitions/api.HTTPError"
                         }
                     },
                     "404": {
                         "description": "Not Found",
                         "schema": {
-                            "$ref": "#/definitions/objects-api.HTTPError"
-                        }
-                    }
-                }
-            },
-            "post": {
-                "description": "add to add a single record to storage_miners table in the estuary database",
-                "consumes": [
-                    "application/json"
-                ],
-                "produces": [
-                    "application/json"
-                ],
-                "tags": [
-                    "StorageMiners"
-                ],
-                "summary": "Add an record to storage_miners table",
-                "parameters": [
-                    {
-                        "description": "Add StorageMiners",
-                        "name": "StorageMiners",
-                        "in": "body",
-                        "required": true,
-                        "schema": {
-                            "$ref": "#/definitions/model.StorageMiner"
-                        }
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "OK",
-                        "schema": {
-                            "$ref": "#/definitions/model.StorageMiner"
-                        }
-                    },
-                    "400": {
-                        "description": "Bad Request",
-                        "schema": {
-                            "$ref": "#/definitions/objects-api.HTTPError"
-                        }
-                    },
-                    "404": {
-                        "description": "Not Found",
-                        "schema": {
-                            "$ref": "#/definitions/objects-api.HTTPError"
+                            "$ref": "#/definitions/api.HTTPError"
                         }
                     }
                 }
@@ -4505,106 +2269,13 @@ const docTemplate = `{
                     "400": {
                         "description": "Bad Request",
                         "schema": {
-                            "$ref": "#/definitions/objects-api.HTTPError"
+                            "$ref": "#/definitions/api.HTTPError"
                         }
                     },
                     "404": {
                         "description": "ErrNotFound, db record for id not found - returns NotFound HTTP 404 not found error",
                         "schema": {
-                            "$ref": "#/definitions/objects-api.HTTPError"
-                        }
-                    }
-                }
-            },
-            "put": {
-                "description": "Update a single record from storage_miners table in the estuary database",
-                "consumes": [
-                    "application/json"
-                ],
-                "produces": [
-                    "application/json"
-                ],
-                "tags": [
-                    "StorageMiners"
-                ],
-                "summary": "Update an record in table storage_miners",
-                "parameters": [
-                    {
-                        "type": "integer",
-                        "description": "id",
-                        "name": "argID",
-                        "in": "path",
-                        "required": true
-                    },
-                    {
-                        "description": "Update StorageMiners record",
-                        "name": "StorageMiners",
-                        "in": "body",
-                        "required": true,
-                        "schema": {
-                            "$ref": "#/definitions/model.StorageMiner"
-                        }
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "OK",
-                        "schema": {
-                            "$ref": "#/definitions/model.StorageMiner"
-                        }
-                    },
-                    "400": {
-                        "description": "Bad Request",
-                        "schema": {
-                            "$ref": "#/definitions/objects-api.HTTPError"
-                        }
-                    },
-                    "404": {
-                        "description": "Not Found",
-                        "schema": {
-                            "$ref": "#/definitions/objects-api.HTTPError"
-                        }
-                    }
-                }
-            },
-            "delete": {
-                "description": "Delete a single record from storage_miners table in the estuary database",
-                "consumes": [
-                    "application/json"
-                ],
-                "produces": [
-                    "application/json"
-                ],
-                "tags": [
-                    "StorageMiners"
-                ],
-                "summary": "Delete a record from storage_miners",
-                "parameters": [
-                    {
-                        "type": "integer",
-                        "description": "id",
-                        "name": "argID",
-                        "in": "path",
-                        "required": true
-                    }
-                ],
-                "responses": {
-                    "204": {
-                        "description": "No Content",
-                        "schema": {
-                            "$ref": "#/definitions/model.StorageMiner"
-                        }
-                    },
-                    "400": {
-                        "description": "Bad Request",
-                        "schema": {
-                            "$ref": "#/definitions/objects-api.HTTPError"
-                        }
-                    },
-                    "500": {
-                        "description": "Internal Server Error",
-                        "schema": {
-                            "$ref": "#/definitions/objects-api.HTTPError"
+                            "$ref": "#/definitions/api.HTTPError"
                         }
                     }
                 }
@@ -4649,7 +2320,7 @@ const docTemplate = `{
                         "schema": {
                             "allOf": [
                                 {
-                                    "$ref": "#/definitions/objects-api.PagedResults"
+                                    "$ref": "#/definitions/api.PagedResults"
                                 },
                                 {
                                     "type": "object",
@@ -4668,57 +2339,13 @@ const docTemplate = `{
                     "400": {
                         "description": "Bad Request",
                         "schema": {
-                            "$ref": "#/definitions/objects-api.HTTPError"
+                            "$ref": "#/definitions/api.HTTPError"
                         }
                     },
                     "404": {
                         "description": "Not Found",
                         "schema": {
-                            "$ref": "#/definitions/objects-api.HTTPError"
-                        }
-                    }
-                }
-            },
-            "post": {
-                "description": "add to add a single record to users table in the estuary database",
-                "consumes": [
-                    "application/json"
-                ],
-                "produces": [
-                    "application/json"
-                ],
-                "tags": [
-                    "Users"
-                ],
-                "summary": "Add an record to users table",
-                "parameters": [
-                    {
-                        "description": "Add Users",
-                        "name": "Users",
-                        "in": "body",
-                        "required": true,
-                        "schema": {
-                            "$ref": "#/definitions/model.User"
-                        }
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "OK",
-                        "schema": {
-                            "$ref": "#/definitions/model.User"
-                        }
-                    },
-                    "400": {
-                        "description": "Bad Request",
-                        "schema": {
-                            "$ref": "#/definitions/objects-api.HTTPError"
-                        }
-                    },
-                    "404": {
-                        "description": "Not Found",
-                        "schema": {
-                            "$ref": "#/definitions/objects-api.HTTPError"
+                            "$ref": "#/definitions/api.HTTPError"
                         }
                     }
                 }
@@ -4743,7 +2370,7 @@ const docTemplate = `{
                         "schema": {
                             "allOf": [
                                 {
-                                    "$ref": "#/definitions/objects-api.PagedResults"
+                                    "$ref": "#/definitions/api.PagedResults"
                                 },
                                 {
                                     "type": "object",
@@ -4759,13 +2386,13 @@ const docTemplate = `{
                     "400": {
                         "description": "Bad Request",
                         "schema": {
-                            "$ref": "#/definitions/objects-api.HTTPError"
+                            "$ref": "#/definitions/api.HTTPError"
                         }
                     },
                     "404": {
                         "description": "Not Found",
                         "schema": {
-                            "$ref": "#/definitions/objects-api.HTTPError"
+                            "$ref": "#/definitions/api.HTTPError"
                         }
                     }
                 }
@@ -4803,106 +2430,13 @@ const docTemplate = `{
                     "400": {
                         "description": "Bad Request",
                         "schema": {
-                            "$ref": "#/definitions/objects-api.HTTPError"
+                            "$ref": "#/definitions/api.HTTPError"
                         }
                     },
                     "404": {
                         "description": "ErrNotFound, db record for id not found - returns NotFound HTTP 404 not found error",
                         "schema": {
-                            "$ref": "#/definitions/objects-api.HTTPError"
-                        }
-                    }
-                }
-            },
-            "put": {
-                "description": "Update a single record from users table in the estuary database",
-                "consumes": [
-                    "application/json"
-                ],
-                "produces": [
-                    "application/json"
-                ],
-                "tags": [
-                    "Users"
-                ],
-                "summary": "Update an record in table users",
-                "parameters": [
-                    {
-                        "type": "integer",
-                        "description": "id",
-                        "name": "argID",
-                        "in": "path",
-                        "required": true
-                    },
-                    {
-                        "description": "Update Users record",
-                        "name": "Users",
-                        "in": "body",
-                        "required": true,
-                        "schema": {
-                            "$ref": "#/definitions/model.User"
-                        }
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "OK",
-                        "schema": {
-                            "$ref": "#/definitions/model.User"
-                        }
-                    },
-                    "400": {
-                        "description": "Bad Request",
-                        "schema": {
-                            "$ref": "#/definitions/objects-api.HTTPError"
-                        }
-                    },
-                    "404": {
-                        "description": "Not Found",
-                        "schema": {
-                            "$ref": "#/definitions/objects-api.HTTPError"
-                        }
-                    }
-                }
-            },
-            "delete": {
-                "description": "Delete a single record from users table in the estuary database",
-                "consumes": [
-                    "application/json"
-                ],
-                "produces": [
-                    "application/json"
-                ],
-                "tags": [
-                    "Users"
-                ],
-                "summary": "Delete a record from users",
-                "parameters": [
-                    {
-                        "type": "integer",
-                        "description": "id",
-                        "name": "argID",
-                        "in": "path",
-                        "required": true
-                    }
-                ],
-                "responses": {
-                    "204": {
-                        "description": "No Content",
-                        "schema": {
-                            "$ref": "#/definitions/model.User"
-                        }
-                    },
-                    "400": {
-                        "description": "Bad Request",
-                        "schema": {
-                            "$ref": "#/definitions/objects-api.HTTPError"
-                        }
-                    },
-                    "500": {
-                        "description": "Internal Server Error",
-                        "schema": {
-                            "$ref": "#/definitions/objects-api.HTTPError"
+                            "$ref": "#/definitions/api.HTTPError"
                         }
                     }
                 }
@@ -4910,36 +2444,7 @@ const docTemplate = `{
         }
     },
     "definitions": {
-        "objects-api.CrudAPI": {
-            "type": "object",
-            "properties": {
-                "create_url": {
-                    "type": "string"
-                },
-                "delete_url": {
-                    "type": "string"
-                },
-                "fetch_ddl_url": {
-                    "type": "string"
-                },
-                "name": {
-                    "type": "string"
-                },
-                "retrieve_many_url": {
-                    "type": "string"
-                },
-                "retrieve_one_url": {
-                    "type": "string"
-                },
-                "table_info": {
-                    "$ref": "#/definitions/model.TableInfo"
-                },
-                "update_url": {
-                    "type": "string"
-                }
-            }
-        },
-        "objects-api.HTTPError": {
+        "api.HTTPError": {
             "type": "object",
             "properties": {
                 "code": {
@@ -4952,7 +2457,7 @@ const docTemplate = `{
                 }
             }
         },
-        "objects-api.PagedResults": {
+        "api.PagedResults": {
             "type": "object",
             "properties": {
                 "data": {},
@@ -5722,6 +3227,35 @@ const docTemplate = `{
                     "type": "string"
                 }
             }
+        },
+        "objectsapi.CrudAPI": {
+            "type": "object",
+            "properties": {
+                "create_url": {
+                    "type": "string"
+                },
+                "delete_url": {
+                    "type": "string"
+                },
+                "fetch_ddl_url": {
+                    "type": "string"
+                },
+                "name": {
+                    "type": "string"
+                },
+                "retrieve_many_url": {
+                    "type": "string"
+                },
+                "retrieve_one_url": {
+                    "type": "string"
+                },
+                "table_info": {
+                    "$ref": "#/definitions/model.TableInfo"
+                },
+                "update_url": {
+                    "type": "string"
+                }
+            }
         }
     }
 }`
@@ -5732,8 +3266,8 @@ var SwaggerInfo = &swag.Spec{
 	Host:             "localhost:3030",
 	BasePath:         "/",
 	Schemes:          []string{},
-	Title:            "Sample CRUD objects-api for estuary db",
-	Description:      "Sample CRUD objects-api for estuary db",
+	Title:            "Estuary Metrics API",
+	Description:      "Estuary Metrics API",
 	InfoInstanceName: "swagger",
 	SwaggerTemplate:  docTemplate,
 }

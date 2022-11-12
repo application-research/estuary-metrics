@@ -34,9 +34,9 @@ func GetContentDealsDynamicQuery(w http.ResponseWriter, r *http.Request, ps http
 // @Param   page     query    int     false        "page requested (defaults to 0)"
 // @Param   pagesize query    int     false        "number of records in a page  (defaults to 20)"
 // @Param   order    query    string  false        "db sort order column"
-// @Success 200 {object} objects-api.PagedResults{data=[]model.ContentDeal}
-// @Failure 400 {object} objects-api.HTTPError
-// @Failure 404 {object} objects-api.HTTPError
+// @Success 200 {object} api.PagedResults{data=[]model.ContentDeal}
+// @Failure 400 {object} api.HTTPError
+// @Failure 404 {object} api.HTTPError
 // @Router /contentdeals [get]
 // http "http://localhost:3030/contentdeals?page=0&pagesize=20" X-Api-User:user123
 func GetAllContentDeals(w http.ResponseWriter, r *http.Request, ps httprouter.Params) {
@@ -79,8 +79,8 @@ func GetAllContentDeals(w http.ResponseWriter, r *http.Request, ps httprouter.Pa
 // @Produce  json
 // @Param  argID path int64 true "id"
 // @Success 200 {object} model.ContentDeal
-// @Failure 400 {object} objects-api.HTTPError
-// @Failure 404 {object} objects-api.HTTPError "ErrNotFound, db record for id not found - returns NotFound HTTP 404 not found error"
+// @Failure 400 {object} api.HTTPError
+// @Failure 404 {object} api.HTTPError "ErrNotFound, db record for id not found - returns NotFound HTTP 404 not found error"
 // @Router /contentdeals/{argID} [get]
 // http "http://localhost:3030/contentdeals/1" X-Api-User:user123
 func GetContentDeals(w http.ResponseWriter, r *http.Request, ps httprouter.Params) {
