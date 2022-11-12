@@ -101,6 +101,7 @@ func main() {
 		fmt.Printf("SQL: %s\n", sql)
 	}
 	go app.GinServer()
+	go app.InitHeartbeat()
 	LoopForever()
 }
 

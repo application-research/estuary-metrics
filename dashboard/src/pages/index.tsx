@@ -23,6 +23,8 @@ import {AnalyticsWidgetSummary} from "../sections/@dashboard/general/analytics";
 import {useSettingsContext} from "../components/settings";
 import DashboardLayout from "../layouts/dashboard";
 import GeneralAnalyticsPage from "./dashboard/analytics";
+import {AppTopInstalledCountries, AppWidgetSummary} from "../sections/@dashboard/general/app";
+import {_appInstalled} from "../_mock/arrays";
 
 // ----------------------------------------------------------------------
 
@@ -84,125 +86,97 @@ export default function HomePage() {
           </Typography>
           <Grid container spacing={3}>
               <Grid item xs={12} sm={6} md={3}>
-                  <AnalyticsWidgetSummary
-                      title="TOTAL ROOT CIDS UPLOADED TO ESTUARY. THIS VALUE DOES NOT INCLUDE SUB OBJECTS REFERENCES."
-                      total={714000}
-                      icon={'ant-design:android-filled'}
+                  <AppWidgetSummary
+                      title="Total Root CIDs"
+                      percent={2.6}
+                      total={18765}
+                      chart={{
+                          colors: [theme.palette.primary.main],
+                          series: [5, 18, 12, 51, 68, 11, 39, 37, 27, 20],
+                      }}
                   />
-
               </Grid>
               <Grid item xs={12} sm={6} md={3}>
-                  <AnalyticsWidgetSummary
-                      title="TOTAL NUMBER OF OBJECT REFERENCES PROVIDED BY EVERY ROOT CID IN THE NETWORK."
-                      total={714000}
-                      icon={'ant-design:android-filled'}
+                  <AppWidgetSummary
+                      title="Total Number of Object References"
+                      percent={2.6}
+                      total={18765}
+                      chart={{
+                          colors: [theme.palette.primary.main],
+                          series: [5, 18, 12, 51, 68, 11, 39, 37, 27, 20],
+                      }}
                   />
-
               </Grid>
-              <Grid item xs={12} sm={6} md={3}>
-                  <AnalyticsWidgetSummary
-                      title="ACTIVE SUCCESSFUL STORAGE DEALS ON THE FILECOIN NETWORK"
-                      total={714000}
-                      icon={'ant-design:android-filled'}
+              <Grid item xs={12} md={4}>
+                  <AppWidgetSummary
+                      title="Active Successful Storage Deals"
+                      percent={2.6}
+                      total={18765}
+                      chart={{
+                          colors: [theme.palette.primary.main],
+                          series: [5, 18, 12, 51, 68, 11, 39, 37, 27, 20],
+                      }}
                   />
-
               </Grid>
-              <Grid item xs={12} sm={6} md={3}>
-                  <AnalyticsWidgetSummary
-                      title="TOTAL PINNED IPFS STORAGE FOR HOT RETRIEVAL FROM ANY IPFS GATEWAY. THIS DATA IS NOT STORED ON FILECOIN"
-                      total={714000}
-                      icon={'ant-design:android-filled'}
+              <Grid item xs={12} md={4}>
+                  <AppWidgetSummary
+                      title="Total Pinned CIDs for Hot Retrieval"
+                      percent={2.6}
+                      total={18765}
+                      chart={{
+                          colors: [theme.palette.primary.main],
+                          series: [5, 18, 12, 51, 68, 11, 39, 37, 27, 20],
+                      }}
                   />
-
-              </Grid>
-              <Grid item xs={12} sm={6} md={3}>
-                  <AnalyticsWidgetSummary
-                      title="TOTAL SEALED STORAGE CONTRIBUTED TO FILECOIN INCLUDING A 6X REPLICATION"
-                      total={714000}
-                      icon={'ant-design:android-filled'}
-                  />
-
-              </Grid>
-              <Grid item xs={12} sm={6} md={3}>
-                  <AnalyticsWidgetSummary
-                      title="TOTAL STORAGE PROVIDERS RECEIVING DEALS FROM OUR ESTUARY NODE"
-                      total={714000}
-                      icon={'ant-design:android-filled'}
-                  />
-
-              </Grid>
-              <Grid item xs={12} sm={6} md={3}>
-                  <AnalyticsWidgetSummary
-                      title="TOTAL REGISTERED USERS"
-                      total={714000}
-                      icon={'ant-design:android-filled'}
-                  />
-
               </Grid>
 
+              <Grid item xs={12} md={4}>
+                  <AppWidgetSummary
+                      title="Total Sealed Storage Contributed to Filecoin"
+                      percent={2.6}
+                      total={18765}
+                      chart={{
+                          colors: [theme.palette.primary.main],
+                          series: [5, 18, 12, 51, 68, 11, 39, 37, 27, 20],
+                      }}
+                  />
+              </Grid>
+
+              <Grid item xs={12} md={4}>
+                  <AppWidgetSummary
+                      title="Total Storage Providers Receiving Deals from Estuary Node"
+                      percent={2.6}
+                      total={18765}
+                      chart={{
+                          colors: [theme.palette.primary.main],
+                          series: [5, 18, 12, 51, 68, 11, 39, 37, 27, 20],
+                      }}
+                  />
+              </Grid>
+              <Grid item xs={12} md={4}>
+                  <AppWidgetSummary
+                      title="Total Registered Users"
+                      percent={2.6}
+                      total={18765}
+                      chart={{
+                          colors: [theme.palette.primary.main],
+                          series: [5, 18, 12, 51, 68, 11, 39, 37, 27, 20],
+                      }}
+                  />
+              </Grid>
           </Grid>
-          <br/>
+              <hr/>
+              <br/>
               <Typography variant="h4" sx={{ mb: 5 }}>
-                  Quick Stats
+                  Rates
               </Typography>
-              <Grid container spacing={3}>
-                  <Grid item xs={12} sm={6} md={3}>
-                      <AnalyticsWidgetSummary
-                          title="TOTAL ROOT CIDS UPLOADED TO ESTUARY. THIS VALUE DOES NOT INCLUDE SUB OBJECTS REFERENCES."
-                          total={714000}
-                          icon={'ant-design:android-filled'}
-                      />
-
-                  </Grid>
-                  <Grid item xs={12} sm={6} md={3}>
-                      <AnalyticsWidgetSummary
-                          title="TOTAL NUMBER OF OBJECT REFERENCES PROVIDED BY EVERY ROOT CID IN THE NETWORK."
-                          total={714000}
-                          icon={'ant-design:android-filled'}
-                      />
-
-                  </Grid>
-                  <Grid item xs={12} sm={6} md={3}>
-                      <AnalyticsWidgetSummary
-                          title="ACTIVE SUCCESSFUL STORAGE DEALS ON THE FILECOIN NETWORK"
-                          total={714000}
-                          icon={'ant-design:android-filled'}
-                      />
-
-                  </Grid>
-                  <Grid item xs={12} sm={6} md={3}>
-                      <AnalyticsWidgetSummary
-                          title="TOTAL PINNED IPFS STORAGE FOR HOT RETRIEVAL FROM ANY IPFS GATEWAY. THIS DATA IS NOT STORED ON FILECOIN"
-                          total={714000}
-                          icon={'ant-design:android-filled'}
-                      />
-
-                  </Grid>
-                  <Grid item xs={12} sm={6} md={3}>
-                      <AnalyticsWidgetSummary
-                          title="TOTAL SEALED STORAGE CONTRIBUTED TO FILECOIN INCLUDING A 6X REPLICATION"
-                          total={714000}
-                          icon={'ant-design:android-filled'}
-                      />
-
-                  </Grid>
-                  <Grid item xs={12} sm={6} md={3}>
-                      <AnalyticsWidgetSummary
-                          title="TOTAL STORAGE PROVIDERS RECEIVING DEALS FROM OUR ESTUARY NODE"
-                          total={714000}
-                          icon={'ant-design:android-filled'}
-                      />
-
-                  </Grid>
-                  <Grid item xs={12} sm={6} md={3}>
-                      <AnalyticsWidgetSummary
-                          title="TOTAL REGISTERED USERS"
-                          total={714000}
-                          icon={'ant-design:android-filled'}
-                      />
-
-                  </Grid>
-
+              <br/>
+              <hr/>
+              <Typography variant="h4" sx={{ mb: 5 }}>
+                  Ranking Stats
+              </Typography>
+              <Grid item xs={12} md={6} lg={8}>
+                  {/*<AppTopInstalledCountries title="Top Miners" list={_appInstalled} />*/}
               </Grid>
           </Container>
         {/*<HomeMinimal />*/}

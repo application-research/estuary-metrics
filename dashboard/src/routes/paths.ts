@@ -38,7 +38,7 @@ export const PATH_PAGE = {
 export const PATH_DASHBOARD = {
 
   explorer: {
-    quickstats: path(ROOTS_EXPLORER, '/quickstats'),
+    quickstats: "/",
     content: path(ROOTS_EXPLORER, '/content'),
     storage_deals: path(ROOTS_EXPLORER, '/storage-deals'),
     retrieval_deals: path(ROOTS_EXPLORER, '/retrieval-deals'),

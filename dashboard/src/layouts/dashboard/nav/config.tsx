@@ -45,6 +45,7 @@ const navConfig = [
         { title: 'Retrieval Deals', path: PATH_DASHBOARD.explorer.retrieval_deals, icon: ICONS.ecommerce },
         { title: 'Miners', path: PATH_DASHBOARD.explorer.miners, icon: ICONS.banking },
         { title: 'Collections', path: PATH_DASHBOARD.explorer.collections, icon: ICONS.cart },
+        { title: 'Environment/Cost', path: PATH_DASHBOARD.explorer.environment, icon: ICONS.calendar },
     ],
     }
 ];

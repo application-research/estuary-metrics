@@ -482,7 +482,7 @@ func (m Metrics) GetDeviceUsage(deviceUUID string, createdAfterDate string, crea
 		deviceUUID + "/usages" +
 		"?created%5Bafter%5D=" + createdAfterDate + "&created%5Bbefore%5D=" + createdBeforeDate
 
-	fmt.Println(url)
+	deviceUsage.Info.UUID = deviceUUID
 	method := "GET"
 
 	client := &http.Client{}
@@ -515,11 +515,10 @@ func (m Metrics) GetDeviceUsage(deviceUUID string, createdAfterDate string, crea
 	return &deviceUsage, nil
 }
 
-func (m Metrics) GetAllDeviceInfo(uuids []string, createdAfterDate string, createdBeforeDate string) (*[]DeviceUsage, error) {
+func (m Metrics) GetAllDeviceUsages(uuids []string, createdAfterDate string, createdBeforeDate string) (*[]DeviceUsage, error) {
 	var devices []DeviceUsage
 	for _, uuid := range uuids {
 		device, err := m.GetDeviceUsage(uuid, createdAfterDate, createdBeforeDate)
-		device.Info.Name = uuid
 		if err != nil {
 			return nil, err
 		}
