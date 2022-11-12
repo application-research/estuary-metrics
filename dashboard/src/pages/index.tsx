@@ -3,7 +3,7 @@ import { m, useScroll, useSpring } from 'framer-motion';
 import Head from 'next/head';
 // @mui
 import { useTheme } from '@mui/material/styles';
-import { Box } from '@mui/material';
+import {Box, Container, Grid, Typography} from '@mui/material';
 // layouts
 import MainLayout from '../layouts/main';
 // sections
@@ -19,10 +19,17 @@ import {
   HomeCleanInterfaces,
   HomeHugePackElements,
 } from '../sections/home';
+import {AnalyticsWidgetSummary} from "../sections/@dashboard/general/analytics";
+import {useSettingsContext} from "../components/settings";
+import DashboardLayout from "../layouts/dashboard";
+import GeneralAnalyticsPage from "./dashboard/analytics";
 
 // ----------------------------------------------------------------------
 
-HomePage.getLayout = (page: React.ReactElement) => <MainLayout> {page} </MainLayout>;
+// HomePage.getLayout = (page: React.ReactElement) => <MainLayout> {page} </MainLayout>;
+HomePage.getLayout = (page: React.ReactElement) => (
+    <DashboardLayout>{page}</DashboardLayout>
+);
 
 // ----------------------------------------------------------------------
 
@@ -30,6 +37,7 @@ export default function HomePage() {
   const theme = useTheme();
 
   const { scrollYProgress } = useScroll();
+  const { themeStretch } = useSettingsContext();
 
   const scaleX = useSpring(scrollYProgress, {
     stiffness: 100,
@@ -56,38 +64,165 @@ export default function HomePage() {
   return (
     <>
       <Head>
-        <title> The starting point for your next project | Minimal UI</title>
+        <title>Estuary Metrics Explorer</title>
       </Head>
 
       {progress}
 
-      <HomeHero />
+      {/*<HomeHero />*/}
 
-      <Box
-        sx={{
-          overflow: 'hidden',
-          position: 'relative',
-          bgcolor: 'background.default',
-        }}
-      >
-        <HomeMinimal />
+      {/*<Box*/}
+      {/*  sx={{*/}
+      {/*    overflow: 'hidden',*/}
+      {/*    position: 'relative',*/}
+      {/*    bgcolor: 'background.default',*/}
+      {/*  }}*/}
+      {/*>*/}
+          <Container maxWidth={themeStretch ? false : 'xl'}>
+          <Typography variant="h4" sx={{ mb: 5 }}>
+              Quick Stats
+          </Typography>
+          <Grid container spacing={3}>
+              <Grid item xs={12} sm={6} md={3}>
+                  <AnalyticsWidgetSummary
+                      title="TOTAL ROOT CIDS UPLOADED TO ESTUARY. THIS VALUE DOES NOT INCLUDE SUB OBJECTS REFERENCES."
+                      total={714000}
+                      icon={'ant-design:android-filled'}
+                  />
 
-        <HomeHugePackElements />
+              </Grid>
+              <Grid item xs={12} sm={6} md={3}>
+                  <AnalyticsWidgetSummary
+                      title="TOTAL NUMBER OF OBJECT REFERENCES PROVIDED BY EVERY ROOT CID IN THE NETWORK."
+                      total={714000}
+                      icon={'ant-design:android-filled'}
+                  />
 
-        <HomeForDesigner />
+              </Grid>
+              <Grid item xs={12} sm={6} md={3}>
+                  <AnalyticsWidgetSummary
+                      title="ACTIVE SUCCESSFUL STORAGE DEALS ON THE FILECOIN NETWORK"
+                      total={714000}
+                      icon={'ant-design:android-filled'}
+                  />
 
-        <HomeDarkMode />
+              </Grid>
+              <Grid item xs={12} sm={6} md={3}>
+                  <AnalyticsWidgetSummary
+                      title="TOTAL PINNED IPFS STORAGE FOR HOT RETRIEVAL FROM ANY IPFS GATEWAY. THIS DATA IS NOT STORED ON FILECOIN"
+                      total={714000}
+                      icon={'ant-design:android-filled'}
+                  />
 
-        <HomeColorPresets />
+              </Grid>
+              <Grid item xs={12} sm={6} md={3}>
+                  <AnalyticsWidgetSummary
+                      title="TOTAL SEALED STORAGE CONTRIBUTED TO FILECOIN INCLUDING A 6X REPLICATION"
+                      total={714000}
+                      icon={'ant-design:android-filled'}
+                  />
 
-        <HomeCleanInterfaces />
+              </Grid>
+              <Grid item xs={12} sm={6} md={3}>
+                  <AnalyticsWidgetSummary
+                      title="TOTAL STORAGE PROVIDERS RECEIVING DEALS FROM OUR ESTUARY NODE"
+                      total={714000}
+                      icon={'ant-design:android-filled'}
+                  />
 
-        <HomePricingPlans />
+              </Grid>
+              <Grid item xs={12} sm={6} md={3}>
+                  <AnalyticsWidgetSummary
+                      title="TOTAL REGISTERED USERS"
+                      total={714000}
+                      icon={'ant-design:android-filled'}
+                  />
 
-        <HomeLookingFor />
+              </Grid>
 
-        <HomeAdvertisement />
-      </Box>
+          </Grid>
+          <br/>
+              <Typography variant="h4" sx={{ mb: 5 }}>
+                  Quick Stats
+              </Typography>
+              <Grid container spacing={3}>
+                  <Grid item xs={12} sm={6} md={3}>
+                      <AnalyticsWidgetSummary
+                          title="TOTAL ROOT CIDS UPLOADED TO ESTUARY. THIS VALUE DOES NOT INCLUDE SUB OBJECTS REFERENCES."
+                          total={714000}
+                          icon={'ant-design:android-filled'}
+                      />
+
+                  </Grid>
+                  <Grid item xs={12} sm={6} md={3}>
+                      <AnalyticsWidgetSummary
+                          title="TOTAL NUMBER OF OBJECT REFERENCES PROVIDED BY EVERY ROOT CID IN THE NETWORK."
+                          total={714000}
+                          icon={'ant-design:android-filled'}
+                      />
+
+                  </Grid>
+                  <Grid item xs={12} sm={6} md={3}>
+                      <AnalyticsWidgetSummary
+                          title="ACTIVE SUCCESSFUL STORAGE DEALS ON THE FILECOIN NETWORK"
+                          total={714000}
+                          icon={'ant-design:android-filled'}
+                      />
+
+                  </Grid>
+                  <Grid item xs={12} sm={6} md={3}>
+                      <AnalyticsWidgetSummary
+                          title="TOTAL PINNED IPFS STORAGE FOR HOT RETRIEVAL FROM ANY IPFS GATEWAY. THIS DATA IS NOT STORED ON FILECOIN"
+                          total={714000}
+                          icon={'ant-design:android-filled'}
+                      />
+
+                  </Grid>
+                  <Grid item xs={12} sm={6} md={3}>
+                      <AnalyticsWidgetSummary
+                          title="TOTAL SEALED STORAGE CONTRIBUTED TO FILECOIN INCLUDING A 6X REPLICATION"
+                          total={714000}
+                          icon={'ant-design:android-filled'}
+                      />
+
+                  </Grid>
+                  <Grid item xs={12} sm={6} md={3}>
+                      <AnalyticsWidgetSummary
+                          title="TOTAL STORAGE PROVIDERS RECEIVING DEALS FROM OUR ESTUARY NODE"
+                          total={714000}
+                          icon={'ant-design:android-filled'}
+                      />
+
+                  </Grid>
+                  <Grid item xs={12} sm={6} md={3}>
+                      <AnalyticsWidgetSummary
+                          title="TOTAL REGISTERED USERS"
+                          total={714000}
+                          icon={'ant-design:android-filled'}
+                      />
+
+                  </Grid>
+
+              </Grid>
+          </Container>
+        {/*<HomeMinimal />*/}
+
+        {/*<HomeHugePackElements />*/}
+
+        {/*<HomeForDesigner />*/}
+
+        {/*<HomeDarkMode />*/}
+
+        {/*<HomeColorPresets />*/}
+
+        {/*<HomeCleanInterfaces />*/}
+
+        {/*<HomePricingPlans />*/}
+
+        {/*<HomeLookingFor />*/}
+
+        {/*<HomeAdvertisement />*/}
+      {/*</Box>*/}
     </>
   );
 }

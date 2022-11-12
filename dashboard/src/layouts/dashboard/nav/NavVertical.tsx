@@ -57,14 +57,14 @@ export default function NavVertical({ openNav, onCloseNav }: Props) {
       >
         <Logo />
 
-        <NavAccount />
+        {/*<NavAccount />*/}
       </Stack>
 
       <NavSectionVertical data={navConfig} />
 
       <Box sx={{ flexGrow: 1 }} />
 
-      <NavDocs />
+      {/*<NavDocs />*/}
     </Scrollbar>
   );
 

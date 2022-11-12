@@ -6,6 +6,7 @@ function path(root: string, sublink: string) {
 
 const ROOTS_AUTH = '/auth';
 const ROOTS_DASHBOARD = '/dashboard';
+const ROOTS_EXPLORER = '/explorer';
 
 // ----------------------------------------------------------------------
 
@@ -35,6 +36,17 @@ export const PATH_PAGE = {
 };
 
 export const PATH_DASHBOARD = {
+
+  explorer: {
+    quickstats: path(ROOTS_EXPLORER, '/quickstats'),
+    content: path(ROOTS_EXPLORER, '/content'),
+    storage_deals: path(ROOTS_EXPLORER, '/storage-deals'),
+    retrieval_deals: path(ROOTS_EXPLORER, '/retrieval-deals'),
+    miners: path(ROOTS_EXPLORER, '/miners'),
+    environment: path(ROOTS_EXPLORER, '/environment'),
+    collections: path(ROOTS_EXPLORER, '/collections'),
+  },
+
   root: ROOTS_DASHBOARD,
   kanban: path(ROOTS_DASHBOARD, '/kanban'),
   calendar: path(ROOTS_DASHBOARD, '/calendar'),
