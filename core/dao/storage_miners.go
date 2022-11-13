@@ -57,13 +57,13 @@ func GetStorageMiners(ctx context.Context, argID int64) (record *model.StorageMi
 	return record, nil
 }
 
-type TopMiners struct {
+type TopMiner struct {
 	Miner string
 	Name  string
 	Count int64
 }
 
-func GetTopStorageMiners(ctx context.Context, top int) (results []*TopMiners, err error) {
+func GetTopStorageMiners(ctx context.Context, top int) (results []*TopMiner, err error) {
 	//select a.miner, b.name, count(*) from content_deals a, storage_miners b where a.miner = b.address group by a.miner, b.name order by count(*) desc limit 10;
 	resultOrm := DB.Raw("select a.miner, b.name, count(*) from content_deals a, storage_miners b where a.miner = b.address group by a.miner, b.name order by count(*) desc limit ?", top)
 

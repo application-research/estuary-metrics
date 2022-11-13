@@ -19,6 +19,862 @@ definitions:
       total_records:
         type: integer
     type: object
+  core.DeviceInfo:
+    properties:
+      actions:
+        items:
+          properties:
+            name:
+              type: string
+            type:
+              type: string
+          type: object
+        type: array
+      allow_same_vlan_on_multiple_ports:
+        type: boolean
+      always_pxe:
+        type: boolean
+      billing_cycle:
+        type: string
+      bonding_mode:
+        type: integer
+      created_at:
+        type: string
+      created_by:
+        properties:
+          avatar_thumb_url:
+            type: string
+          created_at:
+            type: string
+          email:
+            type: string
+          first_name:
+            type: string
+          full_name:
+            type: string
+          href:
+            type: string
+          id:
+            type: string
+          last_name:
+            type: string
+          level:
+            type: string
+          short_id:
+            type: string
+          updated_at:
+            type: string
+        type: object
+      customdata:
+        type: object
+      description: {}
+      device_type:
+        type: string
+      facility:
+        properties:
+          address:
+            properties:
+              address:
+                type: string
+              address2:
+                type: string
+              city:
+                type: string
+              coordinates:
+                properties:
+                  latitude:
+                    type: string
+                  longitude:
+                    type: string
+                type: object
+              country:
+                type: string
+              id:
+                type: string
+              state:
+                type: string
+              zip_code:
+                type: string
+            type: object
+          code:
+            type: string
+          features:
+            items:
+              type: string
+            type: array
+          id:
+            type: string
+          ip_ranges:
+            items: {}
+            type: array
+          metro:
+            properties:
+              code:
+                type: string
+              country:
+                type: string
+              id:
+                type: string
+              name:
+                type: string
+            type: object
+          name:
+            type: string
+        type: object
+      favorite:
+        type: boolean
+      hostname:
+        type: string
+      href:
+        type: string
+      id:
+        type: string
+      image_url: {}
+      ip_addresses:
+        items:
+          properties:
+            address:
+              type: string
+            address_family:
+              type: integer
+            assigned_to:
+              properties:
+                href:
+                  type: string
+              type: object
+            cidr:
+              type: integer
+            created_at:
+              type: string
+            customdata:
+              type: object
+            details: {}
+            enabled:
+              type: boolean
+            facility:
+              properties:
+                address:
+                  properties:
+                    address:
+                      type: string
+                    address2:
+                      type: string
+                    city:
+                      type: string
+                    coordinates:
+                      properties:
+                        latitude:
+                          type: string
+                        longitude:
+                          type: string
+                      type: object
+                    country:
+                      type: string
+                    id:
+                      type: string
+                    state:
+                      type: string
+                    zip_code:
+                      type: string
+                  type: object
+                code:
+                  type: string
+                features:
+                  items:
+                    type: string
+                  type: array
+                id:
+                  type: string
+                ip_ranges:
+                  items: {}
+                  type: array
+                metro:
+                  properties:
+                    code:
+                      type: string
+                    country:
+                      type: string
+                    id:
+                      type: string
+                    name:
+                      type: string
+                  type: object
+                name:
+                  type: string
+              type: object
+            gateway:
+              type: string
+            global_ip:
+              type: boolean
+            href:
+              type: string
+            id:
+              type: string
+            interface:
+              properties:
+                href:
+                  type: string
+              type: object
+            manageable:
+              type: boolean
+            management:
+              type: boolean
+            metro:
+              properties:
+                code:
+                  type: string
+                country:
+                  type: string
+                id:
+                  type: string
+                name:
+                  type: string
+              type: object
+            netmask:
+              type: string
+            network:
+              type: string
+            project:
+              properties:
+                href:
+                  type: string
+              type: object
+            project_lite:
+              properties:
+                href:
+                  type: string
+              type: object
+            public:
+              type: boolean
+            tags:
+              items: {}
+              type: array
+          type: object
+        type: array
+      ipxe_script_url: {}
+      iqn:
+        type: string
+      locked:
+        type: boolean
+      metro:
+        properties:
+          code:
+            type: string
+          country:
+            type: string
+          id:
+            type: string
+          name:
+            type: string
+        type: object
+      network_frozen:
+        type: boolean
+      network_ports:
+        items:
+          properties:
+            bond:
+              properties:
+                id:
+                  type: string
+                name:
+                  type: string
+              type: object
+            data:
+              properties:
+                bonded:
+                  type: boolean
+                mac:
+                  type: string
+              type: object
+            disbond_operation_supported:
+              type: boolean
+            href:
+              type: string
+            id:
+              type: string
+            name:
+              type: string
+            native_virtual_network: {}
+            network_type:
+              type: string
+            type:
+              type: string
+            virtual_networks:
+              items: {}
+              type: array
+          type: object
+        type: array
+      operating_system:
+        properties:
+          distro:
+            type: string
+          distro_label:
+            type: string
+          id:
+            type: string
+          licensed:
+            type: boolean
+          name:
+            type: string
+          preinstallable:
+            type: boolean
+          pricing:
+            type: object
+          provisionable_on:
+            items: {}
+            type: array
+          slug:
+            type: string
+          version:
+            type: string
+        type: object
+      plan:
+        properties:
+          available_in:
+            items:
+              properties:
+                href:
+                  type: string
+                price:
+                  properties:
+                    hour:
+                      type: number
+                  type: object
+              type: object
+            type: array
+          available_in_metros:
+            items:
+              properties:
+                href:
+                  type: string
+                price:
+                  properties:
+                    hour:
+                      type: number
+                  type: object
+              type: object
+            type: array
+          class:
+            type: string
+          deployment_types:
+            items:
+              type: string
+            type: array
+          description:
+            type: string
+          id:
+            type: string
+          legacy:
+            type: boolean
+          line:
+            type: string
+          name:
+            type: string
+          pricing:
+            properties:
+              hour:
+                type: number
+            type: object
+          reservation_pricing:
+            properties:
+              am:
+                properties:
+                  one_month:
+                    properties:
+                      month:
+                        type: number
+                    type: object
+                  one_year:
+                    properties:
+                      month:
+                        type: number
+                    type: object
+                  three_year:
+                    properties:
+                      month:
+                        type: number
+                    type: object
+                type: object
+              ch:
+                properties:
+                  one_month:
+                    properties:
+                      month:
+                        type: number
+                    type: object
+                  one_year:
+                    properties:
+                      month:
+                        type: number
+                    type: object
+                  three_year:
+                    properties:
+                      month:
+                        type: number
+                    type: object
+                type: object
+              da:
+                properties:
+                  one_month:
+                    properties:
+                      month:
+                        type: number
+                    type: object
+                  one_year:
+                    properties:
+                      month:
+                        type: number
+                    type: object
+                  three_year:
+                    properties:
+                      month:
+                        type: number
+                    type: object
+                type: object
+              dc:
+                properties:
+                  one_month:
+                    properties:
+                      month:
+                        type: number
+                    type: object
+                  one_year:
+                    properties:
+                      month:
+                        type: number
+                    type: object
+                  three_year:
+                    properties:
+                      month:
+                        type: number
+                    type: object
+                type: object
+              fr:
+                properties:
+                  one_month:
+                    properties:
+                      month:
+                        type: number
+                    type: object
+                  one_year:
+                    properties:
+                      month:
+                        type: number
+                    type: object
+                  three_year:
+                    properties:
+                      month:
+                        type: number
+                    type: object
+                type: object
+              hk:
+                properties:
+                  one_month:
+                    properties:
+                      month:
+                        type: number
+                    type: object
+                  one_year:
+                    properties:
+                      month:
+                        type: number
+                    type: object
+                  three_year:
+                    properties:
+                      month:
+                        type: number
+                    type: object
+                type: object
+              la:
+                properties:
+                  one_month:
+                    properties:
+                      month:
+                        type: number
+                    type: object
+                  one_year:
+                    properties:
+                      month:
+                        type: number
+                    type: object
+                  three_year:
+                    properties:
+                      month:
+                        type: number
+                    type: object
+                type: object
+              ld:
+                properties:
+                  one_month:
+                    properties:
+                      month:
+                        type: number
+                    type: object
+                  one_year:
+                    properties:
+                      month:
+                        type: number
+                    type: object
+                  three_year:
+                    properties:
+                      month:
+                        type: number
+                    type: object
+                type: object
+              md:
+                properties:
+                  one_month:
+                    properties:
+                      month:
+                        type: number
+                    type: object
+                  one_year:
+                    properties:
+                      month:
+                        type: number
+                    type: object
+                  three_year:
+                    properties:
+                      month:
+                        type: number
+                    type: object
+                type: object
+              ny:
+                properties:
+                  one_month:
+                    properties:
+                      month:
+                        type: number
+                    type: object
+                  one_year:
+                    properties:
+                      month:
+                        type: number
+                    type: object
+                  three_year:
+                    properties:
+                      month:
+                        type: number
+                    type: object
+                type: object
+              one_month:
+                properties:
+                  month:
+                    type: number
+                type: object
+              one_year:
+                properties:
+                  month:
+                    type: number
+                type: object
+              pa:
+                properties:
+                  one_month:
+                    properties:
+                      month:
+                        type: number
+                    type: object
+                  one_year:
+                    properties:
+                      month:
+                        type: number
+                    type: object
+                  three_year:
+                    properties:
+                      month:
+                        type: number
+                    type: object
+                type: object
+              se:
+                properties:
+                  one_month:
+                    properties:
+                      month:
+                        type: number
+                    type: object
+                  one_year:
+                    properties:
+                      month:
+                        type: number
+                    type: object
+                  three_year:
+                    properties:
+                      month:
+                        type: number
+                    type: object
+                type: object
+              sg:
+                properties:
+                  one_month:
+                    properties:
+                      month:
+                        type: number
+                    type: object
+                  one_year:
+                    properties:
+                      month:
+                        type: number
+                    type: object
+                  three_year:
+                    properties:
+                      month:
+                        type: number
+                    type: object
+                type: object
+              sl:
+                properties:
+                  one_month:
+                    properties:
+                      month:
+                        type: number
+                    type: object
+                  one_year:
+                    properties:
+                      month:
+                        type: number
+                    type: object
+                  three_year:
+                    properties:
+                      month:
+                        type: number
+                    type: object
+                type: object
+              sp:
+                properties:
+                  one_month:
+                    properties:
+                      month:
+                        type: number
+                    type: object
+                  one_year:
+                    properties:
+                      month:
+                        type: number
+                    type: object
+                  three_year:
+                    properties:
+                      month:
+                        type: number
+                    type: object
+                type: object
+              sv:
+                properties:
+                  one_month:
+                    properties:
+                      month:
+                        type: number
+                    type: object
+                  one_year:
+                    properties:
+                      month:
+                        type: number
+                    type: object
+                  three_year:
+                    properties:
+                      month:
+                        type: number
+                    type: object
+                type: object
+              sy:
+                properties:
+                  one_month:
+                    properties:
+                      month:
+                        type: number
+                    type: object
+                  one_year:
+                    properties:
+                      month:
+                        type: number
+                    type: object
+                  three_year:
+                    properties:
+                      month:
+                        type: number
+                    type: object
+                type: object
+              three_year:
+                properties:
+                  month:
+                    type: number
+                type: object
+              tr:
+                properties:
+                  one_month:
+                    properties:
+                      month:
+                        type: number
+                    type: object
+                  one_year:
+                    properties:
+                      month:
+                        type: number
+                    type: object
+                  three_year:
+                    properties:
+                      month:
+                        type: number
+                    type: object
+                type: object
+              ty:
+                properties:
+                  one_month:
+                    properties:
+                      month:
+                        type: number
+                    type: object
+                  one_year:
+                    properties:
+                      month:
+                        type: number
+                    type: object
+                  three_year:
+                    properties:
+                      month:
+                        type: number
+                    type: object
+                type: object
+            type: object
+          slug:
+            type: string
+          specs:
+            properties:
+              cpus:
+                items:
+                  properties:
+                    count:
+                      type: integer
+                    type:
+                      type: string
+                  type: object
+                type: array
+              drives:
+                items:
+                  properties:
+                    category:
+                      type: string
+                    count:
+                      type: integer
+                    size:
+                      type: string
+                    type:
+                      type: string
+                  type: object
+                type: array
+              features:
+                properties:
+                  raid:
+                    type: boolean
+                  txt:
+                    type: boolean
+                type: object
+              memory:
+                properties:
+                  total:
+                    type: string
+                type: object
+              nics:
+                items:
+                  properties:
+                    count:
+                      type: integer
+                    type:
+                      type: string
+                  type: object
+                type: array
+            type: object
+          type:
+            type: string
+        type: object
+      project:
+        properties:
+          href:
+            type: string
+        type: object
+      project_lite:
+        properties:
+          href:
+            type: string
+        type: object
+      short_id:
+        type: string
+      ssh_keys:
+        items:
+          properties:
+            href:
+              type: string
+          type: object
+        type: array
+      state:
+        type: string
+      storage:
+        type: object
+      switch_uuid:
+        type: string
+      tags:
+        items:
+          type: string
+        type: array
+      updated_at:
+        type: string
+      user:
+        type: string
+      userdata:
+        type: string
+      volumes:
+        items: {}
+        type: array
+    type: object
+  core.DeviceUsage:
+    properties:
+      info:
+        properties:
+          name:
+            type: string
+          uuid:
+            type: string
+        type: object
+      usages:
+        items:
+          properties:
+            price:
+              type: number
+            quantity:
+              type: number
+            total:
+              type: number
+            unit:
+              type: string
+          type: object
+        type: array
+    type: object
+  dao.TopCollectionUser:
+    properties:
+      count:
+        type: integer
+      userID:
+        type: integer
+      username:
+        type: string
+    type: object
+  dao.TopMiner:
+    properties:
+      count:
+        type: integer
+      miner:
+        type: string
+      name:
+        type: string
+    type: object
+  dao.TopUser:
+    properties:
+      id:
+        type: integer
+      total_bytes:
+        type: integer
+      username:
+        type: string
+    type: object
   gorm.DeletedAt:
     properties:
       time:
@@ -533,6 +1389,55 @@ definitions:
       table_info:
         $ref: '#/definitions/model.TableInfo'
       update_url:
+        type: string
+    type: object
+  sql.NullInt64:
+    properties:
+      int64:
+        type: integer
+      valid:
+        description: Valid is true if Int64 is not NULL
+        type: boolean
+    type: object
+  statsapi.DealMetricsInfo:
+    properties:
+      dealsAttempted:
+        type: integer
+      dealsFailed:
+        type: integer
+      dealsOnChain:
+        type: integer
+      dealsOnChainBytes:
+        type: integer
+      dealsSealed:
+        type: integer
+      dealsSealedBytes:
+        type: integer
+      time:
+        type: string
+    type: object
+  statsapi.PublicStats:
+    properties:
+      dealsOnChain:
+        $ref: '#/definitions/sql.NullInt64'
+      totalBytesUploaded:
+        $ref: '#/definitions/sql.NullInt64'
+      totalFiles:
+        $ref: '#/definitions/sql.NullInt64'
+      totalObjectsRef:
+        $ref: '#/definitions/sql.NullInt64'
+      totalStorage:
+        $ref: '#/definitions/sql.NullInt64'
+      totalStorageMiners:
+        $ref: '#/definitions/sql.NullInt64'
+      totalUsers:
+        $ref: '#/definitions/sql.NullInt64'
+    type: object
+  statsapi.StorageRateStats:
+    properties:
+      dealFailureRate:
+        type: string
+      dealSuccessRate:
         type: string
     type: object
 host: localhost:3030
@@ -1615,66 +2520,7 @@ paths:
       summary: Get list of ProposalRecords
       tags:
       - ProposalRecords
-    post:
-      consumes:
-      - application/json
-      description: add to add a single record to proposal_records table in the estuary
-        database
-      parameters:
-      - description: Add ProposalRecords
-        in: body
-        name: ProposalRecords
-        required: true
-        schema:
-          $ref: '#/definitions/model.ProposalRecord'
-      produces:
-      - application/json
-      responses:
-        "200":
-          description: OK
-          schema:
-            $ref: '#/definitions/model.ProposalRecord'
-        "400":
-          description: Bad Request
-          schema:
-            $ref: '#/definitions/api.HTTPError'
-        "404":
-          description: Not Found
-          schema:
-            $ref: '#/definitions/api.HTTPError'
-      summary: Add an record to proposal_records table
-      tags:
-      - ProposalRecords
   /proposalrecords/{argPropCid}:
-    delete:
-      consumes:
-      - application/json
-      description: Delete a single record from proposal_records table in the estuary
-        database
-      parameters:
-      - description: prop_cid
-        in: path
-        name: argPropCid
-        required: true
-        type: string
-      produces:
-      - application/json
-      responses:
-        "204":
-          description: No Content
-          schema:
-            $ref: '#/definitions/model.ProposalRecord'
-        "400":
-          description: Bad Request
-          schema:
-            $ref: '#/definitions/api.HTTPError'
-        "500":
-          description: Internal Server Error
-          schema:
-            $ref: '#/definitions/api.HTTPError'
-      summary: Delete a record from proposal_records
-      tags:
-      - ProposalRecords
     get:
       consumes:
       - application/json
@@ -1703,41 +2549,6 @@ paths:
           schema:
             $ref: '#/definitions/api.HTTPError'
       summary: Get record from table ProposalRecords by  argPropCid
-      tags:
-      - ProposalRecords
-    put:
-      consumes:
-      - application/json
-      description: Update a single record from proposal_records table in the estuary
-        database
-      parameters:
-      - description: prop_cid
-        in: path
-        name: argPropCid
-        required: true
-        type: string
-      - description: Update ProposalRecords record
-        in: body
-        name: ProposalRecords
-        required: true
-        schema:
-          $ref: '#/definitions/model.ProposalRecord'
-      produces:
-      - application/json
-      responses:
-        "200":
-          description: OK
-          schema:
-            $ref: '#/definitions/model.ProposalRecord'
-        "400":
-          description: Bad Request
-          schema:
-            $ref: '#/definitions/api.HTTPError'
-        "404":
-          description: Not Found
-          schema:
-            $ref: '#/definitions/api.HTTPError'
-      summary: Update an record in table proposal_records
       tags:
       - ProposalRecords
   /retrievalfailurerecords:
@@ -1965,6 +2776,98 @@ paths:
       summary: Get record from table Shuttles by  argID
       tags:
       - Shuttles
+  /stats/deal-metrics:
+    get:
+      consumes:
+      - application/json
+      description: Returns the deal metrics
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/statsapi.DealMetricsInfo'
+            type: array
+      summary: Returns the deal metrics
+      tags:
+      - Stats
+  /stats/info:
+    get:
+      consumes:
+      - application/json
+      description: Returns the public stats
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/statsapi.PublicStats'
+      summary: Returns the public stats
+      tags:
+      - Stats
+  /stats/storage-rates:
+    get:
+      consumes:
+      - application/json
+      description: Returns the storage rate stats
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/statsapi.StorageRateStats'
+      summary: Returns the storage rate stats
+      tags:
+      - Stats
+  /stats/total-content-deals-attempted:
+    get:
+      consumes:
+      - application/json
+      description: Returns the total number of content deals attempted
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            type: integer
+      summary: Returns the total number of content deals attempted
+      tags:
+      - Stats
+  /stats/total-files:
+    get:
+      consumes:
+      - application/json
+      description: Returns the total number of files stored
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            type: integer
+      summary: Returns the total number of files stored
+      tags:
+      - Stats
+  /stats/total-storage:
+    get:
+      consumes:
+      - application/json
+      description: Returns the total storage
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            type: integer
+      summary: Returns the total storage
+      tags:
+      - Stats
   /storageminers:
     get:
       consumes:
@@ -2116,6 +3019,35 @@ paths:
       tags:
       - Users
   /users/count:
+    get:
+      consumes:
+      - application/json
+      description: GetNumberOfUsersWithinRange is a handler to get the number of record(s)
+        from users table in the estuary database
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            allOf:
+            - $ref: '#/definitions/api.PagedResults'
+            - properties:
+                data:
+                  type: integer
+              type: object
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/api.HTTPError'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/api.HTTPError'
+      summary: Get number of Users within range
+      tags:
+      - Users
+  /users/within-range:
     get:
       consumes:
       - application/json

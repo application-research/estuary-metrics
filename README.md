@@ -12,8 +12,14 @@ API that wraps all Estuary objects for Metrics purposes.
 # Access Key
 In order to access the API, you need to have an Estuary API key. Please request an API key [here](https://docs.estuary.tech/get-invite-key)
 
-# Public Dashboard
+# Endpoints
+## System
+## Objects
+## Stats
+## Devices
 
+# Public Dashboard
+WIP
 The public dashboard is available at [https://metrics.estuary.tech](https://metrics.estuary.tech)
 
 # Specs

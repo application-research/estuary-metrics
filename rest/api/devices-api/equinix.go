@@ -18,6 +18,18 @@ func ConfigEquinixDevicesRouter(router gin.IRoutes) {
 	router.GET("/environment/equinix/billing", api.ConvertHttpRouterToGin(GetBillingUsage))
 }
 
+// GetDeviceInfo returns the device info
+// @Summary Get device info
+// @Description Get device info
+// @Tags environment
+// @Accept  json
+// @Produce  json
+// @Param uuid query string true "uuid"
+// @Param createdBefore query string true "createdBefore"
+// @Param createdAfter query string true "createdAfter"
+// @Success 200 {object} core.DeviceInfo
+// @Failure 400 {object} api.HTTPError
+// @Failure 500 {object} api.HTTPError
 func GetDeviceInfo(w http.ResponseWriter, r *http.Request, ps httprouter.Params) {
 	ctx := api.InitializeContext(r)
 	uuid := r.FormValue("uuid")
@@ -34,14 +46,26 @@ func GetDeviceInfo(w http.ResponseWriter, r *http.Request, ps httprouter.Params)
 	api.WriteJSON(ctx, w, info)
 }
 
+type UuidGroup struct {
+	Uuids         []string `json:"uuids"`
+	CreatedBefore string   `json:"createdBefore"`
+	CreatedAfter  string   `json:"createdAfter"`
+}
+
+// GetDevicesUsages returns the device info
+// @Summary Get device usages
+// @Description Get device usages
+// @Tags environment
+// @Accept  json
+// @Produce  json
+// @Param uuids query string true "uuids"
+// @Param createdBefore query string true "createdBefore"
+// @Param createdAfter query string true "createdAfter"
+// @Success 200 {object} []core.DeviceUsage
+// @Failure 400 {object} api.HTTPError
+// @Failure 500 {object} api.HTTPError
 func GetDevicesUsages(w http.ResponseWriter, r *http.Request, ps httprouter.Params) {
 	ctx := api.InitializeContext(r)
-
-	type UuidGroup struct {
-		Uuids         []string `json:"uuids"`
-		CreatedBefore string   `json:"createdBefore"`
-		CreatedAfter  string   `json:"createdAfter"`
-	}
 	var uuidGroup UuidGroup
 	resBody, err := ioutil.ReadAll(r.Body)
 	if err != nil {
@@ -59,6 +83,19 @@ func GetDevicesUsages(w http.ResponseWriter, r *http.Request, ps httprouter.Para
 
 	api.WriteJSON(ctx, w, info)
 }
+
+// GetDeviceUsage returns the device usage
+// @Summary Get device usage
+// @Description Get device usage
+// @Tags environment
+// @Accept  json
+// @Produce  json
+// @Param uuid query string true "uuid"
+// @Param createdBefore query string true "createdBefore"
+// @Param createdAfter query string true "createdAfter"
+// @Success 200 {object} core.DeviceUsage
+// @Failure 400 {object} api.HTTPError
+// @Failure 500 {object} api.HTTPError
 func GetDeviceUsage(w http.ResponseWriter, r *http.Request, ps httprouter.Params) {
 	ctx := api.InitializeContext(r)
 	uuid := r.FormValue("uuid")
@@ -74,6 +111,18 @@ func GetDeviceUsage(w http.ResponseWriter, r *http.Request, ps httprouter.Params
 	api.WriteJSON(ctx, w, info)
 }
 
+// GetBillingUsage returns the device usage
+// @Summary Get device usage
+// @Description Get device usage
+// @Tags environment
+// @Accept  json
+// @Produce  json
+// @Param uuid query string true "uuid"
+// @Param createdBefore query string true "createdBefore"
+// @Param createdAfter query string true "createdAfter"
+// @Success 200 {object} core.DeviceInfo
+// @Failure 400 {object} api.HTTPError
+// @Failure 500 {object} api.HTTPError
 func GetBillingUsage(w http.ResponseWriter, r *http.Request, ps httprouter.Params) {
 	ctx := api.InitializeContext(r)
 	uuid := r.FormValue("uuid")

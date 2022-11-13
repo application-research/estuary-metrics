@@ -1642,50 +1642,6 @@ const docTemplate = `{
                         }
                     }
                 }
-            },
-            "post": {
-                "description": "add to add a single record to proposal_records table in the estuary database",
-                "consumes": [
-                    "application/json"
-                ],
-                "produces": [
-                    "application/json"
-                ],
-                "tags": [
-                    "ProposalRecords"
-                ],
-                "summary": "Add an record to proposal_records table",
-                "parameters": [
-                    {
-                        "description": "Add ProposalRecords",
-                        "name": "ProposalRecords",
-                        "in": "body",
-                        "required": true,
-                        "schema": {
-                            "$ref": "#/definitions/model.ProposalRecord"
-                        }
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "OK",
-                        "schema": {
-                            "$ref": "#/definitions/model.ProposalRecord"
-                        }
-                    },
-                    "400": {
-                        "description": "Bad Request",
-                        "schema": {
-                            "$ref": "#/definitions/api.HTTPError"
-                        }
-                    },
-                    "404": {
-                        "description": "Not Found",
-                        "schema": {
-                            "$ref": "#/definitions/api.HTTPError"
-                        }
-                    }
-                }
             }
         },
         "/proposalrecords/{argPropCid}": {
@@ -1725,99 +1681,6 @@ const docTemplate = `{
                     },
                     "404": {
                         "description": "ErrNotFound, db record for id not found - returns NotFound HTTP 404 not found error",
-                        "schema": {
-                            "$ref": "#/definitions/api.HTTPError"
-                        }
-                    }
-                }
-            },
-            "put": {
-                "description": "Update a single record from proposal_records table in the estuary database",
-                "consumes": [
-                    "application/json"
-                ],
-                "produces": [
-                    "application/json"
-                ],
-                "tags": [
-                    "ProposalRecords"
-                ],
-                "summary": "Update an record in table proposal_records",
-                "parameters": [
-                    {
-                        "type": "string",
-                        "description": "prop_cid",
-                        "name": "argPropCid",
-                        "in": "path",
-                        "required": true
-                    },
-                    {
-                        "description": "Update ProposalRecords record",
-                        "name": "ProposalRecords",
-                        "in": "body",
-                        "required": true,
-                        "schema": {
-                            "$ref": "#/definitions/model.ProposalRecord"
-                        }
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "OK",
-                        "schema": {
-                            "$ref": "#/definitions/model.ProposalRecord"
-                        }
-                    },
-                    "400": {
-                        "description": "Bad Request",
-                        "schema": {
-                            "$ref": "#/definitions/api.HTTPError"
-                        }
-                    },
-                    "404": {
-                        "description": "Not Found",
-                        "schema": {
-                            "$ref": "#/definitions/api.HTTPError"
-                        }
-                    }
-                }
-            },
-            "delete": {
-                "description": "Delete a single record from proposal_records table in the estuary database",
-                "consumes": [
-                    "application/json"
-                ],
-                "produces": [
-                    "application/json"
-                ],
-                "tags": [
-                    "ProposalRecords"
-                ],
-                "summary": "Delete a record from proposal_records",
-                "parameters": [
-                    {
-                        "type": "string",
-                        "description": "prop_cid",
-                        "name": "argPropCid",
-                        "in": "path",
-                        "required": true
-                    }
-                ],
-                "responses": {
-                    "204": {
-                        "description": "No Content",
-                        "schema": {
-                            "$ref": "#/definitions/model.ProposalRecord"
-                        }
-                    },
-                    "400": {
-                        "description": "Bad Request",
-                        "schema": {
-                            "$ref": "#/definitions/api.HTTPError"
-                        }
-                    },
-                    "500": {
-                        "description": "Internal Server Error",
                         "schema": {
                             "$ref": "#/definitions/api.HTTPError"
                         }
@@ -2167,6 +2030,147 @@ const docTemplate = `{
                 }
             }
         },
+        "/stats/deal-metrics": {
+            "get": {
+                "description": "Returns the deal metrics",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Stats"
+                ],
+                "summary": "Returns the deal metrics",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/statsapi.DealMetricsInfo"
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/stats/info": {
+            "get": {
+                "description": "Returns the public stats",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Stats"
+                ],
+                "summary": "Returns the public stats",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/statsapi.PublicStats"
+                        }
+                    }
+                }
+            }
+        },
+        "/stats/storage-rates": {
+            "get": {
+                "description": "Returns the storage rate stats",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Stats"
+                ],
+                "summary": "Returns the storage rate stats",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/statsapi.StorageRateStats"
+                        }
+                    }
+                }
+            }
+        },
+        "/stats/total-content-deals-attempted": {
+            "get": {
+                "description": "Returns the total number of content deals attempted",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Stats"
+                ],
+                "summary": "Returns the total number of content deals attempted",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                }
+            }
+        },
+        "/stats/total-files": {
+            "get": {
+                "description": "Returns the total number of files stored",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Stats"
+                ],
+                "summary": "Returns the total number of files stored",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                }
+            }
+        },
+        "/stats/total-storage": {
+            "get": {
+                "description": "Returns the total storage",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Stats"
+                ],
+                "summary": "Returns the total storage",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                }
+            }
+        },
         "/storageminers": {
             "get": {
                 "description": "GetAllStorageMiners is a handler to get a slice of record(s) from storage_miners table in the estuary database",
@@ -2353,6 +2357,53 @@ const docTemplate = `{
         },
         "/users/count": {
             "get": {
+                "description": "GetNumberOfUsersWithinRange is a handler to get the number of record(s) from users table in the estuary database",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Users"
+                ],
+                "summary": "Get number of Users within range",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "allOf": [
+                                {
+                                    "$ref": "#/definitions/api.PagedResults"
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "data": {
+                                            "type": "integer"
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/api.HTTPError"
+                        }
+                    },
+                    "404": {
+                        "description": "Not Found",
+                        "schema": {
+                            "$ref": "#/definitions/api.HTTPError"
+                        }
+                    }
+                }
+            }
+        },
+        "/users/within-range": {
+            "get": {
                 "description": "GetNumberOfUsers is a handler to get the number of record(s) from users table in the estuary database",
                 "consumes": [
                     "application/json"
@@ -2469,6 +2520,1346 @@ const docTemplate = `{
                 },
                 "total_records": {
                     "type": "integer"
+                }
+            }
+        },
+        "core.DeviceInfo": {
+            "type": "object",
+            "properties": {
+                "actions": {
+                    "type": "array",
+                    "items": {
+                        "type": "object",
+                        "properties": {
+                            "name": {
+                                "type": "string"
+                            },
+                            "type": {
+                                "type": "string"
+                            }
+                        }
+                    }
+                },
+                "allow_same_vlan_on_multiple_ports": {
+                    "type": "boolean"
+                },
+                "always_pxe": {
+                    "type": "boolean"
+                },
+                "billing_cycle": {
+                    "type": "string"
+                },
+                "bonding_mode": {
+                    "type": "integer"
+                },
+                "created_at": {
+                    "type": "string"
+                },
+                "created_by": {
+                    "type": "object",
+                    "properties": {
+                        "avatar_thumb_url": {
+                            "type": "string"
+                        },
+                        "created_at": {
+                            "type": "string"
+                        },
+                        "email": {
+                            "type": "string"
+                        },
+                        "first_name": {
+                            "type": "string"
+                        },
+                        "full_name": {
+                            "type": "string"
+                        },
+                        "href": {
+                            "type": "string"
+                        },
+                        "id": {
+                            "type": "string"
+                        },
+                        "last_name": {
+                            "type": "string"
+                        },
+                        "level": {
+                            "type": "string"
+                        },
+                        "short_id": {
+                            "type": "string"
+                        },
+                        "updated_at": {
+                            "type": "string"
+                        }
+                    }
+                },
+                "customdata": {
+                    "type": "object"
+                },
+                "description": {},
+                "device_type": {
+                    "type": "string"
+                },
+                "facility": {
+                    "type": "object",
+                    "properties": {
+                        "address": {
+                            "type": "object",
+                            "properties": {
+                                "address": {
+                                    "type": "string"
+                                },
+                                "address2": {
+                                    "type": "string"
+                                },
+                                "city": {
+                                    "type": "string"
+                                },
+                                "coordinates": {
+                                    "type": "object",
+                                    "properties": {
+                                        "latitude": {
+                                            "type": "string"
+                                        },
+                                        "longitude": {
+                                            "type": "string"
+                                        }
+                                    }
+                                },
+                                "country": {
+                                    "type": "string"
+                                },
+                                "id": {
+                                    "type": "string"
+                                },
+                                "state": {
+                                    "type": "string"
+                                },
+                                "zip_code": {
+                                    "type": "string"
+                                }
+                            }
+                        },
+                        "code": {
+                            "type": "string"
+                        },
+                        "features": {
+                            "type": "array",
+                            "items": {
+                                "type": "string"
+                            }
+                        },
+                        "id": {
+                            "type": "string"
+                        },
+                        "ip_ranges": {
+                            "type": "array",
+                            "items": {}
+                        },
+                        "metro": {
+                            "type": "object",
+                            "properties": {
+                                "code": {
+                                    "type": "string"
+                                },
+                                "country": {
+                                    "type": "string"
+                                },
+                                "id": {
+                                    "type": "string"
+                                },
+                                "name": {
+                                    "type": "string"
+                                }
+                            }
+                        },
+                        "name": {
+                            "type": "string"
+                        }
+                    }
+                },
+                "favorite": {
+                    "type": "boolean"
+                },
+                "hostname": {
+                    "type": "string"
+                },
+                "href": {
+                    "type": "string"
+                },
+                "id": {
+                    "type": "string"
+                },
+                "image_url": {},
+                "ip_addresses": {
+                    "type": "array",
+                    "items": {
+                        "type": "object",
+                        "properties": {
+                            "address": {
+                                "type": "string"
+                            },
+                            "address_family": {
+                                "type": "integer"
+                            },
+                            "assigned_to": {
+                                "type": "object",
+                                "properties": {
+                                    "href": {
+                                        "type": "string"
+                                    }
+                                }
+                            },
+                            "cidr": {
+                                "type": "integer"
+                            },
+                            "created_at": {
+                                "type": "string"
+                            },
+                            "customdata": {
+                                "type": "object"
+                            },
+                            "details": {},
+                            "enabled": {
+                                "type": "boolean"
+                            },
+                            "facility": {
+                                "type": "object",
+                                "properties": {
+                                    "address": {
+                                        "type": "object",
+                                        "properties": {
+                                            "address": {
+                                                "type": "string"
+                                            },
+                                            "address2": {
+                                                "type": "string"
+                                            },
+                                            "city": {
+                                                "type": "string"
+                                            },
+                                            "coordinates": {
+                                                "type": "object",
+                                                "properties": {
+                                                    "latitude": {
+                                                        "type": "string"
+                                                    },
+                                                    "longitude": {
+                                                        "type": "string"
+                                                    }
+                                                }
+                                            },
+                                            "country": {
+                                                "type": "string"
+                                            },
+                                            "id": {
+                                                "type": "string"
+                                            },
+                                            "state": {
+                                                "type": "string"
+                                            },
+                                            "zip_code": {
+                                                "type": "string"
+                                            }
+                                        }
+                                    },
+                                    "code": {
+                                        "type": "string"
+                                    },
+                                    "features": {
+                                        "type": "array",
+                                        "items": {
+                                            "type": "string"
+                                        }
+                                    },
+                                    "id": {
+                                        "type": "string"
+                                    },
+                                    "ip_ranges": {
+                                        "type": "array",
+                                        "items": {}
+                                    },
+                                    "metro": {
+                                        "type": "object",
+                                        "properties": {
+                                            "code": {
+                                                "type": "string"
+                                            },
+                                            "country": {
+                                                "type": "string"
+                                            },
+                                            "id": {
+                                                "type": "string"
+                                            },
+                                            "name": {
+                                                "type": "string"
+                                            }
+                                        }
+                                    },
+                                    "name": {
+                                        "type": "string"
+                                    }
+                                }
+                            },
+                            "gateway": {
+                                "type": "string"
+                            },
+                            "global_ip": {
+                                "type": "boolean"
+                            },
+                            "href": {
+                                "type": "string"
+                            },
+                            "id": {
+                                "type": "string"
+                            },
+                            "interface": {
+                                "type": "object",
+                                "properties": {
+                                    "href": {
+                                        "type": "string"
+                                    }
+                                }
+                            },
+                            "manageable": {
+                                "type": "boolean"
+                            },
+                            "management": {
+                                "type": "boolean"
+                            },
+                            "metro": {
+                                "type": "object",
+                                "properties": {
+                                    "code": {
+                                        "type": "string"
+                                    },
+                                    "country": {
+                                        "type": "string"
+                                    },
+                                    "id": {
+                                        "type": "string"
+                                    },
+                                    "name": {
+                                        "type": "string"
+                                    }
+                                }
+                            },
+                            "netmask": {
+                                "type": "string"
+                            },
+                            "network": {
+                                "type": "string"
+                            },
+                            "project": {
+                                "type": "object",
+                                "properties": {
+                                    "href": {
+                                        "type": "string"
+                                    }
+                                }
+                            },
+                            "project_lite": {
+                                "type": "object",
+                                "properties": {
+                                    "href": {
+                                        "type": "string"
+                                    }
+                                }
+                            },
+                            "public": {
+                                "type": "boolean"
+                            },
+                            "tags": {
+                                "type": "array",
+                                "items": {}
+                            }
+                        }
+                    }
+                },
+                "ipxe_script_url": {},
+                "iqn": {
+                    "type": "string"
+                },
+                "locked": {
+                    "type": "boolean"
+                },
+                "metro": {
+                    "type": "object",
+                    "properties": {
+                        "code": {
+                            "type": "string"
+                        },
+                        "country": {
+                            "type": "string"
+                        },
+                        "id": {
+                            "type": "string"
+                        },
+                        "name": {
+                            "type": "string"
+                        }
+                    }
+                },
+                "network_frozen": {
+                    "type": "boolean"
+                },
+                "network_ports": {
+                    "type": "array",
+                    "items": {
+                        "type": "object",
+                        "properties": {
+                            "bond": {
+                                "type": "object",
+                                "properties": {
+                                    "id": {
+                                        "type": "string"
+                                    },
+                                    "name": {
+                                        "type": "string"
+                                    }
+                                }
+                            },
+                            "data": {
+                                "type": "object",
+                                "properties": {
+                                    "bonded": {
+                                        "type": "boolean"
+                                    },
+                                    "mac": {
+                                        "type": "string"
+                                    }
+                                }
+                            },
+                            "disbond_operation_supported": {
+                                "type": "boolean"
+                            },
+                            "href": {
+                                "type": "string"
+                            },
+                            "id": {
+                                "type": "string"
+                            },
+                            "name": {
+                                "type": "string"
+                            },
+                            "native_virtual_network": {},
+                            "network_type": {
+                                "type": "string"
+                            },
+                            "type": {
+                                "type": "string"
+                            },
+                            "virtual_networks": {
+                                "type": "array",
+                                "items": {}
+                            }
+                        }
+                    }
+                },
+                "operating_system": {
+                    "type": "object",
+                    "properties": {
+                        "distro": {
+                            "type": "string"
+                        },
+                        "distro_label": {
+                            "type": "string"
+                        },
+                        "id": {
+                            "type": "string"
+                        },
+                        "licensed": {
+                            "type": "boolean"
+                        },
+                        "name": {
+                            "type": "string"
+                        },
+                        "preinstallable": {
+                            "type": "boolean"
+                        },
+                        "pricing": {
+                            "type": "object"
+                        },
+                        "provisionable_on": {
+                            "type": "array",
+                            "items": {}
+                        },
+                        "slug": {
+                            "type": "string"
+                        },
+                        "version": {
+                            "type": "string"
+                        }
+                    }
+                },
+                "plan": {
+                    "type": "object",
+                    "properties": {
+                        "available_in": {
+                            "type": "array",
+                            "items": {
+                                "type": "object",
+                                "properties": {
+                                    "href": {
+                                        "type": "string"
+                                    },
+                                    "price": {
+                                        "type": "object",
+                                        "properties": {
+                                            "hour": {
+                                                "type": "number"
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        },
+                        "available_in_metros": {
+                            "type": "array",
+                            "items": {
+                                "type": "object",
+                                "properties": {
+                                    "href": {
+                                        "type": "string"
+                                    },
+                                    "price": {
+                                        "type": "object",
+                                        "properties": {
+                                            "hour": {
+                                                "type": "number"
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        },
+                        "class": {
+                            "type": "string"
+                        },
+                        "deployment_types": {
+                            "type": "array",
+                            "items": {
+                                "type": "string"
+                            }
+                        },
+                        "description": {
+                            "type": "string"
+                        },
+                        "id": {
+                            "type": "string"
+                        },
+                        "legacy": {
+                            "type": "boolean"
+                        },
+                        "line": {
+                            "type": "string"
+                        },
+                        "name": {
+                            "type": "string"
+                        },
+                        "pricing": {
+                            "type": "object",
+                            "properties": {
+                                "hour": {
+                                    "type": "number"
+                                }
+                            }
+                        },
+                        "reservation_pricing": {
+                            "type": "object",
+                            "properties": {
+                                "am": {
+                                    "type": "object",
+                                    "properties": {
+                                        "one_month": {
+                                            "type": "object",
+                                            "properties": {
+                                                "month": {
+                                                    "type": "number"
+                                                }
+                                            }
+                                        },
+                                        "one_year": {
+                                            "type": "object",
+                                            "properties": {
+                                                "month": {
+                                                    "type": "number"
+                                                }
+                                            }
+                                        },
+                                        "three_year": {
+                                            "type": "object",
+                                            "properties": {
+                                                "month": {
+                                                    "type": "number"
+                                                }
+                                            }
+                                        }
+                                    }
+                                },
+                                "ch": {
+                                    "type": "object",
+                                    "properties": {
+                                        "one_month": {
+                                            "type": "object",
+                                            "properties": {
+                                                "month": {
+                                                    "type": "number"
+                                                }
+                                            }
+                                        },
+                                        "one_year": {
+                                            "type": "object",
+                                            "properties": {
+                                                "month": {
+                                                    "type": "number"
+                                                }
+                                            }
+                                        },
+                                        "three_year": {
+                                            "type": "object",
+                                            "properties": {
+                                                "month": {
+                                                    "type": "number"
+                                                }
+                                            }
+                                        }
+                                    }
+                                },
+                                "da": {
+                                    "type": "object",
+                                    "properties": {
+                                        "one_month": {
+                                            "type": "object",
+                                            "properties": {
+                                                "month": {
+                                                    "type": "number"
+                                                }
+                                            }
+                                        },
+                                        "one_year": {
+                                            "type": "object",
+                                            "properties": {
+                                                "month": {
+                                                    "type": "number"
+                                                }
+                                            }
+                                        },
+                                        "three_year": {
+                                            "type": "object",
+                                            "properties": {
+                                                "month": {
+                                                    "type": "number"
+                                                }
+                                            }
+                                        }
+                                    }
+                                },
+                                "dc": {
+                                    "type": "object",
+                                    "properties": {
+                                        "one_month": {
+                                            "type": "object",
+                                            "properties": {
+                                                "month": {
+                                                    "type": "number"
+                                                }
+                                            }
+                                        },
+                                        "one_year": {
+                                            "type": "object",
+                                            "properties": {
+                                                "month": {
+                                                    "type": "number"
+                                                }
+                                            }
+                                        },
+                                        "three_year": {
+                                            "type": "object",
+                                            "properties": {
+                                                "month": {
+                                                    "type": "number"
+                                                }
+                                            }
+                                        }
+                                    }
+                                },
+                                "fr": {
+                                    "type": "object",
+                                    "properties": {
+                                        "one_month": {
+                                            "type": "object",
+                                            "properties": {
+                                                "month": {
+                                                    "type": "number"
+                                                }
+                                            }
+                                        },
+                                        "one_year": {
+                                            "type": "object",
+                                            "properties": {
+                                                "month": {
+                                                    "type": "number"
+                                                }
+                                            }
+                                        },
+                                        "three_year": {
+                                            "type": "object",
+                                            "properties": {
+                                                "month": {
+                                                    "type": "number"
+                                                }
+                                            }
+                                        }
+                                    }
+                                },
+                                "hk": {
+                                    "type": "object",
+                                    "properties": {
+                                        "one_month": {
+                                            "type": "object",
+                                            "properties": {
+                                                "month": {
+                                                    "type": "number"
+                                                }
+                                            }
+                                        },
+                                        "one_year": {
+                                            "type": "object",
+                                            "properties": {
+                                                "month": {
+                                                    "type": "number"
+                                                }
+                                            }
+                                        },
+                                        "three_year": {
+                                            "type": "object",
+                                            "properties": {
+                                                "month": {
+                                                    "type": "number"
+                                                }
+                                            }
+                                        }
+                                    }
+                                },
+                                "la": {
+                                    "type": "object",
+                                    "properties": {
+                                        "one_month": {
+                                            "type": "object",
+                                            "properties": {
+                                                "month": {
+                                                    "type": "number"
+                                                }
+                                            }
+                                        },
+                                        "one_year": {
+                                            "type": "object",
+                                            "properties": {
+                                                "month": {
+                                                    "type": "number"
+                                                }
+                                            }
+                                        },
+                                        "three_year": {
+                                            "type": "object",
+                                            "properties": {
+                                                "month": {
+                                                    "type": "number"
+                                                }
+                                            }
+                                        }
+                                    }
+                                },
+                                "ld": {
+                                    "type": "object",
+                                    "properties": {
+                                        "one_month": {
+                                            "type": "object",
+                                            "properties": {
+                                                "month": {
+                                                    "type": "number"
+                                                }
+                                            }
+                                        },
+                                        "one_year": {
+                                            "type": "object",
+                                            "properties": {
+                                                "month": {
+                                                    "type": "number"
+                                                }
+                                            }
+                                        },
+                                        "three_year": {
+                                            "type": "object",
+                                            "properties": {
+                                                "month": {
+                                                    "type": "number"
+                                                }
+                                            }
+                                        }
+                                    }
+                                },
+                                "md": {
+                                    "type": "object",
+                                    "properties": {
+                                        "one_month": {
+                                            "type": "object",
+                                            "properties": {
+                                                "month": {
+                                                    "type": "number"
+                                                }
+                                            }
+                                        },
+                                        "one_year": {
+                                            "type": "object",
+                                            "properties": {
+                                                "month": {
+                                                    "type": "number"
+                                                }
+                                            }
+                                        },
+                                        "three_year": {
+                                            "type": "object",
+                                            "properties": {
+                                                "month": {
+                                                    "type": "number"
+                                                }
+                                            }
+                                        }
+                                    }
+                                },
+                                "ny": {
+                                    "type": "object",
+                                    "properties": {
+                                        "one_month": {
+                                            "type": "object",
+                                            "properties": {
+                                                "month": {
+                                                    "type": "number"
+                                                }
+                                            }
+                                        },
+                                        "one_year": {
+                                            "type": "object",
+                                            "properties": {
+                                                "month": {
+                                                    "type": "number"
+                                                }
+                                            }
+                                        },
+                                        "three_year": {
+                                            "type": "object",
+                                            "properties": {
+                                                "month": {
+                                                    "type": "number"
+                                                }
+                                            }
+                                        }
+                                    }
+                                },
+                                "one_month": {
+                                    "type": "object",
+                                    "properties": {
+                                        "month": {
+                                            "type": "number"
+                                        }
+                                    }
+                                },
+                                "one_year": {
+                                    "type": "object",
+                                    "properties": {
+                                        "month": {
+                                            "type": "number"
+                                        }
+                                    }
+                                },
+                                "pa": {
+                                    "type": "object",
+                                    "properties": {
+                                        "one_month": {
+                                            "type": "object",
+                                            "properties": {
+                                                "month": {
+                                                    "type": "number"
+                                                }
+                                            }
+                                        },
+                                        "one_year": {
+                                            "type": "object",
+                                            "properties": {
+                                                "month": {
+                                                    "type": "number"
+                                                }
+                                            }
+                                        },
+                                        "three_year": {
+                                            "type": "object",
+                                            "properties": {
+                                                "month": {
+                                                    "type": "number"
+                                                }
+                                            }
+                                        }
+                                    }
+                                },
+                                "se": {
+                                    "type": "object",
+                                    "properties": {
+                                        "one_month": {
+                                            "type": "object",
+                                            "properties": {
+                                                "month": {
+                                                    "type": "number"
+                                                }
+                                            }
+                                        },
+                                        "one_year": {
+                                            "type": "object",
+                                            "properties": {
+                                                "month": {
+                                                    "type": "number"
+                                                }
+                                            }
+                                        },
+                                        "three_year": {
+                                            "type": "object",
+                                            "properties": {
+                                                "month": {
+                                                    "type": "number"
+                                                }
+                                            }
+                                        }
+                                    }
+                                },
+                                "sg": {
+                                    "type": "object",
+                                    "properties": {
+                                        "one_month": {
+                                            "type": "object",
+                                            "properties": {
+                                                "month": {
+                                                    "type": "number"
+                                                }
+                                            }
+                                        },
+                                        "one_year": {
+                                            "type": "object",
+                                            "properties": {
+                                                "month": {
+                                                    "type": "number"
+                                                }
+                                            }
+                                        },
+                                        "three_year": {
+                                            "type": "object",
+                                            "properties": {
+                                                "month": {
+                                                    "type": "number"
+                                                }
+                                            }
+                                        }
+                                    }
+                                },
+                                "sl": {
+                                    "type": "object",
+                                    "properties": {
+                                        "one_month": {
+                                            "type": "object",
+                                            "properties": {
+                                                "month": {
+                                                    "type": "number"
+                                                }
+                                            }
+                                        },
+                                        "one_year": {
+                                            "type": "object",
+                                            "properties": {
+                                                "month": {
+                                                    "type": "number"
+                                                }
+                                            }
+                                        },
+                                        "three_year": {
+                                            "type": "object",
+                                            "properties": {
+                                                "month": {
+                                                    "type": "number"
+                                                }
+                                            }
+                                        }
+                                    }
+                                },
+                                "sp": {
+                                    "type": "object",
+                                    "properties": {
+                                        "one_month": {
+                                            "type": "object",
+                                            "properties": {
+                                                "month": {
+                                                    "type": "number"
+                                                }
+                                            }
+                                        },
+                                        "one_year": {
+                                            "type": "object",
+                                            "properties": {
+                                                "month": {
+                                                    "type": "number"
+                                                }
+                                            }
+                                        },
+                                        "three_year": {
+                                            "type": "object",
+                                            "properties": {
+                                                "month": {
+                                                    "type": "number"
+                                                }
+                                            }
+                                        }
+                                    }
+                                },
+                                "sv": {
+                                    "type": "object",
+                                    "properties": {
+                                        "one_month": {
+                                            "type": "object",
+                                            "properties": {
+                                                "month": {
+                                                    "type": "number"
+                                                }
+                                            }
+                                        },
+                                        "one_year": {
+                                            "type": "object",
+                                            "properties": {
+                                                "month": {
+                                                    "type": "number"
+                                                }
+                                            }
+                                        },
+                                        "three_year": {
+                                            "type": "object",
+                                            "properties": {
+                                                "month": {
+                                                    "type": "number"
+                                                }
+                                            }
+                                        }
+                                    }
+                                },
+                                "sy": {
+                                    "type": "object",
+                                    "properties": {
+                                        "one_month": {
+                                            "type": "object",
+                                            "properties": {
+                                                "month": {
+                                                    "type": "number"
+                                                }
+                                            }
+                                        },
+                                        "one_year": {
+                                            "type": "object",
+                                            "properties": {
+                                                "month": {
+                                                    "type": "number"
+                                                }
+                                            }
+                                        },
+                                        "three_year": {
+                                            "type": "object",
+                                            "properties": {
+                                                "month": {
+                                                    "type": "number"
+                                                }
+                                            }
+                                        }
+                                    }
+                                },
+                                "three_year": {
+                                    "type": "object",
+                                    "properties": {
+                                        "month": {
+                                            "type": "number"
+                                        }
+                                    }
+                                },
+                                "tr": {
+                                    "type": "object",
+                                    "properties": {
+                                        "one_month": {
+                                            "type": "object",
+                                            "properties": {
+                                                "month": {
+                                                    "type": "number"
+                                                }
+                                            }
+                                        },
+                                        "one_year": {
+                                            "type": "object",
+                                            "properties": {
+                                                "month": {
+                                                    "type": "number"
+                                                }
+                                            }
+                                        },
+                                        "three_year": {
+                                            "type": "object",
+                                            "properties": {
+                                                "month": {
+                                                    "type": "number"
+                                                }
+                                            }
+                                        }
+                                    }
+                                },
+                                "ty": {
+                                    "type": "object",
+                                    "properties": {
+                                        "one_month": {
+                                            "type": "object",
+                                            "properties": {
+                                                "month": {
+                                                    "type": "number"
+                                                }
+                                            }
+                                        },
+                                        "one_year": {
+                                            "type": "object",
+                                            "properties": {
+                                                "month": {
+                                                    "type": "number"
+                                                }
+                                            }
+                                        },
+                                        "three_year": {
+                                            "type": "object",
+                                            "properties": {
+                                                "month": {
+                                                    "type": "number"
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        },
+                        "slug": {
+                            "type": "string"
+                        },
+                        "specs": {
+                            "type": "object",
+                            "properties": {
+                                "cpus": {
+                                    "type": "array",
+                                    "items": {
+                                        "type": "object",
+                                        "properties": {
+                                            "count": {
+                                                "type": "integer"
+                                            },
+                                            "type": {
+                                                "type": "string"
+                                            }
+                                        }
+                                    }
+                                },
+                                "drives": {
+                                    "type": "array",
+                                    "items": {
+                                        "type": "object",
+                                        "properties": {
+                                            "category": {
+                                                "type": "string"
+                                            },
+                                            "count": {
+                                                "type": "integer"
+                                            },
+                                            "size": {
+                                                "type": "string"
+                                            },
+                                            "type": {
+                                                "type": "string"
+                                            }
+                                        }
+                                    }
+                                },
+                                "features": {
+                                    "type": "object",
+                                    "properties": {
+                                        "raid": {
+                                            "type": "boolean"
+                                        },
+                                        "txt": {
+                                            "type": "boolean"
+                                        }
+                                    }
+                                },
+                                "memory": {
+                                    "type": "object",
+                                    "properties": {
+                                        "total": {
+                                            "type": "string"
+                                        }
+                                    }
+                                },
+                                "nics": {
+                                    "type": "array",
+                                    "items": {
+                                        "type": "object",
+                                        "properties": {
+                                            "count": {
+                                                "type": "integer"
+                                            },
+                                            "type": {
+                                                "type": "string"
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        },
+                        "type": {
+                            "type": "string"
+                        }
+                    }
+                },
+                "project": {
+                    "type": "object",
+                    "properties": {
+                        "href": {
+                            "type": "string"
+                        }
+                    }
+                },
+                "project_lite": {
+                    "type": "object",
+                    "properties": {
+                        "href": {
+                            "type": "string"
+                        }
+                    }
+                },
+                "short_id": {
+                    "type": "string"
+                },
+                "ssh_keys": {
+                    "type": "array",
+                    "items": {
+                        "type": "object",
+                        "properties": {
+                            "href": {
+                                "type": "string"
+                            }
+                        }
+                    }
+                },
+                "state": {
+                    "type": "string"
+                },
+                "storage": {
+                    "type": "object"
+                },
+                "switch_uuid": {
+                    "type": "string"
+                },
+                "tags": {
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    }
+                },
+                "updated_at": {
+                    "type": "string"
+                },
+                "user": {
+                    "type": "string"
+                },
+                "userdata": {
+                    "type": "string"
+                },
+                "volumes": {
+                    "type": "array",
+                    "items": {}
+                }
+            }
+        },
+        "core.DeviceUsage": {
+            "type": "object",
+            "properties": {
+                "info": {
+                    "type": "object",
+                    "properties": {
+                        "name": {
+                            "type": "string"
+                        },
+                        "uuid": {
+                            "type": "string"
+                        }
+                    }
+                },
+                "usages": {
+                    "type": "array",
+                    "items": {
+                        "type": "object",
+                        "properties": {
+                            "price": {
+                                "type": "number"
+                            },
+                            "quantity": {
+                                "type": "number"
+                            },
+                            "total": {
+                                "type": "number"
+                            },
+                            "unit": {
+                                "type": "string"
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "dao.TopCollectionUser": {
+            "type": "object",
+            "properties": {
+                "count": {
+                    "type": "integer"
+                },
+                "userID": {
+                    "type": "integer"
+                },
+                "username": {
+                    "type": "string"
+                }
+            }
+        },
+        "dao.TopMiner": {
+            "type": "object",
+            "properties": {
+                "count": {
+                    "type": "integer"
+                },
+                "miner": {
+                    "type": "string"
+                },
+                "name": {
+                    "type": "string"
+                }
+            }
+        },
+        "dao.TopUser": {
+            "type": "object",
+            "properties": {
+                "id": {
+                    "type": "integer"
+                },
+                "total_bytes": {
+                    "type": "integer"
+                },
+                "username": {
+                    "type": "string"
                 }
             }
         },
@@ -3253,6 +4644,81 @@ const docTemplate = `{
                     "$ref": "#/definitions/model.TableInfo"
                 },
                 "update_url": {
+                    "type": "string"
+                }
+            }
+        },
+        "sql.NullInt64": {
+            "type": "object",
+            "properties": {
+                "int64": {
+                    "type": "integer"
+                },
+                "valid": {
+                    "description": "Valid is true if Int64 is not NULL",
+                    "type": "boolean"
+                }
+            }
+        },
+        "statsapi.DealMetricsInfo": {
+            "type": "object",
+            "properties": {
+                "dealsAttempted": {
+                    "type": "integer"
+                },
+                "dealsFailed": {
+                    "type": "integer"
+                },
+                "dealsOnChain": {
+                    "type": "integer"
+                },
+                "dealsOnChainBytes": {
+                    "type": "integer"
+                },
+                "dealsSealed": {
+                    "type": "integer"
+                },
+                "dealsSealedBytes": {
+                    "type": "integer"
+                },
+                "time": {
+                    "type": "string"
+                }
+            }
+        },
+        "statsapi.PublicStats": {
+            "type": "object",
+            "properties": {
+                "dealsOnChain": {
+                    "$ref": "#/definitions/sql.NullInt64"
+                },
+                "totalBytesUploaded": {
+                    "$ref": "#/definitions/sql.NullInt64"
+                },
+                "totalFiles": {
+                    "$ref": "#/definitions/sql.NullInt64"
+                },
+                "totalObjectsRef": {
+                    "$ref": "#/definitions/sql.NullInt64"
+                },
+                "totalStorage": {
+                    "$ref": "#/definitions/sql.NullInt64"
+                },
+                "totalStorageMiners": {
+                    "$ref": "#/definitions/sql.NullInt64"
+                },
+                "totalUsers": {
+                    "$ref": "#/definitions/sql.NullInt64"
+                }
+            }
+        },
+        "statsapi.StorageRateStats": {
+            "type": "object",
+            "properties": {
+                "dealFailureRate": {
+                    "type": "string"
+                },
+                "dealSuccessRate": {
                     "type": "string"
                 }
             }

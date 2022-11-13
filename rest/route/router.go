@@ -38,7 +38,7 @@ func ConfigRouter(router gin.IRoutes) {
 	})
 
 	//	all estuary objects objects-api
-	objectsapi.ConfigAuthTokensRouter(router)
+	//objectsapi.ConfigAuthTokensRouter(router)
 	objectsapi.ConfigAutoretrievesRouter(router)
 	objectsapi.ConfigCollectionRefsRouter(router)
 	objectsapi.ConfigCollectionsRouter(router)

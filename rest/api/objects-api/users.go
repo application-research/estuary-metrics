@@ -110,7 +110,7 @@ func GetNumberOfUsersWithinRange(w http.ResponseWriter, r *http.Request, ps http
 // @Success 200 {object} api.PagedResults{data=int64}
 // @Failure 400 {object} api.HTTPError
 // @Failure 404 {object} api.HTTPError
-// @Router /users/count [get]
+// @Router /users/within-range [get]
 // http "http://localhost:3030/users/within-range" X-Api-User:user123
 func GetNumberOfUsers(w http.ResponseWriter, r *http.Request, ps httprouter.Params) {
 	ctx := api.InitializeContext(r)

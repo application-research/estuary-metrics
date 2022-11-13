@@ -15,12 +15,12 @@ import (
 func ConfigStatsRouter(router gin.IRoutes) {
 	router.GET("/stats/retrieval", api.ConvertHttpRouterToGin(GetRetrievalStats))
 	router.GET("/stats/total-content-deals-attempted", api.ConvertHttpRouterToGin(GetContentDealsAttempted))
-	router.GET("/stats/total-storage-tib", api.ConvertHttpRouterToGin(GetTotalStorageInTib))
+	router.GET("/stats/total-storage", api.ConvertHttpRouterToGin(GetTotalStorageInTib))
 	router.GET("/stats/total-files", api.ConvertHttpRouterToGin(GetTotalFiles))
 	router.GET("/stats/storage-rates", api.ConvertHttpRouterToGin(GetStorageRateStats))
 	router.GET("/stats/system", api.ConvertHttpRouterToGin(GetSystemStats))
 	router.GET("/stats/users", api.ConvertHttpRouterToGin(GetUserStats))
-	router.GET("/stats/info", api.ConvertHttpRouterToGin(GetPublicStats))
+	router.GET("/stats/info", api.ConvertHttpRouterToGin(GetInfo))
 	router.GET("/stats/deal-metrics", api.ConvertHttpRouterToGin(GetDealMetrics))
 }
 
@@ -116,6 +116,14 @@ func GetRetrievalStats(w http.ResponseWriter, r *http.Request, ps httprouter.Par
 
 }
 
+// GetContentDealsAttempted returns the total number of content deals attempted
+// @Summary Returns the total number of content deals attempted
+// @Description Returns the total number of content deals attempted
+// @Tags Stats
+// @Accept  json
+// @Produce  json
+// @Success 200 {object} int
+// @Router /stats/total-content-deals-attempted [get]
 func GetContentDealsAttempted(w http.ResponseWriter, r *http.Request, ps httprouter.Params) {
 	//select count(*) from content_deals as c1, contents as c2 where c1.id = c2.id;
 	ctx := api.InitializeContext(r)
@@ -128,6 +136,15 @@ func GetContentDealsAttempted(w http.ResponseWriter, r *http.Request, ps httprou
 	api.WriteJSON(ctx, w, totalDealsAttempted)
 
 }
+
+//  GetTotalFilesStored returns the total number of files stored
+//	@Summary Returns the total number of files stored
+//	@Description Returns the total number of files stored
+//	@Tags Stats
+//	@Accept  json
+//	@Produce  json
+//	@Success 200 {object} int
+//	@Router /stats/total-files [get]
 func GetTotalFiles(w http.ResponseWriter, r *http.Request, ps httprouter.Params) {
 	ctx := api.InitializeContext(r)
 	var totalFiles int64
@@ -140,6 +157,14 @@ func GetTotalFiles(w http.ResponseWriter, r *http.Request, ps httprouter.Params)
 	api.WriteJSON(ctx, w, totalFiles)
 }
 
+// GetTotalStorage returns the total storage
+// @Summary Returns the total storage
+// @Description Returns the total storage
+// @Tags Stats
+// @Accept  json
+// @Produce  json
+// @Success 200 {object} int
+// @Router /stats/total-storage [get]
 func GetTotalStorageInTib(w http.ResponseWriter, r *http.Request, ps httprouter.Params) {
 	//select (sum(size)/1000000000000) as "Total Storage" from contents where active and not aggregated_in > 0
 	ctx := api.InitializeContext(r)
@@ -151,6 +176,15 @@ func GetTotalStorageInTib(w http.ResponseWriter, r *http.Request, ps httprouter.
 	}
 	api.WriteJSON(ctx, w, totalStorage)
 }
+
+// GetStorageRateStats returns the storage rate stats
+// @Summary Returns the storage rate stats
+// @Description Returns the storage rate stats
+// @Tags Stats
+// @Accept  json
+// @Produce  json
+// @Success 200 {object} StorageRateStats
+// @Router /stats/storage-rates [get]
 func GetStorageRateStats(w http.ResponseWriter, r *http.Request, ps httprouter.Params) {
 	var storageRateStats StorageRateStats
 	//select ((t.success  * 1.0 /t.total  * 1.0) * 100) as "Success", ((t.failed * 1.0 / t.total * 1.0) * 100) as "Failure" from (select
@@ -183,7 +217,15 @@ func GetUserStats(w http.ResponseWriter, r *http.Request, ps httprouter.Params) 
 
 }
 
-func GetPublicStats(w http.ResponseWriter, r *http.Request, ps httprouter.Params) {
+//	GetPublicStats returns the public stats
+//	@Summary Returns the public stats
+//	@Description Returns the public stats
+//	@Tags Stats
+//	@Accept  json
+//	@Produce  json
+//	@Success 200 {object} PublicStats
+//	@Router /stats/info [get]
+func GetInfo(w http.ResponseWriter, r *http.Request, ps httprouter.Params) {
 	ctx := api.InitializeContext(r)
 	var stats PublicStats
 	if err := dao.DB.Model(model.Content{}).Where("active and not aggregated_in > 0").Select("SUM(size) as total_storage").Scan(&stats).Error; err != nil {
@@ -226,6 +268,14 @@ func GetPublicStats(w http.ResponseWriter, r *http.Request, ps httprouter.Params
 
 }
 
+// GetDealMetrics returns the deal metrics
+// @Summary Returns the deal metrics
+// @Description Returns the deal metrics
+// @Tags Stats
+// @Accept  json
+// @Produce  json
+// @Success 200 {object} []DealMetricsInfo
+// @Router /stats/deal-metrics [get]
 func GetDealMetrics(w http.ResponseWriter, r *http.Request, ps httprouter.Params) {
 	ctx := api.InitializeContext(r)
 	metricsInfo, err := computeDealMetrics()

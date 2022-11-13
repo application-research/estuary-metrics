@@ -4,27 +4,10 @@ import Head from 'next/head';
 // @mui
 import { useTheme } from '@mui/material/styles';
 import {Box, Container, Grid, Typography} from '@mui/material';
-// layouts
-import MainLayout from '../layouts/main';
 // sections
-import {
-  HomeHero,
-  HomeMinimal,
-  HomeDarkMode,
-  HomeLookingFor,
-  HomeForDesigner,
-  HomeColorPresets,
-  HomePricingPlans,
-  HomeAdvertisement,
-  HomeCleanInterfaces,
-  HomeHugePackElements,
-} from '../sections/home';
-import {AnalyticsWidgetSummary} from "../sections/@dashboard/general/analytics";
 import {useSettingsContext} from "../components/settings";
 import DashboardLayout from "../layouts/dashboard";
-import GeneralAnalyticsPage from "./dashboard/analytics";
-import {AppTopInstalledCountries, AppWidgetSummary} from "../sections/@dashboard/general/app";
-import {_appInstalled} from "../_mock/arrays";
+import { AppWidgetSummary} from "../sections/@dashboard/general/app";
 
 // ----------------------------------------------------------------------
 

@@ -57,13 +57,13 @@ func GetCollections(ctx context.Context, argID int64) (record *model.Collection,
 	return record, nil
 }
 
-type TopCollectionUsers struct {
+type TopCollectionUser struct {
 	UserID   int64
 	Username string
 	Count    int64
 }
 
-func GetTopCollectionUsers(ctx context.Context, top int) (record []*TopCollectionUsers, err error) {
+func GetTopCollectionUsers(ctx context.Context, top int) (record []*TopCollectionUser, err error) {
 	//	select a.user_id, count(*) from collections a, users b where a.user_id = b.id group by a.user_id order by count(*) desc limit 10;
 	if err = DB.Table("collections").Select("user_id, username, count(*)").Joins("join users on collections.user_id = users.id").Group("user_id, username").Order("count(*) desc").Limit(top).Scan(&record).Error; err != nil {
 		err = ErrNotFound
