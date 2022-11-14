@@ -1,6 +1,7 @@
 package app
 
 import (
+	_ "github.com/application-research/estuary-metrics/rest/docs"
 	"github.com/application-research/estuary-metrics/rest/route"
 	"github.com/gin-gonic/gin"
 	swaggerFiles "github.com/swaggo/files"
@@ -8,22 +9,18 @@ import (
 	"log"
 )
 
-func GinServer() (err error) {
-	url := ginSwagger.URL("http://localhost:3030/swagger/doc.json") // The url pointing to API definition
-
+func GinServer() (engine *gin.Engine, err error) {
 	router := gin.Default()
-	router.GET("/swagger/*any", ginSwagger.WrapHandler(swaggerFiles.Handler, url))
-
-	router.Group("/api/v0")
-	route.ConfigRouter(router)
+	url := ginSwagger.URL("http://localhost:3030/swagger/doc.json") // The url pointing to API definition
+	group := router.Group("/api/v1")
+	route.ConfigRouter(group)
 
 	router.Static("/web", "./web")
-
-	// TODO: Parameterize
+	router.GET("/swagger/*any", ginSwagger.WrapHandler(swaggerFiles.Handler, url))
 	router.Run("0.0.0.0:3030")
 	if err != nil {
 		log.Fatalf("Error starting server, the error is '%v'", err)
 	}
 
-	return
+	return router, err
 }

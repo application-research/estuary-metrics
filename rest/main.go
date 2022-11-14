@@ -6,6 +6,7 @@ import (
 	"github.com/application-research/estuary-metrics/core"
 	"github.com/application-research/estuary-metrics/core/dao"
 	"github.com/application-research/estuary-metrics/rest/app"
+	_ "github.com/application-research/estuary-metrics/rest/docs"
 	"github.com/droundy/goopt"
 	"github.com/spf13/viper"
 	"github.com/whyrusleeping/memo"
@@ -42,18 +43,21 @@ var (
 )
 
 // @title Estuary Metrics API
-// @version 1.0
+// @version 0.0.1
 // @description Estuary Metrics API
 // @termsOfService
 
-// @contact.name Me
+// @contact.name Outercore Engineering
 // @contact.url http://me.com/terms.html
 // @contact.email me@me.com
 
 // @license.name Apache 2.0
 // @license.url http://www.apache.org/licenses/LICENSE-2.0.html
 
-// @host localhost:3030
+// @host localhost:3030/api/v1
+// @securityDefinitions.apikey BearerAuth
+// @in header
+// @name Authorization
 // @BasePath /
 func main() {
 	OsSignal = make(chan os.Signal, 1)
@@ -102,6 +106,7 @@ func main() {
 	}
 	go app.GinServer()     // rest
 	go app.InitHeartbeat() // heartbeat
+
 	LoopForever()
 }
 

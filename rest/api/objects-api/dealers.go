@@ -19,6 +19,11 @@ var (
 func ConfigDealersRouter(router gin.IRoutes) {
 	router.GET("/dealers", api.ConvertHttpRouterToGin(GetAllDealers))
 	router.GET("/dealers/:id", api.ConvertHttpRouterToGin(GetDealers))
+	router.GET("/dealers/dynamicquery", api.ConvertHttpRouterToGin(GetDealersDynamicQuery))
+}
+
+func GetDealersDynamicQuery(w http.ResponseWriter, r *http.Request, ps httprouter.Params) {
+	HandleDynamicQuery(w, r, ps, model.Dealer{})
 }
 
 // GetAllDealers is a function to get a slice of record(s) from dealers table in the estuary database

@@ -11,7 +11,7 @@ const docTemplate = `{
         "description": "{{escape .Description}}",
         "title": "{{.Title}}",
         "contact": {
-            "name": "Me",
+            "name": "Outercore Engineering",
             "url": "http://me.com/terms.html",
             "email": "me@me.com"
         },
@@ -54,6 +54,117 @@ const docTemplate = `{
                         "type": "string",
                         "description": "db sort order column",
                         "name": "order",
+                        "in": "query"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "allOf": [
+                                {
+                                    "$ref": "#/definitions/api.PagedResults"
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "data": {
+                                            "type": "array",
+                                            "items": {
+                                                "$ref": "#/definitions/model.AuthToken"
+                                            }
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/api.HTTPError"
+                        }
+                    },
+                    "404": {
+                        "description": "Not Found",
+                        "schema": {
+                            "$ref": "#/definitions/api.HTTPError"
+                        }
+                    }
+                }
+            }
+        },
+        "/authtokens/activecount": {
+            "get": {
+                "description": "GetAllActiveAuthTokenCount is a handler to get all record from the auth_tokens table in the estuary database",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "AuthTokens"
+                ],
+                "summary": "Get a single AuthTokens",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/model.AuthToken"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/api.HTTPError"
+                        }
+                    },
+                    "404": {
+                        "description": "Not Found",
+                        "schema": {
+                            "$ref": "#/definitions/api.HTTPError"
+                        }
+                    }
+                }
+            }
+        },
+        "/authtokens/dynamicquery": {
+            "get": {
+                "description": "GetAuthTokensDynamicQuery is a handler to get a slice of record(s) from auth_tokens table in the estuary database",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "AuthTokens"
+                ],
+                "summary": "Get list of AuthTokens",
+                "parameters": [
+                    {
+                        "type": "integer",
+                        "description": "page requested (defaults to 0)",
+                        "name": "page",
+                        "in": "query"
+                    },
+                    {
+                        "type": "integer",
+                        "description": "number of records in a page  (defaults to 20)",
+                        "name": "pagesize",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "description": "db sort order column",
+                        "name": "order",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "description": "dynamic query",
+                        "name": "query",
                         "in": "query"
                     }
                 ],
@@ -208,6 +319,82 @@ const docTemplate = `{
                 }
             }
         },
+        "/autoretrieves/dynamicquery": {
+            "get": {
+                "description": "GetAutoretrievesDynamicQuery is a function to get a slice of record(s) from autoretrieves table in the estuary database",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Autoretrieves"
+                ],
+                "summary": "Get list of Autoretrieves",
+                "parameters": [
+                    {
+                        "type": "integer",
+                        "description": "page requested (defaults to 0)",
+                        "name": "page",
+                        "in": "query"
+                    },
+                    {
+                        "type": "integer",
+                        "description": "number of records in a page  (defaults to 20)",
+                        "name": "pagesize",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "description": "db sort order column",
+                        "name": "order",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "description": "dynamic query",
+                        "name": "query",
+                        "in": "query"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "allOf": [
+                                {
+                                    "$ref": "#/definitions/api.PagedResults"
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "data": {
+                                            "type": "array",
+                                            "items": {
+                                                "$ref": "#/definitions/model.Autoretrieve"
+                                            }
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/api.HTTPError"
+                        }
+                    },
+                    "404": {
+                        "description": "Not Found",
+                        "schema": {
+                            "$ref": "#/definitions/api.HTTPError"
+                        }
+                    }
+                }
+            }
+        },
         "/autoretrieves/{argID}": {
             "get": {
                 "description": "GetAutoretrieves is a function to get a single record from the autoretrieves table in the estuary database",
@@ -322,6 +509,82 @@ const docTemplate = `{
                 }
             }
         },
+        "/collectionrefs/dynamicquery": {
+            "get": {
+                "description": "GetCollectionsRefDynamicQuery is a handler to get a slice of record(s) from collection_refs table in the estuary database",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "CollectionRefs"
+                ],
+                "summary": "Get list of CollectionRefs",
+                "parameters": [
+                    {
+                        "type": "integer",
+                        "description": "page requested (defaults to 0)",
+                        "name": "page",
+                        "in": "query"
+                    },
+                    {
+                        "type": "integer",
+                        "description": "number of records in a page  (defaults to 20)",
+                        "name": "pagesize",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "description": "db sort order column",
+                        "name": "order",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "description": "query string",
+                        "name": "query",
+                        "in": "query"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "allOf": [
+                                {
+                                    "$ref": "#/definitions/api.PagedResults"
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "data": {
+                                            "type": "array",
+                                            "items": {
+                                                "$ref": "#/definitions/model.CollectionRef"
+                                            }
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/api.HTTPError"
+                        }
+                    },
+                    "404": {
+                        "description": "Not Found",
+                        "schema": {
+                            "$ref": "#/definitions/api.HTTPError"
+                        }
+                    }
+                }
+            }
+        },
         "/collectionrefs/{argID}": {
             "get": {
                 "description": "GetCollectionRefs is a function to get a single record from the collection_refs table in the estuary database",
@@ -396,6 +659,82 @@ const docTemplate = `{
                         "type": "string",
                         "description": "db sort order column",
                         "name": "order",
+                        "in": "query"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "allOf": [
+                                {
+                                    "$ref": "#/definitions/api.PagedResults"
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "data": {
+                                            "type": "array",
+                                            "items": {
+                                                "$ref": "#/definitions/model.Collection"
+                                            }
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/api.HTTPError"
+                        }
+                    },
+                    "404": {
+                        "description": "Not Found",
+                        "schema": {
+                            "$ref": "#/definitions/api.HTTPError"
+                        }
+                    }
+                }
+            }
+        },
+        "/collections/dynamicquery": {
+            "get": {
+                "description": "GetCollectionsDynamicQuery is a function to get a slice of record(s) from collections table in the estuary database",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Collections"
+                ],
+                "summary": "Get list of Collections",
+                "parameters": [
+                    {
+                        "type": "integer",
+                        "description": "page requested (defaults to 0)",
+                        "name": "page",
+                        "in": "query"
+                    },
+                    {
+                        "type": "integer",
+                        "description": "number of records in a page  (defaults to 20)",
+                        "name": "pagesize",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "description": "db sort order column",
+                        "name": "order",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "description": "dynamic query",
+                        "name": "query",
                         "in": "query"
                     }
                 ],
@@ -1013,7 +1352,7 @@ const docTemplate = `{
                     "application/json"
                 ],
                 "tags": [
-                    "environment"
+                    "Environment"
                 ],
                 "summary": "Get device usage",
                 "parameters": [
@@ -1071,7 +1410,7 @@ const docTemplate = `{
                     "application/json"
                 ],
                 "tags": [
-                    "environment"
+                    "Environment"
                 ],
                 "summary": "Get device info",
                 "parameters": [
@@ -1129,30 +1468,18 @@ const docTemplate = `{
                     "application/json"
                 ],
                 "tags": [
-                    "environment"
+                    "Environment"
                 ],
                 "summary": "Get device usages",
                 "parameters": [
                     {
-                        "type": "string",
-                        "description": "uuids",
-                        "name": "uuids",
-                        "in": "query",
-                        "required": true
-                    },
-                    {
-                        "type": "string",
-                        "description": "createdBefore",
-                        "name": "createdBefore",
-                        "in": "query",
-                        "required": true
-                    },
-                    {
-                        "type": "string",
-                        "description": "createdAfter",
-                        "name": "createdAfter",
-                        "in": "query",
-                        "required": true
+                        "description": "uuidGroup",
+                        "name": "uuidGroup",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/core.UuidGroup"
+                        }
                     }
                 ],
                 "responses": {
@@ -1190,7 +1517,7 @@ const docTemplate = `{
                     "application/json"
                 ],
                 "tags": [
-                    "environment"
+                    "Environment"
                 ],
                 "summary": "Get device usage",
                 "parameters": [
@@ -1362,7 +1689,7 @@ const docTemplate = `{
                     "application/json"
                 ],
                 "tags": [
-                    "environment"
+                    "Environment"
                 ],
                 "summary": "Get device info",
                 "parameters": [
@@ -4269,6 +4596,31 @@ const docTemplate = `{
                 }
             }
         },
+        "core.UuidGroup": {
+            "type": "object",
+            "properties": {
+                "createdAfter": {
+                    "type": "string"
+                },
+                "createdBefore": {
+                    "type": "string"
+                },
+                "uuids": {
+                    "type": "array",
+                    "items": {
+                        "type": "object",
+                        "properties": {
+                            "name": {
+                                "type": "string"
+                            },
+                            "uuid": {
+                                "type": "string"
+                            }
+                        }
+                    }
+                }
+            }
+        },
         "dao.TopCollectionUser": {
             "type": "object",
             "properties": {
@@ -5265,14 +5617,21 @@ const docTemplate = `{
                 }
             }
         }
+    },
+    "securityDefinitions": {
+        "BearerAuth": {
+            "type": "apiKey",
+            "name": "Authorization",
+            "in": "header"
+        }
     }
 }`
 
 // SwaggerInfo holds exported Swagger Info so clients can modify it
 var SwaggerInfo = &swag.Spec{
-	Version:          "1.0",
-	Host:             "localhost:3030",
-	BasePath:         "/",
+	Version:          "0.0.1",
+	Host:             "localhost:3030/api/v1",
+	BasePath:         "",
 	Schemes:          []string{},
 	Title:            "Estuary Metrics API",
 	Description:      "Estuary Metrics API",

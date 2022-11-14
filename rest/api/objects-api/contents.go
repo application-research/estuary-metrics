@@ -20,6 +20,11 @@ var (
 func ConfigContentsRouter(router gin.IRoutes) {
 	router.GET("/contents", api.ConvertHttpRouterToGin(GetAllContents))
 	router.GET("/contents/:id", api.ConvertHttpRouterToGin(GetContents))
+	router.GET("/contents/dynamicquery", api.ConvertHttpRouterToGin(GetContentsDynamicQuery))
+}
+
+func GetContentsDynamicQuery(w http.ResponseWriter, r *http.Request, ps httprouter.Params) {
+	HandleDynamicQuery(w, r, ps, model.Content{})
 }
 
 // GetAllContents is a function to get a slice of record(s) from contents table in the estuary database

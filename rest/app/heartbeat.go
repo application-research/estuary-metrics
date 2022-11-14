@@ -5,8 +5,23 @@ import "github.com/application-research/estuary-metrics/core"
 func InitHeartbeat() {
 	hb, err := core.NewHeartbeat([]core.ServerLookup{
 		{
+			Name:          "Main Estuary website",
+			Endpoint:      "https://estuary.tech",
+			LastHeartbeat: 0,
+		},
+		{
 			Name:          "API Node",
 			Endpoint:      "https://api.estuary.tech",
+			LastHeartbeat: 0,
+		},
+		{
+			Name:          "Upload Node",
+			Endpoint:      "https://upload.estuary.tech",
+			LastHeartbeat: 0,
+		},
+		{
+			Name:          "Backup Node",
+			Endpoint:      "https://backup.estuary.tech",
 			LastHeartbeat: 0,
 		},
 		{

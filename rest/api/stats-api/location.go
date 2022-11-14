@@ -38,7 +38,7 @@ type Location struct {
 // GetShuttleLocation returns the device info
 // @Summary Get device info
 // @Description Get device info
-// @Tags environment
+// @Tags Environment
 // @Accept  json
 // @Produce  json
 // @Param uuid path string true "uuid"

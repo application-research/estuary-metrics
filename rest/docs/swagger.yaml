@@ -1,4 +1,3 @@
-basePath: /
 definitions:
   api.HTTPError:
     properties:
@@ -848,6 +847,22 @@ definitions:
           type: object
         type: array
     type: object
+  core.UuidGroup:
+    properties:
+      createdAfter:
+        type: string
+      createdBefore:
+        type: string
+      uuids:
+        items:
+          properties:
+            name:
+              type: string
+            uuid:
+              type: string
+          type: object
+        type: array
+    type: object
   dao.TopCollectionUser:
     properties:
       count:
@@ -1501,18 +1516,18 @@ definitions:
       dealSuccessRate:
         type: string
     type: object
-host: localhost:3030
+host: localhost:3030/api/v1
 info:
   contact:
     email: me@me.com
-    name: Me
+    name: Outercore Engineering
     url: http://me.com/terms.html
   description: Estuary Metrics API
   license:
     name: Apache 2.0
     url: http://www.apache.org/licenses/LICENSE-2.0.html
   title: Estuary Metrics API
-  version: "1.0"
+  version: 0.0.1
 paths:
   /authtokens:
     get:
@@ -1587,6 +1602,78 @@ paths:
           schema:
             $ref: '#/definitions/api.HTTPError'
       summary: Get record from table AuthTokens by  argID
+      tags:
+      - AuthTokens
+  /authtokens/activecount:
+    get:
+      consumes:
+      - application/json
+      description: GetAllActiveAuthTokenCount is a handler to get all record from
+        the auth_tokens table in the estuary database
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/model.AuthToken'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/api.HTTPError'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/api.HTTPError'
+      summary: Get a single AuthTokens
+      tags:
+      - AuthTokens
+  /authtokens/dynamicquery:
+    get:
+      consumes:
+      - application/json
+      description: GetAuthTokensDynamicQuery is a handler to get a slice of record(s)
+        from auth_tokens table in the estuary database
+      parameters:
+      - description: page requested (defaults to 0)
+        in: query
+        name: page
+        type: integer
+      - description: number of records in a page  (defaults to 20)
+        in: query
+        name: pagesize
+        type: integer
+      - description: db sort order column
+        in: query
+        name: order
+        type: string
+      - description: dynamic query
+        in: query
+        name: query
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            allOf:
+            - $ref: '#/definitions/api.PagedResults'
+            - properties:
+                data:
+                  items:
+                    $ref: '#/definitions/model.AuthToken'
+                  type: array
+              type: object
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/api.HTTPError'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/api.HTTPError'
+      summary: Get list of AuthTokens
       tags:
       - AuthTokens
   /autoretrieves:
@@ -1664,6 +1751,54 @@ paths:
       summary: Get record from table Autoretrieves by  argID
       tags:
       - Autoretrieves
+  /autoretrieves/dynamicquery:
+    get:
+      consumes:
+      - application/json
+      description: GetAutoretrievesDynamicQuery is a function to get a slice of record(s)
+        from autoretrieves table in the estuary database
+      parameters:
+      - description: page requested (defaults to 0)
+        in: query
+        name: page
+        type: integer
+      - description: number of records in a page  (defaults to 20)
+        in: query
+        name: pagesize
+        type: integer
+      - description: db sort order column
+        in: query
+        name: order
+        type: string
+      - description: dynamic query
+        in: query
+        name: query
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            allOf:
+            - $ref: '#/definitions/api.PagedResults'
+            - properties:
+                data:
+                  items:
+                    $ref: '#/definitions/model.Autoretrieve'
+                  type: array
+              type: object
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/api.HTTPError'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/api.HTTPError'
+      summary: Get list of Autoretrieves
+      tags:
+      - Autoretrieves
   /collectionrefs:
     get:
       consumes:
@@ -1739,6 +1874,54 @@ paths:
       summary: Get record from table CollectionRefs by  argID
       tags:
       - CollectionRefs
+  /collectionrefs/dynamicquery:
+    get:
+      consumes:
+      - application/json
+      description: GetCollectionsRefDynamicQuery is a handler to get a slice of record(s)
+        from collection_refs table in the estuary database
+      parameters:
+      - description: page requested (defaults to 0)
+        in: query
+        name: page
+        type: integer
+      - description: number of records in a page  (defaults to 20)
+        in: query
+        name: pagesize
+        type: integer
+      - description: db sort order column
+        in: query
+        name: order
+        type: string
+      - description: query string
+        in: query
+        name: query
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            allOf:
+            - $ref: '#/definitions/api.PagedResults'
+            - properties:
+                data:
+                  items:
+                    $ref: '#/definitions/model.CollectionRef'
+                  type: array
+              type: object
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/api.HTTPError'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/api.HTTPError'
+      summary: Get list of CollectionRefs
+      tags:
+      - CollectionRefs
   /collections:
     get:
       consumes:
@@ -1812,6 +1995,54 @@ paths:
           schema:
             $ref: '#/definitions/api.HTTPError'
       summary: Get record from table Collections by  argID
+      tags:
+      - Collections
+  /collections/dynamicquery:
+    get:
+      consumes:
+      - application/json
+      description: GetCollectionsDynamicQuery is a function to get a slice of record(s)
+        from collections table in the estuary database
+      parameters:
+      - description: page requested (defaults to 0)
+        in: query
+        name: page
+        type: integer
+      - description: number of records in a page  (defaults to 20)
+        in: query
+        name: pagesize
+        type: integer
+      - description: db sort order column
+        in: query
+        name: order
+        type: string
+      - description: dynamic query
+        in: query
+        name: query
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            allOf:
+            - $ref: '#/definitions/api.PagedResults'
+            - properties:
+                data:
+                  items:
+                    $ref: '#/definitions/model.Collection'
+                  type: array
+              type: object
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/api.HTTPError'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/api.HTTPError'
+      summary: Get list of Collections
       tags:
       - Collections
   /contentdeals:
@@ -2199,7 +2430,7 @@ paths:
             $ref: '#/definitions/api.HTTPError'
       summary: Get device usage
       tags:
-      - environment
+      - Environment
   /environment/equinix/info:
     get:
       consumes:
@@ -2238,28 +2469,19 @@ paths:
             $ref: '#/definitions/api.HTTPError'
       summary: Get device info
       tags:
-      - environment
+      - Environment
   /environment/equinix/list/usages:
     post:
       consumes:
       - application/json
       description: Get device usages
       parameters:
-      - description: uuids
-        in: query
-        name: uuids
+      - description: uuidGroup
+        in: body
+        name: uuidGroup
         required: true
-        type: string
-      - description: createdBefore
-        in: query
-        name: createdBefore
-        required: true
-        type: string
-      - description: createdAfter
-        in: query
-        name: createdAfter
-        required: true
-        type: string
+        schema:
+          $ref: '#/definitions/core.UuidGroup'
       produces:
       - application/json
       responses:
@@ -2279,7 +2501,7 @@ paths:
             $ref: '#/definitions/api.HTTPError'
       summary: Get device usages
       tags:
-      - environment
+      - Environment
   /environment/equinix/usages:
     get:
       consumes:
@@ -2318,7 +2540,7 @@ paths:
             $ref: '#/definitions/api.HTTPError'
       summary: Get device usage
       tags:
-      - environment
+      - Environment
   /invitecodes:
     get:
       consumes:
@@ -2422,7 +2644,7 @@ paths:
             $ref: '#/definitions/api.HTTPError'
       summary: Get device info
       tags:
-      - environment
+      - Environment
   /minerstorageasks:
     get:
       consumes:
@@ -3435,4 +3657,9 @@ paths:
       summary: Get number of Users
       tags:
       - Users
+securityDefinitions:
+  BearerAuth:
+    in: header
+    name: Authorization
+    type: apiKey
 swagger: "2.0"

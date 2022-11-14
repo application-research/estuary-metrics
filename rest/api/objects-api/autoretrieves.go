@@ -22,6 +22,20 @@ func ConfigAutoretrievesRouter(router gin.IRoutes) {
 	router.GET("/autoretrieves/dynamicquery", api.ConvertHttpRouterToGin(GetAutoretrievesDynamicQuery))
 }
 
+// GetAutoretrievesDynamicQuery is a function to get a slice of record(s) from autoretrieves table in the estuary database
+// @Summary Get list of Autoretrieves
+// @Tags Autoretrieves
+// @Description GetAutoretrievesDynamicQuery is a function to get a slice of record(s) from autoretrieves table in the estuary database
+// @Accept  json
+// @Produce  json
+// @Param   page     query    int     false        "page requested (defaults to 0)"
+// @Param   pagesize query    int     false        "number of records in a page  (defaults to 20)"
+// @Param   order    query    string  false        "db sort order column"
+// @Param   query    query    string  false        "dynamic query"
+// @Success 200 {object} api.PagedResults{data=[]model.Autoretrieve}
+// @Failure 400 {object} api.HTTPError
+// @Failure 404 {object} api.HTTPError
+// @Router /autoretrieves/dynamicquery [get]
 func GetAutoretrievesDynamicQuery(w http.ResponseWriter, r *http.Request, ps httprouter.Params) {
 	HandleDynamicQuery(w, r, ps, model.AuthToken{})
 }

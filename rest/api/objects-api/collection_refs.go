@@ -21,6 +21,20 @@ func ConfigCollectionRefsRouter(router gin.IRoutes) {
 	router.GET("/collectionrefs/dynamicquery", api.ConvertHttpRouterToGin(GetCollectionsRefDynamicQuery))
 }
 
+// GetCollectionsRefDynamicQuery is a function to get a slice of record(s) from collection_refs table in the estuary database
+// @Summary Get list of CollectionRefs
+// @Tags CollectionRefs
+// @Description GetCollectionsRefDynamicQuery is a handler to get a slice of record(s) from collection_refs table in the estuary database
+// @Accept  json
+// @Produce  json
+// @Param   page     query    int     false        "page requested (defaults to 0)"
+// @Param   pagesize query    int     false        "number of records in a page  (defaults to 20)"
+// @Param   order    query    string  false        "db sort order column"
+// @Param 	query query string false "query string"
+// @Success 200 {object} api.PagedResults{data=[]model.CollectionRef}
+// @Failure 400 {object} api.HTTPError
+// @Failure 404 {object} api.HTTPError
+// @Router /collectionrefs/dynamicquery [get]
 func GetCollectionsRefDynamicQuery(w http.ResponseWriter, r *http.Request, ps httprouter.Params) {
 	HandleDynamicQuery(w, r, ps, model.CollectionRef{})
 }

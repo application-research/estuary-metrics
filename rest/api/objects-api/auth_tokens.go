@@ -23,10 +23,34 @@ func ConfigAuthTokensRouter(router gin.IRoutes) {
 	router.GET("/authtokens/issued", api.ConvertHttpRouterToGin(GetAuthTokensIssued))
 }
 
+// GetAuthTokensDynamicQuery is a function to get a slice of record(s) from auth_tokens table in the estuary database
+// @Summary Get list of AuthTokens
+// @Tags AuthTokens
+// @Description GetAuthTokensDynamicQuery is a handler to get a slice of record(s) from auth_tokens table in the estuary database
+// @Accept  json
+// @Produce  json
+// @Param   page     query    int     false        "page requested (defaults to 0)"
+// @Param   pagesize query    int     false        "number of records in a page  (defaults to 20)"
+// @Param   order    query    string  false        "db sort order column"
+// @Param   query    query    string  false        "dynamic query"
+// @Success 200 {object} api.PagedResults{data=[]model.AuthToken}
+// @Failure 400 {object} api.HTTPError
+// @Failure 404 {object} api.HTTPError
+// @Router /authtokens/dynamicquery [get]
 func GetAuthTokensDynamicQuery(w http.ResponseWriter, r *http.Request, ps httprouter.Params) {
 	HandleDynamicQuery(w, r, ps, model.AuthToken{})
 }
 
+// GetAllActiveAuthTokenCount is a function to get all record from the auth_tokens table in the estuary database
+// @Summary Get a single AuthTokens
+// @Tags AuthTokens
+// @Description GetAllActiveAuthTokenCount is a handler to get all record from the auth_tokens table in the estuary database
+// @Accept  json
+// @Produce  json
+// @Success 200 {object} model.AuthToken
+// @Failure 400 {object} api.HTTPError
+// @Failure 404 {object} api.HTTPError
+// @Router /authtokens/activecount [get]
 func GetAllActiveAuthTokenCount(w http.ResponseWriter, r *http.Request, ps httprouter.Params) {
 	ctx := api.InitializeContext(r)
 

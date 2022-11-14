@@ -21,6 +21,19 @@ func ConfigContentDealsRouter(router gin.IRoutes) {
 	router.GET("/contentdeals/dynamicquery", api.ConvertHttpRouterToGin(GetContentDealsDynamicQuery))
 }
 
+// GetContentDealsDynamicQuery is a function to get a slice of record(s) from content_deals table in the estuary database
+// @Summary Get list of ContentDeals
+// @Tags ContentDeals
+// @Description GetContentDealsDynamicQuery is a handler to get a slice of record(s) from content_deals table in the estuary database
+// @Accept  json
+// @Produce  json
+// @Param   page     query    int     false        "page requested (defaults to 0)"
+// @Param   pagesize query    int     false        "number of records in a page  (defaults to 20)"
+// @Param   order    query    string  false        "db sort order column"
+// @Param   query    query    string  false        "dynamic query"
+// @Success 200 {object} api.PagedResults{data=[]model.ContentDeal}
+// @Failure 400 {object} api.HTTPError
+// @Failure 404 {object} api.HTTPError
 func GetContentDealsDynamicQuery(w http.ResponseWriter, r *http.Request, ps httprouter.Params) {
 	HandleDynamicQuery(w, r, ps, model.ContentDeal{})
 }
