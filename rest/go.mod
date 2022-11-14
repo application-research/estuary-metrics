@@ -4,7 +4,7 @@ go 1.18
 
 require (
 	github.com/alvin-reyes/estuary-auth v0.0.1
-	github.com/application-research/estuary-metrics/core v0.0.0-00010101000000-000000000000
+	github.com/application-research/estuary-metrics/core v0.0.0-20221114204249-5d5d6e5b1c26
 	github.com/droundy/goopt v0.0.0-20220217183150-48d6390ad4d1
 	github.com/gin-gonic/gin v1.8.1
 	github.com/goccy/go-json v0.9.8
@@ -108,6 +108,6 @@ require (
 	gorm.io/plugin/dbresolver v1.2.1 // indirect
 )
 
-replace github.com/application-research/estuary-metrics/core => ../core
+//replace github.com/application-research/estuary-metrics/core => ../core
 
 //replace github.com/alvin-reyes/estuary-auth => ../../estuary-auth
