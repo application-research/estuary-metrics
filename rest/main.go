@@ -54,7 +54,7 @@ var (
 // @license.name Apache 2.0
 // @license.url http://www.apache.org/licenses/LICENSE-2.0.html
 
-// @host localhost:3030/api/v1
+// @host https://metrics-api.estuary.tech/api/v1
 // @securityDefinitions.apikey BearerAuth
 // @in header
 // @name Authorization
