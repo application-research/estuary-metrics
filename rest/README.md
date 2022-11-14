@@ -43,7 +43,7 @@ In order to access the API, you need an elevated access (perm > 2) Estuary API k
 ## Stats
 - These are stats APIs that has some aggregation logic to query for a specific estuary table.
 ## System / Devices
-- These are system/device APIs to look up Equinix/AWS environment specific information
+- These are system/device APIs to look up Equinix/AWS environment specific information. 
 ## Blockstore (WIP)
 - These are blockstore information
 ## Reporting (WIP)

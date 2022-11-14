@@ -13,8 +13,7 @@ func GinServer() (engine *gin.Engine, err error) {
 	router := gin.Default()
 
 	url := ginSwagger.URL("https://metrics-api.estuary.tech/swagger/doc.json") // The url pointing to API definition
-	group := router.Group("/api/v1")
-	route.ConfigRouter(group)
+	route.ConfigRouter(router)
 
 	router.Static("/web", "./web")
 	router.GET("/swagger/*any", ginSwagger.WrapHandler(swaggerFiles.Handler, url))

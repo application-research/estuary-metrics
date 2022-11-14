@@ -16,8 +16,9 @@ import (
 
 // ConfigRouter configure gin route
 // @Security BearerAuth
-func ConfigRouter(router gin.IRoutes) {
-	router.Use(func(c *gin.Context) {
+func ConfigRouter(router *gin.Engine) {
+	group := router.Group("/api/v1")
+	protectedRouter := group.Use(func(c *gin.Context) {
 		// authenticate here
 		authServer := auth.Init().SetDB(dao.DB).Connect()
 		authorizationString := c.GetHeader("Authorization")
@@ -39,44 +40,46 @@ func ConfigRouter(router gin.IRoutes) {
 		}
 	})
 
+	unprotectedRouter := router.Group("/api/v1")
+
 	//	all estuary objects objects-api
-	objectsapi.ConfigAuthTokensRouter(router)
-	objectsapi.ConfigAutoretrievesRouter(router)
-	objectsapi.ConfigCollectionRefsRouter(router)
-	objectsapi.ConfigCollectionsRouter(router)
-	objectsapi.ConfigContentDealsRouter(router)
-	objectsapi.ConfigContentsRouter(router)
-	objectsapi.ConfigDealersRouter(router)
-	objectsapi.ConfigDfeRecordsRouter(router)
-	objectsapi.ConfigInviteCodesRouter(router)
-	objectsapi.ConfigMinerStorageAsksRouter(router)
-	objectsapi.ConfigObjRefsRouter(router)
-	objectsapi.ConfigObjectsRouter(router)
-	objectsapi.ConfigPieceCommRecordsRouter(router)
-	objectsapi.ConfigProposalRecordsRouter(router)
-	objectsapi.ConfigRetrievalFailureRecordsRouter(router)
-	objectsapi.ConfigRetrievalSuccessRecordsRouter(router)
-	objectsapi.ConfigShuttlesRouter(router)
-	objectsapi.ConfigStorageMinersRouter(router)
-	objectsapi.ConfigUsersRouter(router)
+	objectsapi.ConfigAuthTokensRouter(protectedRouter)
+	objectsapi.ConfigAutoretrievesRouter(protectedRouter)
+	objectsapi.ConfigCollectionRefsRouter(protectedRouter)
+	objectsapi.ConfigCollectionsRouter(protectedRouter)
+	objectsapi.ConfigContentDealsRouter(protectedRouter)
+	objectsapi.ConfigContentsRouter(protectedRouter)
+	objectsapi.ConfigDealersRouter(protectedRouter)
+	objectsapi.ConfigDfeRecordsRouter(protectedRouter)
+	objectsapi.ConfigInviteCodesRouter(protectedRouter)
+	objectsapi.ConfigMinerStorageAsksRouter(protectedRouter)
+	objectsapi.ConfigObjRefsRouter(protectedRouter)
+	objectsapi.ConfigObjectsRouter(protectedRouter)
+	objectsapi.ConfigPieceCommRecordsRouter(protectedRouter)
+	objectsapi.ConfigProposalRecordsRouter(protectedRouter)
+	objectsapi.ConfigRetrievalFailureRecordsRouter(protectedRouter)
+	objectsapi.ConfigRetrievalSuccessRecordsRouter(protectedRouter)
+	objectsapi.ConfigShuttlesRouter(protectedRouter)
+	objectsapi.ConfigStorageMinersRouter(protectedRouter)
+	objectsapi.ConfigUsersRouter(protectedRouter)
 
 	//	reporting objects-api
-	reportingapi.ConfigMetricsPushRouter(router)
+	reportingapi.ConfigMetricsPushRouter(unprotectedRouter)
 
 	//	devices-api
-	devicesapi.ConfigEquinixDevicesRouter(router)
-	devicesapi.ConfigAwsDevicesRouter(router)
+	devicesapi.ConfigEquinixDevicesRouter(unprotectedRouter)
+	devicesapi.ConfigAwsDevicesRouter(unprotectedRouter)
 
 	//	stats-api
-	statsapi.ConfigStatsRouter(router)
-	statsapi.ConfigRankingRoute(router)
-	statsapi.ConfigDistributionRoute(router)
-	statsapi.ConfigHeartbeatRoute(router)
-	statsapi.ConfigLocationRoute(router)
+	statsapi.ConfigStatsRouter(unprotectedRouter)
+	statsapi.ConfigRankingRoute(unprotectedRouter)
+	statsapi.ConfigDistributionRoute(unprotectedRouter)
+	statsapi.ConfigHeartbeatRoute(unprotectedRouter)
+	statsapi.ConfigLocationRoute(unprotectedRouter)
 
 	//	TODO: Blockstore API
 
 	//	DDL
-	objectsapi.ConfigDDLRouter(router)
+	objectsapi.ConfigDDLRouter(unprotectedRouter)
 	return
 }
