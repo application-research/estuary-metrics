@@ -18,6 +18,10 @@ func ConfigEquinixDevicesRouter(router gin.IRoutes) {
 	router.GET("/environment/equinix/billing", api.ConvertHttpRouterToGin(GetBillingUsage))
 }
 
+func ConfigAwsDevicesRouter(router gin.IRoutes) {
+
+}
+
 // GetDeviceInfo returns the device info
 // @Summary Get device info
 // @Description Get device info

@@ -18,7 +18,7 @@ var (
 
 func ConfigDfeRecordsRouter(router gin.IRoutes) {
 	router.GET("/dferecords", api.ConvertHttpRouterToGin(GetAllDfeRecords))
-	router.GET("/dferecords/:argID", api.ConvertHttpRouterToGin(GetDfeRecords))
+	router.GET("/dferecords/:id", api.ConvertHttpRouterToGin(GetDfeRecords))
 }
 
 // GetAllDfeRecords is a function to get a slice of record(s) from dfe_records table in the estuary database

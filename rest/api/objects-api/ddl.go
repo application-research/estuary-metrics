@@ -18,7 +18,7 @@ var (
 func ConfigDDLRouter(router gin.IRoutes) {
 	//
 	getCrudEndpoints() // get the endpoints
-	router.GET("/ddl/:argID", api.ConvertHttpRouterToGin(GetDdl))
+	router.GET("/ddl/:id", api.ConvertHttpRouterToGin(GetDdl))
 	router.GET("/ddl", api.ConvertHttpRouterToGin(GetDdlEndpoints))
 
 }

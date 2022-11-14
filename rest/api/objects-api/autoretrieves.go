@@ -18,7 +18,7 @@ var (
 
 func ConfigAutoretrievesRouter(router gin.IRoutes) {
 	router.GET("/autoretrieves", api.ConvertHttpRouterToGin(GetAllAutoretrieves))
-	router.GET("/autoretrieves/:argID", api.ConvertHttpRouterToGin(GetAutoretrieves))
+	router.GET("/autoretrieves/:id", api.ConvertHttpRouterToGin(GetAutoretrieves))
 	router.GET("/autoretrieves/dynamicquery", api.ConvertHttpRouterToGin(GetAutoretrievesDynamicQuery))
 }
 

@@ -19,7 +19,7 @@ var (
 
 func ConfigContentsRouter(router gin.IRoutes) {
 	router.GET("/contents", api.ConvertHttpRouterToGin(GetAllContents))
-	router.GET("/contents/:argID", api.ConvertHttpRouterToGin(GetContents))
+	router.GET("/contents/:id", api.ConvertHttpRouterToGin(GetContents))
 }
 
 // GetAllContents is a function to get a slice of record(s) from contents table in the estuary database

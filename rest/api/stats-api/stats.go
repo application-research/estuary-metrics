@@ -112,6 +112,12 @@ type UserStats struct {
 
 }
 
+// GetRetrievalStats returns the retrieval stats
+// @Summary Returns the retrieval stats
+// @Description Returns the retrieval stats
+// @Tags Stats
+// @Accept  json
+// @Produce  json
 func GetRetrievalStats(w http.ResponseWriter, r *http.Request, ps httprouter.Params) {
 
 }

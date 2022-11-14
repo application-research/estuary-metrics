@@ -18,7 +18,7 @@ var (
 
 func ConfigDealersRouter(router gin.IRoutes) {
 	router.GET("/dealers", api.ConvertHttpRouterToGin(GetAllDealers))
-	router.GET("/dealers/:argID", api.ConvertHttpRouterToGin(GetDealers))
+	router.GET("/dealers/:id", api.ConvertHttpRouterToGin(GetDealers))
 }
 
 // GetAllDealers is a function to get a slice of record(s) from dealers table in the estuary database

@@ -18,7 +18,7 @@ var (
 
 func ConfigRetrievalFailureRecordsRouter(router gin.IRoutes) {
 	router.GET("/retrievalfailurerecords", api.ConvertHttpRouterToGin(GetAllRetrievalFailureRecords))
-	router.GET("/retrievalfailurerecords/:argID", api.ConvertHttpRouterToGin(GetRetrievalFailureRecords))
+	router.GET("/retrievalfailurerecords/:id", api.ConvertHttpRouterToGin(GetRetrievalFailureRecords))
 }
 
 // GetAllRetrievalFailureRecords is a function to get a slice of record(s) from retrieval_failure_records table in the estuary database

@@ -8,9 +8,13 @@ import (
 )
 
 func ConfigMetricsPushRouter(router gin.IRoutes) {
-	router.POST("/push/log", api.ConvertHttpRouterToGin(AddPushToLog))
+	router.POST("/reporting/push/log", api.ConvertHttpRouterToGin(AddPushToLog))
+	router.POST("/reporting/filter/log", api.ConvertHttpRouterToGin(AddPushToLog))
 }
 
 func AddPushToLog(w http.ResponseWriter, r *http.Request, ps httprouter.Params) {
 
+}
+
+func PrefixFilterFromLogDb(w http.ResponseWriter, r *http.Request, ps httprouter.Params) {
 }

@@ -21,7 +21,7 @@ func ConfigUsersRouter(router gin.IRoutes) {
 	router.GET("/users", api.ConvertHttpRouterToGin(GetAllUsers))
 	router.GET("/users/count", api.ConvertHttpRouterToGin(GetNumberOfUsers))
 	router.GET("/users/within-range", api.ConvertHttpRouterToGin(GetNumberOfUsersWithinRange))
-	router.GET("/users/:argID", api.ConvertHttpRouterToGin(GetUsers))
+	router.GET("/users/:id", api.ConvertHttpRouterToGin(GetUsers))
 }
 
 func GetUsersDynamicQuery(w http.ResponseWriter, r *http.Request, ps httprouter.Params) {

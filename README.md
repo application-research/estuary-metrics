@@ -10,16 +10,22 @@ API that wraps all Estuary objects for Metrics purposes.
 - [Estuary Metric CLI (WIP)](./cmd/README.md)
 
 # Access Key
-In order to access the API, you need to have an Estuary API key. Please request an API key [here](https://docs.estuary.tech/get-invite-key)
+In order to access the API, you need an elevated access (perm > 2) Estuary API key.
 
 # Endpoints
-## System
 ## Objects
-## Stats
-## Devices
+- These are individual object APIs that can be used to query for a specific estuary table. 
 
-# Public Dashboard
-WIP
+## Stats
+- These are stats APIs that has some aggregation logic to query for a specific estuary table.
+## System / Devices
+- These are system/device APIs to look up Equinix/AWS environment specific information
+## Blockstore (WIP)
+- These are blockstore information
+## Reporting (WIP)
+- These are push notification APIs that can be used to send notifications to users
+
+# Public Dashboard (WIP)
 The public dashboard is available at [https://metrics.estuary.tech](https://metrics.estuary.tech)
 
 # Specs

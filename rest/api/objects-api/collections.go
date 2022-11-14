@@ -17,7 +17,7 @@ var (
 
 func ConfigCollectionsRouter(router gin.IRoutes) {
 	router.GET("/collections", api.ConvertHttpRouterToGin(GetAllCollections))
-	router.GET("/collections/:argID", api.ConvertHttpRouterToGin(GetCollections))
+	router.GET("/collections/:id", api.ConvertHttpRouterToGin(GetCollections))
 	router.GET("/collections/dynamicquery", api.ConvertHttpRouterToGin(GetCollectionsDynamicQuery))
 }
 

@@ -38,7 +38,7 @@ func ConfigRouter(router gin.IRoutes) {
 	})
 
 	//	all estuary objects objects-api
-	//objectsapi.ConfigAuthTokensRouter(router)
+	objectsapi.ConfigAuthTokensRouter(router)
 	objectsapi.ConfigAutoretrievesRouter(router)
 	objectsapi.ConfigCollectionRefsRouter(router)
 	objectsapi.ConfigCollectionsRouter(router)
@@ -61,16 +61,17 @@ func ConfigRouter(router gin.IRoutes) {
 	//	reporting objects-api
 	reportingapi.ConfigMetricsPushRouter(router)
 
-	//	TODO: blockstore objects-api
-
 	//	devices-api
 	devicesapi.ConfigEquinixDevicesRouter(router)
+	devicesapi.ConfigAwsDevicesRouter(router)
 
 	//	stats-api
 	statsapi.ConfigStatsRouter(router)
-	statsapi.ConfigHeartbeatRoute(router)
-	statsapi.ConfigDistributionRoute(router)
 	statsapi.ConfigRankingRoute(router)
+	statsapi.ConfigDistributionRoute(router)
+	statsapi.ConfigHeartbeatRoute(router)
+
+	//	TODO: Blockstore API
 
 	//	DDL
 	objectsapi.ConfigDDLRouter(router)
