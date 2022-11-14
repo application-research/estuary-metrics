@@ -2161,6 +2161,164 @@ paths:
       summary: Get record from table DfeRecords by  argID
       tags:
       - DfeRecords
+  /environment/equinix/billing:
+    get:
+      consumes:
+      - application/json
+      description: Get device usage
+      parameters:
+      - description: uuid
+        in: query
+        name: uuid
+        required: true
+        type: string
+      - description: createdBefore
+        in: query
+        name: createdBefore
+        required: true
+        type: string
+      - description: createdAfter
+        in: query
+        name: createdAfter
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/core.DeviceInfo'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/api.HTTPError'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/api.HTTPError'
+      summary: Get device usage
+      tags:
+      - environment
+  /environment/equinix/info:
+    get:
+      consumes:
+      - application/json
+      description: Get device info
+      parameters:
+      - description: uuid
+        in: query
+        name: uuid
+        required: true
+        type: string
+      - description: createdBefore
+        in: query
+        name: createdBefore
+        required: true
+        type: string
+      - description: createdAfter
+        in: query
+        name: createdAfter
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/core.DeviceInfo'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/api.HTTPError'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/api.HTTPError'
+      summary: Get device info
+      tags:
+      - environment
+  /environment/equinix/list/usages:
+    post:
+      consumes:
+      - application/json
+      description: Get device usages
+      parameters:
+      - description: uuids
+        in: query
+        name: uuids
+        required: true
+        type: string
+      - description: createdBefore
+        in: query
+        name: createdBefore
+        required: true
+        type: string
+      - description: createdAfter
+        in: query
+        name: createdAfter
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/core.DeviceUsage'
+            type: array
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/api.HTTPError'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/api.HTTPError'
+      summary: Get device usages
+      tags:
+      - environment
+  /environment/equinix/usages:
+    get:
+      consumes:
+      - application/json
+      description: Get device usage
+      parameters:
+      - description: uuid
+        in: query
+        name: uuid
+        required: true
+        type: string
+      - description: createdBefore
+        in: query
+        name: createdBefore
+        required: true
+        type: string
+      - description: createdAfter
+        in: query
+        name: createdAfter
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/core.DeviceUsage'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/api.HTTPError'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/api.HTTPError'
+      summary: Get device usage
+      tags:
+      - environment
   /invitecodes:
     get:
       consumes:

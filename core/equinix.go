@@ -462,6 +462,12 @@ type DeviceInfo struct {
 	Href                         string `json:"href"`
 }
 
+type DeviceUsages struct {
+	DeviceUsage   []DeviceUsage `json:"device_usages"`
+	Total         float64       `json:"total"`
+	CreatedBefore string        `json:"created_before"`
+	CreatedAfter  string        `json:"created_after"`
+}
 type DeviceUsage struct {
 	Info struct {
 		Name string `json:"name"`
@@ -515,16 +521,37 @@ func (m Metrics) GetDeviceUsage(deviceUUID string, createdAfterDate string, crea
 	return &deviceUsage, nil
 }
 
-func (m Metrics) GetAllDeviceUsages(uuids []string, createdAfterDate string, createdBeforeDate string) (*[]DeviceUsage, error) {
+type UuidGroup struct {
+	Uuids []struct {
+		Uuid string `json:"uuid"`
+		Name string `json:"name"`
+	} `json:"uuids"`
+	CreatedBefore string `json:"createdBefore"`
+	CreatedAfter  string `json:"createdAfter"`
+}
+
+func (m Metrics) GetAllDeviceUsages(uuidGroup UuidGroup, createdAfterDate string, createdBeforeDate string) (*DeviceUsages, error) {
+	var deviceUsages DeviceUsages
 	var devices []DeviceUsage
-	for _, uuid := range uuids {
-		device, err := m.GetDeviceUsage(uuid, createdAfterDate, createdBeforeDate)
+	var total float64
+	deviceUsages.CreatedBefore = createdBeforeDate
+	deviceUsages.CreatedAfter = createdAfterDate
+
+	for _, uuid := range uuidGroup.Uuids {
+		device, err := m.GetDeviceUsage(uuid.Uuid, createdAfterDate, createdBeforeDate)
+		device.Info.Name = uuid.Name
 		if err != nil {
 			return nil, err
 		}
-		devices = append(devices, *device)
+		if len(device.Usages) > 0 {
+			total += device.Usages[0].Total
+			devices = append(devices, *device)
+		}
 	}
-	return &devices, nil
+	deviceUsages.Total = total
+	deviceUsages.DeviceUsage = devices
+
+	return &deviceUsages, nil
 }
 
 func (m Metrics) GetDeviceInfo(deviceUUID string) (*DeviceInfo, error) {

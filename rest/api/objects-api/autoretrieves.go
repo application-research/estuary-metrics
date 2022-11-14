@@ -39,7 +39,6 @@ func GetAutoretrievesDynamicQuery(w http.ResponseWriter, r *http.Request, ps htt
 // @Failure 400 {object} api.HTTPError
 // @Failure 404 {object} api.HTTPError
 // @Router /autoretrieves [get]
-// http "http://localhost:3030/autoretrieves?page=0&pagesize=20" X-Api-User:user123
 func GetAllAutoretrieves(w http.ResponseWriter, r *http.Request, ps httprouter.Params) {
 	ctx := api.InitializeContext(r)
 	page, err := api.ReadInt(r, "page", 0)
