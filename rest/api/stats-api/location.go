@@ -35,10 +35,10 @@ type Location struct {
 	} `json:"ip_address"`
 }
 
-// GetShuttleLocation returns the device info
-// @Summary Get device info
-// @Description Get device info
-// @Tags Environment
+// GetShuttleLocation returns the location of a shuttle
+// @Summary Get the location of a shuttle
+// @Description Get the location of a shuttle
+// @Tags Location
 // @Accept  json
 // @Produce  json
 // @Param uuid path string true "uuid"

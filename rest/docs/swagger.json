@@ -5611,15 +5611,10 @@
         }
     },
     "securityDefinitions": {
-        "bearerAuth": {
+        "BearerAuth": {
             "type": "apiKey",
             "name": "Authorization",
             "in": "header"
         }
-    },
-    "security": [
-        {
-            "bearerAuth": []
-        }
-    ]
+    }
 }

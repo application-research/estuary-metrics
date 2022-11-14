@@ -58,6 +58,7 @@ var (
 // @securityDefinitions.apikey BearerAuth
 // @in header
 // @name Authorization
+// @security[0].BearerAuth
 // @BasePath /
 func main() {
 	OsSignal = make(chan os.Signal, 1)
