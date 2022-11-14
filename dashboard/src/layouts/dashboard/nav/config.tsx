@@ -37,8 +37,7 @@ const ICONS = {
 
 const navConfig = [
     // GENERAL
-
-    { title: 'general', items: [
+    { subheader: 'general', items: [
         { title: 'Quick Stats', path: PATH_DASHBOARD.explorer.quickstats, icon: ICONS.analytics },
         { title: 'Content', path: PATH_DASHBOARD.explorer.content, icon: ICONS.booking },
         { title: 'Storage Deals', path: PATH_DASHBOARD.explorer.storage_deals, icon: ICONS.ecommerce },
