@@ -1117,6 +1117,50 @@ const docTemplate = `{
                 }
             }
         },
+        "/location/shuttle/{uuid}": {
+            "get": {
+                "description": "Get device info",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "environment"
+                ],
+                "summary": "Get device info",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "uuid",
+                        "name": "uuid",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/statsapi.Location"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/api.HTTPError"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/api.HTTPError"
+                        }
+                    }
+                }
+            }
+        },
         "/minerstorageasks": {
             "get": {
                 "description": "GetAllMinerStorageAsks is a handler to get a slice of record(s) from miner_storage_asks table in the estuary database",
@@ -1688,6 +1732,129 @@ const docTemplate = `{
                 }
             }
         },
+        "/rank/miners/{top}": {
+            "get": {
+                "description": "Get list of Miners",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Ranks"
+                ],
+                "summary": "Get list of Miners",
+                "parameters": [
+                    {
+                        "type": "integer",
+                        "description": "top",
+                        "name": "top",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/dao.TopMiner"
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/api.HTTPError"
+                        }
+                    }
+                }
+            }
+        },
+        "/rank/users/collection/{top}": {
+            "get": {
+                "description": "Get list of Users",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Ranks"
+                ],
+                "summary": "Get list of Users",
+                "parameters": [
+                    {
+                        "type": "integer",
+                        "description": "top",
+                        "name": "top",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/dao.TopCollectionUser"
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/api.HTTPError"
+                        }
+                    }
+                }
+            }
+        },
+        "/rank/users/{top}": {
+            "get": {
+                "description": "Get list of Users",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Ranks"
+                ],
+                "summary": "Get list of Users",
+                "parameters": [
+                    {
+                        "type": "integer",
+                        "description": "top",
+                        "name": "top",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/dao.TopUser"
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/api.HTTPError"
+                        }
+                    }
+                }
+            }
+        },
         "/retrievalfailurerecords": {
             "get": {
                 "description": "GetAllRetrievalFailureRecords is a handler to get a slice of record(s) from retrieval_failure_records table in the estuary database",
@@ -2079,6 +2246,29 @@ const docTemplate = `{
                 }
             }
         },
+        "/stats/retrieval-rates": {
+            "get": {
+                "description": "Returns the retrieval stats",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Stats"
+                ],
+                "summary": "Returns the retrieval stats",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/statsapi.RetrievalStats"
+                        }
+                    }
+                }
+            }
+        },
         "/stats/storage-rates": {
             "get": {
                 "description": "Returns the storage rate stats",
@@ -2138,6 +2328,29 @@ const docTemplate = `{
                     "Stats"
                 ],
                 "summary": "Returns the total number of files stored",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                }
+            }
+        },
+        "/stats/total-retrievals": {
+            "get": {
+                "description": "Get total number of retrieval deals attempted",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Stats"
+                ],
+                "summary": "Get total number of retrieval deals attempted",
                 "responses": {
                     "200": {
                         "description": "OK",
@@ -4686,6 +4899,65 @@ const docTemplate = `{
                 }
             }
         },
+        "statsapi.Location": {
+            "type": "object",
+            "properties": {
+                "address": {
+                    "type": "object",
+                    "properties": {
+                        "address": {
+                            "type": "string"
+                        },
+                        "address2": {
+                            "type": "string"
+                        },
+                        "city": {
+                            "type": "string"
+                        },
+                        "coordinates": {
+                            "type": "object",
+                            "properties": {
+                                "latitude": {
+                                    "type": "string"
+                                },
+                                "longitude": {
+                                    "type": "string"
+                                }
+                            }
+                        },
+                        "country": {
+                            "type": "string"
+                        },
+                        "id": {
+                            "type": "string"
+                        },
+                        "state": {
+                            "type": "string"
+                        },
+                        "zip_code": {
+                            "type": "string"
+                        }
+                    }
+                },
+                "ip_address": {
+                    "type": "object",
+                    "properties": {
+                        "address": {
+                            "type": "string"
+                        },
+                        "gateway": {
+                            "type": "string"
+                        },
+                        "network": {
+                            "type": "string"
+                        }
+                    }
+                },
+                "name": {
+                    "type": "string"
+                }
+            }
+        },
         "statsapi.PublicStats": {
             "type": "object",
             "properties": {
@@ -4709,6 +4981,41 @@ const docTemplate = `{
                 },
                 "totalUsers": {
                     "$ref": "#/definitions/sql.NullInt64"
+                }
+            }
+        },
+        "statsapi.RetrievalStats": {
+            "type": "object",
+            "properties": {
+                "dealAcceptanceRate": {
+                    "type": "string"
+                },
+                "dealFailureRate": {
+                    "type": "string"
+                },
+                "dealSuccessRate": {
+                    "type": "string"
+                },
+                "failedDealsDueToUndialableMiners": {
+                    "type": "string"
+                },
+                "timeToFirstByte": {
+                    "type": "string"
+                },
+                "totalNumberOfFailedRetrieval": {
+                    "type": "string"
+                },
+                "totalNumberOfSuccessfulRetrieval": {
+                    "type": "string"
+                },
+                "totalRetrievalDealProposalAccepted": {
+                    "type": "string"
+                },
+                "totalRetrievalDealProposalRejected": {
+                    "type": "string"
+                },
+                "totalRetrievalDealsProposed": {
+                    "type": "string"
                 }
             }
         },

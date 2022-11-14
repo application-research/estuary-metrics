@@ -70,6 +70,7 @@ func ConfigRouter(router gin.IRoutes) {
 	statsapi.ConfigRankingRoute(router)
 	statsapi.ConfigDistributionRoute(router)
 	statsapi.ConfigHeartbeatRoute(router)
+	statsapi.ConfigLocationRoute(router)
 
 	//	TODO: Blockstore API
 

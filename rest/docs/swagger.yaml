@@ -1416,6 +1416,44 @@ definitions:
       time:
         type: string
     type: object
+  statsapi.Location:
+    properties:
+      address:
+        properties:
+          address:
+            type: string
+          address2:
+            type: string
+          city:
+            type: string
+          coordinates:
+            properties:
+              latitude:
+                type: string
+              longitude:
+                type: string
+            type: object
+          country:
+            type: string
+          id:
+            type: string
+          state:
+            type: string
+          zip_code:
+            type: string
+        type: object
+      ip_address:
+        properties:
+          address:
+            type: string
+          gateway:
+            type: string
+          network:
+            type: string
+        type: object
+      name:
+        type: string
+    type: object
   statsapi.PublicStats:
     properties:
       dealsOnChain:
@@ -1432,6 +1470,29 @@ definitions:
         $ref: '#/definitions/sql.NullInt64'
       totalUsers:
         $ref: '#/definitions/sql.NullInt64'
+    type: object
+  statsapi.RetrievalStats:
+    properties:
+      dealAcceptanceRate:
+        type: string
+      dealFailureRate:
+        type: string
+      dealSuccessRate:
+        type: string
+      failedDealsDueToUndialableMiners:
+        type: string
+      timeToFirstByte:
+        type: string
+      totalNumberOfFailedRetrieval:
+        type: string
+      totalNumberOfSuccessfulRetrieval:
+        type: string
+      totalRetrievalDealProposalAccepted:
+        type: string
+      totalRetrievalDealProposalRejected:
+        type: string
+      totalRetrievalDealsProposed:
+        type: string
     type: object
   statsapi.StorageRateStats:
     properties:
@@ -2175,6 +2236,35 @@ paths:
       summary: Get record from table InviteCodes by  argID
       tags:
       - InviteCodes
+  /location/shuttle/{uuid}:
+    get:
+      consumes:
+      - application/json
+      description: Get device info
+      parameters:
+      - description: uuid
+        in: path
+        name: uuid
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/statsapi.Location'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/api.HTTPError'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/api.HTTPError'
+      summary: Get device info
+      tags:
+      - environment
   /minerstorageasks:
     get:
       consumes:
@@ -2551,6 +2641,87 @@ paths:
       summary: Get record from table ProposalRecords by  argPropCid
       tags:
       - ProposalRecords
+  /rank/miners/{top}:
+    get:
+      consumes:
+      - application/json
+      description: Get list of Miners
+      parameters:
+      - description: top
+        in: path
+        name: top
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/dao.TopMiner'
+            type: array
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/api.HTTPError'
+      summary: Get list of Miners
+      tags:
+      - Ranks
+  /rank/users/{top}:
+    get:
+      consumes:
+      - application/json
+      description: Get list of Users
+      parameters:
+      - description: top
+        in: path
+        name: top
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/dao.TopUser'
+            type: array
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/api.HTTPError'
+      summary: Get list of Users
+      tags:
+      - Ranks
+  /rank/users/collection/{top}:
+    get:
+      consumes:
+      - application/json
+      description: Get list of Users
+      parameters:
+      - description: top
+        in: path
+        name: top
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/dao.TopCollectionUser'
+            type: array
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/api.HTTPError'
+      summary: Get list of Users
+      tags:
+      - Ranks
   /retrievalfailurerecords:
     get:
       consumes:
@@ -2808,6 +2979,21 @@ paths:
       summary: Returns the public stats
       tags:
       - Stats
+  /stats/retrieval-rates:
+    get:
+      consumes:
+      - application/json
+      description: Returns the retrieval stats
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/statsapi.RetrievalStats'
+      summary: Returns the retrieval stats
+      tags:
+      - Stats
   /stats/storage-rates:
     get:
       consumes:
@@ -2851,6 +3037,21 @@ paths:
           schema:
             type: integer
       summary: Returns the total number of files stored
+      tags:
+      - Stats
+  /stats/total-retrievals:
+    get:
+      consumes:
+      - application/json
+      description: Get total number of retrieval deals attempted
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            type: integer
+      summary: Get total number of retrieval deals attempted
       tags:
       - Stats
   /stats/total-storage:

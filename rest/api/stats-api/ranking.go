@@ -24,6 +24,7 @@ func ConfigRankingRoute(router gin.IRoutes) {
 // @Param top path int true "top"
 // @Success 200 {object} []dao.TopMiner
 // @Failure 400 {object} api.HTTPError
+// @Router /rank/miners/{top} [get]
 func GetTopMiners(w http.ResponseWriter, r *http.Request, ps httprouter.Params) {
 	ctx := api.InitializeContext(r)
 	top := ps.ByName("top")
@@ -36,15 +37,16 @@ func GetTopMiners(w http.ResponseWriter, r *http.Request, ps httprouter.Params) 
 	api.WriteJSON(ctx, w, miners)
 }
 
-//	GetTopUsers is a function to get a slice of record(s) from users table in the estuary database
-//  @Summary Get list of Users
-//  @Description Get list of Users
-//  @Tags Ranks
-//  @Accept  json
-//  @Produce  json
-//  @Param top path int true "top"
-//  @Success 200 {object} []dao.TopUser
-//  @Failure 400 {object} api.HTTPError
+// GetTopUsers is a function to get a slice of record(s) from users table in the estuary database
+// @Summary Get list of Users
+// @Description Get list of Users
+// @Tags Ranks
+// @Accept  json
+// @Produce  json
+// @Param top path int true "top"
+// @Success 200 {object} []dao.TopUser
+// @Failure 400 {object} api.HTTPError
+// @Router /rank/users/{top} [get]
 func GetTopUsers(w http.ResponseWriter, r *http.Request, ps httprouter.Params) {
 	//top := ps.ByName("top")
 	ctx := api.InitializeContext(r)
@@ -67,6 +69,7 @@ func GetTopUsers(w http.ResponseWriter, r *http.Request, ps httprouter.Params) {
 // @Param top path int true "top"
 // @Success 200 {object} []dao.TopCollectionUser
 // @Failure 400 {object} api.HTTPError
+// @Router /rank/users/collection/{top} [get]
 func GetTopCollectionUsers(w http.ResponseWriter, r *http.Request, ps httprouter.Params) {
 	ctx := api.InitializeContext(r)
 	top := ps.ByName("top")

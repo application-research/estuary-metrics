@@ -14,8 +14,7 @@ In order to access the API, you need an elevated access (perm > 2) Estuary API k
 
 # Endpoints
 ## Objects
-- These are individual object APIs that can be used to query for a specific estuary table. 
-
+- These are individual object APIs that can be used to query for a specific estuary table.
 ## Stats
 - These are stats APIs that has some aggregation logic to query for a specific estuary table.
 ## System / Devices

@@ -100,8 +100,8 @@ func main() {
 	dao.Logger = func(ctx context.Context, sql string) {
 		fmt.Printf("SQL: %s\n", sql)
 	}
-	go app.GinServer()
-	go app.InitHeartbeat()
+	go app.GinServer()     // rest
+	go app.InitHeartbeat() // heartbeat
 	LoopForever()
 }
 

@@ -60,9 +60,10 @@ func (m Heartbeat) Run() (err error) {
 
 func (m Heartbeat) checkHeartBeat(serverLookup []ServerLookup) (err error) {
 
+	//	honestly just a normal http/s call.
 	for _, server := range serverLookup {
 		//	check heartbeat
-		fmt.Println("check heartbeat: ", server.Name)
+
 		client := &http.Client{}
 		req, errRq := http.NewRequest("GET", server.Endpoint, nil)
 		if errRq != nil {

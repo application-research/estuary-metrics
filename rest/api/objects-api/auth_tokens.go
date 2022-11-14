@@ -20,6 +20,7 @@ func ConfigAuthTokensRouter(router gin.IRoutes) {
 	router.GET("/authtokens/:id", api.ConvertHttpRouterToGin(GetAuthTokens))
 	router.GET("/authtokens/dynamicquery", api.ConvertHttpRouterToGin(GetAuthTokensDynamicQuery))
 	router.GET("/authtokens/activecount", api.ConvertHttpRouterToGin(GetAllActiveAuthTokenCount))
+	router.GET("/authtokens/issued", api.ConvertHttpRouterToGin(GetAuthTokensIssued))
 }
 
 func GetAuthTokensDynamicQuery(w http.ResponseWriter, r *http.Request, ps httprouter.Params) {
@@ -116,6 +117,26 @@ func GetAuthTokens(w http.ResponseWriter, r *http.Request, ps httprouter.Params)
 	}
 
 	record, err := dao.GetAuthTokens(ctx, argID)
+	if err != nil {
+		api.ReturnError(ctx, w, r, err)
+		return
+	}
+
+	api.WriteJSON(ctx, w, record)
+}
+
+// GetAuthTokensIssued is a function to get a single record from the auth_tokens table in the estuary database
+// @Summary Get record from table AuthTokens by  argID
+// @Tags AuthTokens
+func GetAuthTokensIssued(w http.ResponseWriter, r *http.Request, ps httprouter.Params) {
+	ctx := api.InitializeContext(r)
+
+	if err := api.ValidateRequest(ctx, r, "auth_tokens", model.RetrieveMany); err != nil {
+		api.ReturnError(ctx, w, r, err)
+		return
+	}
+
+	record, err := dao.GetAuthTokensIssued(ctx)
 	if err != nil {
 		api.ReturnError(ctx, w, r, err)
 		return

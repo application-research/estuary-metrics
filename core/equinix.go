@@ -527,12 +527,10 @@ func (m Metrics) GetAllDeviceUsages(uuids []string, createdAfterDate string, cre
 	return &devices, nil
 }
 
-func (m Metrics) GetDeviceInfo(deviceUUID string, createdDate string, createdBefore string) (*DeviceInfo, error) {
+func (m Metrics) GetDeviceInfo(deviceUUID string) (*DeviceInfo, error) {
 
 	deviceUsage := DeviceInfo{}
-	url := EquinixEndpoint +
-		deviceUUID +
-		"?created%5Bafter%5D=" + createdDate + "&created%5Bbefore%5D=" + createdBefore
+	url := EquinixEndpoint + deviceUUID
 
 	method := "GET"
 

@@ -75,3 +75,19 @@ func GetAuthTokens(ctx context.Context, argID int64) (record *model.AuthToken, e
 
 	return record, nil
 }
+
+type AuthTokensStats struct {
+	Issued  int64 `json:"issued"`
+	Active  int64 `json:"active"`
+	Expired int64 `json:"expired"`
+	Deleted int64 `json:"deleted"`
+}
+
+func GetAuthTokensIssued(ctx context.Context) (record *AuthTokensStats, err error) {
+
+	err = DB.Raw("select (select count(*) from auth_tokens) \"Issued\", (select count(*) from auth_tokens a where a.expiry > now()) \"Active\", (select count(*) from auth_tokens a where a.expiry < now()) \"Expired\", (select count(*) from auth_tokens a where a.deleted_at is not null) \"Deleted\"").Scan(&record).Error
+	if err != nil {
+		return nil, err
+	}
+	return record, nil
+}

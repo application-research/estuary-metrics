@@ -34,15 +34,12 @@ func ConfigAwsDevicesRouter(router gin.IRoutes) {
 // @Success 200 {object} core.DeviceInfo
 // @Failure 400 {object} api.HTTPError
 // @Failure 500 {object} api.HTTPError
+// @Router /environment/equinix/info [get]
 func GetDeviceInfo(w http.ResponseWriter, r *http.Request, ps httprouter.Params) {
 	ctx := api.InitializeContext(r)
 	uuid := r.FormValue("uuid")
-
-	createdBefore := r.FormValue("createdBefore")
-	createdAfter := r.FormValue("createdAfter")
-
 	fmt.Println("uuid: ", uuid)
-	info, err := dao.Metrics.GetDeviceInfo(uuid, createdAfter, createdBefore)
+	info, err := dao.Metrics.GetDeviceInfo(uuid)
 	if err != nil {
 		return
 	}
@@ -68,6 +65,7 @@ type UuidGroup struct {
 // @Success 200 {object} []core.DeviceUsage
 // @Failure 400 {object} api.HTTPError
 // @Failure 500 {object} api.HTTPError
+// @Router /environment/equinix/list/usages [post]
 func GetDevicesUsages(w http.ResponseWriter, r *http.Request, ps httprouter.Params) {
 	ctx := api.InitializeContext(r)
 	var uuidGroup UuidGroup
@@ -100,6 +98,7 @@ func GetDevicesUsages(w http.ResponseWriter, r *http.Request, ps httprouter.Para
 // @Success 200 {object} core.DeviceUsage
 // @Failure 400 {object} api.HTTPError
 // @Failure 500 {object} api.HTTPError
+// @Router /environment/equinix/usages [get]
 func GetDeviceUsage(w http.ResponseWriter, r *http.Request, ps httprouter.Params) {
 	ctx := api.InitializeContext(r)
 	uuid := r.FormValue("uuid")
@@ -127,15 +126,13 @@ func GetDeviceUsage(w http.ResponseWriter, r *http.Request, ps httprouter.Params
 // @Success 200 {object} core.DeviceInfo
 // @Failure 400 {object} api.HTTPError
 // @Failure 500 {object} api.HTTPError
+// @Router /environment/equinix/billing [get]
 func GetBillingUsage(w http.ResponseWriter, r *http.Request, ps httprouter.Params) {
 	ctx := api.InitializeContext(r)
 	uuid := r.FormValue("uuid")
 
-	createdBefore := r.FormValue("createdBefore")
-	createdAfter := r.FormValue("createdAfter")
-
 	fmt.Println("uuid: ", uuid)
-	info, err := dao.Metrics.GetDeviceInfo(uuid, createdAfter, createdBefore)
+	info, err := dao.Metrics.GetDeviceInfo(uuid)
 
 	//	get the hourly rate
 	//info.Plan.Pricing.Hour

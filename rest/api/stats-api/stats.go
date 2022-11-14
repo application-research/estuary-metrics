@@ -13,15 +13,19 @@ import (
 )
 
 func ConfigStatsRouter(router gin.IRoutes) {
-	router.GET("/stats/retrieval", api.ConvertHttpRouterToGin(GetRetrievalStats))
+	//	 retrieval
+	router.GET("/stats/retrieval-rates", api.ConvertHttpRouterToGin(GetRetrievalRateStats))
+	router.GET("/stats/total-retrievals", api.ConvertHttpRouterToGin(GetTotalRetrievals))
+
+	//	 storage
 	router.GET("/stats/total-content-deals-attempted", api.ConvertHttpRouterToGin(GetContentDealsAttempted))
 	router.GET("/stats/total-storage", api.ConvertHttpRouterToGin(GetTotalStorageInTib))
 	router.GET("/stats/total-files", api.ConvertHttpRouterToGin(GetTotalFiles))
 	router.GET("/stats/storage-rates", api.ConvertHttpRouterToGin(GetStorageRateStats))
-	router.GET("/stats/system", api.ConvertHttpRouterToGin(GetSystemStats))
-	router.GET("/stats/users", api.ConvertHttpRouterToGin(GetUserStats))
-	router.GET("/stats/info", api.ConvertHttpRouterToGin(GetInfo))
+
+	// deals
 	router.GET("/stats/deal-metrics", api.ConvertHttpRouterToGin(GetDealMetrics))
+	router.GET("/stats/info", api.ConvertHttpRouterToGin(GetInfo))
 }
 
 type DealMetricsInfo struct {
@@ -57,7 +61,7 @@ type PublicStats struct {
 }
 
 type RetrievalStats struct {
-	DealSuccessRate                    string `json:"dealSuccessRate"`
+	RetrievalRateStats
 	DealAcceptanceRate                 string `json:"dealAcceptanceRate"`
 	TotalRetrievalDealsProposed        string `json:"totalRetrievalDealsProposed"`
 	TotalRetrievalDealProposalAccepted string `json:"totalRetrievalDealProposalAccepted"`
@@ -69,6 +73,10 @@ type RetrievalStats struct {
 	//Total number of retrieval deals attempted (per day and per week breakdown)
 }
 
+type RetrievalRateStats struct {
+	DealSuccessRate string `json:"dealSuccessRate"`
+	DealFailureRate string `json:"dealFailureRate"`
+}
 type StorageRateStats struct {
 	DealSuccessRate string `json:"dealSuccessRate"`
 	DealFailureRate string `json:"dealFailureRate"`
@@ -112,13 +120,45 @@ type UserStats struct {
 
 }
 
-// GetRetrievalStats returns the retrieval stats
+// GetTotalRetrievals returns the total number of retrieval deals attempted
+// @Summary Get total number of retrieval deals attempted
+// @Description Get total number of retrieval deals attempted
+// @Tags Stats
+// @Accept  json
+// @Produce  json
+// @Success 200 {object} int64
+// @Router /stats/total-retrievals [get]
+func GetTotalRetrievals(w http.ResponseWriter, r *http.Request, ps httprouter.Params) {
+	ctx := api.InitializeContext(r)
+	var totalRetrievals int64
+	totalRetrievals, err := dao.Metrics.GetTotalRetrievals()
+	if err != nil {
+		api.ReturnError(ctx, w, r, err)
+		return
+	}
+	api.WriteJSON(ctx, w, totalRetrievals)
+}
+
+// GetRetrievalRateStats returns the retrieval stats
 // @Summary Returns the retrieval stats
 // @Description Returns the retrieval stats
 // @Tags Stats
 // @Accept  json
 // @Produce  json
-func GetRetrievalStats(w http.ResponseWriter, r *http.Request, ps httprouter.Params) {
+// @Success 200 {object} RetrievalStats
+// @Router /stats/retrieval-rates [get]
+func GetRetrievalRateStats(w http.ResponseWriter, r *http.Request, ps httprouter.Params) {
+
+	//select ((t.success  * 1.0 /t.total  * 1.0) * 100) as "Success Rate", ((t.failed * 1.0 / t.total * 1.0) * 100) as "Failure Rate" from (select (select (select count(*) from retrieval_success_records) + (select count(*) from retrieval_failure_records)) as total, (select count(*) from retrieval_success_records)               as success,  (select count(*) from retrieval_failure_records) as failed) as t;
+	ctx := api.InitializeContext(r)
+	var retrievalStats RetrievalStats
+	successFailRate := dao.DB.Raw("select ((t.success  * 1.0 /t.total  * 1.0) * 100), ((t.failed * 1.0 / t.total * 1.0) * 100) from (select (select (select count(*) from retrieval_success_records) + (select count(*) from retrieval_failure_records)) as total, (select count(*) from retrieval_success_records)               as success,  (select count(*) from retrieval_failure_records) as failed) as t").Scan(&retrievalStats).Error
+	if successFailRate != nil {
+		api.ReturnError(ctx, w, r, successFailRate)
+		return
+	}
+
+	api.WriteJSON(ctx, w, retrievalStats)
 
 }
 
@@ -143,14 +183,14 @@ func GetContentDealsAttempted(w http.ResponseWriter, r *http.Request, ps httprou
 
 }
 
-//  GetTotalFilesStored returns the total number of files stored
-//	@Summary Returns the total number of files stored
-//	@Description Returns the total number of files stored
-//	@Tags Stats
-//	@Accept  json
-//	@Produce  json
-//	@Success 200 {object} int
-//	@Router /stats/total-files [get]
+// GetTotalFiles returns the total number of files stored
+// @Summary Returns the total number of files stored
+// @Description Returns the total number of files stored
+// @Tags Stats
+// @Accept  json
+// @Produce  json
+// @Success 200 {object} int
+// @Router /stats/total-files [get]
 func GetTotalFiles(w http.ResponseWriter, r *http.Request, ps httprouter.Params) {
 	ctx := api.InitializeContext(r)
 	var totalFiles int64
@@ -163,7 +203,7 @@ func GetTotalFiles(w http.ResponseWriter, r *http.Request, ps httprouter.Params)
 	api.WriteJSON(ctx, w, totalFiles)
 }
 
-// GetTotalStorage returns the total storage
+// GetTotalStorageInTib GetTotalStorage returns the total storage
 // @Summary Returns the total storage
 // @Description Returns the total storage
 // @Tags Stats
@@ -213,14 +253,6 @@ func GetStorageRateStats(w http.ResponseWriter, r *http.Request, ps httprouter.P
 	}
 
 	api.WriteJSON(ctx, w, storageRateStats)
-}
-
-func GetSystemStats(w http.ResponseWriter, r *http.Request, ps httprouter.Params) {
-
-}
-
-func GetUserStats(w http.ResponseWriter, r *http.Request, ps httprouter.Params) {
-
 }
 
 //	GetPublicStats returns the public stats
@@ -292,6 +324,7 @@ func GetDealMetrics(w http.ResponseWriter, r *http.Request, ps httprouter.Params
 	api.WriteJSON(ctx, w, metricsInfo)
 }
 
+// computeDealMetrics computes the deal metrics
 func computeDealMetrics() ([]*DealMetricsInfo, error) {
 
 	var deals []*MetricsDealJoin
