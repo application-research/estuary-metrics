@@ -14,7 +14,7 @@
         },
         "version": "0.0.1"
     },
-    "host": "localhost:3030/api/v1",
+    "host": "https://metrics-api.estuary.tech/api/v1",
     "paths": {
         "/authtokens": {
             "get": {
@@ -1673,7 +1673,7 @@
         },
         "/location/shuttle/{uuid}": {
             "get": {
-                "description": "Get device info",
+                "description": "Get the location of a shuttle",
                 "consumes": [
                     "application/json"
                 ],
@@ -1681,9 +1681,9 @@
                     "application/json"
                 ],
                 "tags": [
-                    "Environment"
+                    "Location"
                 ],
-                "summary": "Get device info",
+                "summary": "Get the location of a shuttle",
                 "parameters": [
                     {
                         "type": "string",

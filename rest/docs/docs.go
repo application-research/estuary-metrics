@@ -1681,7 +1681,7 @@ const docTemplate = `{
         },
         "/location/shuttle/{uuid}": {
             "get": {
-                "description": "Get device info",
+                "description": "Get the location of a shuttle",
                 "consumes": [
                     "application/json"
                 ],
@@ -1689,9 +1689,9 @@ const docTemplate = `{
                     "application/json"
                 ],
                 "tags": [
-                    "Environment"
+                    "Location"
                 ],
-                "summary": "Get device info",
+                "summary": "Get the location of a shuttle",
                 "parameters": [
                     {
                         "type": "string",
@@ -5630,7 +5630,7 @@ const docTemplate = `{
 // SwaggerInfo holds exported Swagger Info so clients can modify it
 var SwaggerInfo = &swag.Spec{
 	Version:          "0.0.1",
-	Host:             "localhost:3030/api/v1",
+	Host:             "https://metrics-api.estuary.tech/api/v1",
 	BasePath:         "",
 	Schemes:          []string{},
 	Title:            "Estuary Metrics API",

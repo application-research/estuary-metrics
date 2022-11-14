@@ -1516,7 +1516,7 @@ definitions:
       dealSuccessRate:
         type: string
     type: object
-host: localhost:3030/api/v1
+host: https://metrics-api.estuary.tech/api/v1
 info:
   contact:
     email: me@me.com
@@ -2620,7 +2620,7 @@ paths:
     get:
       consumes:
       - application/json
-      description: Get device info
+      description: Get the location of a shuttle
       parameters:
       - description: uuid
         in: path
@@ -2642,9 +2642,9 @@ paths:
           description: Internal Server Error
           schema:
             $ref: '#/definitions/api.HTTPError'
-      summary: Get device info
+      summary: Get the location of a shuttle
       tags:
-      - Environment
+      - Location
   /minerstorageasks:
     get:
       consumes:
