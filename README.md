@@ -9,9 +9,5 @@ API that wraps all Estuary objects for Metrics purposes.
 - [Estuary Metrics Notification API with Postgres Triggers(WIP)](./notification/README.md)
 - [Estuary Metric CLI (WIP)](./cmd/README.md)
 
-
-# Public Dashboard (WIP)
-The public dashboard is available at [https://metrics.estuary.tech](https://metrics.estuary.tech)
-
 # Specs
 [Specification](https://www.notion.so/ecosystem-wg/Metrics-Tracking-ea3da497096e4e4580c38a6a057b274f)
