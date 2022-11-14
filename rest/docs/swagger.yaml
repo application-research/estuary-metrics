@@ -1516,7 +1516,7 @@ definitions:
       dealSuccessRate:
         type: string
     type: object
-host: https://metrics-api.estuary.tech/api/v1
+host: metrics-api.estuary.tech/api/v1
 info:
   contact:
     email: me@me.com

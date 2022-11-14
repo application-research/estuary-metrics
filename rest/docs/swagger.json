@@ -14,7 +14,7 @@
         },
         "version": "0.0.1"
     },
-    "host": "https://metrics-api.estuary.tech/api/v1",
+    "host": "metrics-api.estuary.tech/api/v1",
     "paths": {
         "/authtokens": {
             "get": {
