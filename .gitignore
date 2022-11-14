@@ -9,6 +9,8 @@ core/.env
 dashboard/app/node_modules
 dashboard/app/.idea
 dashboard/app/build
+dashboard/.idea
+dashboard/.next
 
 # binary
 cmd/metrics-cmd

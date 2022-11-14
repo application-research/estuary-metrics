@@ -57,10 +57,17 @@ func GetStorageMiners(ctx context.Context, argID int64) (record *model.StorageMi
 	return record, nil
 }
 
-func GetTopStorageMiners(ctx context.Context, top int64) (results []*model.StorageMiner, err error) {
-	resultOrm := DB.Model(&model.StorageMiner{})
+type TopMiner struct {
+	Miner string
+	Name  string
+	Count int64
+}
 
-	if err = resultOrm.Order("total_deals desc").Limit(int(top)).Find(&results).Error; err != nil {
+func GetTopStorageMiners(ctx context.Context, top int) (results []*TopMiner, err error) {
+	//select a.miner, b.name, count(*) from content_deals a, storage_miners b where a.miner = b.address group by a.miner, b.name order by count(*) desc limit 10;
+	resultOrm := DB.Raw("select a.miner, b.name, count(*) from content_deals a, storage_miners b where a.miner = b.address group by a.miner, b.name order by count(*) desc limit ?", top)
+
+	if err = resultOrm.Scan(&results).Error; err != nil {
 		err = ErrNotFound
 		return nil, err
 	}

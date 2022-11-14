@@ -9,7 +9,7 @@ import (
 	"time"
 )
 
-type DeviceUsage struct {
+type DeviceInfo struct {
 	ID            string      `json:"id"`
 	ShortID       string      `json:"short_id"`
 	Hostname      string      `json:"hostname"`
@@ -462,13 +462,33 @@ type DeviceUsage struct {
 	Href                         string `json:"href"`
 }
 
-func (m Metrics) GetDeviceInfo(deviceUUID string, createdDate string, createdBefore string) (*DeviceUsage, error) {
+type DeviceUsages struct {
+	DeviceUsage   []DeviceUsage `json:"device_usages"`
+	Total         float64       `json:"total"`
+	CreatedBefore string        `json:"created_before"`
+	CreatedAfter  string        `json:"created_after"`
+}
+type DeviceUsage struct {
+	Info struct {
+		Name string `json:"name"`
+		UUID string `json:"uuid"`
+	}
+	Usages []struct {
+		Quantity float64 `json:"quantity"`
+		Unit     string  `json:"unit"`
+		Price    float64 `json:"price"`
+		Total    float64 `json:"total"`
+	} `json:"usages"`
+}
+
+func (m Metrics) GetDeviceUsage(deviceUUID string, createdAfterDate string, createdBeforeDate string) (*DeviceUsage, error) {
 
 	deviceUsage := DeviceUsage{}
 	url := EquinixEndpoint +
-		deviceUUID +
-		"?created%5Bafter%5D=" + createdDate + "&created%5Bbefore%5D=" + createdBefore
+		deviceUUID + "/usages" +
+		"?created%5Bafter%5D=" + createdAfterDate + "&created%5Bbefore%5D=" + createdBeforeDate
 
+	deviceUsage.Info.UUID = deviceUUID
 	method := "GET"
 
 	client := &http.Client{}
@@ -491,6 +511,76 @@ func (m Metrics) GetDeviceInfo(deviceUUID string, createdDate string, createdBef
 	if err != nil {
 		fmt.Println(err)
 		return &DeviceUsage{}, err
+	}
+	fmt.Println(string(body))
+	errMarshal := json.Unmarshal(body, &deviceUsage)
+	if errMarshal != nil {
+		return nil, errMarshal
+	}
+	fmt.Println(deviceUsage)
+	return &deviceUsage, nil
+}
+
+type UuidGroup struct {
+	Uuids []struct {
+		Uuid string `json:"uuid"`
+		Name string `json:"name"`
+	} `json:"uuids"`
+	CreatedBefore string `json:"createdBefore"`
+	CreatedAfter  string `json:"createdAfter"`
+}
+
+func (m Metrics) GetAllDeviceUsages(uuidGroup UuidGroup, createdAfterDate string, createdBeforeDate string) (*DeviceUsages, error) {
+	var deviceUsages DeviceUsages
+	var devices []DeviceUsage
+	var total float64
+	deviceUsages.CreatedBefore = createdBeforeDate
+	deviceUsages.CreatedAfter = createdAfterDate
+
+	for _, uuid := range uuidGroup.Uuids {
+		device, err := m.GetDeviceUsage(uuid.Uuid, createdAfterDate, createdBeforeDate)
+		device.Info.Name = uuid.Name
+		if err != nil {
+			return nil, err
+		}
+		if len(device.Usages) > 0 {
+			total += device.Usages[0].Total
+			devices = append(devices, *device)
+		}
+	}
+	deviceUsages.Total = total
+	deviceUsages.DeviceUsage = devices
+
+	return &deviceUsages, nil
+}
+
+func (m Metrics) GetDeviceInfo(deviceUUID string) (*DeviceInfo, error) {
+
+	deviceUsage := DeviceInfo{}
+	url := EquinixEndpoint + deviceUUID
+
+	method := "GET"
+
+	client := &http.Client{}
+	req, err := http.NewRequest(method, url, nil)
+
+	if err != nil {
+		fmt.Println(err)
+		return &DeviceInfo{}, err
+	}
+	req.Header.Add("X-Auth-Token", viper.Get("EQUINIX_AUTH_TOKEN").(string))
+
+	res, err := client.Do(req)
+	if err != nil {
+		fmt.Println(err)
+		return &DeviceInfo{}, err
+	}
+	defer res.Body.Close()
+
+	body, err := ioutil.ReadAll(res.Body)
+	if err != nil {
+		fmt.Println(err)
+		return &DeviceInfo{}, err
 	}
 	fmt.Println(string(body))
 	errMarshal := json.Unmarshal(body, &deviceUsage)

@@ -30,9 +30,9 @@ func ConfigPieceCommRecordsRouter(router gin.IRoutes) {
 // @Param   page     query    int     false        "page requested (defaults to 0)"
 // @Param   pagesize query    int     false        "number of records in a page  (defaults to 20)"
 // @Param   order    query    string  false        "db sort order column"
-// @Success 200 {object} objects-api.PagedResults{data=[]model.PieceCommRecord}
-// @Failure 400 {object} objects-api.HTTPError
-// @Failure 404 {object} objects-api.HTTPError
+// @Success 200 {object} api.PagedResults{data=[]model.PieceCommRecord}
+// @Failure 400 {object} api.HTTPError
+// @Failure 404 {object} api.HTTPError
 // @Router /piececommrecords [get]
 // http "http://localhost:3030/piececommrecords?page=0&pagesize=20" X-Api-User:user123
 func GetAllPieceCommRecords(w http.ResponseWriter, r *http.Request, ps httprouter.Params) {
@@ -75,8 +75,8 @@ func GetAllPieceCommRecords(w http.ResponseWriter, r *http.Request, ps httproute
 // @Produce  json
 // @Param  argData path string true "data"
 // @Success 200 {object} model.PieceCommRecord
-// @Failure 400 {object} objects-api.HTTPError
-// @Failure 404 {object} objects-api.HTTPError "ErrNotFound, db record for id not found - returns NotFound HTTP 404 not found error"
+// @Failure 400 {object} api.HTTPError
+// @Failure 404 {object} api.HTTPError "ErrNotFound, db record for id not found - returns NotFound HTTP 404 not found error"
 // @Router /piececommrecords/{argData} [get]
 // http "http://localhost:3030/piececommrecords/hello world" X-Api-User:user123
 func GetPieceCommRecords(w http.ResponseWriter, r *http.Request, ps httprouter.Params) {

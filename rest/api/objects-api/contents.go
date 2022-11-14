@@ -19,7 +19,12 @@ var (
 
 func ConfigContentsRouter(router gin.IRoutes) {
 	router.GET("/contents", api.ConvertHttpRouterToGin(GetAllContents))
-	router.GET("/contents/:argID", api.ConvertHttpRouterToGin(GetContents))
+	router.GET("/contents/:id", api.ConvertHttpRouterToGin(GetContents))
+	router.GET("/contents/dynamicquery", api.ConvertHttpRouterToGin(GetContentsDynamicQuery))
+}
+
+func GetContentsDynamicQuery(w http.ResponseWriter, r *http.Request, ps httprouter.Params) {
+	HandleDynamicQuery(w, r, ps, model.Content{})
 }
 
 // GetAllContents is a function to get a slice of record(s) from contents table in the estuary database
@@ -31,9 +36,9 @@ func ConfigContentsRouter(router gin.IRoutes) {
 // @Param   page     query    int     false        "page requested (defaults to 0)"
 // @Param   pagesize query    int     false        "number of records in a page  (defaults to 20)"
 // @Param   order    query    string  false        "db sort order column"
-// @Success 200 {object} objects-api.PagedResults{data=[]model.Content}
-// @Failure 400 {object} objects-api.HTTPError
-// @Failure 404 {object} objects-api.HTTPError
+// @Success 200 {object} api.PagedResults{data=[]model.Content}
+// @Failure 400 {object} api.HTTPError
+// @Failure 404 {object} api.HTTPError
 // @Router /contents [get]
 // http "http://localhost:3030/contents?page=0&pagesize=20" X-Api-User:user123
 func GetAllContents(w http.ResponseWriter, r *http.Request, ps httprouter.Params) {
@@ -76,8 +81,8 @@ func GetAllContents(w http.ResponseWriter, r *http.Request, ps httprouter.Params
 // @Produce  json
 // @Param  argID path int64 true "id"
 // @Success 200 {object} model.Content
-// @Failure 400 {object} objects-api.HTTPError
-// @Failure 404 {object} objects-api.HTTPError "ErrNotFound, db record for id not found - returns NotFound HTTP 404 not found error"
+// @Failure 400 {object} api.HTTPError
+// @Failure 404 {object} api.HTTPError "ErrNotFound, db record for id not found - returns NotFound HTTP 404 not found error"
 // @Router /contents/{argID} [get]
 // http "http://localhost:3030/contents/1" X-Api-User:user123
 func GetContents(w http.ResponseWriter, r *http.Request, ps httprouter.Params) {

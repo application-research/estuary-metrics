@@ -88,9 +88,16 @@ func GetUsers(ctx context.Context, argID int64) (record *model.User, err error) 
 	return record, nil
 }
 
-func GetTopUsers(ctx context.Context, top int) (record []*model.User, err error) {
-	record = []*model.User{}
-	if err = DB.Order("total_bytes DESC").Limit(top).Find(&record).Error; err != nil {
+type TopUser struct {
+	Username   string `json:"username"`
+	Id         int64  `json:"id"`
+	TotalBytes int64  `json:"total_bytes"`
+}
+
+func GetTopUsers(ctx context.Context, top int) (record []TopUser, err error) {
+	//select a.username, a.id,sum(c.size) from users as a, content_deals as b, contents as c
+	//where a.id = b.user_id and b.id = c.id and b.user_id = a.id group by a.id order by sum(c.size) desc limit 10;
+	if err := DB.Raw("select a.username, a.id, sum(c.size) as total_bytes from users as a, content_deals as b, contents as c where a.id = b.user_id and b.id = c.id and b.user_id = a.id group by a.id order by sum(c.size) desc limit ?", top).Scan(&record).Error; err != nil {
 		err = ErrNotFound
 		return record, err
 	}

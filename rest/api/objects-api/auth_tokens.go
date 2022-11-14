@@ -17,15 +17,40 @@ var (
 
 func ConfigAuthTokensRouter(router gin.IRoutes) {
 	router.GET("/authtokens", api.ConvertHttpRouterToGin(GetAllAuthTokens))
-	router.GET("/authtokens/:argID", api.ConvertHttpRouterToGin(GetAuthTokens))
+	router.GET("/authtokens/:id", api.ConvertHttpRouterToGin(GetAuthTokens))
 	router.GET("/authtokens/dynamicquery", api.ConvertHttpRouterToGin(GetAuthTokensDynamicQuery))
 	router.GET("/authtokens/activecount", api.ConvertHttpRouterToGin(GetAllActiveAuthTokenCount))
+	router.GET("/authtokens/issued", api.ConvertHttpRouterToGin(GetAuthTokensIssued))
 }
 
+// GetAuthTokensDynamicQuery is a function to get a slice of record(s) from auth_tokens table in the estuary database
+// @Summary Get list of AuthTokens
+// @Tags AuthTokens
+// @Description GetAuthTokensDynamicQuery is a handler to get a slice of record(s) from auth_tokens table in the estuary database
+// @Accept  json
+// @Produce  json
+// @Param   page     query    int     false        "page requested (defaults to 0)"
+// @Param   pagesize query    int     false        "number of records in a page  (defaults to 20)"
+// @Param   order    query    string  false        "db sort order column"
+// @Param   query    query    string  false        "dynamic query"
+// @Success 200 {object} api.PagedResults{data=[]model.AuthToken}
+// @Failure 400 {object} api.HTTPError
+// @Failure 404 {object} api.HTTPError
+// @Router /authtokens/dynamicquery [get]
 func GetAuthTokensDynamicQuery(w http.ResponseWriter, r *http.Request, ps httprouter.Params) {
 	HandleDynamicQuery(w, r, ps, model.AuthToken{})
 }
 
+// GetAllActiveAuthTokenCount is a function to get all record from the auth_tokens table in the estuary database
+// @Summary Get a single AuthTokens
+// @Tags AuthTokens
+// @Description GetAllActiveAuthTokenCount is a handler to get all record from the auth_tokens table in the estuary database
+// @Accept  json
+// @Produce  json
+// @Success 200 {object} model.AuthToken
+// @Failure 400 {object} api.HTTPError
+// @Failure 404 {object} api.HTTPError
+// @Router /authtokens/activecount [get]
 func GetAllActiveAuthTokenCount(w http.ResponseWriter, r *http.Request, ps httprouter.Params) {
 	ctx := api.InitializeContext(r)
 
@@ -52,9 +77,9 @@ func GetAllActiveAuthTokenCount(w http.ResponseWriter, r *http.Request, ps httpr
 // @Param   page     query    int     false        "page requested (defaults to 0)"
 // @Param   pagesize query    int     false        "number of records in a page  (defaults to 20)"
 // @Param   order    query    string  false        "db sort order column"
-// @Success 200 {object} objects-api.PagedResults{data=[]model.AuthToken}
-// @Failure 400 {object} objects-api.HTTPError
-// @Failure 404 {object} objects-api.HTTPError
+// @Success 200 {object} api.PagedResults{data=[]model.AuthToken}
+// @Failure 400 {object} api.HTTPError
+// @Failure 404 {object} api.HTTPError
 // @Router /authtokens [get]
 // http "http://localhost:3030/authtokens?page=0&pagesize=20" X-Api-User:user123
 func GetAllAuthTokens(w http.ResponseWriter, r *http.Request, ps httprouter.Params) {
@@ -97,8 +122,8 @@ func GetAllAuthTokens(w http.ResponseWriter, r *http.Request, ps httprouter.Para
 // @Produce  json
 // @Param  argID path int64 true "id"
 // @Success 200 {object} model.AuthToken
-// @Failure 400 {object} objects-api.HTTPError
-// @Failure 404 {object} objects-api.HTTPError "ErrNotFound, db record for id not found - returns NotFound HTTP 404 not found error"
+// @Failure 400 {object} api.HTTPError
+// @Failure 404 {object} api.HTTPError "ErrNotFound, db record for id not found - returns NotFound HTTP 404 not found error"
 // @Router /authtokens/{argID} [get]
 // http "http://localhost:3030/authtokens/1" X-Api-User:user123
 func GetAuthTokens(w http.ResponseWriter, r *http.Request, ps httprouter.Params) {
@@ -116,6 +141,26 @@ func GetAuthTokens(w http.ResponseWriter, r *http.Request, ps httprouter.Params)
 	}
 
 	record, err := dao.GetAuthTokens(ctx, argID)
+	if err != nil {
+		api.ReturnError(ctx, w, r, err)
+		return
+	}
+
+	api.WriteJSON(ctx, w, record)
+}
+
+// GetAuthTokensIssued is a function to get a single record from the auth_tokens table in the estuary database
+// @Summary Get record from table AuthTokens by  argID
+// @Tags AuthTokens
+func GetAuthTokensIssued(w http.ResponseWriter, r *http.Request, ps httprouter.Params) {
+	ctx := api.InitializeContext(r)
+
+	if err := api.ValidateRequest(ctx, r, "auth_tokens", model.RetrieveMany); err != nil {
+		api.ReturnError(ctx, w, r, err)
+		return
+	}
+
+	record, err := dao.GetAuthTokensIssued(ctx)
 	if err != nil {
 		api.ReturnError(ctx, w, r, err)
 		return

@@ -18,7 +18,7 @@ var (
 func ConfigDDLRouter(router gin.IRoutes) {
 	//
 	getCrudEndpoints() // get the endpoints
-	router.GET("/ddl/:argID", api.ConvertHttpRouterToGin(GetDdl))
+	router.GET("/ddl/:id", api.ConvertHttpRouterToGin(GetDdl))
 	router.GET("/ddl", api.ConvertHttpRouterToGin(GetDdlEndpoints))
 
 }
@@ -31,9 +31,9 @@ func ConfigDDLRouter(router gin.IRoutes) {
 // @Accept  json
 // @Produce  json
 // @Param  argID path int true "id"
-// @Success 200 {object} objects-api.CrudAPI
-// @Failure 400 {object} objects-api.HTTPError
-// @Failure 404 {object} objects-api.HTTPError "ErrNotFound, db record for id not found - returns NotFound HTTP 404 not found error"
+// @Success 200 {object} objectsapi.CrudAPI
+// @Failure 400 {object} api.HTTPError
+// @Failure 404 {object} api.HTTPError "ErrNotFound, db record for id not found - returns NotFound HTTP 404 not found error"
 // @Router /ddl/{argID} [get]
 // http "http://localhost:3030/ddl/xyz" X-Api-User:user123
 func GetDdl(w http.ResponseWriter, r *http.Request, ps httprouter.Params) {
@@ -61,7 +61,7 @@ func GetDdl(w http.ResponseWriter, r *http.Request, ps httprouter.Params) {
 // @Description GetDdlEndpoints is a function to get a list of ddl endpoints available for tables in the estuary database
 // @Accept  json
 // @Produce  json
-// @Success 200 {object} objects-api.CrudAPI
+// @Success 200 {object} objectsapi.CrudAPI
 // @Router /ddl [get]
 // http "http://localhost:3030/ddl" X-Api-User:user123
 func GetDdlEndpoints(w http.ResponseWriter, r *http.Request, ps httprouter.Params) {

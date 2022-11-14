@@ -1,24 +1,4 @@
-basePath: /
 definitions:
-  api.CrudAPI:
-    properties:
-      create_url:
-        type: string
-      delete_url:
-        type: string
-      fetch_ddl_url:
-        type: string
-      name:
-        type: string
-      retrieve_many_url:
-        type: string
-      retrieve_one_url:
-        type: string
-      table_info:
-        $ref: '#/definitions/model.TableInfo'
-      update_url:
-        type: string
-    type: object
   api.HTTPError:
     properties:
       code:
@@ -37,6 +17,878 @@ definitions:
         type: integer
       total_records:
         type: integer
+    type: object
+  core.DeviceInfo:
+    properties:
+      actions:
+        items:
+          properties:
+            name:
+              type: string
+            type:
+              type: string
+          type: object
+        type: array
+      allow_same_vlan_on_multiple_ports:
+        type: boolean
+      always_pxe:
+        type: boolean
+      billing_cycle:
+        type: string
+      bonding_mode:
+        type: integer
+      created_at:
+        type: string
+      created_by:
+        properties:
+          avatar_thumb_url:
+            type: string
+          created_at:
+            type: string
+          email:
+            type: string
+          first_name:
+            type: string
+          full_name:
+            type: string
+          href:
+            type: string
+          id:
+            type: string
+          last_name:
+            type: string
+          level:
+            type: string
+          short_id:
+            type: string
+          updated_at:
+            type: string
+        type: object
+      customdata:
+        type: object
+      description: {}
+      device_type:
+        type: string
+      facility:
+        properties:
+          address:
+            properties:
+              address:
+                type: string
+              address2:
+                type: string
+              city:
+                type: string
+              coordinates:
+                properties:
+                  latitude:
+                    type: string
+                  longitude:
+                    type: string
+                type: object
+              country:
+                type: string
+              id:
+                type: string
+              state:
+                type: string
+              zip_code:
+                type: string
+            type: object
+          code:
+            type: string
+          features:
+            items:
+              type: string
+            type: array
+          id:
+            type: string
+          ip_ranges:
+            items: {}
+            type: array
+          metro:
+            properties:
+              code:
+                type: string
+              country:
+                type: string
+              id:
+                type: string
+              name:
+                type: string
+            type: object
+          name:
+            type: string
+        type: object
+      favorite:
+        type: boolean
+      hostname:
+        type: string
+      href:
+        type: string
+      id:
+        type: string
+      image_url: {}
+      ip_addresses:
+        items:
+          properties:
+            address:
+              type: string
+            address_family:
+              type: integer
+            assigned_to:
+              properties:
+                href:
+                  type: string
+              type: object
+            cidr:
+              type: integer
+            created_at:
+              type: string
+            customdata:
+              type: object
+            details: {}
+            enabled:
+              type: boolean
+            facility:
+              properties:
+                address:
+                  properties:
+                    address:
+                      type: string
+                    address2:
+                      type: string
+                    city:
+                      type: string
+                    coordinates:
+                      properties:
+                        latitude:
+                          type: string
+                        longitude:
+                          type: string
+                      type: object
+                    country:
+                      type: string
+                    id:
+                      type: string
+                    state:
+                      type: string
+                    zip_code:
+                      type: string
+                  type: object
+                code:
+                  type: string
+                features:
+                  items:
+                    type: string
+                  type: array
+                id:
+                  type: string
+                ip_ranges:
+                  items: {}
+                  type: array
+                metro:
+                  properties:
+                    code:
+                      type: string
+                    country:
+                      type: string
+                    id:
+                      type: string
+                    name:
+                      type: string
+                  type: object
+                name:
+                  type: string
+              type: object
+            gateway:
+              type: string
+            global_ip:
+              type: boolean
+            href:
+              type: string
+            id:
+              type: string
+            interface:
+              properties:
+                href:
+                  type: string
+              type: object
+            manageable:
+              type: boolean
+            management:
+              type: boolean
+            metro:
+              properties:
+                code:
+                  type: string
+                country:
+                  type: string
+                id:
+                  type: string
+                name:
+                  type: string
+              type: object
+            netmask:
+              type: string
+            network:
+              type: string
+            project:
+              properties:
+                href:
+                  type: string
+              type: object
+            project_lite:
+              properties:
+                href:
+                  type: string
+              type: object
+            public:
+              type: boolean
+            tags:
+              items: {}
+              type: array
+          type: object
+        type: array
+      ipxe_script_url: {}
+      iqn:
+        type: string
+      locked:
+        type: boolean
+      metro:
+        properties:
+          code:
+            type: string
+          country:
+            type: string
+          id:
+            type: string
+          name:
+            type: string
+        type: object
+      network_frozen:
+        type: boolean
+      network_ports:
+        items:
+          properties:
+            bond:
+              properties:
+                id:
+                  type: string
+                name:
+                  type: string
+              type: object
+            data:
+              properties:
+                bonded:
+                  type: boolean
+                mac:
+                  type: string
+              type: object
+            disbond_operation_supported:
+              type: boolean
+            href:
+              type: string
+            id:
+              type: string
+            name:
+              type: string
+            native_virtual_network: {}
+            network_type:
+              type: string
+            type:
+              type: string
+            virtual_networks:
+              items: {}
+              type: array
+          type: object
+        type: array
+      operating_system:
+        properties:
+          distro:
+            type: string
+          distro_label:
+            type: string
+          id:
+            type: string
+          licensed:
+            type: boolean
+          name:
+            type: string
+          preinstallable:
+            type: boolean
+          pricing:
+            type: object
+          provisionable_on:
+            items: {}
+            type: array
+          slug:
+            type: string
+          version:
+            type: string
+        type: object
+      plan:
+        properties:
+          available_in:
+            items:
+              properties:
+                href:
+                  type: string
+                price:
+                  properties:
+                    hour:
+                      type: number
+                  type: object
+              type: object
+            type: array
+          available_in_metros:
+            items:
+              properties:
+                href:
+                  type: string
+                price:
+                  properties:
+                    hour:
+                      type: number
+                  type: object
+              type: object
+            type: array
+          class:
+            type: string
+          deployment_types:
+            items:
+              type: string
+            type: array
+          description:
+            type: string
+          id:
+            type: string
+          legacy:
+            type: boolean
+          line:
+            type: string
+          name:
+            type: string
+          pricing:
+            properties:
+              hour:
+                type: number
+            type: object
+          reservation_pricing:
+            properties:
+              am:
+                properties:
+                  one_month:
+                    properties:
+                      month:
+                        type: number
+                    type: object
+                  one_year:
+                    properties:
+                      month:
+                        type: number
+                    type: object
+                  three_year:
+                    properties:
+                      month:
+                        type: number
+                    type: object
+                type: object
+              ch:
+                properties:
+                  one_month:
+                    properties:
+                      month:
+                        type: number
+                    type: object
+                  one_year:
+                    properties:
+                      month:
+                        type: number
+                    type: object
+                  three_year:
+                    properties:
+                      month:
+                        type: number
+                    type: object
+                type: object
+              da:
+                properties:
+                  one_month:
+                    properties:
+                      month:
+                        type: number
+                    type: object
+                  one_year:
+                    properties:
+                      month:
+                        type: number
+                    type: object
+                  three_year:
+                    properties:
+                      month:
+                        type: number
+                    type: object
+                type: object
+              dc:
+                properties:
+                  one_month:
+                    properties:
+                      month:
+                        type: number
+                    type: object
+                  one_year:
+                    properties:
+                      month:
+                        type: number
+                    type: object
+                  three_year:
+                    properties:
+                      month:
+                        type: number
+                    type: object
+                type: object
+              fr:
+                properties:
+                  one_month:
+                    properties:
+                      month:
+                        type: number
+                    type: object
+                  one_year:
+                    properties:
+                      month:
+                        type: number
+                    type: object
+                  three_year:
+                    properties:
+                      month:
+                        type: number
+                    type: object
+                type: object
+              hk:
+                properties:
+                  one_month:
+                    properties:
+                      month:
+                        type: number
+                    type: object
+                  one_year:
+                    properties:
+                      month:
+                        type: number
+                    type: object
+                  three_year:
+                    properties:
+                      month:
+                        type: number
+                    type: object
+                type: object
+              la:
+                properties:
+                  one_month:
+                    properties:
+                      month:
+                        type: number
+                    type: object
+                  one_year:
+                    properties:
+                      month:
+                        type: number
+                    type: object
+                  three_year:
+                    properties:
+                      month:
+                        type: number
+                    type: object
+                type: object
+              ld:
+                properties:
+                  one_month:
+                    properties:
+                      month:
+                        type: number
+                    type: object
+                  one_year:
+                    properties:
+                      month:
+                        type: number
+                    type: object
+                  three_year:
+                    properties:
+                      month:
+                        type: number
+                    type: object
+                type: object
+              md:
+                properties:
+                  one_month:
+                    properties:
+                      month:
+                        type: number
+                    type: object
+                  one_year:
+                    properties:
+                      month:
+                        type: number
+                    type: object
+                  three_year:
+                    properties:
+                      month:
+                        type: number
+                    type: object
+                type: object
+              ny:
+                properties:
+                  one_month:
+                    properties:
+                      month:
+                        type: number
+                    type: object
+                  one_year:
+                    properties:
+                      month:
+                        type: number
+                    type: object
+                  three_year:
+                    properties:
+                      month:
+                        type: number
+                    type: object
+                type: object
+              one_month:
+                properties:
+                  month:
+                    type: number
+                type: object
+              one_year:
+                properties:
+                  month:
+                    type: number
+                type: object
+              pa:
+                properties:
+                  one_month:
+                    properties:
+                      month:
+                        type: number
+                    type: object
+                  one_year:
+                    properties:
+                      month:
+                        type: number
+                    type: object
+                  three_year:
+                    properties:
+                      month:
+                        type: number
+                    type: object
+                type: object
+              se:
+                properties:
+                  one_month:
+                    properties:
+                      month:
+                        type: number
+                    type: object
+                  one_year:
+                    properties:
+                      month:
+                        type: number
+                    type: object
+                  three_year:
+                    properties:
+                      month:
+                        type: number
+                    type: object
+                type: object
+              sg:
+                properties:
+                  one_month:
+                    properties:
+                      month:
+                        type: number
+                    type: object
+                  one_year:
+                    properties:
+                      month:
+                        type: number
+                    type: object
+                  three_year:
+                    properties:
+                      month:
+                        type: number
+                    type: object
+                type: object
+              sl:
+                properties:
+                  one_month:
+                    properties:
+                      month:
+                        type: number
+                    type: object
+                  one_year:
+                    properties:
+                      month:
+                        type: number
+                    type: object
+                  three_year:
+                    properties:
+                      month:
+                        type: number
+                    type: object
+                type: object
+              sp:
+                properties:
+                  one_month:
+                    properties:
+                      month:
+                        type: number
+                    type: object
+                  one_year:
+                    properties:
+                      month:
+                        type: number
+                    type: object
+                  three_year:
+                    properties:
+                      month:
+                        type: number
+                    type: object
+                type: object
+              sv:
+                properties:
+                  one_month:
+                    properties:
+                      month:
+                        type: number
+                    type: object
+                  one_year:
+                    properties:
+                      month:
+                        type: number
+                    type: object
+                  three_year:
+                    properties:
+                      month:
+                        type: number
+                    type: object
+                type: object
+              sy:
+                properties:
+                  one_month:
+                    properties:
+                      month:
+                        type: number
+                    type: object
+                  one_year:
+                    properties:
+                      month:
+                        type: number
+                    type: object
+                  three_year:
+                    properties:
+                      month:
+                        type: number
+                    type: object
+                type: object
+              three_year:
+                properties:
+                  month:
+                    type: number
+                type: object
+              tr:
+                properties:
+                  one_month:
+                    properties:
+                      month:
+                        type: number
+                    type: object
+                  one_year:
+                    properties:
+                      month:
+                        type: number
+                    type: object
+                  three_year:
+                    properties:
+                      month:
+                        type: number
+                    type: object
+                type: object
+              ty:
+                properties:
+                  one_month:
+                    properties:
+                      month:
+                        type: number
+                    type: object
+                  one_year:
+                    properties:
+                      month:
+                        type: number
+                    type: object
+                  three_year:
+                    properties:
+                      month:
+                        type: number
+                    type: object
+                type: object
+            type: object
+          slug:
+            type: string
+          specs:
+            properties:
+              cpus:
+                items:
+                  properties:
+                    count:
+                      type: integer
+                    type:
+                      type: string
+                  type: object
+                type: array
+              drives:
+                items:
+                  properties:
+                    category:
+                      type: string
+                    count:
+                      type: integer
+                    size:
+                      type: string
+                    type:
+                      type: string
+                  type: object
+                type: array
+              features:
+                properties:
+                  raid:
+                    type: boolean
+                  txt:
+                    type: boolean
+                type: object
+              memory:
+                properties:
+                  total:
+                    type: string
+                type: object
+              nics:
+                items:
+                  properties:
+                    count:
+                      type: integer
+                    type:
+                      type: string
+                  type: object
+                type: array
+            type: object
+          type:
+            type: string
+        type: object
+      project:
+        properties:
+          href:
+            type: string
+        type: object
+      project_lite:
+        properties:
+          href:
+            type: string
+        type: object
+      short_id:
+        type: string
+      ssh_keys:
+        items:
+          properties:
+            href:
+              type: string
+          type: object
+        type: array
+      state:
+        type: string
+      storage:
+        type: object
+      switch_uuid:
+        type: string
+      tags:
+        items:
+          type: string
+        type: array
+      updated_at:
+        type: string
+      user:
+        type: string
+      userdata:
+        type: string
+      volumes:
+        items: {}
+        type: array
+    type: object
+  core.DeviceUsage:
+    properties:
+      info:
+        properties:
+          name:
+            type: string
+          uuid:
+            type: string
+        type: object
+      usages:
+        items:
+          properties:
+            price:
+              type: number
+            quantity:
+              type: number
+            total:
+              type: number
+            unit:
+              type: string
+          type: object
+        type: array
+    type: object
+  core.UuidGroup:
+    properties:
+      createdAfter:
+        type: string
+      createdBefore:
+        type: string
+      uuids:
+        items:
+          properties:
+            name:
+              type: string
+            uuid:
+              type: string
+          type: object
+        type: array
+    type: object
+  dao.TopCollectionUser:
+    properties:
+      count:
+        type: integer
+      userID:
+        type: integer
+      username:
+        type: string
+    type: object
+  dao.TopMiner:
+    properties:
+      count:
+        type: integer
+      miner:
+        type: string
+      name:
+        type: string
+    type: object
+  dao.TopUser:
+    properties:
+      id:
+        type: integer
+      total_bytes:
+        type: integer
+      username:
+        type: string
     type: object
   gorm.DeletedAt:
     properties:
@@ -535,18 +1387,147 @@ definitions:
       uuid:
         type: string
     type: object
-host: localhost:3030
+  objectsapi.CrudAPI:
+    properties:
+      create_url:
+        type: string
+      delete_url:
+        type: string
+      fetch_ddl_url:
+        type: string
+      name:
+        type: string
+      retrieve_many_url:
+        type: string
+      retrieve_one_url:
+        type: string
+      table_info:
+        $ref: '#/definitions/model.TableInfo'
+      update_url:
+        type: string
+    type: object
+  sql.NullInt64:
+    properties:
+      int64:
+        type: integer
+      valid:
+        description: Valid is true if Int64 is not NULL
+        type: boolean
+    type: object
+  statsapi.DealMetricsInfo:
+    properties:
+      dealsAttempted:
+        type: integer
+      dealsFailed:
+        type: integer
+      dealsOnChain:
+        type: integer
+      dealsOnChainBytes:
+        type: integer
+      dealsSealed:
+        type: integer
+      dealsSealedBytes:
+        type: integer
+      time:
+        type: string
+    type: object
+  statsapi.Location:
+    properties:
+      address:
+        properties:
+          address:
+            type: string
+          address2:
+            type: string
+          city:
+            type: string
+          coordinates:
+            properties:
+              latitude:
+                type: string
+              longitude:
+                type: string
+            type: object
+          country:
+            type: string
+          id:
+            type: string
+          state:
+            type: string
+          zip_code:
+            type: string
+        type: object
+      ip_address:
+        properties:
+          address:
+            type: string
+          gateway:
+            type: string
+          network:
+            type: string
+        type: object
+      name:
+        type: string
+    type: object
+  statsapi.PublicStats:
+    properties:
+      dealsOnChain:
+        $ref: '#/definitions/sql.NullInt64'
+      totalBytesUploaded:
+        $ref: '#/definitions/sql.NullInt64'
+      totalFiles:
+        $ref: '#/definitions/sql.NullInt64'
+      totalObjectsRef:
+        $ref: '#/definitions/sql.NullInt64'
+      totalStorage:
+        $ref: '#/definitions/sql.NullInt64'
+      totalStorageMiners:
+        $ref: '#/definitions/sql.NullInt64'
+      totalUsers:
+        $ref: '#/definitions/sql.NullInt64'
+    type: object
+  statsapi.RetrievalStats:
+    properties:
+      dealAcceptanceRate:
+        type: string
+      dealFailureRate:
+        type: string
+      dealSuccessRate:
+        type: string
+      failedDealsDueToUndialableMiners:
+        type: string
+      timeToFirstByte:
+        type: string
+      totalNumberOfFailedRetrieval:
+        type: string
+      totalNumberOfSuccessfulRetrieval:
+        type: string
+      totalRetrievalDealProposalAccepted:
+        type: string
+      totalRetrievalDealProposalRejected:
+        type: string
+      totalRetrievalDealsProposed:
+        type: string
+    type: object
+  statsapi.StorageRateStats:
+    properties:
+      dealFailureRate:
+        type: string
+      dealSuccessRate:
+        type: string
+    type: object
+host: localhost:3030/api/v1
 info:
   contact:
     email: me@me.com
-    name: Me
+    name: Outercore Engineering
     url: http://me.com/terms.html
-  description: Sample CRUD objects-api for estuary db
+  description: Estuary Metrics API
   license:
     name: Apache 2.0
     url: http://www.apache.org/licenses/LICENSE-2.0.html
-  title: Sample CRUD objects-api for estuary db
-  version: "1.0"
+  title: Estuary Metrics API
+  version: 0.0.1
 paths:
   /authtokens:
     get:
@@ -592,65 +1573,7 @@ paths:
       summary: Get list of AuthTokens
       tags:
       - AuthTokens
-    post:
-      consumes:
-      - application/json
-      description: add to add a single record to auth_tokens table in the estuary
-        database
-      parameters:
-      - description: Add AuthTokens
-        in: body
-        name: AuthTokens
-        required: true
-        schema:
-          $ref: '#/definitions/model.AuthToken'
-      produces:
-      - application/json
-      responses:
-        "200":
-          description: OK
-          schema:
-            $ref: '#/definitions/model.AuthToken'
-        "400":
-          description: Bad Request
-          schema:
-            $ref: '#/definitions/api.HTTPError'
-        "404":
-          description: Not Found
-          schema:
-            $ref: '#/definitions/api.HTTPError'
-      summary: Add an record to auth_tokens table
-      tags:
-      - AuthTokens
   /authtokens/{argID}:
-    delete:
-      consumes:
-      - application/json
-      description: Delete a single record from auth_tokens table in the estuary database
-      parameters:
-      - description: id
-        in: path
-        name: argID
-        required: true
-        type: integer
-      produces:
-      - application/json
-      responses:
-        "204":
-          description: No Content
-          schema:
-            $ref: '#/definitions/model.AuthToken'
-        "400":
-          description: Bad Request
-          schema:
-            $ref: '#/definitions/api.HTTPError'
-        "500":
-          description: Internal Server Error
-          schema:
-            $ref: '#/definitions/api.HTTPError'
-      summary: Delete a record from auth_tokens
-      tags:
-      - AuthTokens
     get:
       consumes:
       - application/json
@@ -681,22 +1604,12 @@ paths:
       summary: Get record from table AuthTokens by  argID
       tags:
       - AuthTokens
-    put:
+  /authtokens/activecount:
+    get:
       consumes:
       - application/json
-      description: Update a single record from auth_tokens table in the estuary database
-      parameters:
-      - description: id
-        in: path
-        name: argID
-        required: true
-        type: integer
-      - description: Update AuthTokens record
-        in: body
-        name: AuthTokens
-        required: true
-        schema:
-          $ref: '#/definitions/model.AuthToken'
+      description: GetAllActiveAuthTokenCount is a handler to get all record from
+        the auth_tokens table in the estuary database
       produces:
       - application/json
       responses:
@@ -712,7 +1625,55 @@ paths:
           description: Not Found
           schema:
             $ref: '#/definitions/api.HTTPError'
-      summary: Update an record in table auth_tokens
+      summary: Get a single AuthTokens
+      tags:
+      - AuthTokens
+  /authtokens/dynamicquery:
+    get:
+      consumes:
+      - application/json
+      description: GetAuthTokensDynamicQuery is a handler to get a slice of record(s)
+        from auth_tokens table in the estuary database
+      parameters:
+      - description: page requested (defaults to 0)
+        in: query
+        name: page
+        type: integer
+      - description: number of records in a page  (defaults to 20)
+        in: query
+        name: pagesize
+        type: integer
+      - description: db sort order column
+        in: query
+        name: order
+        type: string
+      - description: dynamic query
+        in: query
+        name: query
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            allOf:
+            - $ref: '#/definitions/api.PagedResults'
+            - properties:
+                data:
+                  items:
+                    $ref: '#/definitions/model.AuthToken'
+                  type: array
+              type: object
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/api.HTTPError'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/api.HTTPError'
+      summary: Get list of AuthTokens
       tags:
       - AuthTokens
   /autoretrieves:
@@ -759,66 +1720,7 @@ paths:
       summary: Get list of Autoretrieves
       tags:
       - Autoretrieves
-    post:
-      consumes:
-      - application/json
-      description: add to add a single record to autoretrieves table in the estuary
-        database
-      parameters:
-      - description: Add Autoretrieves
-        in: body
-        name: Autoretrieves
-        required: true
-        schema:
-          $ref: '#/definitions/model.Autoretrieve'
-      produces:
-      - application/json
-      responses:
-        "200":
-          description: OK
-          schema:
-            $ref: '#/definitions/model.Autoretrieve'
-        "400":
-          description: Bad Request
-          schema:
-            $ref: '#/definitions/api.HTTPError'
-        "404":
-          description: Not Found
-          schema:
-            $ref: '#/definitions/api.HTTPError'
-      summary: Add an record to autoretrieves table
-      tags:
-      - Autoretrieves
   /autoretrieves/{argID}:
-    delete:
-      consumes:
-      - application/json
-      description: Delete a single record from autoretrieves table in the estuary
-        database
-      parameters:
-      - description: id
-        in: path
-        name: argID
-        required: true
-        type: integer
-      produces:
-      - application/json
-      responses:
-        "204":
-          description: No Content
-          schema:
-            $ref: '#/definitions/model.Autoretrieve'
-        "400":
-          description: Bad Request
-          schema:
-            $ref: '#/definitions/api.HTTPError'
-        "500":
-          description: Internal Server Error
-          schema:
-            $ref: '#/definitions/api.HTTPError'
-      summary: Delete a record from autoretrieves
-      tags:
-      - Autoretrieves
     get:
       consumes:
       - application/json
@@ -849,30 +1751,43 @@ paths:
       summary: Get record from table Autoretrieves by  argID
       tags:
       - Autoretrieves
-    put:
+  /autoretrieves/dynamicquery:
+    get:
       consumes:
       - application/json
-      description: Update a single record from autoretrieves table in the estuary
-        database
+      description: GetAutoretrievesDynamicQuery is a function to get a slice of record(s)
+        from autoretrieves table in the estuary database
       parameters:
-      - description: id
-        in: path
-        name: argID
-        required: true
+      - description: page requested (defaults to 0)
+        in: query
+        name: page
         type: integer
-      - description: Update Autoretrieves record
-        in: body
-        name: Autoretrieves
-        required: true
-        schema:
-          $ref: '#/definitions/model.Autoretrieve'
+      - description: number of records in a page  (defaults to 20)
+        in: query
+        name: pagesize
+        type: integer
+      - description: db sort order column
+        in: query
+        name: order
+        type: string
+      - description: dynamic query
+        in: query
+        name: query
+        type: string
       produces:
       - application/json
       responses:
         "200":
           description: OK
           schema:
-            $ref: '#/definitions/model.Autoretrieve'
+            allOf:
+            - $ref: '#/definitions/api.PagedResults'
+            - properties:
+                data:
+                  items:
+                    $ref: '#/definitions/model.Autoretrieve'
+                  type: array
+              type: object
         "400":
           description: Bad Request
           schema:
@@ -881,7 +1796,7 @@ paths:
           description: Not Found
           schema:
             $ref: '#/definitions/api.HTTPError'
-      summary: Update an record in table autoretrieves
+      summary: Get list of Autoretrieves
       tags:
       - Autoretrieves
   /collectionrefs:
@@ -928,66 +1843,7 @@ paths:
       summary: Get list of CollectionRefs
       tags:
       - CollectionRefs
-    post:
-      consumes:
-      - application/json
-      description: add to add a single record to collection_refs table in the estuary
-        database
-      parameters:
-      - description: Add CollectionRefs
-        in: body
-        name: CollectionRefs
-        required: true
-        schema:
-          $ref: '#/definitions/model.CollectionRef'
-      produces:
-      - application/json
-      responses:
-        "200":
-          description: OK
-          schema:
-            $ref: '#/definitions/model.CollectionRef'
-        "400":
-          description: Bad Request
-          schema:
-            $ref: '#/definitions/api.HTTPError'
-        "404":
-          description: Not Found
-          schema:
-            $ref: '#/definitions/api.HTTPError'
-      summary: Add an record to collection_refs table
-      tags:
-      - CollectionRefs
   /collectionrefs/{argID}:
-    delete:
-      consumes:
-      - application/json
-      description: Delete a single record from collection_refs table in the estuary
-        database
-      parameters:
-      - description: id
-        in: path
-        name: argID
-        required: true
-        type: integer
-      produces:
-      - application/json
-      responses:
-        "204":
-          description: No Content
-          schema:
-            $ref: '#/definitions/model.CollectionRef'
-        "400":
-          description: Bad Request
-          schema:
-            $ref: '#/definitions/api.HTTPError'
-        "500":
-          description: Internal Server Error
-          schema:
-            $ref: '#/definitions/api.HTTPError'
-      summary: Delete a record from collection_refs
-      tags:
-      - CollectionRefs
     get:
       consumes:
       - application/json
@@ -1018,30 +1874,43 @@ paths:
       summary: Get record from table CollectionRefs by  argID
       tags:
       - CollectionRefs
-    put:
+  /collectionrefs/dynamicquery:
+    get:
       consumes:
       - application/json
-      description: Update a single record from collection_refs table in the estuary
-        database
+      description: GetCollectionsRefDynamicQuery is a handler to get a slice of record(s)
+        from collection_refs table in the estuary database
       parameters:
-      - description: id
-        in: path
-        name: argID
-        required: true
+      - description: page requested (defaults to 0)
+        in: query
+        name: page
         type: integer
-      - description: Update CollectionRefs record
-        in: body
-        name: CollectionRefs
-        required: true
-        schema:
-          $ref: '#/definitions/model.CollectionRef'
+      - description: number of records in a page  (defaults to 20)
+        in: query
+        name: pagesize
+        type: integer
+      - description: db sort order column
+        in: query
+        name: order
+        type: string
+      - description: query string
+        in: query
+        name: query
+        type: string
       produces:
       - application/json
       responses:
         "200":
           description: OK
           schema:
-            $ref: '#/definitions/model.CollectionRef'
+            allOf:
+            - $ref: '#/definitions/api.PagedResults'
+            - properties:
+                data:
+                  items:
+                    $ref: '#/definitions/model.CollectionRef'
+                  type: array
+              type: object
         "400":
           description: Bad Request
           schema:
@@ -1050,7 +1919,7 @@ paths:
           description: Not Found
           schema:
             $ref: '#/definitions/api.HTTPError'
-      summary: Update an record in table collection_refs
+      summary: Get list of CollectionRefs
       tags:
       - CollectionRefs
   /collections:
@@ -1097,65 +1966,7 @@ paths:
       summary: Get list of Collections
       tags:
       - Collections
-    post:
-      consumes:
-      - application/json
-      description: add to add a single record to collections table in the estuary
-        database
-      parameters:
-      - description: Add Collections
-        in: body
-        name: Collections
-        required: true
-        schema:
-          $ref: '#/definitions/model.Collection'
-      produces:
-      - application/json
-      responses:
-        "200":
-          description: OK
-          schema:
-            $ref: '#/definitions/model.Collection'
-        "400":
-          description: Bad Request
-          schema:
-            $ref: '#/definitions/api.HTTPError'
-        "404":
-          description: Not Found
-          schema:
-            $ref: '#/definitions/api.HTTPError'
-      summary: Add an record to collections table
-      tags:
-      - Collections
   /collections/{argID}:
-    delete:
-      consumes:
-      - application/json
-      description: Delete a single record from collections table in the estuary database
-      parameters:
-      - description: id
-        in: path
-        name: argID
-        required: true
-        type: integer
-      produces:
-      - application/json
-      responses:
-        "204":
-          description: No Content
-          schema:
-            $ref: '#/definitions/model.Collection'
-        "400":
-          description: Bad Request
-          schema:
-            $ref: '#/definitions/api.HTTPError'
-        "500":
-          description: Internal Server Error
-          schema:
-            $ref: '#/definitions/api.HTTPError'
-      summary: Delete a record from collections
-      tags:
-      - Collections
     get:
       consumes:
       - application/json
@@ -1186,29 +1997,43 @@ paths:
       summary: Get record from table Collections by  argID
       tags:
       - Collections
-    put:
+  /collections/dynamicquery:
+    get:
       consumes:
       - application/json
-      description: Update a single record from collections table in the estuary database
+      description: GetCollectionsDynamicQuery is a function to get a slice of record(s)
+        from collections table in the estuary database
       parameters:
-      - description: id
-        in: path
-        name: argID
-        required: true
+      - description: page requested (defaults to 0)
+        in: query
+        name: page
         type: integer
-      - description: Update Collections record
-        in: body
-        name: Collections
-        required: true
-        schema:
-          $ref: '#/definitions/model.Collection'
+      - description: number of records in a page  (defaults to 20)
+        in: query
+        name: pagesize
+        type: integer
+      - description: db sort order column
+        in: query
+        name: order
+        type: string
+      - description: dynamic query
+        in: query
+        name: query
+        type: string
       produces:
       - application/json
       responses:
         "200":
           description: OK
           schema:
-            $ref: '#/definitions/model.Collection'
+            allOf:
+            - $ref: '#/definitions/api.PagedResults'
+            - properties:
+                data:
+                  items:
+                    $ref: '#/definitions/model.Collection'
+                  type: array
+              type: object
         "400":
           description: Bad Request
           schema:
@@ -1217,7 +2042,7 @@ paths:
           description: Not Found
           schema:
             $ref: '#/definitions/api.HTTPError'
-      summary: Update an record in table collections
+      summary: Get list of Collections
       tags:
       - Collections
   /contentdeals:
@@ -1264,66 +2089,7 @@ paths:
       summary: Get list of ContentDeals
       tags:
       - ContentDeals
-    post:
-      consumes:
-      - application/json
-      description: add to add a single record to content_deals table in the estuary
-        database
-      parameters:
-      - description: Add ContentDeals
-        in: body
-        name: ContentDeals
-        required: true
-        schema:
-          $ref: '#/definitions/model.ContentDeal'
-      produces:
-      - application/json
-      responses:
-        "200":
-          description: OK
-          schema:
-            $ref: '#/definitions/model.ContentDeal'
-        "400":
-          description: Bad Request
-          schema:
-            $ref: '#/definitions/api.HTTPError'
-        "404":
-          description: Not Found
-          schema:
-            $ref: '#/definitions/api.HTTPError'
-      summary: Add an record to content_deals table
-      tags:
-      - ContentDeals
   /contentdeals/{argID}:
-    delete:
-      consumes:
-      - application/json
-      description: Delete a single record from content_deals table in the estuary
-        database
-      parameters:
-      - description: id
-        in: path
-        name: argID
-        required: true
-        type: integer
-      produces:
-      - application/json
-      responses:
-        "204":
-          description: No Content
-          schema:
-            $ref: '#/definitions/model.ContentDeal'
-        "400":
-          description: Bad Request
-          schema:
-            $ref: '#/definitions/api.HTTPError'
-        "500":
-          description: Internal Server Error
-          schema:
-            $ref: '#/definitions/api.HTTPError'
-      summary: Delete a record from content_deals
-      tags:
-      - ContentDeals
     get:
       consumes:
       - application/json
@@ -1352,41 +2118,6 @@ paths:
           schema:
             $ref: '#/definitions/api.HTTPError'
       summary: Get record from table ContentDeals by  argID
-      tags:
-      - ContentDeals
-    put:
-      consumes:
-      - application/json
-      description: Update a single record from content_deals table in the estuary
-        database
-      parameters:
-      - description: id
-        in: path
-        name: argID
-        required: true
-        type: integer
-      - description: Update ContentDeals record
-        in: body
-        name: ContentDeals
-        required: true
-        schema:
-          $ref: '#/definitions/model.ContentDeal'
-      produces:
-      - application/json
-      responses:
-        "200":
-          description: OK
-          schema:
-            $ref: '#/definitions/model.ContentDeal'
-        "400":
-          description: Bad Request
-          schema:
-            $ref: '#/definitions/api.HTTPError'
-        "404":
-          description: Not Found
-          schema:
-            $ref: '#/definitions/api.HTTPError'
-      summary: Update an record in table content_deals
       tags:
       - ContentDeals
   /contents:
@@ -1433,64 +2164,7 @@ paths:
       summary: Get list of Contents
       tags:
       - Contents
-    post:
-      consumes:
-      - application/json
-      description: add to add a single record to contents table in the estuary database
-      parameters:
-      - description: Add Contents
-        in: body
-        name: Contents
-        required: true
-        schema:
-          $ref: '#/definitions/model.Content'
-      produces:
-      - application/json
-      responses:
-        "200":
-          description: OK
-          schema:
-            $ref: '#/definitions/model.Content'
-        "400":
-          description: Bad Request
-          schema:
-            $ref: '#/definitions/api.HTTPError'
-        "404":
-          description: Not Found
-          schema:
-            $ref: '#/definitions/api.HTTPError'
-      summary: Add an record to contents table
-      tags:
-      - Contents
   /contents/{argID}:
-    delete:
-      consumes:
-      - application/json
-      description: Delete a single record from contents table in the estuary database
-      parameters:
-      - description: id
-        in: path
-        name: argID
-        required: true
-        type: integer
-      produces:
-      - application/json
-      responses:
-        "204":
-          description: No Content
-          schema:
-            $ref: '#/definitions/model.Content'
-        "400":
-          description: Bad Request
-          schema:
-            $ref: '#/definitions/api.HTTPError'
-        "500":
-          description: Internal Server Error
-          schema:
-            $ref: '#/definitions/api.HTTPError'
-      summary: Delete a record from contents
-      tags:
-      - Contents
     get:
       consumes:
       - application/json
@@ -1521,40 +2195,6 @@ paths:
       summary: Get record from table Contents by  argID
       tags:
       - Contents
-    put:
-      consumes:
-      - application/json
-      description: Update a single record from contents table in the estuary database
-      parameters:
-      - description: id
-        in: path
-        name: argID
-        required: true
-        type: integer
-      - description: Update Contents record
-        in: body
-        name: Contents
-        required: true
-        schema:
-          $ref: '#/definitions/model.Content'
-      produces:
-      - application/json
-      responses:
-        "200":
-          description: OK
-          schema:
-            $ref: '#/definitions/model.Content'
-        "400":
-          description: Bad Request
-          schema:
-            $ref: '#/definitions/api.HTTPError'
-        "404":
-          description: Not Found
-          schema:
-            $ref: '#/definitions/api.HTTPError'
-      summary: Update an record in table contents
-      tags:
-      - Contents
   /ddl:
     get:
       consumes:
@@ -1567,7 +2207,7 @@ paths:
         "200":
           description: OK
           schema:
-            $ref: '#/definitions/api.CrudAPI'
+            $ref: '#/definitions/objectsapi.CrudAPI'
       summary: Gets a list of ddl endpoints available for tables in the estuary database
       tags:
       - TableInfo
@@ -1589,7 +2229,7 @@ paths:
         "200":
           description: OK
           schema:
-            $ref: '#/definitions/api.CrudAPI'
+            $ref: '#/definitions/objectsapi.CrudAPI'
         "400":
           description: Bad Request
           schema:
@@ -1646,64 +2286,7 @@ paths:
       summary: Get list of Dealers
       tags:
       - Dealers
-    post:
-      consumes:
-      - application/json
-      description: add to add a single record to dealers table in the estuary database
-      parameters:
-      - description: Add Dealers
-        in: body
-        name: Dealers
-        required: true
-        schema:
-          $ref: '#/definitions/model.Dealer'
-      produces:
-      - application/json
-      responses:
-        "200":
-          description: OK
-          schema:
-            $ref: '#/definitions/model.Dealer'
-        "400":
-          description: Bad Request
-          schema:
-            $ref: '#/definitions/api.HTTPError'
-        "404":
-          description: Not Found
-          schema:
-            $ref: '#/definitions/api.HTTPError'
-      summary: Add an record to dealers table
-      tags:
-      - Dealers
   /dealers/{argID}:
-    delete:
-      consumes:
-      - application/json
-      description: Delete a single record from dealers table in the estuary database
-      parameters:
-      - description: id
-        in: path
-        name: argID
-        required: true
-        type: integer
-      produces:
-      - application/json
-      responses:
-        "204":
-          description: No Content
-          schema:
-            $ref: '#/definitions/model.Dealer'
-        "400":
-          description: Bad Request
-          schema:
-            $ref: '#/definitions/api.HTTPError'
-        "500":
-          description: Internal Server Error
-          schema:
-            $ref: '#/definitions/api.HTTPError'
-      summary: Delete a record from dealers
-      tags:
-      - Dealers
     get:
       consumes:
       - application/json
@@ -1732,40 +2315,6 @@ paths:
           schema:
             $ref: '#/definitions/api.HTTPError'
       summary: Get record from table Dealers by  argID
-      tags:
-      - Dealers
-    put:
-      consumes:
-      - application/json
-      description: Update a single record from dealers table in the estuary database
-      parameters:
-      - description: id
-        in: path
-        name: argID
-        required: true
-        type: integer
-      - description: Update Dealers record
-        in: body
-        name: Dealers
-        required: true
-        schema:
-          $ref: '#/definitions/model.Dealer'
-      produces:
-      - application/json
-      responses:
-        "200":
-          description: OK
-          schema:
-            $ref: '#/definitions/model.Dealer'
-        "400":
-          description: Bad Request
-          schema:
-            $ref: '#/definitions/api.HTTPError'
-        "404":
-          description: Not Found
-          schema:
-            $ref: '#/definitions/api.HTTPError'
-      summary: Update an record in table dealers
       tags:
       - Dealers
   /dferecords:
@@ -1812,65 +2361,7 @@ paths:
       summary: Get list of DfeRecords
       tags:
       - DfeRecords
-    post:
-      consumes:
-      - application/json
-      description: add to add a single record to dfe_records table in the estuary
-        database
-      parameters:
-      - description: Add DfeRecords
-        in: body
-        name: DfeRecords
-        required: true
-        schema:
-          $ref: '#/definitions/model.DfeRecord'
-      produces:
-      - application/json
-      responses:
-        "200":
-          description: OK
-          schema:
-            $ref: '#/definitions/model.DfeRecord'
-        "400":
-          description: Bad Request
-          schema:
-            $ref: '#/definitions/api.HTTPError'
-        "404":
-          description: Not Found
-          schema:
-            $ref: '#/definitions/api.HTTPError'
-      summary: Add an record to dfe_records table
-      tags:
-      - DfeRecords
   /dferecords/{argID}:
-    delete:
-      consumes:
-      - application/json
-      description: Delete a single record from dfe_records table in the estuary database
-      parameters:
-      - description: id
-        in: path
-        name: argID
-        required: true
-        type: integer
-      produces:
-      - application/json
-      responses:
-        "204":
-          description: No Content
-          schema:
-            $ref: '#/definitions/model.DfeRecord'
-        "400":
-          description: Bad Request
-          schema:
-            $ref: '#/definitions/api.HTTPError'
-        "500":
-          description: Internal Server Error
-          schema:
-            $ref: '#/definitions/api.HTTPError'
-      summary: Delete a record from dfe_records
-      tags:
-      - DfeRecords
     get:
       consumes:
       - application/json
@@ -1901,40 +2392,155 @@ paths:
       summary: Get record from table DfeRecords by  argID
       tags:
       - DfeRecords
-    put:
+  /environment/equinix/billing:
+    get:
       consumes:
       - application/json
-      description: Update a single record from dfe_records table in the estuary database
+      description: Get device usage
       parameters:
-      - description: id
-        in: path
-        name: argID
+      - description: uuid
+        in: query
+        name: uuid
         required: true
-        type: integer
-      - description: Update DfeRecords record
-        in: body
-        name: DfeRecords
+        type: string
+      - description: createdBefore
+        in: query
+        name: createdBefore
         required: true
-        schema:
-          $ref: '#/definitions/model.DfeRecord'
+        type: string
+      - description: createdAfter
+        in: query
+        name: createdAfter
+        required: true
+        type: string
       produces:
       - application/json
       responses:
         "200":
           description: OK
           schema:
-            $ref: '#/definitions/model.DfeRecord'
+            $ref: '#/definitions/core.DeviceInfo'
         "400":
           description: Bad Request
           schema:
             $ref: '#/definitions/api.HTTPError'
-        "404":
-          description: Not Found
+        "500":
+          description: Internal Server Error
           schema:
             $ref: '#/definitions/api.HTTPError'
-      summary: Update an record in table dfe_records
+      summary: Get device usage
       tags:
-      - DfeRecords
+      - Environment
+  /environment/equinix/info:
+    get:
+      consumes:
+      - application/json
+      description: Get device info
+      parameters:
+      - description: uuid
+        in: query
+        name: uuid
+        required: true
+        type: string
+      - description: createdBefore
+        in: query
+        name: createdBefore
+        required: true
+        type: string
+      - description: createdAfter
+        in: query
+        name: createdAfter
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/core.DeviceInfo'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/api.HTTPError'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/api.HTTPError'
+      summary: Get device info
+      tags:
+      - Environment
+  /environment/equinix/list/usages:
+    post:
+      consumes:
+      - application/json
+      description: Get device usages
+      parameters:
+      - description: uuidGroup
+        in: body
+        name: uuidGroup
+        required: true
+        schema:
+          $ref: '#/definitions/core.UuidGroup'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/core.DeviceUsage'
+            type: array
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/api.HTTPError'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/api.HTTPError'
+      summary: Get device usages
+      tags:
+      - Environment
+  /environment/equinix/usages:
+    get:
+      consumes:
+      - application/json
+      description: Get device usage
+      parameters:
+      - description: uuid
+        in: query
+        name: uuid
+        required: true
+        type: string
+      - description: createdBefore
+        in: query
+        name: createdBefore
+        required: true
+        type: string
+      - description: createdAfter
+        in: query
+        name: createdAfter
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/core.DeviceUsage'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/api.HTTPError'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/api.HTTPError'
+      summary: Get device usage
+      tags:
+      - Environment
   /invitecodes:
     get:
       consumes:
@@ -1979,65 +2585,7 @@ paths:
       summary: Get list of InviteCodes
       tags:
       - InviteCodes
-    post:
-      consumes:
-      - application/json
-      description: add to add a single record to invite_codes table in the estuary
-        database
-      parameters:
-      - description: Add InviteCodes
-        in: body
-        name: InviteCodes
-        required: true
-        schema:
-          $ref: '#/definitions/model.InviteCode'
-      produces:
-      - application/json
-      responses:
-        "200":
-          description: OK
-          schema:
-            $ref: '#/definitions/model.InviteCode'
-        "400":
-          description: Bad Request
-          schema:
-            $ref: '#/definitions/api.HTTPError'
-        "404":
-          description: Not Found
-          schema:
-            $ref: '#/definitions/api.HTTPError'
-      summary: Add an record to invite_codes table
-      tags:
-      - InviteCodes
   /invitecodes/{argID}:
-    delete:
-      consumes:
-      - application/json
-      description: Delete a single record from invite_codes table in the estuary database
-      parameters:
-      - description: id
-        in: path
-        name: argID
-        required: true
-        type: integer
-      produces:
-      - application/json
-      responses:
-        "204":
-          description: No Content
-          schema:
-            $ref: '#/definitions/model.InviteCode'
-        "400":
-          description: Bad Request
-          schema:
-            $ref: '#/definitions/api.HTTPError'
-        "500":
-          description: Internal Server Error
-          schema:
-            $ref: '#/definitions/api.HTTPError'
-      summary: Delete a record from invite_codes
-      tags:
-      - InviteCodes
     get:
       consumes:
       - application/json
@@ -2068,40 +2616,35 @@ paths:
       summary: Get record from table InviteCodes by  argID
       tags:
       - InviteCodes
-    put:
+  /location/shuttle/{uuid}:
+    get:
       consumes:
       - application/json
-      description: Update a single record from invite_codes table in the estuary database
+      description: Get device info
       parameters:
-      - description: id
+      - description: uuid
         in: path
-        name: argID
+        name: uuid
         required: true
-        type: integer
-      - description: Update InviteCodes record
-        in: body
-        name: InviteCodes
-        required: true
-        schema:
-          $ref: '#/definitions/model.InviteCode'
+        type: string
       produces:
       - application/json
       responses:
         "200":
           description: OK
           schema:
-            $ref: '#/definitions/model.InviteCode'
+            $ref: '#/definitions/statsapi.Location'
         "400":
           description: Bad Request
           schema:
             $ref: '#/definitions/api.HTTPError'
-        "404":
-          description: Not Found
+        "500":
+          description: Internal Server Error
           schema:
             $ref: '#/definitions/api.HTTPError'
-      summary: Update an record in table invite_codes
+      summary: Get device info
       tags:
-      - InviteCodes
+      - Environment
   /minerstorageasks:
     get:
       consumes:
@@ -2146,66 +2689,7 @@ paths:
       summary: Get list of MinerStorageAsks
       tags:
       - MinerStorageAsks
-    post:
-      consumes:
-      - application/json
-      description: add to add a single record to miner_storage_asks table in the estuary
-        database
-      parameters:
-      - description: Add MinerStorageAsks
-        in: body
-        name: MinerStorageAsks
-        required: true
-        schema:
-          $ref: '#/definitions/model.MinerStorageAsk'
-      produces:
-      - application/json
-      responses:
-        "200":
-          description: OK
-          schema:
-            $ref: '#/definitions/model.MinerStorageAsk'
-        "400":
-          description: Bad Request
-          schema:
-            $ref: '#/definitions/api.HTTPError'
-        "404":
-          description: Not Found
-          schema:
-            $ref: '#/definitions/api.HTTPError'
-      summary: Add an record to miner_storage_asks table
-      tags:
-      - MinerStorageAsks
   /minerstorageasks/{argID}:
-    delete:
-      consumes:
-      - application/json
-      description: Delete a single record from miner_storage_asks table in the estuary
-        database
-      parameters:
-      - description: id
-        in: path
-        name: argID
-        required: true
-        type: integer
-      produces:
-      - application/json
-      responses:
-        "204":
-          description: No Content
-          schema:
-            $ref: '#/definitions/model.MinerStorageAsk'
-        "400":
-          description: Bad Request
-          schema:
-            $ref: '#/definitions/api.HTTPError'
-        "500":
-          description: Internal Server Error
-          schema:
-            $ref: '#/definitions/api.HTTPError'
-      summary: Delete a record from miner_storage_asks
-      tags:
-      - MinerStorageAsks
     get:
       consumes:
       - application/json
@@ -2234,41 +2718,6 @@ paths:
           schema:
             $ref: '#/definitions/api.HTTPError'
       summary: Get record from table MinerStorageAsks by  argID
-      tags:
-      - MinerStorageAsks
-    put:
-      consumes:
-      - application/json
-      description: Update a single record from miner_storage_asks table in the estuary
-        database
-      parameters:
-      - description: id
-        in: path
-        name: argID
-        required: true
-        type: integer
-      - description: Update MinerStorageAsks record
-        in: body
-        name: MinerStorageAsks
-        required: true
-        schema:
-          $ref: '#/definitions/model.MinerStorageAsk'
-      produces:
-      - application/json
-      responses:
-        "200":
-          description: OK
-          schema:
-            $ref: '#/definitions/model.MinerStorageAsk'
-        "400":
-          description: Bad Request
-          schema:
-            $ref: '#/definitions/api.HTTPError'
-        "404":
-          description: Not Found
-          schema:
-            $ref: '#/definitions/api.HTTPError'
-      summary: Update an record in table miner_storage_asks
       tags:
       - MinerStorageAsks
   /objects:
@@ -2315,64 +2764,7 @@ paths:
       summary: Get list of Objects
       tags:
       - Objects
-    post:
-      consumes:
-      - application/json
-      description: add to add a single record to objects table in the estuary database
-      parameters:
-      - description: Add Objects
-        in: body
-        name: Objects
-        required: true
-        schema:
-          $ref: '#/definitions/model.Object'
-      produces:
-      - application/json
-      responses:
-        "200":
-          description: OK
-          schema:
-            $ref: '#/definitions/model.Object'
-        "400":
-          description: Bad Request
-          schema:
-            $ref: '#/definitions/api.HTTPError'
-        "404":
-          description: Not Found
-          schema:
-            $ref: '#/definitions/api.HTTPError'
-      summary: Add an record to objects table
-      tags:
-      - Objects
   /objects/{argID}:
-    delete:
-      consumes:
-      - application/json
-      description: Delete a single record from objects table in the estuary database
-      parameters:
-      - description: id
-        in: path
-        name: argID
-        required: true
-        type: integer
-      produces:
-      - application/json
-      responses:
-        "204":
-          description: No Content
-          schema:
-            $ref: '#/definitions/model.Object'
-        "400":
-          description: Bad Request
-          schema:
-            $ref: '#/definitions/api.HTTPError'
-        "500":
-          description: Internal Server Error
-          schema:
-            $ref: '#/definitions/api.HTTPError'
-      summary: Delete a record from objects
-      tags:
-      - Objects
     get:
       consumes:
       - application/json
@@ -2401,40 +2793,6 @@ paths:
           schema:
             $ref: '#/definitions/api.HTTPError'
       summary: Get record from table Objects by  argID
-      tags:
-      - Objects
-    put:
-      consumes:
-      - application/json
-      description: Update a single record from objects table in the estuary database
-      parameters:
-      - description: id
-        in: path
-        name: argID
-        required: true
-        type: integer
-      - description: Update Objects record
-        in: body
-        name: Objects
-        required: true
-        schema:
-          $ref: '#/definitions/model.Object'
-      produces:
-      - application/json
-      responses:
-        "200":
-          description: OK
-          schema:
-            $ref: '#/definitions/model.Object'
-        "400":
-          description: Bad Request
-          schema:
-            $ref: '#/definitions/api.HTTPError'
-        "404":
-          description: Not Found
-          schema:
-            $ref: '#/definitions/api.HTTPError'
-      summary: Update an record in table objects
       tags:
       - Objects
   /objrefs:
@@ -2481,64 +2839,7 @@ paths:
       summary: Get list of ObjRefs
       tags:
       - ObjRefs
-    post:
-      consumes:
-      - application/json
-      description: add to add a single record to obj_refs table in the estuary database
-      parameters:
-      - description: Add ObjRefs
-        in: body
-        name: ObjRefs
-        required: true
-        schema:
-          $ref: '#/definitions/model.ObjRef'
-      produces:
-      - application/json
-      responses:
-        "200":
-          description: OK
-          schema:
-            $ref: '#/definitions/model.ObjRef'
-        "400":
-          description: Bad Request
-          schema:
-            $ref: '#/definitions/api.HTTPError'
-        "404":
-          description: Not Found
-          schema:
-            $ref: '#/definitions/api.HTTPError'
-      summary: Add an record to obj_refs table
-      tags:
-      - ObjRefs
   /objrefs/{argID}:
-    delete:
-      consumes:
-      - application/json
-      description: Delete a single record from obj_refs table in the estuary database
-      parameters:
-      - description: id
-        in: path
-        name: argID
-        required: true
-        type: integer
-      produces:
-      - application/json
-      responses:
-        "204":
-          description: No Content
-          schema:
-            $ref: '#/definitions/model.ObjRef'
-        "400":
-          description: Bad Request
-          schema:
-            $ref: '#/definitions/api.HTTPError'
-        "500":
-          description: Internal Server Error
-          schema:
-            $ref: '#/definitions/api.HTTPError'
-      summary: Delete a record from obj_refs
-      tags:
-      - ObjRefs
     get:
       consumes:
       - application/json
@@ -2567,40 +2868,6 @@ paths:
           schema:
             $ref: '#/definitions/api.HTTPError'
       summary: Get record from table ObjRefs by  argID
-      tags:
-      - ObjRefs
-    put:
-      consumes:
-      - application/json
-      description: Update a single record from obj_refs table in the estuary database
-      parameters:
-      - description: id
-        in: path
-        name: argID
-        required: true
-        type: integer
-      - description: Update ObjRefs record
-        in: body
-        name: ObjRefs
-        required: true
-        schema:
-          $ref: '#/definitions/model.ObjRef'
-      produces:
-      - application/json
-      responses:
-        "200":
-          description: OK
-          schema:
-            $ref: '#/definitions/model.ObjRef'
-        "400":
-          description: Bad Request
-          schema:
-            $ref: '#/definitions/api.HTTPError'
-        "404":
-          description: Not Found
-          schema:
-            $ref: '#/definitions/api.HTTPError'
-      summary: Update an record in table obj_refs
       tags:
       - ObjRefs
   /piececommrecords:
@@ -2647,66 +2914,7 @@ paths:
       summary: Get list of PieceCommRecords
       tags:
       - PieceCommRecords
-    post:
-      consumes:
-      - application/json
-      description: add to add a single record to piece_comm_records table in the estuary
-        database
-      parameters:
-      - description: Add PieceCommRecords
-        in: body
-        name: PieceCommRecords
-        required: true
-        schema:
-          $ref: '#/definitions/model.PieceCommRecord'
-      produces:
-      - application/json
-      responses:
-        "200":
-          description: OK
-          schema:
-            $ref: '#/definitions/model.PieceCommRecord'
-        "400":
-          description: Bad Request
-          schema:
-            $ref: '#/definitions/api.HTTPError'
-        "404":
-          description: Not Found
-          schema:
-            $ref: '#/definitions/api.HTTPError'
-      summary: Add an record to piece_comm_records table
-      tags:
-      - PieceCommRecords
   /piececommrecords/{argData}:
-    delete:
-      consumes:
-      - application/json
-      description: Delete a single record from piece_comm_records table in the estuary
-        database
-      parameters:
-      - description: data
-        in: path
-        name: argData
-        required: true
-        type: string
-      produces:
-      - application/json
-      responses:
-        "204":
-          description: No Content
-          schema:
-            $ref: '#/definitions/model.PieceCommRecord'
-        "400":
-          description: Bad Request
-          schema:
-            $ref: '#/definitions/api.HTTPError'
-        "500":
-          description: Internal Server Error
-          schema:
-            $ref: '#/definitions/api.HTTPError'
-      summary: Delete a record from piece_comm_records
-      tags:
-      - PieceCommRecords
     get:
       consumes:
       - application/json
@@ -2736,41 +2944,6 @@ paths:
           schema:
             $ref: '#/definitions/api.HTTPError'
       summary: Get record from table PieceCommRecords by  argData
-      tags:
-      - PieceCommRecords
-    put:
-      consumes:
-      - application/json
-      description: Update a single record from piece_comm_records table in the estuary
-        database
-      parameters:
-      - description: data
-        in: path
-        name: argData
-        required: true
-        type: string
-      - description: Update PieceCommRecords record
-        in: body
-        name: PieceCommRecords
-        required: true
-        schema:
-          $ref: '#/definitions/model.PieceCommRecord'
-      produces:
-      - application/json
-      responses:
-        "200":
-          description: OK
-          schema:
-            $ref: '#/definitions/model.PieceCommRecord'
-        "400":
-          description: Bad Request
-          schema:
-            $ref: '#/definitions/api.HTTPError'
-        "404":
-          description: Not Found
-          schema:
-            $ref: '#/definitions/api.HTTPError'
-      summary: Update an record in table piece_comm_records
       tags:
       - PieceCommRecords
   /proposalrecords:
@@ -2817,66 +2990,7 @@ paths:
       summary: Get list of ProposalRecords
       tags:
       - ProposalRecords
-    post:
-      consumes:
-      - application/json
-      description: add to add a single record to proposal_records table in the estuary
-        database
-      parameters:
-      - description: Add ProposalRecords
-        in: body
-        name: ProposalRecords
-        required: true
-        schema:
-          $ref: '#/definitions/model.ProposalRecord'
-      produces:
-      - application/json
-      responses:
-        "200":
-          description: OK
-          schema:
-            $ref: '#/definitions/model.ProposalRecord'
-        "400":
-          description: Bad Request
-          schema:
-            $ref: '#/definitions/api.HTTPError'
-        "404":
-          description: Not Found
-          schema:
-            $ref: '#/definitions/api.HTTPError'
-      summary: Add an record to proposal_records table
-      tags:
-      - ProposalRecords
   /proposalrecords/{argPropCid}:
-    delete:
-      consumes:
-      - application/json
-      description: Delete a single record from proposal_records table in the estuary
-        database
-      parameters:
-      - description: prop_cid
-        in: path
-        name: argPropCid
-        required: true
-        type: string
-      produces:
-      - application/json
-      responses:
-        "204":
-          description: No Content
-          schema:
-            $ref: '#/definitions/model.ProposalRecord'
-        "400":
-          description: Bad Request
-          schema:
-            $ref: '#/definitions/api.HTTPError'
-        "500":
-          description: Internal Server Error
-          schema:
-            $ref: '#/definitions/api.HTTPError'
-      summary: Delete a record from proposal_records
-      tags:
-      - ProposalRecords
     get:
       consumes:
       - application/json
@@ -2907,41 +3021,87 @@ paths:
       summary: Get record from table ProposalRecords by  argPropCid
       tags:
       - ProposalRecords
-    put:
+  /rank/miners/{top}:
+    get:
       consumes:
       - application/json
-      description: Update a single record from proposal_records table in the estuary
-        database
+      description: Get list of Miners
       parameters:
-      - description: prop_cid
+      - description: top
         in: path
-        name: argPropCid
+        name: top
         required: true
-        type: string
-      - description: Update ProposalRecords record
-        in: body
-        name: ProposalRecords
-        required: true
-        schema:
-          $ref: '#/definitions/model.ProposalRecord'
+        type: integer
       produces:
       - application/json
       responses:
         "200":
           description: OK
           schema:
-            $ref: '#/definitions/model.ProposalRecord'
+            items:
+              $ref: '#/definitions/dao.TopMiner'
+            type: array
         "400":
           description: Bad Request
           schema:
             $ref: '#/definitions/api.HTTPError'
-        "404":
-          description: Not Found
+      summary: Get list of Miners
+      tags:
+      - Ranks
+  /rank/users/{top}:
+    get:
+      consumes:
+      - application/json
+      description: Get list of Users
+      parameters:
+      - description: top
+        in: path
+        name: top
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/dao.TopUser'
+            type: array
+        "400":
+          description: Bad Request
           schema:
             $ref: '#/definitions/api.HTTPError'
-      summary: Update an record in table proposal_records
+      summary: Get list of Users
       tags:
-      - ProposalRecords
+      - Ranks
+  /rank/users/collection/{top}:
+    get:
+      consumes:
+      - application/json
+      description: Get list of Users
+      parameters:
+      - description: top
+        in: path
+        name: top
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/dao.TopCollectionUser'
+            type: array
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/api.HTTPError'
+      summary: Get list of Users
+      tags:
+      - Ranks
   /retrievalfailurerecords:
     get:
       consumes:
@@ -2986,66 +3146,7 @@ paths:
       summary: Get list of RetrievalFailureRecords
       tags:
       - RetrievalFailureRecords
-    post:
-      consumes:
-      - application/json
-      description: add to add a single record to retrieval_failure_records table in
-        the estuary database
-      parameters:
-      - description: Add RetrievalFailureRecords
-        in: body
-        name: RetrievalFailureRecords
-        required: true
-        schema:
-          $ref: '#/definitions/model.RetrievalFailureRecord'
-      produces:
-      - application/json
-      responses:
-        "200":
-          description: OK
-          schema:
-            $ref: '#/definitions/model.RetrievalFailureRecord'
-        "400":
-          description: Bad Request
-          schema:
-            $ref: '#/definitions/api.HTTPError'
-        "404":
-          description: Not Found
-          schema:
-            $ref: '#/definitions/api.HTTPError'
-      summary: Add an record to retrieval_failure_records table
-      tags:
-      - RetrievalFailureRecords
   /retrievalfailurerecords/{argID}:
-    delete:
-      consumes:
-      - application/json
-      description: Delete a single record from retrieval_failure_records table in
-        the estuary database
-      parameters:
-      - description: id
-        in: path
-        name: argID
-        required: true
-        type: integer
-      produces:
-      - application/json
-      responses:
-        "204":
-          description: No Content
-          schema:
-            $ref: '#/definitions/model.RetrievalFailureRecord'
-        "400":
-          description: Bad Request
-          schema:
-            $ref: '#/definitions/api.HTTPError'
-        "500":
-          description: Internal Server Error
-          schema:
-            $ref: '#/definitions/api.HTTPError'
-      summary: Delete a record from retrieval_failure_records
-      tags:
-      - RetrievalFailureRecords
     get:
       consumes:
       - application/json
@@ -3074,41 +3175,6 @@ paths:
           schema:
             $ref: '#/definitions/api.HTTPError'
       summary: Get record from table RetrievalFailureRecords by  argID
-      tags:
-      - RetrievalFailureRecords
-    put:
-      consumes:
-      - application/json
-      description: Update a single record from retrieval_failure_records table in
-        the estuary database
-      parameters:
-      - description: id
-        in: path
-        name: argID
-        required: true
-        type: integer
-      - description: Update RetrievalFailureRecords record
-        in: body
-        name: RetrievalFailureRecords
-        required: true
-        schema:
-          $ref: '#/definitions/model.RetrievalFailureRecord'
-      produces:
-      - application/json
-      responses:
-        "200":
-          description: OK
-          schema:
-            $ref: '#/definitions/model.RetrievalFailureRecord'
-        "400":
-          description: Bad Request
-          schema:
-            $ref: '#/definitions/api.HTTPError'
-        "404":
-          description: Not Found
-          schema:
-            $ref: '#/definitions/api.HTTPError'
-      summary: Update an record in table retrieval_failure_records
       tags:
       - RetrievalFailureRecords
   /retrievalsuccessrecords:
@@ -3155,66 +3221,7 @@ paths:
       summary: Get list of RetrievalSuccessRecords
       tags:
       - RetrievalSuccessRecords
-    post:
-      consumes:
-      - application/json
-      description: add to add a single record to retrieval_success_records table in
-        the estuary database
-      parameters:
-      - description: Add RetrievalSuccessRecords
-        in: body
-        name: RetrievalSuccessRecords
-        required: true
-        schema:
-          $ref: '#/definitions/model.RetrievalSuccessRecord'
-      produces:
-      - application/json
-      responses:
-        "200":
-          description: OK
-          schema:
-            $ref: '#/definitions/model.RetrievalSuccessRecord'
-        "400":
-          description: Bad Request
-          schema:
-            $ref: '#/definitions/api.HTTPError'
-        "404":
-          description: Not Found
-          schema:
-            $ref: '#/definitions/api.HTTPError'
-      summary: Add an record to retrieval_success_records table
-      tags:
-      - RetrievalSuccessRecords
   /retrievalsuccessrecords/{argPropCid}:
-    delete:
-      consumes:
-      - application/json
-      description: Delete a single record from retrieval_success_records table in
-        the estuary database
-      parameters:
-      - description: prop_cid
-        in: path
-        name: argPropCid
-        required: true
-        type: string
-      produces:
-      - application/json
-      responses:
-        "204":
-          description: No Content
-          schema:
-            $ref: '#/definitions/model.RetrievalSuccessRecord'
-        "400":
-          description: Bad Request
-          schema:
-            $ref: '#/definitions/api.HTTPError'
-        "500":
-          description: Internal Server Error
-          schema:
-            $ref: '#/definitions/api.HTTPError'
-      summary: Delete a record from retrieval_success_records
-      tags:
-      - RetrievalSuccessRecords
     get:
       consumes:
       - application/json
@@ -3243,41 +3250,6 @@ paths:
           schema:
             $ref: '#/definitions/api.HTTPError'
       summary: Get record from table RetrievalSuccessRecords by  argPropCid
-      tags:
-      - RetrievalSuccessRecords
-    put:
-      consumes:
-      - application/json
-      description: Update a single record from retrieval_success_records table in
-        the estuary database
-      parameters:
-      - description: prop_cid
-        in: path
-        name: argPropCid
-        required: true
-        type: string
-      - description: Update RetrievalSuccessRecords record
-        in: body
-        name: RetrievalSuccessRecords
-        required: true
-        schema:
-          $ref: '#/definitions/model.RetrievalSuccessRecord'
-      produces:
-      - application/json
-      responses:
-        "200":
-          description: OK
-          schema:
-            $ref: '#/definitions/model.RetrievalSuccessRecord'
-        "400":
-          description: Bad Request
-          schema:
-            $ref: '#/definitions/api.HTTPError'
-        "404":
-          description: Not Found
-          schema:
-            $ref: '#/definitions/api.HTTPError'
-      summary: Update an record in table retrieval_success_records
       tags:
       - RetrievalSuccessRecords
   /shuttles:
@@ -3324,64 +3296,7 @@ paths:
       summary: Get list of Shuttles
       tags:
       - Shuttles
-    post:
-      consumes:
-      - application/json
-      description: add to add a single record to shuttles table in the estuary database
-      parameters:
-      - description: Add Shuttles
-        in: body
-        name: Shuttles
-        required: true
-        schema:
-          $ref: '#/definitions/model.Shuttle'
-      produces:
-      - application/json
-      responses:
-        "200":
-          description: OK
-          schema:
-            $ref: '#/definitions/model.Shuttle'
-        "400":
-          description: Bad Request
-          schema:
-            $ref: '#/definitions/api.HTTPError'
-        "404":
-          description: Not Found
-          schema:
-            $ref: '#/definitions/api.HTTPError'
-      summary: Add an record to shuttles table
-      tags:
-      - Shuttles
   /shuttles/{argID}:
-    delete:
-      consumes:
-      - application/json
-      description: Delete a single record from shuttles table in the estuary database
-      parameters:
-      - description: id
-        in: path
-        name: argID
-        required: true
-        type: integer
-      produces:
-      - application/json
-      responses:
-        "204":
-          description: No Content
-          schema:
-            $ref: '#/definitions/model.Shuttle'
-        "400":
-          description: Bad Request
-          schema:
-            $ref: '#/definitions/api.HTTPError'
-        "500":
-          description: Internal Server Error
-          schema:
-            $ref: '#/definitions/api.HTTPError'
-      summary: Delete a record from shuttles
-      tags:
-      - Shuttles
     get:
       consumes:
       - application/json
@@ -3412,40 +3327,128 @@ paths:
       summary: Get record from table Shuttles by  argID
       tags:
       - Shuttles
-    put:
+  /stats/deal-metrics:
+    get:
       consumes:
       - application/json
-      description: Update a single record from shuttles table in the estuary database
-      parameters:
-      - description: id
-        in: path
-        name: argID
-        required: true
-        type: integer
-      - description: Update Shuttles record
-        in: body
-        name: Shuttles
-        required: true
-        schema:
-          $ref: '#/definitions/model.Shuttle'
+      description: Returns the deal metrics
       produces:
       - application/json
       responses:
         "200":
           description: OK
           schema:
-            $ref: '#/definitions/model.Shuttle'
-        "400":
-          description: Bad Request
-          schema:
-            $ref: '#/definitions/api.HTTPError'
-        "404":
-          description: Not Found
-          schema:
-            $ref: '#/definitions/api.HTTPError'
-      summary: Update an record in table shuttles
+            items:
+              $ref: '#/definitions/statsapi.DealMetricsInfo'
+            type: array
+      summary: Returns the deal metrics
       tags:
-      - Shuttles
+      - Stats
+  /stats/info:
+    get:
+      consumes:
+      - application/json
+      description: Returns the public stats
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/statsapi.PublicStats'
+      summary: Returns the public stats
+      tags:
+      - Stats
+  /stats/retrieval-rates:
+    get:
+      consumes:
+      - application/json
+      description: Returns the retrieval stats
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/statsapi.RetrievalStats'
+      summary: Returns the retrieval stats
+      tags:
+      - Stats
+  /stats/storage-rates:
+    get:
+      consumes:
+      - application/json
+      description: Returns the storage rate stats
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/statsapi.StorageRateStats'
+      summary: Returns the storage rate stats
+      tags:
+      - Stats
+  /stats/total-content-deals-attempted:
+    get:
+      consumes:
+      - application/json
+      description: Returns the total number of content deals attempted
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            type: integer
+      summary: Returns the total number of content deals attempted
+      tags:
+      - Stats
+  /stats/total-files:
+    get:
+      consumes:
+      - application/json
+      description: Returns the total number of files stored
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            type: integer
+      summary: Returns the total number of files stored
+      tags:
+      - Stats
+  /stats/total-retrievals:
+    get:
+      consumes:
+      - application/json
+      description: Get total number of retrieval deals attempted
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            type: integer
+      summary: Get total number of retrieval deals attempted
+      tags:
+      - Stats
+  /stats/total-storage:
+    get:
+      consumes:
+      - application/json
+      description: Returns the total storage
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            type: integer
+      summary: Returns the total storage
+      tags:
+      - Stats
   /storageminers:
     get:
       consumes:
@@ -3490,66 +3493,7 @@ paths:
       summary: Get list of StorageMiners
       tags:
       - StorageMiners
-    post:
-      consumes:
-      - application/json
-      description: add to add a single record to storage_miners table in the estuary
-        database
-      parameters:
-      - description: Add StorageMiners
-        in: body
-        name: StorageMiners
-        required: true
-        schema:
-          $ref: '#/definitions/model.StorageMiner'
-      produces:
-      - application/json
-      responses:
-        "200":
-          description: OK
-          schema:
-            $ref: '#/definitions/model.StorageMiner'
-        "400":
-          description: Bad Request
-          schema:
-            $ref: '#/definitions/api.HTTPError'
-        "404":
-          description: Not Found
-          schema:
-            $ref: '#/definitions/api.HTTPError'
-      summary: Add an record to storage_miners table
-      tags:
-      - StorageMiners
   /storageminers/{argID}:
-    delete:
-      consumes:
-      - application/json
-      description: Delete a single record from storage_miners table in the estuary
-        database
-      parameters:
-      - description: id
-        in: path
-        name: argID
-        required: true
-        type: integer
-      produces:
-      - application/json
-      responses:
-        "204":
-          description: No Content
-          schema:
-            $ref: '#/definitions/model.StorageMiner'
-        "400":
-          description: Bad Request
-          schema:
-            $ref: '#/definitions/api.HTTPError'
-        "500":
-          description: Internal Server Error
-          schema:
-            $ref: '#/definitions/api.HTTPError'
-      summary: Delete a record from storage_miners
-      tags:
-      - StorageMiners
     get:
       consumes:
       - application/json
@@ -3578,41 +3522,6 @@ paths:
           schema:
             $ref: '#/definitions/api.HTTPError'
       summary: Get record from table StorageMiners by  argID
-      tags:
-      - StorageMiners
-    put:
-      consumes:
-      - application/json
-      description: Update a single record from storage_miners table in the estuary
-        database
-      parameters:
-      - description: id
-        in: path
-        name: argID
-        required: true
-        type: integer
-      - description: Update StorageMiners record
-        in: body
-        name: StorageMiners
-        required: true
-        schema:
-          $ref: '#/definitions/model.StorageMiner'
-      produces:
-      - application/json
-      responses:
-        "200":
-          description: OK
-          schema:
-            $ref: '#/definitions/model.StorageMiner'
-        "400":
-          description: Bad Request
-          schema:
-            $ref: '#/definitions/api.HTTPError'
-        "404":
-          description: Not Found
-          schema:
-            $ref: '#/definitions/api.HTTPError'
-      summary: Update an record in table storage_miners
       tags:
       - StorageMiners
   /users:
@@ -3659,64 +3568,7 @@ paths:
       summary: Get list of Users
       tags:
       - Users
-    post:
-      consumes:
-      - application/json
-      description: add to add a single record to users table in the estuary database
-      parameters:
-      - description: Add Users
-        in: body
-        name: Users
-        required: true
-        schema:
-          $ref: '#/definitions/model.User'
-      produces:
-      - application/json
-      responses:
-        "200":
-          description: OK
-          schema:
-            $ref: '#/definitions/model.User'
-        "400":
-          description: Bad Request
-          schema:
-            $ref: '#/definitions/api.HTTPError'
-        "404":
-          description: Not Found
-          schema:
-            $ref: '#/definitions/api.HTTPError'
-      summary: Add an record to users table
-      tags:
-      - Users
   /users/{argID}:
-    delete:
-      consumes:
-      - application/json
-      description: Delete a single record from users table in the estuary database
-      parameters:
-      - description: id
-        in: path
-        name: argID
-        required: true
-        type: integer
-      produces:
-      - application/json
-      responses:
-        "204":
-          description: No Content
-          schema:
-            $ref: '#/definitions/model.User'
-        "400":
-          description: Bad Request
-          schema:
-            $ref: '#/definitions/api.HTTPError'
-        "500":
-          description: Internal Server Error
-          schema:
-            $ref: '#/definitions/api.HTTPError'
-      summary: Delete a record from users
-      tags:
-      - Users
     get:
       consumes:
       - application/json
@@ -3747,29 +3599,24 @@ paths:
       summary: Get record from table Users by  argID
       tags:
       - Users
-    put:
+  /users/count:
+    get:
       consumes:
       - application/json
-      description: Update a single record from users table in the estuary database
-      parameters:
-      - description: id
-        in: path
-        name: argID
-        required: true
-        type: integer
-      - description: Update Users record
-        in: body
-        name: Users
-        required: true
-        schema:
-          $ref: '#/definitions/model.User'
+      description: GetNumberOfUsersWithinRange is a handler to get the number of record(s)
+        from users table in the estuary database
       produces:
       - application/json
       responses:
         "200":
           description: OK
           schema:
-            $ref: '#/definitions/model.User'
+            allOf:
+            - $ref: '#/definitions/api.PagedResults'
+            - properties:
+                data:
+                  type: integer
+              type: object
         "400":
           description: Bad Request
           schema:
@@ -3778,10 +3625,10 @@ paths:
           description: Not Found
           schema:
             $ref: '#/definitions/api.HTTPError'
-      summary: Update an record in table users
+      summary: Get number of Users within range
       tags:
       - Users
-  /users/count:
+  /users/within-range:
     get:
       consumes:
       - application/json
@@ -3810,4 +3657,9 @@ paths:
       summary: Get number of Users
       tags:
       - Users
+securityDefinitions:
+  BearerAuth:
+    in: header
+    name: Authorization
+    type: apiKey
 swagger: "2.0"

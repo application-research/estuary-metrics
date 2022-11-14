@@ -57,55 +57,17 @@ func GetCollections(ctx context.Context, argID int64) (record *model.Collection,
 	return record, nil
 }
 
-// AddCollections is a function to add a single record to collections table in the estuary database
-// error - ErrInsertFailed, db save call failed
-func AddCollections(ctx context.Context, record *model.Collection) (result *model.Collection, RowsAffected int64, err error) {
-	db := DB.Save(record)
-	if err = db.Error; err != nil {
-		return nil, -1, ErrInsertFailed
-	}
-
-	return record, db.RowsAffected, nil
+type TopCollectionUser struct {
+	UserID   int64
+	Username string
+	Count    int64
 }
 
-// UpdateCollections is a function to update a single record from collections table in the estuary database
-// error - ErrNotFound, db record for id not found
-// error - ErrUpdateFailed, db meta data copy failed or db.Save call failed
-func UpdateCollections(ctx context.Context, argID int64, updated *model.Collection) (result *model.Collection, RowsAffected int64, err error) {
-
-	result = &model.Collection{}
-	db := DB.First(result, argID)
-	if err = db.Error; err != nil {
-		return nil, -1, ErrNotFound
+func GetTopCollectionUsers(ctx context.Context, top int) (record []*TopCollectionUser, err error) {
+	//	select a.user_id, count(*) from collections a, users b where a.user_id = b.id group by a.user_id order by count(*) desc limit 10;
+	if err = DB.Table("collections").Select("user_id, username, count(*)").Joins("join users on collections.user_id = users.id").Group("user_id, username").Order("count(*) desc").Limit(top).Scan(&record).Error; err != nil {
+		err = ErrNotFound
+		return record, err
 	}
-
-	if err = Copy(result, updated); err != nil {
-		return nil, -1, ErrUpdateFailed
-	}
-
-	db = db.Save(result)
-	if err = db.Error; err != nil {
-		return nil, -1, ErrUpdateFailed
-	}
-
-	return result, db.RowsAffected, nil
-}
-
-// DeleteCollections is a function to delete a single record from collections table in the estuary database
-// error - ErrNotFound, db Find error
-// error - ErrDeleteFailed, db Delete failed error
-func DeleteCollections(ctx context.Context, argID int64) (rowsAffected int64, err error) {
-
-	record := &model.Collection{}
-	db := DB.First(record, argID)
-	if db.Error != nil {
-		return -1, ErrNotFound
-	}
-
-	db = db.Delete(record)
-	if err = db.Error; err != nil {
-		return -1, ErrDeleteFailed
-	}
-
-	return db.RowsAffected, nil
+	return record, nil
 }

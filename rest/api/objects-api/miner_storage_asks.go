@@ -18,7 +18,7 @@ var (
 
 func ConfigMinerStorageAsksRouter(router gin.IRoutes) {
 	router.GET("/minerstorageasks", api.ConvertHttpRouterToGin(GetAllMinerStorageAsks))
-	router.GET("/minerstorageasks/:argID", api.ConvertHttpRouterToGin(GetMinerStorageAsks))
+	router.GET("/minerstorageasks/:id", api.ConvertHttpRouterToGin(GetMinerStorageAsks))
 }
 
 // GetAllMinerStorageAsks is a function to get a slice of record(s) from miner_storage_asks table in the estuary database
@@ -30,9 +30,9 @@ func ConfigMinerStorageAsksRouter(router gin.IRoutes) {
 // @Param   page     query    int     false        "page requested (defaults to 0)"
 // @Param   pagesize query    int     false        "number of records in a page  (defaults to 20)"
 // @Param   order    query    string  false        "db sort order column"
-// @Success 200 {object} objects-api.PagedResults{data=[]model.MinerStorageAsk}
-// @Failure 400 {object} objects-api.HTTPError
-// @Failure 404 {object} objects-api.HTTPError
+// @Success 200 {object} api.PagedResults{data=[]model.MinerStorageAsk}
+// @Failure 400 {object} api.HTTPError
+// @Failure 404 {object} api.HTTPError
 // @Router /minerstorageasks [get]
 // http "http://localhost:3030/minerstorageasks?page=0&pagesize=20" X-Api-User:user123
 func GetAllMinerStorageAsks(w http.ResponseWriter, r *http.Request, ps httprouter.Params) {
@@ -75,8 +75,8 @@ func GetAllMinerStorageAsks(w http.ResponseWriter, r *http.Request, ps httproute
 // @Produce  json
 // @Param  argID path int64 true "id"
 // @Success 200 {object} model.MinerStorageAsk
-// @Failure 400 {object} objects-api.HTTPError
-// @Failure 404 {object} objects-api.HTTPError "ErrNotFound, db record for id not found - returns NotFound HTTP 404 not found error"
+// @Failure 400 {object} api.HTTPError
+// @Failure 404 {object} api.HTTPError "ErrNotFound, db record for id not found - returns NotFound HTTP 404 not found error"
 // @Router /minerstorageasks/{argID} [get]
 // http "http://localhost:3030/minerstorageasks/1" X-Api-User:user123
 func GetMinerStorageAsks(w http.ResponseWriter, r *http.Request, ps httprouter.Params) {
