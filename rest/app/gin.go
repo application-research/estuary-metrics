@@ -20,7 +20,7 @@ func GinServer() (err error) {
 	router.Static("/web", "./web")
 
 	// TODO: Parameterize
-	router.Run("localhost:3030")
+	router.Run("0.0.0.0:3030")
 	if err != nil {
 		log.Fatalf("Error starting server, the error is '%v'", err)
 	}
