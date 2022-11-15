@@ -82,6 +82,7 @@ func GetDevicesUsages(w http.ResponseWriter, r *http.Request, ps httprouter.Para
 		return
 	}
 
+	fmt.Println(info)
 	api.WriteJSON(ctx, w, info)
 }
 
