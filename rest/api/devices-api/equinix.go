@@ -10,6 +10,7 @@ import (
 	"github.com/julienschmidt/httprouter"
 	"io/ioutil"
 	"net/http"
+	"time"
 )
 
 func ConfigEquinixDevicesRouter(router gin.IRoutes) {
@@ -72,11 +73,16 @@ func GetDevicesUsages(w http.ResponseWriter, r *http.Request, ps httprouter.Para
 	createdAfter := uuidGroup.CreatedAfter
 
 	fmt.Println("uuid: ", uuidGroup)
-	info, err := dao.Metrics.GetAllDeviceUsages(uuidGroup, createdAfter, createdBefore)
+
+	info, err := dao.Cacher.Get("/environment/equinix/list/usages", time.Minute*2, func() (interface{}, error) {
+		return dao.Metrics.GetAllDeviceUsages(uuidGroup, createdAfter, createdBefore)
+	})
+
 	if err != nil {
 		return
 	}
 
+	fmt.Println(info)
 	api.WriteJSON(ctx, w, info)
 }
 

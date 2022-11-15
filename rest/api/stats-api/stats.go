@@ -265,43 +265,51 @@ func GetStorageRateStats(w http.ResponseWriter, r *http.Request, ps httprouter.P
 //	@Router /stats/info [get]
 func GetInfo(w http.ResponseWriter, r *http.Request, ps httprouter.Params) {
 	ctx := api.InitializeContext(r)
-	var stats PublicStats
-	if err := dao.DB.Model(model.Content{}).Where("active and not aggregated_in > 0").Select("SUM(size) as total_storage").Scan(&stats).Error; err != nil {
+
+	// 	cache for 30mins
+	stats, err := dao.Cacher.Get("/stats/info", time.Minute*30, func() (interface{}, error) {
+		var stats PublicStats
+		if err := dao.DB.Model(model.Content{}).Where("active and not aggregated_in > 0").Select("SUM(size) as total_storage").Scan(&stats).Error; err != nil {
+			api.ReturnError(ctx, w, r, err)
+			return stats, err
+		}
+
+		if err := dao.DB.Model(model.Content{}).Where("active and not aggregate").Count(&stats.TotalFilesStored.Int64).Error; err != nil {
+			api.ReturnError(ctx, w, r, err)
+			return stats, err
+		}
+
+		if err := dao.DB.Model(model.ContentDeal{}).Where("not failed and deal_id > 0").Count(&stats.DealsOnChain.Int64).Error; err != nil {
+			api.ReturnError(ctx, w, r, err)
+			return stats, err
+		}
+
+		//	this can be resource expensive but we are already caching it.
+		if err := dao.DB.Table("obj_refs").Count(&stats.TotalObjectsRef.Int64).Error; err != nil {
+			api.ReturnError(ctx, w, r, err)
+			return stats, err
+		}
+
+		if err := dao.DB.Table("objects").Select("SUM(size)").Find(&stats.TotalBytesUploaded.Int64).Error; err != nil {
+			api.ReturnError(ctx, w, r, err)
+			return stats, err
+		}
+
+		if err := dao.DB.Model(model.User{}).Count(&stats.TotalUsers.Int64).Error; err != nil {
+			api.ReturnError(ctx, w, r, err)
+			return stats, err
+		}
+
+		if err := dao.DB.Table("storage_miners").Count(&stats.TotalStorageMiner.Int64).Error; err != nil {
+			api.ReturnError(ctx, w, r, err)
+			return stats, err
+		}
+		return stats, nil
+	})
+	if err != nil {
 		api.ReturnError(ctx, w, r, err)
 		return
 	}
-
-	if err := dao.DB.Model(model.Content{}).Where("active and not aggregate").Count(&stats.TotalFilesStored.Int64).Error; err != nil {
-		api.ReturnError(ctx, w, r, err)
-		return
-	}
-
-	if err := dao.DB.Model(model.ContentDeal{}).Where("not failed and deal_id > 0").Count(&stats.DealsOnChain.Int64).Error; err != nil {
-		api.ReturnError(ctx, w, r, err)
-		return
-	}
-
-	//	this can be resource expensive but we are already caching it.
-	if err := dao.DB.Table("obj_refs").Count(&stats.TotalObjectsRef.Int64).Error; err != nil {
-		api.ReturnError(ctx, w, r, err)
-		return
-	}
-
-	if err := dao.DB.Table("objects").Select("SUM(size)").Find(&stats.TotalBytesUploaded.Int64).Error; err != nil {
-		api.ReturnError(ctx, w, r, err)
-		return
-	}
-
-	if err := dao.DB.Model(model.User{}).Count(&stats.TotalUsers.Int64).Error; err != nil {
-		api.ReturnError(ctx, w, r, err)
-		return
-	}
-
-	if err := dao.DB.Table("storage_miners").Count(&stats.TotalStorageMiner.Int64).Error; err != nil {
-		api.ReturnError(ctx, w, r, err)
-		return
-	}
-
 	api.WriteJSON(ctx, w, stats)
 
 }

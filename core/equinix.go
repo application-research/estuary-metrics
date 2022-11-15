@@ -5,6 +5,7 @@ import (
 	"fmt"
 	"github.com/spf13/viper"
 	"io/ioutil"
+	"math"
 	"net/http"
 	"time"
 )
@@ -544,11 +545,11 @@ func (m Metrics) GetAllDeviceUsages(uuidGroup UuidGroup, createdAfterDate string
 			return nil, err
 		}
 		if len(device.Usages) > 0 {
-			total += device.Usages[0].Total
+			total += math.Floor(device.Usages[0].Total*100) / 100
 			devices = append(devices, *device)
 		}
 	}
-	deviceUsages.Total = total
+	deviceUsages.Total = math.Floor(total*100) / 100
 	deviceUsages.DeviceUsage = devices
 
 	return &deviceUsages, nil
