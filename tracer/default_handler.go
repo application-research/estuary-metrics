@@ -15,7 +15,3 @@ func InitializeMyOwnServerForHandler() {
 	})
 	server.Start()
 }
-
-func (h *MyCustomHandler) HandleStats(stats *stats.Stats) {
-	h.Handler(stats)
-}
