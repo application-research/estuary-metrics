@@ -7,8 +7,13 @@ import (
 )
 
 type TracerServer struct {
-	Ctx    context.Context
-	Server *stats.ServerStats
+	Ctx     context.Context
+	Server  *stats.ServerStats
+	Handler TracerStatsHandler
+}
+
+type TracerStatsHandler struct {
+	HandleStats func(stats *stats.Stats)
 }
 
 type TracerParams struct {
@@ -36,13 +41,19 @@ func NewTracerServer(tracerParams TracerParams) *TracerServer {
 		Ctx:    ctx,
 		Server: server,
 	}
+}
 
+// Setting the handler for the TracerServer.
+func (t *TracerServer) SetHandler(handler TracerStatsHandler) {
+	t.Handler = handler
 }
 
 // Start
 func (t *TracerServer) Start() {
 	for stat := range t.Server.Run() {
-
+		if t.Handler.HandleStats != nil {
+			t.Handler.HandleStats(stat) // let this handle the stats from the client
+		}
 		// calculate CPU times
 		// totalCPUTimes := stat.CalculateTotalCPUTimes()
 		// perCoreCPUTimes := stat.CalculateCPUTimes()
