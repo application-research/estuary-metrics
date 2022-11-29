@@ -265,9 +265,8 @@ func GetStorageRateStats(w http.ResponseWriter, r *http.Request, ps httprouter.P
 //	@Router /stats/info [get]
 func GetInfo(w http.ResponseWriter, r *http.Request, ps httprouter.Params) {
 	ctx := api.InitializeContext(r)
-
 	// 	cache for 30mins
-	stats, err := dao.Cacher.Get("/stats/info", time.Minute*30, func() (interface{}, error) {
+	stats, err := dao.Cacher.Get("/stats/info", time.Minute*60, func() (interface{}, error) {
 		var stats PublicStats
 		if err := dao.DB.Model(model.Content{}).Where("active and not aggregated_in > 0").Select("SUM(size) as total_storage").Scan(&stats).Error; err != nil {
 			api.ReturnError(ctx, w, r, err)
@@ -310,7 +309,18 @@ func GetInfo(w http.ResponseWriter, r *http.Request, ps httprouter.Params) {
 		api.ReturnError(ctx, w, r, err)
 		return
 	}
-	api.WriteJSON(ctx, w, stats)
+
+	jsonResponse := map[string]interface{}{
+		"totalStorage":       stats.(PublicStats).TotalStorage.Int64,
+		"totalFilesStored":   stats.(PublicStats).TotalFilesStored.Int64,
+		"dealsOnChain":       stats.(PublicStats).DealsOnChain.Int64,
+		"totalObjectsRef":    stats.(PublicStats).TotalObjectsRef.Int64,
+		"totalBytesUploaded": stats.(PublicStats).TotalBytesUploaded.Int64,
+		"totalUsers":         stats.(PublicStats).TotalUsers.Int64,
+		"totalStorageMiner":  stats.(PublicStats).TotalStorageMiner.Int64,
+	}
+
+	api.WriteJSON(ctx, w, jsonResponse)
 
 }
 
