@@ -334,12 +334,16 @@ func GetInfo(w http.ResponseWriter, r *http.Request, ps httprouter.Params) {
 // @Router /stats/deal-metrics [get]
 func GetDealMetrics(w http.ResponseWriter, r *http.Request, ps httprouter.Params) {
 	ctx := api.InitializeContext(r)
-	metricsInfo, err := computeDealMetrics()
+
+	dealMetrics, err := dao.Cacher.Get("/stats/deal-metrics", time.Minute*30, func() (interface{}, error) {
+		return computeDealMetrics()
+	})
+
 	if err != nil {
 		api.ReturnError(ctx, w, r, err)
 		return
 	}
-	api.WriteJSON(ctx, w, metricsInfo)
+	api.WriteJSON(ctx, w, dealMetrics)
 }
 
 // computeDealMetrics computes the deal metrics
