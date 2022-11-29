@@ -44,9 +44,13 @@ func ConfigRouter(router *gin.Engine) {
 	//	all estuary objects objects-api
 	objectsapi.ConfigAuthTokensRouter(protectedRouter)
 	objectsapi.ConfigAutoretrievesRouter(protectedRouter)
+	objectsapi.ConfigUnProtectedAutoRetrievesRouter(unprotectedRouter)
+
 	objectsapi.ConfigCollectionRefsRouter(protectedRouter)
 	objectsapi.ConfigCollectionsRouter(protectedRouter)
+
 	objectsapi.ConfigContentDealsRouter(protectedRouter)
+	objectsapi.ConfigUnProtectedContentDealsRouter(unprotectedRouter)
 
 	objectsapi.ConfigContentsRouter(protectedRouter)
 	objectsapi.ConfigUnProtectedContentsRouter(unprotectedRouter)

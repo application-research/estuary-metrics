@@ -140,7 +140,7 @@ func AllContentOverThePastMonths(w http.ResponseWriter, r *http.Request, ps http
 	}
 
 	record, err := dao.Cacher.Get("getContentMonthByMonth", time.Minute*2, func() (interface{}, error) {
-		return dao.AllContentOverThePastMonths(ctx, argID)
+		return dao.AllDataOverThePastMonth(ctx, model.Content{}, argID)
 	})
 
 	if err != nil {
@@ -167,7 +167,7 @@ func AllContentOverASpecificDates(w http.ResponseWriter, r *http.Request, ps htt
 	toDate, err := api.ParseString(ps, "to")
 
 	record, err := dao.Cacher.Get("getContentOverASpecificDates", time.Minute*2, func() (interface{}, error) {
-		return dao.AllContentOverASpecificDates(ctx, fromDate, toDate)
+		return dao.AllDataOverASpecificDates(ctx, model.Content{}, fromDate, toDate)
 	})
 
 	if err != nil {
