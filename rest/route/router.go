@@ -18,6 +18,7 @@ import (
 // @Security BearerAuth
 func ConfigRouter(router *gin.Engine) {
 	group := router.Group("/api/v1")
+	unprotectedRouter := router.Group("/api/v1")
 	protectedRouter := group.Use(func(c *gin.Context) {
 		// authenticate here
 		authServer := auth.Init().SetDB(dao.DB).Connect()
@@ -46,7 +47,10 @@ func ConfigRouter(router *gin.Engine) {
 	objectsapi.ConfigCollectionRefsRouter(protectedRouter)
 	objectsapi.ConfigCollectionsRouter(protectedRouter)
 	objectsapi.ConfigContentDealsRouter(protectedRouter)
+
 	objectsapi.ConfigContentsRouter(protectedRouter)
+	objectsapi.ConfigUnProtectedContentsRouter(unprotectedRouter)
+
 	objectsapi.ConfigDealersRouter(protectedRouter)
 	objectsapi.ConfigDfeRecordsRouter(protectedRouter)
 	objectsapi.ConfigInviteCodesRouter(protectedRouter)
@@ -61,7 +65,6 @@ func ConfigRouter(router *gin.Engine) {
 	objectsapi.ConfigStorageMinersRouter(protectedRouter)
 	objectsapi.ConfigUsersRouter(protectedRouter)
 
-	unprotectedRouter := router.Group("/api/v1")
 	//	reporting objects-api
 	reportingapi.ConfigMetricsPushRouter(unprotectedRouter)
 
