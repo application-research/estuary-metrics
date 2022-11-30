@@ -20,6 +20,9 @@ func ConfigPublishedBatchesRouter(router gin.IRoutes) {
 	router.GET("/publishedbatches", api.ConvertHttpRouterToGin(GetAllPublishedBatches))
 	router.GET("/publishedbatches/:id", api.ConvertHttpRouterToGin(GetPublishedBatches))
 }
+func ConfigPublishedBatchesUnProtectedRouter(router gin.IRoutes) {
+	router.GET("/publishedbatches/total", api.ConvertHttpRouterToGin(GetPublishedBatchesTotal))
+}
 
 func GetAllPublishedBatches(w http.ResponseWriter, r *http.Request, ps httprouter.Params) {
 	ctx := api.InitializeContext(r)
@@ -67,6 +70,23 @@ func GetPublishedBatches(w http.ResponseWriter, r *http.Request, ps httprouter.P
 	}
 
 	record, err := dao.GetPublishedBatches(ctx, argID)
+	if err != nil {
+		api.ReturnError(ctx, w, r, err)
+		return
+	}
+
+	api.WriteJSON(ctx, w, record)
+}
+
+func GetPublishedBatchesTotal(w http.ResponseWriter, r *http.Request, ps httprouter.Params) {
+	ctx := api.InitializeContext(r)
+
+	if err := api.ValidateRequest(ctx, r, "published_batches", model.RetrieveOne); err != nil {
+		api.ReturnError(ctx, w, r, err)
+		return
+	}
+
+	record, err := dao.GetTotalPublishedBatches(ctx)
 	if err != nil {
 		api.ReturnError(ctx, w, r, err)
 		return

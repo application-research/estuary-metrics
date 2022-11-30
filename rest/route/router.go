@@ -55,6 +55,9 @@ func ConfigRouter(router *gin.Engine) {
 	objectsapi.ConfigContentsRouter(protectedRouter)
 	objectsapi.ConfigUnProtectedContentsRouter(unprotectedRouter)
 
+	objectsapi.ConfigPublishedBatchesRouter(protectedRouter)
+	objectsapi.ConfigPublishedBatchesUnProtectedRouter(protectedRouter)
+
 	objectsapi.ConfigDealersRouter(protectedRouter)
 	objectsapi.ConfigDfeRecordsRouter(protectedRouter)
 	objectsapi.ConfigInviteCodesRouter(protectedRouter)

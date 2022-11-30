@@ -57,3 +57,15 @@ func GetPublishedBatches(ctx context.Context, argID int64) (record *model.Publis
 
 	return record, nil
 }
+
+type PublishedBatchesCount struct {
+	Count int64
+}
+
+func GetTotalPublishedBatches(ctx context.Context) (record PublishedBatchesCount, err error) {
+	if err = DB.Raw("SELECT sum(count)FROM published_batches").Scan(&record.Count).Error; err != nil {
+		err = ErrNotFound
+		return record, err
+	}
+	return record, nil
+}
