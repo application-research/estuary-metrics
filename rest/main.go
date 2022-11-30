@@ -111,6 +111,8 @@ func main() {
 	LoopForever()
 }
 
+//	initialize stats caching
+
 // LoopForever on signal processing
 func LoopForever() {
 	fmt.Printf("Entering infinite loop\n")

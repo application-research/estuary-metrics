@@ -26,6 +26,8 @@ func ConfigContentsRouter(router gin.IRoutes) {
 func ConfigUnProtectedContentsRouter(router gin.IRoutes) {
 	router.GET("/contents/month-to-month/:months", api.ConvertHttpRouterToGin(AllContentOverThePastMonths))
 	router.GET("/contents/set-months/:from/:to", api.ConvertHttpRouterToGin(AllContentOverASpecificDates))
+	router.GET("/contents/datasize/month-to-month/:months", api.ConvertHttpRouterToGin(AllContentDataSizeOverThePastMonth))
+
 }
 
 func GetContentsDynamicQuery(w http.ResponseWriter, r *http.Request, ps httprouter.Params) {
@@ -142,6 +144,31 @@ func AllContentOverThePastMonths(w http.ResponseWriter, r *http.Request, ps http
 	record, err := dao.Cacher.Get("getContentMonthByMonth", time.Minute*2, func() (interface{}, error) {
 		return dao.AllDataOverThePastMonth(ctx, model.Content{}, argID)
 	})
+
+	if err != nil {
+		api.ReturnError(ctx, w, r, err)
+		return
+	}
+
+	api.WriteJSON(ctx, w, record)
+}
+
+func AllContentDataSizeOverThePastMonth(w http.ResponseWriter, r *http.Request, ps httprouter.Params) {
+
+	ctx := api.InitializeContext(r)
+
+	argID, err := api.ParseInt64(ps, "months")
+	if err != nil {
+		api.ReturnError(ctx, w, r, err)
+		return
+	}
+
+	if err := api.ValidateRequest(ctx, r, "contents", model.RetrieveOne); err != nil {
+		api.ReturnError(ctx, w, r, err)
+		return
+	}
+
+	record, err := dao.AllContentDataSizeOverThePastMonth(ctx, model.Content{}, argID)
 
 	if err != nil {
 		api.ReturnError(ctx, w, r, err)

@@ -57,55 +57,53 @@ func GetContents(ctx context.Context, argID int64) (record *model.Content, err e
 	return record, nil
 }
 
-// AddContents is a function to add a single record to contents table in the estuary database
-// error - ErrInsertFailed, db save call failed
-func AddContents(ctx context.Context, record *model.Content) (result *model.Content, RowsAffected int64, err error) {
-	db := DB.Save(record)
-	if err = db.Error; err != nil {
-		return nil, -1, ErrInsertFailed
-	}
-
-	return record, db.RowsAffected, nil
+type MonthDataSizeLookUp struct {
+	MonthToLook []MonthDataSizeResult
 }
 
-// UpdateContents is a function to update a single record from contents table in the estuary database
-// error - ErrNotFound, db record for id not found
-// error - ErrUpdateFailed, db meta data copy failed or db.Save call failed
-func UpdateContents(ctx context.Context, argID int64, updated *model.Content) (result *model.Content, RowsAffected int64, err error) {
-
-	result = &model.Content{}
-	db := DB.First(result, argID)
-	if err = db.Error; err != nil {
-		return nil, -1, ErrNotFound
-	}
-
-	if err = Copy(result, updated); err != nil {
-		return nil, -1, ErrUpdateFailed
-	}
-
-	db = db.Save(result)
-	if err = db.Error; err != nil {
-		return nil, -1, ErrUpdateFailed
-	}
-
-	return result, db.RowsAffected, nil
+type MonthDataSizeResult struct {
+	Month                int
+	MonthFirstDay        string
+	MonthLastDay         string
+	Year                 int
+	SizeTotalForTheMonth int64
 }
 
-// DeleteContents is a function to delete a single record from contents table in the estuary database
-// error - ErrNotFound, db Find error
-// error - ErrDeleteFailed, db Delete failed error
-func DeleteContents(ctx context.Context, argID int64) (rowsAffected int64, err error) {
+func AllContentDataSizeOverThePastMonth(ctx context.Context, model interface{}, month int64) (MonthDataSizeLookUp, error) {
 
-	record := &model.Content{}
-	db := DB.First(record, argID)
-	if db.Error != nil {
-		return -1, ErrNotFound
+	// get current month
+	var monthLookUp MonthLookUp
+	currentTime := time.Now()
+	currentLocation := currentTime.Location()
+	timeLayout := "2006-01-02"
+
+	for i := 0; i < int(month); i++ {
+		fromWhenMonth := currentTime.AddDate(0, (int(month)-i)-12, 0)
+		firstOfMonth := time.Date(fromWhenMonth.Year(), fromWhenMonth.Month(), 1, 0, 0, 0, 0, currentLocation)
+		lastOfMonth := firstOfMonth.AddDate(0, 1, -1)
+
+		stringFirstOfMonth := firstOfMonth.Format(timeLayout)
+		stringLastOfMonth := lastOfMonth.Format(timeLayout)
+
+		monthLookUp.MonthToLook = append(monthLookUp.MonthToLook, MonthPerMonth{Month: int(firstOfMonth.Month()), MonthFirstDay: stringFirstOfMonth, MonthLastDay: stringLastOfMonth, Year: firstOfMonth.Year()})
+
 	}
 
-	db = db.Delete(record)
-	if err = db.Error; err != nil {
-		return -1, ErrDeleteFailed
+	var result MonthDataSizeLookUp
+	var err error
+	for _, month := range monthLookUp.MonthToLook {
+		var monthResult MonthDataSizeResult
+		monthResult.Month = month.Month
+		monthResult.MonthFirstDay = month.MonthFirstDay
+		monthResult.MonthLastDay = month.MonthLastDay
+		monthResult.Year = month.Year
+
+		//select sum(size) from contents where (created_at between '2000-01-01' and '2022-08-28')
+		if err = DB.Model(model).Where("created_at between ? and ?", month.MonthFirstDay, month.MonthLastDay).Select("sum(size) as size").Scan(&monthResult.SizeTotalForTheMonth).Error; err != nil {
+			result.MonthToLook = append(result.MonthToLook, monthResult)
+		}
 	}
 
-	return db.RowsAffected, nil
+	return result, err
+
 }

@@ -151,10 +151,8 @@ func AllDataOverThePastMonth(ctx context.Context, model interface{}, month int64
 		firstOfMonth := time.Date(fromWhenMonth.Year(), fromWhenMonth.Month(), 1, 0, 0, 0, 0, currentLocation)
 		lastOfMonth := firstOfMonth.AddDate(0, 1, -1)
 
-		//
 		stringFirstOfMonth := firstOfMonth.Format(timeLayout)
 		stringLastOfMonth := lastOfMonth.Format(timeLayout)
-
 		monthLookUp.MonthToLook = append(monthLookUp.MonthToLook, MonthPerMonth{Month: int(firstOfMonth.Month()), MonthFirstDay: stringFirstOfMonth, MonthLastDay: stringLastOfMonth, Year: firstOfMonth.Year()})
 
 	}
