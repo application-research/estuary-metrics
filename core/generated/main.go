@@ -72,6 +72,7 @@ func main() {
 	g.ApplyBasic(model.RetrievalFailureRecord{})
 	g.ApplyBasic(model.ProposalRecord{})
 	g.ApplyBasic(model.PieceCommRecord{})
+	g.ApplyBasic(model.PublishedBatch{})
 
 	// apply basic crud rest on structs or table models which is specified by table name with function
 	// GenerateModel/GenerateModelAs. And generator will generated table models' code when calling Execute.
@@ -96,6 +97,7 @@ func main() {
 	g.GenerateModel("shuttles")
 	g.GenerateModel("storage_miners")
 	g.GenerateModel("users")
+	g.GenerateModel("published_batches")
 
 	// execute the action of code generation
 	g.Execute()

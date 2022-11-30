@@ -23,6 +23,11 @@ func ConfigContentsRouter(router gin.IRoutes) {
 	router.GET("/contents/dynamicquery", api.ConvertHttpRouterToGin(GetContentsDynamicQuery))
 }
 
+func ConfigUnProtectedContentsRouter(router gin.IRoutes) {
+	router.GET("/contents/month-to-month/:months", api.ConvertHttpRouterToGin(AllContentOverThePastMonths))
+	router.GET("/contents/set-months/:from/:to", api.ConvertHttpRouterToGin(AllContentOverASpecificDates))
+}
+
 func GetContentsDynamicQuery(w http.ResponseWriter, r *http.Request, ps httprouter.Params) {
 	HandleDynamicQuery(w, r, ps, model.Content{})
 }
@@ -102,6 +107,67 @@ func GetContents(w http.ResponseWriter, r *http.Request, ps httprouter.Params) {
 
 	record, err := dao.Cacher.Get("getContents", time.Minute*2, func() (interface{}, error) {
 		return dao.GetContents(ctx, argID)
+	})
+
+	if err != nil {
+		api.ReturnError(ctx, w, r, err)
+		return
+	}
+
+	api.WriteJSON(ctx, w, record)
+}
+
+// AllContentOverThePastMonths is a function to get a slice of record(s) from contents table in the estuary database
+// @Summary Get list of Contents
+// @Tags Contents
+// @Description AllContentOverThePastMonths is a handler to get a slice of record(s) from contents table in the estuary database
+// @Accept  json
+// @Produce  json
+// @Param   months     query    int     false        "previous number of months"
+func AllContentOverThePastMonths(w http.ResponseWriter, r *http.Request, ps httprouter.Params) {
+
+	ctx := api.InitializeContext(r)
+
+	argID, err := api.ParseInt64(ps, "months")
+	if err != nil {
+		api.ReturnError(ctx, w, r, err)
+		return
+	}
+
+	if err := api.ValidateRequest(ctx, r, "contents", model.RetrieveOne); err != nil {
+		api.ReturnError(ctx, w, r, err)
+		return
+	}
+
+	record, err := dao.Cacher.Get("getContentMonthByMonth", time.Minute*2, func() (interface{}, error) {
+		return dao.AllDataOverThePastMonth(ctx, model.Content{}, argID)
+	})
+
+	if err != nil {
+		api.ReturnError(ctx, w, r, err)
+		return
+	}
+
+	api.WriteJSON(ctx, w, record)
+}
+
+// AllContentOverASpecificDates	is a function to get a slice of record(s) from contents table in the estuary database
+// @Summary Get list of Contents
+// @Tags Contents
+// @Description AllContentOverASpecificDates is a handler to get a slice of record(s) from contents table in the estuary database
+// @Accept  json
+// @Produce  json
+// @Param   start     query    string     false        "start date"
+// @Param   end     query    string     false        "end date"
+func AllContentOverASpecificDates(w http.ResponseWriter, r *http.Request, ps httprouter.Params) {
+
+	ctx := api.InitializeContext(r)
+
+	fromDate, err := api.ParseString(ps, "from")
+	toDate, err := api.ParseString(ps, "to")
+
+	record, err := dao.Cacher.Get("getContentOverASpecificDates", time.Minute*2, func() (interface{}, error) {
+		return dao.AllDataOverASpecificDates(ctx, model.Content{}, fromDate, toDate)
 	})
 
 	if err != nil {

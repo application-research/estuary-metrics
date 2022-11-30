@@ -2,12 +2,12 @@ package dao
 
 import (
 	"context"
+	"github.com/gofrs/uuid"
 	"time"
 
 	"github.com/application-research/estuary-metrics/core/generated/model"
 
 	"github.com/guregu/null"
-	"github.com/satori/go.uuid"
 )
 
 var (

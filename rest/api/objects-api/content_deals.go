@@ -3,6 +3,7 @@ package objectsapi
 import (
 	"github.com/application-research/estuary-metrics/rest/api"
 	"net/http"
+	"time"
 
 	"github.com/application-research/estuary-metrics/core/dao"
 	"github.com/application-research/estuary-metrics/core/generated/model"
@@ -19,6 +20,11 @@ func ConfigContentDealsRouter(router gin.IRoutes) {
 	router.GET("/contentdeals", api.ConvertHttpRouterToGin(GetAllContentDeals))
 	router.GET("/contentdeals/:id", api.ConvertHttpRouterToGin(GetContentDeals))
 	router.GET("/contentdeals/dynamicquery", api.ConvertHttpRouterToGin(GetContentDealsDynamicQuery))
+}
+
+func ConfigUnProtectedContentDealsRouter(router gin.IRoutes) {
+	router.GET("/contentdeals/month-to-month/:months", api.ConvertHttpRouterToGin(AllContentDealsOverThePastMonths))
+	router.GET("/contentdeals/set-months/:from/:to", api.ConvertHttpRouterToGin(AllContentDealsOverASpecificDates))
 }
 
 // GetContentDealsDynamicQuery is a function to get a slice of record(s) from content_deals table in the estuary database
@@ -111,6 +117,79 @@ func GetContentDeals(w http.ResponseWriter, r *http.Request, ps httprouter.Param
 	}
 
 	record, err := dao.GetContentDeals(ctx, argID)
+	if err != nil {
+		api.ReturnError(ctx, w, r, err)
+		return
+	}
+
+	api.WriteJSON(ctx, w, record)
+}
+
+// AllContentDealsOverThePastMonths is a function to get a slice of record(s) from contents table in the estuary database
+// @Summary Get list of Contents
+// @Tags Contents
+// @Description AllContentOverThePastMonths is a handler to get a slice of record(s) from contents table in the estuary database
+// @Accept  json
+// @Produce  json
+// @Param   months     query    int     false        "previous number of months"
+func AllContentDealsOverThePastMonths(w http.ResponseWriter, r *http.Request, ps httprouter.Params) {
+
+	ctx := api.InitializeContext(r)
+
+	argID, err := api.ParseInt64(ps, "months")
+	cache, err := api.ParseString(ps, "cache")
+	if err != nil {
+		api.ReturnError(ctx, w, r, err)
+		return
+	}
+
+	if err := api.ValidateRequest(ctx, r, "contents", model.RetrieveOne); err != nil {
+		api.ReturnError(ctx, w, r, err)
+		return
+	}
+
+	var record interface{}
+	if cache == "y" {
+		record, err = dao.Cacher.Get("getContentOverASpecificDates", time.Minute*2, func() (interface{}, error) {
+			return dao.AllDataOverThePastMonth(ctx, model.ContentDeal{}, argID)
+		})
+	} else {
+		record, err = dao.AllDataOverThePastMonth(ctx, model.ContentDeal{}, argID)
+	}
+
+	if err != nil {
+		api.ReturnError(ctx, w, r, err)
+		return
+	}
+
+	api.WriteJSON(ctx, w, record)
+}
+
+// AllContentDealsOverASpecificDates	is a function to get a slice of record(s) from contents table in the estuary database
+// @Summary Get list of Contents
+// @Tags Contents
+// @Description AllContentOverASpecificDates is a handler to get a slice of record(s) from contents table in the estuary database
+// @Accept  json
+// @Produce  json
+// @Param   start     query    string     false        "start date"
+// @Param   end     query    string     false        "end date"
+func AllContentDealsOverASpecificDates(w http.ResponseWriter, r *http.Request, ps httprouter.Params) {
+
+	ctx := api.InitializeContext(r)
+
+	fromDate, err := api.ParseString(ps, "from")
+	toDate, err := api.ParseString(ps, "to")
+	cache, err := api.ParseString(ps, "cache")
+
+	var record interface{}
+	if cache == "y" {
+		record, err = dao.Cacher.Get("getContentOverASpecificDates", time.Minute*2, func() (interface{}, error) {
+			return dao.AllDataOverASpecificDates(ctx, model.ContentDeal{}, fromDate, toDate)
+		})
+	} else {
+		record, err = dao.AllDataOverASpecificDates(ctx, model.ContentDeal{}, fromDate, toDate)
+	}
+
 	if err != nil {
 		api.ReturnError(ctx, w, r, err)
 		return
