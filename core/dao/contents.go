@@ -57,6 +57,25 @@ func GetContents(ctx context.Context, argID int64) (record *model.Content, err e
 	return record, nil
 }
 
+// GetSizeOverPastMonths is a function get uploaded data sizes over the past month from the contents table
+func GetSizeOverPastMonths(ctx context.Context, months int64) (results MonthLookUp, err error) {
+	monthLookUp := ConstructMonthLookUpList(months)
+
+	var result MonthLookUp
+	for _, month := range monthLookUp.MonthToLook {
+		var monthResult MonthPerMonth
+		monthResult.Month = month.Month
+		monthResult.MonthFirstDay = month.MonthFirstDay
+		monthResult.MonthLastDay = month.MonthLastDay
+		monthResult.Year = month.Year
+		DB.Model(model.Content{}).Where("created_at between ? and ?", month.MonthFirstDay, month.MonthLastDay).Select("sum(size) as size").Scan(&monthResult.AggregatedResult)
+		result.MonthToLook = append(result.MonthToLook, monthResult)
+	}
+
+	return result, err
+
+}
+
 // AddContents is a function to add a single record to contents table in the estuary database
 // error - ErrInsertFailed, db save call failed
 func AddContents(ctx context.Context, record *model.Content) (result *model.Content, RowsAffected int64, err error) {

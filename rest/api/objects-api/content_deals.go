@@ -151,10 +151,10 @@ func AllContentDealsOverThePastMonths(w http.ResponseWriter, r *http.Request, ps
 	var record interface{}
 	if cache == "y" {
 		record, err = dao.Cacher.Get("getContentOverASpecificDates", time.Minute*2, func() (interface{}, error) {
-			return dao.AllDataOverThePastMonth(ctx, model.ContentDeal{}, argID)
+			return dao.DataCountOverThePastMonth(ctx, model.ContentDeal{}, argID)
 		})
 	} else {
-		record, err = dao.AllDataOverThePastMonth(ctx, model.ContentDeal{}, argID)
+		record, err = dao.DataCountOverThePastMonth(ctx, model.ContentDeal{}, argID)
 	}
 
 	if err != nil {
@@ -184,10 +184,10 @@ func AllContentDealsOverASpecificDates(w http.ResponseWriter, r *http.Request, p
 	var record interface{}
 	if cache == "y" {
 		record, err = dao.Cacher.Get("getContentOverASpecificDates", time.Minute*2, func() (interface{}, error) {
-			return dao.AllDataOverASpecificDates(ctx, model.ContentDeal{}, fromDate, toDate)
+			return dao.DataCountOverSpecificDates(ctx, model.ContentDeal{}, fromDate, toDate)
 		})
 	} else {
-		record, err = dao.AllDataOverASpecificDates(ctx, model.ContentDeal{}, fromDate, toDate)
+		record, err = dao.DataCountOverSpecificDates(ctx, model.ContentDeal{}, fromDate, toDate)
 	}
 
 	if err != nil {
