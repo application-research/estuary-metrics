@@ -24,6 +24,18 @@ func ConfigPublishedBatchesUnProtectedRouter(router gin.IRoutes) {
 	router.GET("/publishedbatches/total", api.ConvertHttpRouterToGin(GetPublishedBatchesTotal))
 }
 
+// GetAllPublishedBatches is a function to get a slice of record(s) from published_batches table in the estuary database
+// @Summary Get list of PublishedBatches
+// @Description Get list of PublishedBatches
+// @Tags PublishedBatches
+// @Accept  json
+// @Produce  json
+// @Param page query int false "page"
+// @Param pagesize query int false "pagesize"
+// @Param order query string false "order"
+// @Success 200 {object} api.PagedResults{data=[]PublishedBatches}
+// @Failure 400 {object} api.Error
+// @Router /publishedbatches [get]
 func GetAllPublishedBatches(w http.ResponseWriter, r *http.Request, ps httprouter.Params) {
 	ctx := api.InitializeContext(r)
 	page, err := api.ReadInt(r, "page", 0)
@@ -55,6 +67,16 @@ func GetAllPublishedBatches(w http.ResponseWriter, r *http.Request, ps httproute
 	api.WriteJSON(ctx, w, result)
 }
 
+// GetPublishedBatches is a function to get a single record to published_batches table in the estuary database
+// @Summary Get a PublishedBatches record
+// @Description Get a PublishedBatches record
+// @Tags PublishedBatches
+// @Accept  json
+// @Produce  json
+// @Param id path int true "id"
+// @Success 200 {object} PublishedBatches
+// @Failure 400 {object} api.Error
+// @Router /publishedbatches/{id} [get]
 func GetPublishedBatches(w http.ResponseWriter, r *http.Request, ps httprouter.Params) {
 	ctx := api.InitializeContext(r)
 
@@ -78,6 +100,15 @@ func GetPublishedBatches(w http.ResponseWriter, r *http.Request, ps httprouter.P
 	api.WriteJSON(ctx, w, record)
 }
 
+// GetPublishedBatchesTotal is a function to get a single record to published_batches table in the estuary database
+// @Summary Get a PublishedBatches record
+// @Description Get a PublishedBatches record
+// @Tags PublishedBatches
+// @Accept  json
+// @Produce  json
+// @Success 200 {object} PublishedBatchesCount
+// @Failure 400 {object} api.Error
+// @Router /publishedbatches/total [get]
 func GetPublishedBatchesTotal(w http.ResponseWriter, r *http.Request, ps httprouter.Params) {
 	ctx := api.InitializeContext(r)
 
