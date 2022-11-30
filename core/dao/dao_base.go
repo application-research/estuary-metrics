@@ -186,3 +186,24 @@ func AllDataOverASpecificDates(ctx context.Context, model interface{}, fromDate 
 	}
 	return result, nil
 }
+
+type CustomSelectQuery struct {
+	ID        int64
+	Name      string
+	SelectSQL string
+}
+
+type CustomSelectQueryResponse struct {
+	ID        int64
+	Name      string
+	SelectSQL string
+	Results   []map[string]interface{}
+}
+
+func CreateQuery(query string) (CustomSelectQuery, error) {
+	return CustomSelectQuery{}, nil
+}
+
+func ExecuteQuery(ID string) (CustomSelectQueryResponse, error) {
+	return CustomSelectQueryResponse{}, nil
+}
