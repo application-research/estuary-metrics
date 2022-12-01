@@ -26,6 +26,8 @@ func ConfigContentsRouter(router gin.IRoutes) {
 func ConfigUnProtectedContentsRouter(router gin.IRoutes) {
 	router.GET("/contents/month-to-month/:months", api.ConvertHttpRouterToGin(AllContentOverThePastMonths))
 	router.GET("/contents/set-months/:from/:to", api.ConvertHttpRouterToGin(AllContentOverASpecificDates))
+	router.GET("/contents/data-size/month-to-month/:months", api.ConvertHttpRouterToGin(DataSizeOverThePastMonths))
+	router.GET("/contents/data-size/set-months/:from/:to", api.ConvertHttpRouterToGin(DataSizeOverSpecificDates))
 }
 
 func GetContentsDynamicQuery(w http.ResponseWriter, r *http.Request, ps httprouter.Params) {
@@ -168,6 +170,67 @@ func AllContentOverASpecificDates(w http.ResponseWriter, r *http.Request, ps htt
 
 	record, err := dao.Cacher.Get("getContentOverASpecificDates", time.Minute*2, func() (interface{}, error) {
 		return dao.DataCountOverSpecificDates(ctx, model.Content{}, fromDate, toDate)
+	})
+
+	if err != nil {
+		api.ReturnError(ctx, w, r, err)
+		return
+	}
+
+	api.WriteJSON(ctx, w, record)
+}
+
+// DataSizeOverThePastMonths is a function to get a slice of record(s) from contents table in the estuary database
+// @Summary Get list of Contents
+// @Tags Contents
+// @Description DataSizeOverThePastMonths is a handler to get a slice of record(s) from contents table in the estuary database
+// @Accept  json
+// @Produce  json
+// @Param   months     query    int     false        "previous number of months"
+func DataSizeOverThePastMonths(w http.ResponseWriter, r *http.Request, ps httprouter.Params) {
+
+	ctx := api.InitializeContext(r)
+
+	argID, err := api.ParseInt64(ps, "months")
+	if err != nil {
+		api.ReturnError(ctx, w, r, err)
+		return
+	}
+
+	if err := api.ValidateRequest(ctx, r, "contents", model.RetrieveOne); err != nil {
+		api.ReturnError(ctx, w, r, err)
+		return
+	}
+
+	record, err := dao.Cacher.Get("getDataSizeMonthByMonth", time.Minute*2, func() (interface{}, error) {
+		return dao.DataSizeOverPastMonths(ctx, argID)
+	})
+
+	if err != nil {
+		api.ReturnError(ctx, w, r, err)
+		return
+	}
+
+	api.WriteJSON(ctx, w, record)
+}
+
+// DataSizeOverSpecificDates	is a function to get a slice of record(s) from contents table in the estuary database
+// @Summary Get list of Contents
+// @Tags Contents
+// @Description DataSizeOverSpecificDates is a handler to get a slice of record(s) from contents table in the estuary database
+// @Accept  json
+// @Produce  json
+// @Param   start     query    string     false        "start date"
+// @Param   end     query    string     false        "end date"
+func DataSizeOverSpecificDates(w http.ResponseWriter, r *http.Request, ps httprouter.Params) {
+
+	ctx := api.InitializeContext(r)
+
+	fromDate, err := api.ParseString(ps, "from")
+	toDate, err := api.ParseString(ps, "to")
+
+	record, err := dao.Cacher.Get("getDataSizeOverASpecificDates", time.Minute*2, func() (interface{}, error) {
+		return dao.DataSizeOverSpecificDates(ctx, fromDate, toDate)
 	})
 
 	if err != nil {
