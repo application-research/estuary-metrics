@@ -165,11 +165,10 @@ func ConstructMonthLookUpList(month int64) MonthLookUp {
 	timeLayout := "2006-01-02"
 
 	for i := 0; i < int(month); i++ {
-		fromWhenMonth := currentTime.AddDate(0, (int(month)-i)-12, 0)
+		fromWhenMonth := currentTime.AddDate(0, int(month)-i-1, 0)
 		firstOfMonth := time.Date(fromWhenMonth.Year(), fromWhenMonth.Month(), 1, 0, 0, 0, 0, currentLocation)
 		lastOfMonth := firstOfMonth.AddDate(0, 1, -1)
 
-		//
 		stringFirstOfMonth := firstOfMonth.Format(timeLayout)
 		stringLastOfMonth := lastOfMonth.Format(timeLayout)
 
