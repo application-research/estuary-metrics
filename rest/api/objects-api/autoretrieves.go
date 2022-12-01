@@ -144,7 +144,7 @@ func AllAutoRetrieveOverThePastMonths(w http.ResponseWriter, r *http.Request, ps
 	}
 
 	record, err := dao.Cacher.Get("AllAutoRetrieveOverThePastMonths", time.Minute*2, func() (interface{}, error) {
-		return dao.AllDataOverThePastMonth(ctx, model.Autoretrieve{}, argID)
+		return dao.DataCountOverThePastMonth(ctx, model.Autoretrieve{}, argID)
 	})
 
 	if err != nil {
@@ -171,7 +171,7 @@ func AllAutoRetrieveOverASpecificDates(w http.ResponseWriter, r *http.Request, p
 	toDate, err := api.ParseString(ps, "to")
 
 	record, err := dao.Cacher.Get("AllAutoRetrieveOverASpecificDates", time.Minute*2, func() (interface{}, error) {
-		return dao.AllDataOverASpecificDates(ctx, model.Autoretrieve{}, fromDate, toDate)
+		return dao.DataCountOverSpecificDates(ctx, model.Autoretrieve{}, fromDate, toDate)
 	})
 
 	if err != nil {

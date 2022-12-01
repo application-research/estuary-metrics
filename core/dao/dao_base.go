@@ -129,17 +129,35 @@ type MonthPerMonth struct {
 	MonthFirstDay    string
 	MonthLastDay     string
 	Year             int
-	NumberOfContents int64
+	AggregatedResult int64
 }
 
 type MonthResultResponse struct {
 	MonthFrom        string
 	MonthTo          string
-	NumberOfContents int64
+	AggregatedResult int64
 }
 
-func AllDataOverThePastMonth(ctx context.Context, model interface{}, month int64) (results MonthLookUp, err error) {
+func DataCountOverThePastMonth(ctx context.Context, model interface{}, month int64) (results MonthLookUp, err error) {
 
+	monthLookUp := ConstructMonthLookUpList(month)
+
+	var result MonthLookUp
+	for _, month := range monthLookUp.MonthToLook {
+		var monthResult MonthPerMonth
+		monthResult.Month = month.Month
+		monthResult.MonthFirstDay = month.MonthFirstDay
+		monthResult.MonthLastDay = month.MonthLastDay
+		monthResult.Year = month.Year
+		DB.Model(model).Where("created_at between ? and ?", month.MonthFirstDay, month.MonthLastDay).Count(&monthResult.AggregatedResult)
+		result.MonthToLook = append(result.MonthToLook, monthResult)
+	}
+
+	return result, err
+
+}
+
+func ConstructMonthLookUpList(month int64) MonthLookUp {
 	// get current month
 	var monthLookUp MonthLookUp
 	currentTime := time.Now()
@@ -158,29 +176,16 @@ func AllDataOverThePastMonth(ctx context.Context, model interface{}, month int64
 		monthLookUp.MonthToLook = append(monthLookUp.MonthToLook, MonthPerMonth{Month: int(firstOfMonth.Month()), MonthFirstDay: stringFirstOfMonth, MonthLastDay: stringLastOfMonth, Year: firstOfMonth.Year()})
 
 	}
-
-	var result MonthLookUp
-	for _, month := range monthLookUp.MonthToLook {
-		var monthResult MonthPerMonth
-		monthResult.Month = month.Month
-		monthResult.MonthFirstDay = month.MonthFirstDay
-		monthResult.MonthLastDay = month.MonthLastDay
-		monthResult.Year = month.Year
-		DB.Model(model).Where("created_at between ? and ?", month.MonthFirstDay, month.MonthLastDay).Count(&monthResult.NumberOfContents)
-		result.MonthToLook = append(result.MonthToLook, monthResult)
-	}
-
-	return result, err
-
+	return monthLookUp
 }
 
-func AllDataOverASpecificDates(ctx context.Context, model interface{}, fromDate string, toDate string) (MonthResultResponse, error) {
+func DataCountOverSpecificDates(ctx context.Context, model interface{}, fromDate string, toDate string) (MonthResultResponse, error) {
 
 	var result MonthResultResponse
 	result.MonthTo = toDate
 	result.MonthFrom = fromDate
 
-	err := DB.Model(model).Where("created_at between ? and ?", fromDate, toDate).Count(&result.NumberOfContents).Error
+	err := DB.Model(model).Where("created_at between ? and ?", fromDate, toDate).Count(&result.AggregatedResult).Error
 	if err != nil {
 		return MonthResultResponse{}, err
 	}
