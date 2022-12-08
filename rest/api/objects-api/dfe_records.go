@@ -1,11 +1,10 @@
 package objectsapi
 
 import (
-	"github.com/application-research/estuary-metrics/rest/api"
-	"net/http"
-
 	"github.com/application-research/estuary-metrics/core/dao"
 	"github.com/application-research/estuary-metrics/core/generated/model"
+	"github.com/application-research/estuary-metrics/rest/api"
+	"net/http"
 
 	"github.com/gin-gonic/gin"
 	"github.com/guregu/null"
@@ -19,6 +18,10 @@ var (
 func ConfigDfeRecordsRouter(router gin.IRoutes) {
 	router.GET("/dferecords", api.ConvertHttpRouterToGin(GetAllDfeRecords))
 	router.GET("/dferecords/:id", api.ConvertHttpRouterToGin(GetDfeRecords))
+}
+
+func ConfigUnProtectedDfeRecordsRouter(router gin.IRoutes) {
+	router.GET("/dferecords/failures", api.ConvertHttpRouterToGin(GetDfeStorageFailureRecords))
 }
 
 // GetAllDfeRecords is a function to get a slice of record(s) from dfe_records table in the estuary database
@@ -100,4 +103,32 @@ func GetDfeRecords(w http.ResponseWriter, r *http.Request, ps httprouter.Params)
 	}
 
 	api.WriteJSON(ctx, w, record)
+}
+
+// GetDfeStorageFailureRecords is a function to get a slice of record(s) from dfe_records table in the estuary database
+// @Summary Get list of DfeRecords
+// @Tags DfeRecords
+// @Description GetDfeStorageFailureRecords is a handler to get a slice of record(s) from dfe_records table in the estuary database
+// @Accept  json
+// @Produce  json
+func GetDfeStorageFailureRecords(w http.ResponseWriter, r *http.Request, ps httprouter.Params) {
+	ctx := api.InitializeContext(r)
+
+	before, err := api.ParseString(ps, "before")
+	limit, err := api.ParseInt64(ps, "limit")
+	userId, err := api.ParseInt64(ps, "userId")
+	if err := api.ValidateRequest(ctx, r, "dfe_records", model.RetrieveOne); err != nil {
+		api.ReturnError(ctx, w, r, err)
+		return
+	}
+	user := &model.User{
+		ID: userId,
+	}
+	records, err := dao.GetDfeStorageFailureRecords(ctx, limit, before, user)
+	if err != nil {
+		api.ReturnError(ctx, w, r, err)
+		return
+	}
+
+	api.WriteJSON(ctx, w, records)
 }
