@@ -2,6 +2,7 @@ package statsapi
 
 import (
 	"database/sql"
+	"fmt"
 	"github.com/application-research/estuary-metrics/core/dao"
 	"github.com/application-research/estuary-metrics/core/generated/model"
 	"github.com/application-research/estuary-metrics/rest/api"
@@ -9,6 +10,7 @@ import (
 	"github.com/julienschmidt/httprouter"
 	"net/http"
 	"sort"
+	"strconv"
 	"time"
 )
 
@@ -98,7 +100,7 @@ type StorageStats struct {
 }
 
 type SystemStats struct {
-	TotalObjecsPinned         int `json:"totalObjecsPinned"`
+	TotalObjectsPinned        int `json:"totalObjectsPinned"`
 	TotalSizeUploaded         int `json:"totalSizeUploaded"`
 	totalSizeSealedOnFilecoin int `json:"totalSizeSealedOnFilecoin"`
 	AvailableFreeSpace        int `json:"availableFreeSpace"`
@@ -232,26 +234,32 @@ func GetTotalStorageInTib(w http.ResponseWriter, r *http.Request, ps httprouter.
 // @Success 200 {object} StorageRateStats
 // @Router /stats/storage-rates [get]
 func GetStorageRateStats(w http.ResponseWriter, r *http.Request, ps httprouter.Params) {
-	var storageRateStats StorageRateStats
+	var storageRateStats *StorageRateStats
+
 	//select ((t.success  * 1.0 /t.total  * 1.0) * 100) as "Success", ((t.failed * 1.0 / t.total * 1.0) * 100) as "Failure" from (select
-	// (select count(*) from content_deals as c1 where failed = false) as total,
-	// (select count(*) from content_deals as c1 where failed = false and deal_id > 0) as success,
-	// (select count(*) from content_deals as c1 where failed = false and deal_id = 0) as failed) as t;
+	//	(select count(*) from content_deals as c1 where failed = false and deleted_at is null) as total,
+	//	(select count(*) from content_deals as c1 where failed = false and deal_id > 0 and deleted_at is null) as success,
+	//	(select count(*) from content_deals as c1 where failed = false and deal_id = 0 and deleted_at is null) as failed) as t;
+
 	ctx := api.InitializeContext(r)
-	successFailRate := dao.DB.Raw("" +
+	err := dao.DB.Raw("" +
 		"select " +
-		" ((t.success  * 1.0 /t.total  * 1.0) * 100)," +
-		" ((t.failed * 1.0 / t.total * 1.0) * 100)" +
-		"from (select (select count(*) from content_deals as c1 where failed = false) as total, " +
-		"	(select count(*) from content_deals as c1 where failed = false and deal_id > 0) as success, " +
-		"	(select count(*) from content_deals as c1 where failed = false and deal_id = 0) as failed" +
+		" ((t.success  * 1.0 / t.total  * 1.0) * 100) as \"DealSuccessRate\"," +
+		" ((t.failed * 1.0 / t.total * 1.0) * 100) as \"DealFailureRate\" " +
+		"from (select (select count(*) from content_deals as c1 where failed = false and deleted_at is null) as total, " +
+		"	(select count(*) from content_deals as c1 where failed = false and deal_id > 0 and deleted_at is null) as success, " +
+		"	(select count(*) from content_deals as c1 where failed = false and deal_id = 0 and deleted_at is null) as failed" +
 		") as t").Scan(&storageRateStats).Error
 
-	if successFailRate != nil {
-		api.ReturnError(ctx, w, r, successFailRate)
+	if err != nil {
+		api.ReturnError(ctx, w, r, err)
 		return
 	}
+	success, err := strconv.ParseFloat(storageRateStats.DealSuccessRate, 64)
+	failure, err := strconv.ParseFloat(storageRateStats.DealFailureRate, 64)
 
+	storageRateStats.DealSuccessRate = fmt.Sprintf("%.2f", success)
+	storageRateStats.DealFailureRate = fmt.Sprintf("%.2f", failure)
 	api.WriteJSON(ctx, w, storageRateStats)
 }
 

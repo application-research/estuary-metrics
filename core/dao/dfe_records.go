@@ -57,55 +57,28 @@ func GetDfeRecords(ctx context.Context, argID int64) (record *model.DfeRecord, e
 	return record, nil
 }
 
-// AddDfeRecords is a function to add a single record to dfe_records table in the estuary database
-// error - ErrInsertFailed, db save call failed
-func AddDfeRecords(ctx context.Context, record *model.DfeRecord) (result *model.DfeRecord, RowsAffected int64, err error) {
-	db := DB.Save(record)
-	if err = db.Error; err != nil {
-		return nil, -1, ErrInsertFailed
+func GetDfeStorageFailureRecords(ctx context.Context, limit int64, before string, u *model.User) ([]model.DfeRecord, error) {
+	var defLimit = 2000
+	if limit == 0 {
+		limit = int64(defLimit)
 	}
 
-	return record, db.RowsAffected, nil
-}
-
-// UpdateDfeRecords is a function to update a single record from dfe_records table in the estuary database
-// error - ErrNotFound, db record for id not found
-// error - ErrUpdateFailed, db meta data copy failed or db.Save call failed
-func UpdateDfeRecords(ctx context.Context, argID int64, updated *model.DfeRecord) (result *model.DfeRecord, RowsAffected int64, err error) {
-
-	result = &model.DfeRecord{}
-	db := DB.First(result, argID)
-	if err = db.Error; err != nil {
-		return nil, -1, ErrNotFound
+	q := DB.Model(model.DfeRecord{}).Limit(int(limit)).Order("created_at desc")
+	if u != nil {
+		q = q.Where("user_id=?", u.ID)
 	}
 
-	if err = Copy(result, updated); err != nil {
-		return nil, -1, ErrUpdateFailed
+	if bef := before; bef != "" {
+		beftime, err := time.Parse(time.RFC3339, bef)
+		if err != nil {
+			return nil, err
+		}
+		q = q.Where("created_at <= ?", beftime)
 	}
 
-	db = db.Save(result)
-	if err = db.Error; err != nil {
-		return nil, -1, ErrUpdateFailed
+	var recs []model.DfeRecord
+	if err := q.Scan(&recs).Error; err != nil {
+		return nil, err
 	}
-
-	return result, db.RowsAffected, nil
-}
-
-// DeleteDfeRecords is a function to delete a single record from dfe_records table in the estuary database
-// error - ErrNotFound, db Find error
-// error - ErrDeleteFailed, db Delete failed error
-func DeleteDfeRecords(ctx context.Context, argID int64) (rowsAffected int64, err error) {
-
-	record := &model.DfeRecord{}
-	db := DB.First(record, argID)
-	if db.Error != nil {
-		return -1, ErrNotFound
-	}
-
-	db = db.Delete(record)
-	if err = db.Error; err != nil {
-		return -1, ErrDeleteFailed
-	}
-
-	return db.RowsAffected, nil
+	return recs, nil
 }

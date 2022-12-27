@@ -60,6 +60,8 @@ func ConfigRouter(router *gin.Engine) {
 
 	objectsapi.ConfigDealersRouter(protectedRouter)
 	objectsapi.ConfigDfeRecordsRouter(protectedRouter)
+	objectsapi.ConfigUnProtectedDfeRecordsRouter(unprotectedRouter)
+
 	objectsapi.ConfigInviteCodesRouter(protectedRouter)
 	objectsapi.ConfigMinerStorageAsksRouter(protectedRouter)
 	objectsapi.ConfigObjRefsRouter(protectedRouter)
