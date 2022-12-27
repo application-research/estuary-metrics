@@ -15,3 +15,5 @@ dashboard/.next
 # binary
 cmd/metrics-cmd
 rest/metrics-rest-api
+
+.DS_Store

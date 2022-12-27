@@ -28,6 +28,7 @@ var (
 	Shuttle                *shuttle
 	StorageMiner           *storageMiner
 	User                   *user
+	PublishedBatch         *publishedBatch
 )
 
 func SetDefault(db *gorm.DB) {
@@ -51,6 +52,7 @@ func SetDefault(db *gorm.DB) {
 	Shuttle = &Q.Shuttle
 	StorageMiner = &Q.StorageMiner
 	User = &Q.User
+	PublishedBatch = &Q.PublishedBatch
 }
 
 func Use(db *gorm.DB) *Query {
@@ -100,6 +102,7 @@ type Query struct {
 	Shuttle                shuttle
 	StorageMiner           storageMiner
 	User                   user
+	PublishedBatch         publishedBatch
 }
 
 func (q *Query) Available() bool { return q.db != nil }
@@ -126,6 +129,7 @@ func (q *Query) clone(db *gorm.DB) *Query {
 		Shuttle:                q.Shuttle.clone(db),
 		StorageMiner:           q.StorageMiner.clone(db),
 		User:                   q.User.clone(db),
+		PublishedBatch:         q.PublishedBatch.clone(db),
 	}
 }
 
@@ -149,6 +153,7 @@ type queryCtx struct {
 	Shuttle                IShuttleDo
 	StorageMiner           IStorageMinerDo
 	User                   IUserDo
+	PublishedBatch         IPublishedBatchDo
 }
 
 func (q *Query) WithContext(ctx context.Context) *queryCtx {
@@ -172,6 +177,7 @@ func (q *Query) WithContext(ctx context.Context) *queryCtx {
 		Shuttle:                q.Shuttle.WithContext(ctx),
 		StorageMiner:           q.StorageMiner.WithContext(ctx),
 		User:                   q.User.WithContext(ctx),
+		PublishedBatch:         q.PublishedBatch.WithContext(ctx),
 	}
 }
 

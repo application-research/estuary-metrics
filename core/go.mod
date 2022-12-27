@@ -4,6 +4,7 @@ go 1.18
 
 require (
 	github.com/dgraph-io/badger/v3 v3.2103.4
+	github.com/gofrs/uuid v4.0.0+incompatible
 	github.com/guregu/null v4.0.0+incompatible
 	github.com/satori/go.uuid v1.2.0
 	github.com/spf13/viper v1.12.0

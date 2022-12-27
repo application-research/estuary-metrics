@@ -9,6 +9,7 @@ import (
 	"github.com/whyrusleeping/memo"
 	"gorm.io/gorm"
 	"reflect"
+	"time"
 )
 
 // BuildInfo is used to define the application build info, and inject values into via the build process.
@@ -118,4 +119,95 @@ func RunDynamicQuery(ctx context.Context, modelForQuery interface{}, query map[s
 	}
 
 	return results, totalRows, nil
+}
+
+type MonthLookUp struct {
+	MonthToLook []MonthPerMonth
+}
+type MonthPerMonth struct {
+	Month            int
+	MonthFirstDay    string
+	MonthLastDay     string
+	Year             int
+	AggregatedResult int64
+}
+
+type MonthResultResponse struct {
+	MonthFrom        string
+	MonthTo          string
+	AggregatedResult int64
+}
+
+func DataCountOverThePastMonth(ctx context.Context, model interface{}, month int64) (results MonthLookUp, err error) {
+
+	monthLookUp := ConstructMonthLookUpList(month)
+
+	var result MonthLookUp
+	for _, month := range monthLookUp.MonthToLook {
+		var monthResult MonthPerMonth
+		monthResult.Month = month.Month
+		monthResult.MonthFirstDay = month.MonthFirstDay
+		monthResult.MonthLastDay = month.MonthLastDay
+		monthResult.Year = month.Year
+		DB.Model(model).Where("created_at between ? and ?", month.MonthFirstDay, month.MonthLastDay).Count(&monthResult.AggregatedResult)
+		result.MonthToLook = append(result.MonthToLook, monthResult)
+	}
+
+	return result, err
+
+}
+
+func ConstructMonthLookUpList(month int64) MonthLookUp {
+	// get current month
+	var monthLookUp MonthLookUp
+	currentTime := time.Now()
+	currentLocation := currentTime.Location()
+	timeLayout := "2006-01-02"
+
+	for i := 0; i < int(month); i++ {
+		fromWhenMonth := currentTime.AddDate(0, int(month)-i-1, 0)
+		firstOfMonth := time.Date(fromWhenMonth.Year(), fromWhenMonth.Month(), 1, 0, 0, 0, 0, currentLocation)
+		lastOfMonth := firstOfMonth.AddDate(0, 1, -1)
+
+		stringFirstOfMonth := firstOfMonth.Format(timeLayout)
+		stringLastOfMonth := lastOfMonth.Format(timeLayout)
+
+		monthLookUp.MonthToLook = append(monthLookUp.MonthToLook, MonthPerMonth{Month: int(firstOfMonth.Month()), MonthFirstDay: stringFirstOfMonth, MonthLastDay: stringLastOfMonth, Year: firstOfMonth.Year()})
+
+	}
+	return monthLookUp
+}
+
+func DataCountOverSpecificDates(ctx context.Context, model interface{}, fromDate string, toDate string) (MonthResultResponse, error) {
+
+	var result MonthResultResponse
+	result.MonthTo = toDate
+	result.MonthFrom = fromDate
+
+	err := DB.Model(model).Where("created_at between ? and ?", fromDate, toDate).Count(&result.AggregatedResult).Error
+	if err != nil {
+		return MonthResultResponse{}, err
+	}
+	return result, nil
+}
+
+type CustomSelectQuery struct {
+	ID        int64
+	Name      string
+	SelectSQL string
+}
+
+type CustomSelectQueryResponse struct {
+	ID        int64
+	Name      string
+	SelectSQL string
+	Results   []map[string]interface{}
+}
+
+func CreateQuery(query string) (CustomSelectQuery, error) {
+	return CustomSelectQuery{}, nil
+}
+
+func ExecuteQuery(ID string) (CustomSelectQueryResponse, error) {
+	return CustomSelectQueryResponse{}, nil
 }

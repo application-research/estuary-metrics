@@ -18,7 +18,7 @@ import (
 // @Security BearerAuth
 func ConfigRouter(router *gin.Engine) {
 	group := router.Group("/api/v1")
-	group.Use(CORSMiddleware())
+	unprotectedRouter := router.Group("/api/v1")
 	protectedRouter := group.Use(func(c *gin.Context) {
 		// authenticate here
 		authServer := auth.Init().SetDB(dao.DB).Connect()
@@ -41,19 +41,27 @@ func ConfigRouter(router *gin.Engine) {
 		}
 	})
 
-	protectedRouter.Use(CORSMiddleware())
-
-	unprotectedRouter := router.Group("/api/v1")
-	unprotectedRouter.Use(CORSMiddleware())
 	//	all estuary objects objects-api
 	objectsapi.ConfigAuthTokensRouter(protectedRouter)
 	objectsapi.ConfigAutoretrievesRouter(protectedRouter)
+	objectsapi.ConfigUnProtectedAutoRetrievesRouter(unprotectedRouter)
+
 	objectsapi.ConfigCollectionRefsRouter(protectedRouter)
 	objectsapi.ConfigCollectionsRouter(protectedRouter)
+
 	objectsapi.ConfigContentDealsRouter(protectedRouter)
+	objectsapi.ConfigUnProtectedContentDealsRouter(unprotectedRouter)
+
 	objectsapi.ConfigContentsRouter(protectedRouter)
+	objectsapi.ConfigUnProtectedContentsRouter(unprotectedRouter)
+
+	objectsapi.ConfigPublishedBatchesRouter(protectedRouter)
+	objectsapi.ConfigPublishedBatchesUnProtectedRouter(unprotectedRouter)
+
 	objectsapi.ConfigDealersRouter(protectedRouter)
 	objectsapi.ConfigDfeRecordsRouter(protectedRouter)
+	objectsapi.ConfigUnProtectedDfeRecordsRouter(unprotectedRouter)
+
 	objectsapi.ConfigInviteCodesRouter(protectedRouter)
 	objectsapi.ConfigMinerStorageAsksRouter(protectedRouter)
 	objectsapi.ConfigObjRefsRouter(protectedRouter)
@@ -85,21 +93,4 @@ func ConfigRouter(router *gin.Engine) {
 	//	DDL
 	objectsapi.ConfigDDLRouter(unprotectedRouter)
 	return
-}
-
-func CORSMiddleware() gin.HandlerFunc {
-	return func(c *gin.Context) {
-
-		c.Header("Access-Control-Allow-Origin", "*")
-		c.Header("Access-Control-Allow-Credentials", "true")
-		c.Header("Access-Control-Allow-Headers", "Content-Type, Content-Length, Accept-Encoding, X-CSRF-Token, Authorization, accept, origin, Cache-Control, X-Requested-With")
-		c.Header("Access-Control-Allow-Methods", "POST,HEAD,PATCH, OPTIONS, GET, PUT")
-
-		if c.Request.Method == "OPTIONS" {
-			c.AbortWithStatus(204)
-			return
-		}
-
-		c.Next()
-	}
 }
