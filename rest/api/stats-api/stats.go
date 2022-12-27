@@ -2,6 +2,7 @@ package statsapi
 
 import (
 	"database/sql"
+	"fmt"
 	"github.com/application-research/estuary-metrics/core/dao"
 	"github.com/application-research/estuary-metrics/core/generated/model"
 	"github.com/application-research/estuary-metrics/rest/api"
@@ -9,6 +10,7 @@ import (
 	"github.com/julienschmidt/httprouter"
 	"net/http"
 	"sort"
+	"strconv"
 	"time"
 )
 
@@ -98,7 +100,7 @@ type StorageStats struct {
 }
 
 type SystemStats struct {
-	TotalObjecsPinned         int `json:"totalObjecsPinned"`
+	TotalObjectsPinned        int `json:"totalObjectsPinned"`
 	TotalSizeUploaded         int `json:"totalSizeUploaded"`
 	totalSizeSealedOnFilecoin int `json:"totalSizeSealedOnFilecoin"`
 	AvailableFreeSpace        int `json:"availableFreeSpace"`
@@ -232,26 +234,32 @@ func GetTotalStorageInTib(w http.ResponseWriter, r *http.Request, ps httprouter.
 // @Success 200 {object} StorageRateStats
 // @Router /stats/storage-rates [get]
 func GetStorageRateStats(w http.ResponseWriter, r *http.Request, ps httprouter.Params) {
-	var storageRateStats StorageRateStats
+	var storageRateStats *StorageRateStats
+
 	//select ((t.success  * 1.0 /t.total  * 1.0) * 100) as "Success", ((t.failed * 1.0 / t.total * 1.0) * 100) as "Failure" from (select
-	// (select count(*) from content_deals as c1 where failed = false) as total,
-	// (select count(*) from content_deals as c1 where failed = false and deal_id > 0) as success,
-	// (select count(*) from content_deals as c1 where failed = false and deal_id = 0) as failed) as t;
+	//	(select count(*) from content_deals as c1 where failed = false and deleted_at is null) as total,
+	//	(select count(*) from content_deals as c1 where failed = false and deal_id > 0 and deleted_at is null) as success,
+	//	(select count(*) from content_deals as c1 where failed = false and deal_id = 0 and deleted_at is null) as failed) as t;
+
 	ctx := api.InitializeContext(r)
-	successFailRate := dao.DB.Raw("" +
+	err := dao.DB.Raw("" +
 		"select " +
-		" ((t.success  * 1.0 /t.total  * 1.0) * 100)," +
-		" ((t.failed * 1.0 / t.total * 1.0) * 100)" +
-		"from (select (select count(*) from content_deals as c1 where failed = false) as total, " +
-		"	(select count(*) from content_deals as c1 where failed = false and deal_id > 0) as success, " +
-		"	(select count(*) from content_deals as c1 where failed = false and deal_id = 0) as failed" +
+		" ((t.success  * 1.0 / t.total  * 1.0) * 100) as \"DealSuccessRate\"," +
+		" ((t.failed * 1.0 / t.total * 1.0) * 100) as \"DealFailureRate\" " +
+		"from (select (select count(*) from content_deals as c1 where failed = false and deleted_at is null) as total, " +
+		"	(select count(*) from content_deals as c1 where failed = false and deal_id > 0 and deleted_at is null) as success, " +
+		"	(select count(*) from content_deals as c1 where failed = false and deal_id = 0 and deleted_at is null) as failed" +
 		") as t").Scan(&storageRateStats).Error
 
-	if successFailRate != nil {
-		api.ReturnError(ctx, w, r, successFailRate)
+	if err != nil {
+		api.ReturnError(ctx, w, r, err)
 		return
 	}
+	success, err := strconv.ParseFloat(storageRateStats.DealSuccessRate, 64)
+	failure, err := strconv.ParseFloat(storageRateStats.DealFailureRate, 64)
 
+	storageRateStats.DealSuccessRate = fmt.Sprintf("%.2f", success)
+	storageRateStats.DealFailureRate = fmt.Sprintf("%.2f", failure)
 	api.WriteJSON(ctx, w, storageRateStats)
 }
 
@@ -265,44 +273,76 @@ func GetStorageRateStats(w http.ResponseWriter, r *http.Request, ps httprouter.P
 //	@Router /stats/info [get]
 func GetInfo(w http.ResponseWriter, r *http.Request, ps httprouter.Params) {
 	ctx := api.InitializeContext(r)
-	var stats PublicStats
-	if err := dao.DB.Model(model.Content{}).Where("active and not aggregated_in > 0").Select("SUM(size) as total_storage").Scan(&stats).Error; err != nil {
+	// 	cache for 30mins
+	stats, err := dao.Cacher.Get("/stats/info", time.Minute*60, func() (interface{}, error) {
+		var stats PublicStats
+		if err := dao.DB.Model(model.Content{}).Where("active and not aggregated_in > 0").Select("SUM(size) as total_storage").Scan(&stats).Error; err != nil {
+			api.ReturnError(ctx, w, r, err)
+			return stats, err
+		}
+
+		if err := dao.DB.Model(model.Content{}).Where("active and not aggregate").Count(&stats.TotalFilesStored.Int64).Error; err != nil {
+			api.ReturnError(ctx, w, r, err)
+			return stats, err
+		}
+
+		if err := dao.DB.Model(model.ContentDeal{}).Where("not failed and deal_id > 0").Count(&stats.DealsOnChain.Int64).Error; err != nil {
+			api.ReturnError(ctx, w, r, err)
+			return stats, err
+		}
+
+		//	this can be resource expensive but we are already caching it.
+		if err := dao.DB.Table("obj_refs").Select("id").Order("id desc").Limit(1).Scan(&stats.TotalObjectsRef.Int64).Error; err != nil {
+			api.ReturnError(ctx, w, r, err)
+			return stats, err
+		}
+
+		//var objects []model.Object
+		//var totalBytesUploadsize int64
+		//dao.DB.Model(&model.Object{}).FindInBatches(&objects, 10000000,
+		//	func(tx *gorm.DB, batch int) error {
+		//		//tx.Select("SUM(size) as size").Scan(&totalBytesUploadsize)
+		//		for _, object := range objects {
+		//			totalBytesUploadsize += object.Size
+		//		}
+		//		return nil
+		//	})
+
+		//result.
+		stats.TotalBytesUploaded = stats.TotalFilesStored // temporary
+
+		//if err := dao.DB.Table("objects").Select("SUM(size)").Find(&stats.TotalBytesUploaded.Int64).Error; err != nil {
+		//	api.ReturnError(ctx, w, r, err)
+		//	return stats, err
+		//}
+
+		if err := dao.DB.Model(model.User{}).Count(&stats.TotalUsers.Int64).Error; err != nil {
+			api.ReturnError(ctx, w, r, err)
+			return stats, err
+		}
+
+		if err := dao.DB.Table("storage_miners").Count(&stats.TotalStorageMiner.Int64).Error; err != nil {
+			api.ReturnError(ctx, w, r, err)
+			return stats, err
+		}
+		return stats, nil
+	})
+	if err != nil {
 		api.ReturnError(ctx, w, r, err)
 		return
 	}
 
-	if err := dao.DB.Model(model.Content{}).Where("active and not aggregate").Count(&stats.TotalFilesStored.Int64).Error; err != nil {
-		api.ReturnError(ctx, w, r, err)
-		return
+	jsonResponse := map[string]interface{}{
+		"totalStorage":       stats.(PublicStats).TotalStorage.Int64,
+		"totalFilesStored":   stats.(PublicStats).TotalFilesStored.Int64,
+		"dealsOnChain":       stats.(PublicStats).DealsOnChain.Int64,
+		"totalObjectsRef":    stats.(PublicStats).TotalObjectsRef.Int64,
+		"totalBytesUploaded": stats.(PublicStats).TotalBytesUploaded.Int64,
+		"totalUsers":         stats.(PublicStats).TotalUsers.Int64,
+		"totalStorageMiner":  stats.(PublicStats).TotalStorageMiner.Int64,
 	}
 
-	if err := dao.DB.Model(model.ContentDeal{}).Where("not failed and deal_id > 0").Count(&stats.DealsOnChain.Int64).Error; err != nil {
-		api.ReturnError(ctx, w, r, err)
-		return
-	}
-
-	//	this can be resource expensive but we are already caching it.
-	if err := dao.DB.Table("obj_refs").Count(&stats.TotalObjectsRef.Int64).Error; err != nil {
-		api.ReturnError(ctx, w, r, err)
-		return
-	}
-
-	if err := dao.DB.Table("objects").Select("SUM(size)").Find(&stats.TotalBytesUploaded.Int64).Error; err != nil {
-		api.ReturnError(ctx, w, r, err)
-		return
-	}
-
-	if err := dao.DB.Model(model.User{}).Count(&stats.TotalUsers.Int64).Error; err != nil {
-		api.ReturnError(ctx, w, r, err)
-		return
-	}
-
-	if err := dao.DB.Table("storage_miners").Count(&stats.TotalStorageMiner.Int64).Error; err != nil {
-		api.ReturnError(ctx, w, r, err)
-		return
-	}
-
-	api.WriteJSON(ctx, w, stats)
+	api.WriteJSON(ctx, w, jsonResponse)
 
 }
 
@@ -316,12 +356,16 @@ func GetInfo(w http.ResponseWriter, r *http.Request, ps httprouter.Params) {
 // @Router /stats/deal-metrics [get]
 func GetDealMetrics(w http.ResponseWriter, r *http.Request, ps httprouter.Params) {
 	ctx := api.InitializeContext(r)
-	metricsInfo, err := computeDealMetrics()
+
+	dealMetrics, err := dao.Cacher.Get("/stats/deal-metrics", time.Minute*30, func() (interface{}, error) {
+		return computeDealMetrics()
+	})
+
 	if err != nil {
 		api.ReturnError(ctx, w, r, err)
 		return
 	}
-	api.WriteJSON(ctx, w, metricsInfo)
+	api.WriteJSON(ctx, w, dealMetrics)
 }
 
 // computeDealMetrics computes the deal metrics
