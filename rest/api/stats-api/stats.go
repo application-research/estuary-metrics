@@ -8,7 +8,6 @@ import (
 	"github.com/application-research/estuary-metrics/rest/api"
 	"github.com/gin-gonic/gin"
 	"github.com/julienschmidt/httprouter"
-	"gorm.io/gorm"
 	"net/http"
 	"sort"
 	"strconv"
@@ -298,19 +297,20 @@ func GetInfo(w http.ResponseWriter, r *http.Request, ps httprouter.Params) {
 			return stats, err
 		}
 
-		var objects []model.Object
-		var totalBytesUploadsize int64
-		dao.DB.Model(&model.Object{}).FindInBatches(&objects, 10000000,
-			func(tx *gorm.DB, batch int) error {
-				//tx.Select("SUM(size) as size").Scan(&totalBytesUploadsize)
-				for _, object := range objects {
-					totalBytesUploadsize += object.Size
-				}
-				return nil
-			})
+		//var objects []model.Object
+		//var totalBytesUploadsize int64
+		//dao.DB.Model(&model.Object{}).FindInBatches(&objects, 10000000,
+		//	func(tx *gorm.DB, batch int) error {
+		//		//tx.Select("SUM(size) as size").Scan(&totalBytesUploadsize)
+		//		for _, object := range objects {
+		//			totalBytesUploadsize += object.Size
+		//		}
+		//		return nil
+		//	})
 
 		//result.
-		stats.TotalBytesUploaded = sql.NullInt64{Int64: totalBytesUploadsize, Valid: true}
+		//stats.TotalBytesUploaded = sql.NullInt64{Int64: totalBytesUploadsize, Valid: true}
+		stats.TotalBytesUploaded = stats.TotalFilesStored
 
 		//if err := dao.DB.Table("objects").Select("SUM(size)").Find(&stats.TotalBytesUploaded.Int64).Error; err != nil {
 		//	api.ReturnError(ctx, w, r, err)
