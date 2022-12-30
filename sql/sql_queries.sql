@@ -1,6 +1,13 @@
+
+-- these are just raw SQL examples.
+
 select * from content_deals
 where failed = false;
-select count(*) from obj_refs;
+select (
+           select count(*) from obj_refs as total_obj_refs,
+            select count(*) from objects as total_objects,
+           )
+
 
 select * from obj_refs a, content_deals b
 where a.content = b.content; // 36
