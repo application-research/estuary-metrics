@@ -28,6 +28,9 @@ func ConfigStatsRouter(router gin.IRoutes) {
 	// deals
 	router.GET("/stats/deal-metrics", api.ConvertHttpRouterToGin(GetDealMetrics))
 	router.GET("/stats/info", api.ConvertHttpRouterToGin(GetInfo))
+
+	// social media
+	router.GET("/stats/to-twitter", api.ConvertHttpRouterToGin(GetStatsForTwitter))
 }
 
 type DealMetricsInfo struct {
@@ -203,6 +206,66 @@ func GetTotalFiles(w http.ResponseWriter, r *http.Request, ps httprouter.Params)
 		return
 	}
 	api.WriteJSON(ctx, w, totalFiles)
+}
+
+// GetStatsForTwitter returns the total number of storage deals attempted
+// @Summary Returns the total number of storage deals attempted
+// @Description Returns the total number of storage deals attempted
+// @Tags Stats
+// @Accept  json
+// @Produce  json
+// @Success 200 {object} int
+// @Router /stats/to-twitter [get]
+func GetStatsForTwitter(w http.ResponseWriter, r *http.Request, ps httprouter.Params) {
+
+	var totalContentDealsSize int64
+	var totalContentDeals int64
+	var totalSealedDeals int64
+	var totalUsers int64
+	var totalStorageProviders int64
+
+	ctx := api.InitializeContext(r)
+	from := r.URL.Query().Get("from")
+	to := r.URL.Query().Get("to")
+	fmt.Println("from", from)
+	fmt.Println("to", to)
+	err := dao.DB.Raw("select sum(c.size) from content_deals as cd, contents as c where (cd.created_at between ? and ?) and cd.deal_id > 0 and c.id = cd.content", from, to).Scan(&totalContentDealsSize).Error
+	if err != nil {
+		api.ReturnError(ctx, w, r, err)
+		return
+	}
+
+	err = dao.DB.Raw("select count(*) from content_deals where (created_at between ? and ?)", from, to).Scan(&totalContentDeals).Error
+	if err != nil {
+		api.ReturnError(ctx, w, r, err)
+		return
+	}
+
+	err = dao.DB.Raw("select count(*) from content_deals where deal_id > 0 and deleted_at is null and sealed_at between ? and ?", from, to).Scan(&totalSealedDeals).Error
+	if err != nil {
+		api.ReturnError(ctx, w, r, err)
+		return
+	}
+
+	err = dao.DB.Raw("select count(*) from users where (created_at between ? and ?)", from, to).Scan(&totalUsers).Error
+	if err != nil {
+		api.ReturnError(ctx, w, r, err)
+		return
+	}
+
+	err = dao.DB.Raw("select count(*) from storage_miners where (created_at between ? and ?)", from, to).Scan(&totalStorageProviders).Error
+	if err != nil {
+		api.ReturnError(ctx, w, r, err)
+		return
+
+	}
+	api.WriteJSON(ctx, w, map[string]interface{}{
+		"totalContentDealsSize": totalContentDealsSize,
+		"totalContentDeals":     totalContentDeals,
+		"totalSealedDeals":      totalSealedDeals,
+		"totalUsers":            totalUsers,
+		"totalStorageProviders": totalStorageProviders,
+	})
 }
 
 // GetTotalStorageInTib GetTotalStorage returns the total storage
