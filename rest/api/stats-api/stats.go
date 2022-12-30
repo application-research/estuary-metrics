@@ -209,6 +209,14 @@ func GetTotalFiles(w http.ResponseWriter, r *http.Request, ps httprouter.Params)
 	api.WriteJSON(ctx, w, totalFiles)
 }
 
+type TwitterStats struct {
+	TotalContentDealsSize int64 `json:"totalContentDealsSize"`
+	TotalContentDeals     int64 `json:"totalContentDeals"`
+	TotalSealedDeals      int64 `json:"totalSealedDeals"`
+	TotalUsers            int64 `json:"totalUsers"`
+	TotalStorageProviders int64 `json:"totalStorageProviders"`
+}
+
 // GetStatsForTwitter returns the total number of storage deals attempted
 // @Summary Returns the total number of storage deals attempted
 // @Description Returns the total number of storage deals attempted
@@ -218,12 +226,6 @@ func GetTotalFiles(w http.ResponseWriter, r *http.Request, ps httprouter.Params)
 // @Success 200 {object} int
 // @Router /stats/to-twitter [get]
 func GetStatsForTwitter(w http.ResponseWriter, r *http.Request, ps httprouter.Params) {
-
-	var totalContentDealsSize int64
-	var totalContentDeals int64
-	var totalSealedDeals int64
-	var totalUsers int64
-	var totalStorageProviders int64
 
 	ctx := api.InitializeContext(r)
 	from := r.URL.Query().Get("from")
@@ -250,48 +252,48 @@ func GetStatsForTwitter(w http.ResponseWriter, r *http.Request, ps httprouter.Pa
 	// from date must be before to
 	fromDate, _ := time.Parse("2006-01-02", from)
 	toDate, _ := time.Parse("2006-01-02", to)
+
 	if fromDate.After(toDate) {
 		api.ReturnError(ctx, w, r, errors.New("from date must be before to date"))
 		return
 	}
 
-	err = dao.DB.Raw("select sum(c.size) from content_deals as cd, contents as c where (cd.created_at between ? and ?) and cd.deal_id > 0 and c.id = cd.content", from, to).Scan(&totalContentDealsSize).Error
-	if err != nil {
-		api.ReturnError(ctx, w, r, err)
-		return
-	}
+	twitterStats, err := dao.Cacher.Get("/stats/to-twitter", time.Minute*2, func() (interface{}, error) {
+		var twitterStats TwitterStats
+		err = dao.DB.Raw("select sum(c.size) from content_deals as cd, contents as c where (cd.created_at between ? and ?) and cd.deal_id > 0 and c.id = cd.content", from, to).Scan(&twitterStats.TotalContentDealsSize).Error
+		if err != nil {
+			api.ReturnError(ctx, w, r, err)
+			return nil, err
+		}
 
-	err = dao.DB.Raw("select count(*) from content_deals where (created_at between ? and ?)", from, to).Scan(&totalContentDeals).Error
-	if err != nil {
-		api.ReturnError(ctx, w, r, err)
-		return
-	}
+		err = dao.DB.Raw("select count(*) from content_deals where (created_at between ? and ?)", from, to).Scan(&twitterStats.TotalContentDeals).Error
+		if err != nil {
+			api.ReturnError(ctx, w, r, err)
+			return nil, err
+		}
 
-	err = dao.DB.Raw("select count(*) from content_deals where deal_id > 0 and deleted_at is null and sealed_at between ? and ?", from, to).Scan(&totalSealedDeals).Error
-	if err != nil {
-		api.ReturnError(ctx, w, r, err)
-		return
-	}
+		err = dao.DB.Raw("select count(*) from content_deals where deal_id > 0 and deleted_at is null and sealed_at between ? and ?", from, to).Scan(&twitterStats.TotalSealedDeals).Error
+		if err != nil {
+			api.ReturnError(ctx, w, r, err)
+			return nil, err
+		}
 
-	err = dao.DB.Raw("select count(*) from users where (created_at between ? and ?)", from, to).Scan(&totalUsers).Error
-	if err != nil {
-		api.ReturnError(ctx, w, r, err)
-		return
-	}
+		err = dao.DB.Raw("select count(*) from users where (created_at between ? and ?)", from, to).Scan(&twitterStats.TotalUsers).Error
+		if err != nil {
+			api.ReturnError(ctx, w, r, err)
+			return nil, err
+		}
 
-	err = dao.DB.Raw("select count(*) from storage_miners where (created_at between ? and ?)", from, to).Scan(&totalStorageProviders).Error
-	if err != nil {
-		api.ReturnError(ctx, w, r, err)
-		return
+		err = dao.DB.Raw("select count(*) from storage_miners where (created_at between ? and ?)", from, to).Scan(&twitterStats.TotalStorageProviders).Error
+		if err != nil {
+			api.ReturnError(ctx, w, r, err)
+			return nil, err
 
-	}
-	api.WriteJSON(ctx, w, map[string]interface{}{
-		"totalContentDealsSize": totalContentDealsSize,
-		"totalContentDeals":     totalContentDeals,
-		"totalSealedDeals":      totalSealedDeals,
-		"totalUsers":            totalUsers,
-		"totalStorageProviders": totalStorageProviders,
+		}
+		return twitterStats, nil
 	})
+
+	api.WriteJSON(ctx, w, twitterStats)
 }
 
 // GetTotalStorageInTib GetTotalStorage returns the total storage
