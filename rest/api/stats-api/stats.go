@@ -2,6 +2,7 @@ package statsapi
 
 import (
 	"database/sql"
+	"errors"
 	"fmt"
 	"github.com/application-research/estuary-metrics/core/dao"
 	"github.com/application-research/estuary-metrics/core/generated/model"
@@ -227,8 +228,33 @@ func GetStatsForTwitter(w http.ResponseWriter, r *http.Request, ps httprouter.Pa
 	ctx := api.InitializeContext(r)
 	from := r.URL.Query().Get("from")
 	to := r.URL.Query().Get("to")
-	fmt.Println("from", from)
-	fmt.Println("to", to)
+
+	if from == "" || to == "" {
+		api.ReturnError(ctx, w, r, errors.New("from and to dates are required"))
+		return
+	}
+
+	// validate date format
+	_, err := time.Parse("2006-01-02", from)
+	if err != nil {
+		api.ReturnError(ctx, w, r, errors.New("from date is invalid"))
+		return
+	}
+
+	_, err = time.Parse("2006-01-02", to)
+	if err != nil {
+		api.ReturnError(ctx, w, r, errors.New("to date is invalid"))
+		return
+	}
+
+	// from date must be before to
+	fromDate, _ := time.Parse("2006-01-02", from)
+	toDate, _ := time.Parse("2006-01-02", to)
+	if fromDate.After(toDate) {
+		api.ReturnError(ctx, w, r, errors.New("from date must be before to date"))
+		return
+	}
+
 	err := dao.DB.Raw("select sum(c.size) from content_deals as cd, contents as c where (cd.created_at between ? and ?) and cd.deal_id > 0 and c.id = cd.content", from, to).Scan(&totalContentDealsSize).Error
 	if err != nil {
 		api.ReturnError(ctx, w, r, err)
