@@ -258,7 +258,7 @@ func GetStatsForTwitter(w http.ResponseWriter, r *http.Request, ps httprouter.Pa
 		return
 	}
 
-	twitterStats, err := dao.Cacher.Get("/stats/to-twitter", time.Minute*2, func() (interface{}, error) {
+	twitterStats, err := dao.Cacher.Get("/stats/to-twitter?from="+from+"&to="+to, time.Minute*2, func() (interface{}, error) {
 		var twitterStats TwitterStats
 		err = dao.DB.Raw("select sum(c.size) from content_deals as cd, contents as c where (cd.created_at between ? and ?) and cd.deal_id > 0 and c.id = cd.content", from, to).Scan(&twitterStats.TotalContentDealsSize).Error
 		if err != nil {
