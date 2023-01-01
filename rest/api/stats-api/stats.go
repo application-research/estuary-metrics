@@ -213,6 +213,7 @@ type TwitterStats struct {
 	TotalContentDealsSize int64 `json:"totalContentDealsSize"`
 	TotalContentDeals     int64 `json:"totalContentDeals"`
 	TotalSealedDeals      int64 `json:"totalSealedDeals"`
+	TotalSealedDealsSize  int64 `json:"totalSealedDealsSize"`
 	TotalUsers            int64 `json:"totalUsers"`
 	TotalStorageProviders int64 `json:"totalStorageProviders"`
 }
@@ -261,6 +262,7 @@ func GetStatsForTwitter(w http.ResponseWriter, r *http.Request, ps httprouter.Pa
 	twitterStats, err := dao.Cacher.Get("/stats/to-twitter?from="+from+"&to="+to, time.Second*1, func() (interface{}, error) {
 		var twitterStats TwitterStats
 		var totalContentDealsSize sql.NullInt64
+		var totalSealedDealSize sql.NullInt64
 		err := dao.DB.Raw("select sum(c.size) as total from content_deals as cd, contents as c where (cd.created_at between ? and ?) and cd.deal_id > 0 and c.id = cd.content", from, to).Scan(&totalContentDealsSize).Error
 		if err != nil {
 			api.ReturnError(ctx, w, r, err)
@@ -302,6 +304,24 @@ func GetStatsForTwitter(w http.ResponseWriter, r *http.Request, ps httprouter.Pa
 			return nil, err
 
 		}
+
+		err = dao.DB.Raw("select sum(c.size) as total from content_deals as cd, contents as c where (sealed_at between ? and ?) and c.id = cd.content", from, to).Scan(&totalSealedDealSize).Error
+		if err != nil {
+			api.ReturnError(ctx, w, r, err)
+			return nil, err
+		}
+
+		totalSealedDealSizeValue, err := totalSealedDealSize.Value()
+		if err != nil {
+			return nil, err
+		}
+
+		if totalSealedDealSizeValue == nil {
+			twitterStats.TotalSealedDeals = 0
+		} else {
+			twitterStats.TotalSealedDealsSize = totalSealedDealSizeValue.(int64)
+		}
+
 		return twitterStats, nil
 	})
 
