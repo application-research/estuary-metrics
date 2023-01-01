@@ -258,12 +258,24 @@ func GetStatsForTwitter(w http.ResponseWriter, r *http.Request, ps httprouter.Pa
 		return
 	}
 
-	twitterStats, err := dao.Cacher.Get("/stats/to-twitter?from="+from+"&to="+to, time.Minute*2, func() (interface{}, error) {
+	twitterStats, err := dao.Cacher.Get("/stats/to-twitter?from="+from+"&to="+to, time.Second*1, func() (interface{}, error) {
 		var twitterStats TwitterStats
-		err := dao.DB.Raw("select sum(c.size) from content_deals as cd, contents as c where (cd.created_at between ? and ?) and cd.deal_id > 0 and c.id = cd.content", from, to).Scan(&twitterStats.TotalContentDealsSize).Error
+		var totalContentDealsSize sql.NullInt64
+		err := dao.DB.Raw("select sum(c.size) as total from content_deals as cd, contents as c where (cd.created_at between ? and ?) and cd.deal_id > 0 and c.id = cd.content", from, to).Scan(&totalContentDealsSize).Error
 		if err != nil {
 			api.ReturnError(ctx, w, r, err)
 			return nil, err
+		}
+
+		value, err := totalContentDealsSize.Value()
+		if err != nil {
+			return nil, err
+		}
+
+		if value == nil {
+			twitterStats.TotalContentDealsSize = 0
+		} else {
+			twitterStats.TotalContentDealsSize = value.(int64)
 		}
 
 		err = dao.DB.Raw("select count(*) from content_deals where (created_at between ? and ?)", from, to).Scan(&twitterStats.TotalContentDeals).Error
