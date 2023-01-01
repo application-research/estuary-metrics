@@ -263,7 +263,7 @@ func GetStatsForTwitter(w http.ResponseWriter, r *http.Request, ps httprouter.Pa
 		var twitterStats TwitterStats
 		var totalContentDealsSize sql.NullInt64
 		var totalSealedDealSize sql.NullInt64
-		err := dao.DB.Raw("select sum(c.size) as total from content_deals as cd, contents as c where (cd.created_at between ? and ?) and cd.deal_id > 0 and c.id = cd.content", from, to).Scan(&totalContentDealsSize).Error
+		err := dao.DB.Raw("select sum(c.size) as total from content_deals as cd, contents as c where (cd.created_at between ? and ?) and c.id = cd.content", from, to).Scan(&totalContentDealsSize).Error
 		if err != nil {
 			api.ReturnError(ctx, w, r, err)
 			return nil, err
