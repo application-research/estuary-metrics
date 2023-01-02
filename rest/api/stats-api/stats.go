@@ -30,6 +30,9 @@ func ConfigStatsRouter(router gin.IRoutes) {
 	router.GET("/stats/deal-metrics", api.ConvertHttpRouterToGin(GetDealMetrics))
 	router.GET("/stats/info", api.ConvertHttpRouterToGin(GetInfo))
 
+	// miners
+	router.GET("/stats/miners", api.ConvertHttpRouterToGin(GetMiners))
+
 	// social media
 	router.GET("/stats/to-twitter", api.ConvertHttpRouterToGin(GetStatsForTwitter))
 }
@@ -481,7 +484,7 @@ func GetInfo(w http.ResponseWriter, r *http.Request, ps httprouter.Params) {
 func GetDealMetrics(w http.ResponseWriter, r *http.Request, ps httprouter.Params) {
 	ctx := api.InitializeContext(r)
 
-	dealMetrics, err := dao.Cacher.Get("/stats/deal-metrics", time.Minute*30, func() (interface{}, error) {
+	dealMetrics, err := dao.Cacher.Get("/stats/deal-metrics", time.Minute*60, func() (interface{}, error) {
 		return computeDealMetrics()
 	})
 
@@ -490,6 +493,42 @@ func GetDealMetrics(w http.ResponseWriter, r *http.Request, ps httprouter.Params
 		return
 	}
 	api.WriteJSON(ctx, w, dealMetrics)
+}
+
+type minerResp struct {
+	Addr            string `json:"addr"`
+	Name            string `json:"name"`
+	Suspended       bool   `json:"suspended"`
+	SuspendedReason string `json:"suspendedReason,omitempty"`
+	Version         string `json:"version"`
+}
+
+// GetMiners returns the list of miners
+// @Summary Returns the list of miners
+// @Description Returns the list of miners
+// @Tags Stats
+// @Accept  json
+// @Produce  json
+// @Success 200 {object} []minerResp
+// @Router /stats/miners [get]
+func GetMiners(w http.ResponseWriter, r *http.Request, ps httprouter.Params) {
+	ctx := api.InitializeContext(r)
+	var miners []model.StorageMiner
+	if err := dao.DB.Find(&miners).Error; err != nil {
+		api.ReturnError(ctx, w, r, err)
+		return
+	}
+
+	out := make([]minerResp, len(miners))
+	for i, m := range miners {
+		out[i].Addr = m.Address
+		out[i].Suspended = m.Suspended
+		out[i].SuspendedReason = m.SuspendedReason
+		out[i].Name = m.Name
+		out[i].Version = m.Version
+	}
+
+	api.WriteJSON(ctx, w, out)
 }
 
 // computeDealMetrics computes the deal metrics
