@@ -17,6 +17,7 @@ import (
 	"os"
 	"os/signal"
 	"syscall"
+	"time"
 )
 
 var (
@@ -95,6 +96,15 @@ func main() {
 	if err != nil {
 		log.Fatalf("Got error when connect database, the error is '%v'", err)
 	}
+
+	sqlDb, err := db.DB()
+	if err != nil {
+		log.Fatalf("Got error when connect database, the error is '%v'", err)
+	}
+
+	sqlDb.SetMaxIdleConns(10)
+	sqlDb.SetMaxOpenConns(100)
+	sqlDb.SetConnMaxLifetime(time.Hour)
 
 	dao.DB = db                   // database connection
 	dao.Cacher = memo.NewCacher() // cache instance
