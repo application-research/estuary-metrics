@@ -16,6 +16,7 @@ import (
 )
 
 func ConfigStatsRouter(router gin.IRoutes) {
+
 	//	 retrieval
 	router.GET("/stats/retrieval-rates", api.ConvertHttpRouterToGin(GetRetrievalRateStats))
 	router.GET("/stats/total-retrievals", api.ConvertHttpRouterToGin(GetTotalRetrievals))
@@ -513,22 +514,32 @@ type minerResp struct {
 // @Router /stats/miners [get]
 func GetMiners(w http.ResponseWriter, r *http.Request, ps httprouter.Params) {
 	ctx := api.InitializeContext(r)
-	var miners []model.StorageMiner
-	if err := dao.DB.Find(&miners).Error; err != nil {
+	//var miners []model.StorageMiner
+
+	miners, err := dao.Cacher.Get("/stats/miners", time.Minute*60, func() (interface{}, error) {
+		var miners []model.StorageMiner
+		if err := dao.DB.Find(&miners).Error; err != nil {
+			api.ReturnError(ctx, w, r, err)
+			return nil, err
+		}
+
+		out := make([]minerResp, len(miners))
+		for i, m := range miners {
+			out[i].Addr = m.Address
+			out[i].Suspended = m.Suspended
+			out[i].SuspendedReason = m.SuspendedReason
+			out[i].Name = m.Name
+			out[i].Version = m.Version
+		}
+		return out, nil
+	})
+
+	if err != nil {
 		api.ReturnError(ctx, w, r, err)
 		return
 	}
 
-	out := make([]minerResp, len(miners))
-	for i, m := range miners {
-		out[i].Addr = m.Address
-		out[i].Suspended = m.Suspended
-		out[i].SuspendedReason = m.SuspendedReason
-		out[i].Name = m.Name
-		out[i].Version = m.Version
-	}
-
-	api.WriteJSON(ctx, w, out)
+	api.WriteJSON(ctx, w, miners)
 }
 
 // computeDealMetrics computes the deal metrics
