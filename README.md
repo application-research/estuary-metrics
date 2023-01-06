@@ -3,11 +3,16 @@
 API that wraps all Estuary objects for Metrics purposes.
 
 # Components
-- [Estuary Metrics Core](./core/README.md)
-- [Estuary Metrics REST Module](./rest/README.md)
-- [Estuary Simple Metrics Dashboard](./dashboard/README.md)
+## Available 
+- [Estuary Metrics Core](./core/README.md) - the core metrics has all the core components to run metrics. This includes the pull metrics directly from a live estuary postgres database, heartbeat checks of all the servers, tracer and profiler.
+- [Estuary Metrics REST Module](./rest/README.md) - this is the rest api endpoint layer that wraps the core functions. 
+
+## WIP
+- [Estuary Simple Metrics Dashboard (WIP)](./dashboard/README.md)
 - [Estuary Metrics Notification API with Postgres Triggers(WIP)](./notification/README.md)
 - [Estuary Metric CLI (WIP)](./cmd/README.md)
+- [Estuary tracer and client (WIP)](#) - this is a tracer that estuary can use to push time series logs.
+
 
 # API usage
 This API is now being used on https://estuary.tech
