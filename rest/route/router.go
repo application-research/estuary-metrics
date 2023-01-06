@@ -92,5 +92,6 @@ func ConfigRouter(router *gin.Engine) {
 
 	//	DDL
 	objectsapi.ConfigDDLRouter(unprotectedRouter)
+
 	return
 }
