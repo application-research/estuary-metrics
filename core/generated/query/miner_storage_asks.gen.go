@@ -36,6 +36,7 @@ func newMinerStorageAsk(db *gorm.DB) minerStorageAsk {
 	_minerStorageAsk.VerifiedPrice = field.NewString(tableName, "verified_price")
 	_minerStorageAsk.MinPieceSize = field.NewInt64(tableName, "min_piece_size")
 	_minerStorageAsk.MaxPieceSize = field.NewInt64(tableName, "max_piece_size")
+	_minerStorageAsk.MinerVersion = field.NewString(tableName, "miner_version")
 
 	_minerStorageAsk.fillFieldMap()
 
@@ -55,6 +56,7 @@ type minerStorageAsk struct {
 	VerifiedPrice field.String
 	MinPieceSize  field.Int64
 	MaxPieceSize  field.Int64
+	MinerVersion  field.String
 
 	fieldMap map[string]field.Expr
 }
@@ -80,6 +82,7 @@ func (m *minerStorageAsk) updateTableName(table string) *minerStorageAsk {
 	m.VerifiedPrice = field.NewString(table, "verified_price")
 	m.MinPieceSize = field.NewInt64(table, "min_piece_size")
 	m.MaxPieceSize = field.NewInt64(table, "max_piece_size")
+	m.MinerVersion = field.NewString(table, "miner_version")
 
 	m.fillFieldMap()
 
@@ -96,7 +99,7 @@ func (m *minerStorageAsk) GetFieldByName(fieldName string) (field.OrderExpr, boo
 }
 
 func (m *minerStorageAsk) fillFieldMap() {
-	m.fieldMap = make(map[string]field.Expr, 9)
+	m.fieldMap = make(map[string]field.Expr, 10)
 	m.fieldMap["id"] = m.ID
 	m.fieldMap["created_at"] = m.CreatedAt
 	m.fieldMap["updated_at"] = m.UpdatedAt
@@ -106,6 +109,7 @@ func (m *minerStorageAsk) fillFieldMap() {
 	m.fieldMap["verified_price"] = m.VerifiedPrice
 	m.fieldMap["min_piece_size"] = m.MinPieceSize
 	m.fieldMap["max_piece_size"] = m.MaxPieceSize
+	m.fieldMap["miner_version"] = m.MinerVersion
 }
 
 func (m minerStorageAsk) clone(db *gorm.DB) minerStorageAsk {

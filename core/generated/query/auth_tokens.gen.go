@@ -35,6 +35,8 @@ func newAuthToken(db *gorm.DB) authToken {
 	_authToken.User = field.NewInt64(tableName, "user")
 	_authToken.Expiry = field.NewTime(tableName, "expiry")
 	_authToken.UploadOnly = field.NewBool(tableName, "upload_only")
+	_authToken.TokenHash = field.NewString(tableName, "token_hash")
+	_authToken.Label = field.NewString(tableName, "label")
 
 	_authToken.fillFieldMap()
 
@@ -53,6 +55,8 @@ type authToken struct {
 	User       field.Int64
 	Expiry     field.Time
 	UploadOnly field.Bool
+	TokenHash  field.String
+	Label      field.String
 
 	fieldMap map[string]field.Expr
 }
@@ -77,6 +81,8 @@ func (a *authToken) updateTableName(table string) *authToken {
 	a.User = field.NewInt64(table, "user")
 	a.Expiry = field.NewTime(table, "expiry")
 	a.UploadOnly = field.NewBool(table, "upload_only")
+	a.TokenHash = field.NewString(table, "token_hash")
+	a.Label = field.NewString(table, "label")
 
 	a.fillFieldMap()
 
@@ -93,7 +99,7 @@ func (a *authToken) GetFieldByName(fieldName string) (field.OrderExpr, bool) {
 }
 
 func (a *authToken) fillFieldMap() {
-	a.fieldMap = make(map[string]field.Expr, 8)
+	a.fieldMap = make(map[string]field.Expr, 10)
 	a.fieldMap["id"] = a.ID
 	a.fieldMap["created_at"] = a.CreatedAt
 	a.fieldMap["updated_at"] = a.UpdatedAt
@@ -102,6 +108,8 @@ func (a *authToken) fillFieldMap() {
 	a.fieldMap["user"] = a.User
 	a.fieldMap["expiry"] = a.Expiry
 	a.fieldMap["upload_only"] = a.UploadOnly
+	a.fieldMap["token_hash"] = a.TokenHash
+	a.fieldMap["label"] = a.Label
 }
 
 func (a authToken) clone(db *gorm.DB) authToken {

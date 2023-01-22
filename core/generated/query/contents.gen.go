@@ -51,6 +51,7 @@ func newContent(db *gorm.DB) content {
 	_content.Type = field.NewInt64(tableName, "type")
 	_content.Replace = field.NewBool(tableName, "replace")
 	_content.Origins = field.NewString(tableName, "origins")
+	_content.Filename = field.NewString(tableName, "filename")
 
 	_content.fillFieldMap()
 
@@ -85,6 +86,7 @@ type content struct {
 	Type         field.Int64
 	Replace      field.Bool
 	Origins      field.String
+	Filename     field.String
 
 	fieldMap map[string]field.Expr
 }
@@ -125,6 +127,7 @@ func (c *content) updateTableName(table string) *content {
 	c.Type = field.NewInt64(table, "type")
 	c.Replace = field.NewBool(table, "replace")
 	c.Origins = field.NewString(table, "origins")
+	c.Filename = field.NewString(table, "filename")
 
 	c.fillFieldMap()
 
@@ -141,7 +144,7 @@ func (c *content) GetFieldByName(fieldName string) (field.OrderExpr, bool) {
 }
 
 func (c *content) fillFieldMap() {
-	c.fieldMap = make(map[string]field.Expr, 24)
+	c.fieldMap = make(map[string]field.Expr, 25)
 	c.fieldMap["id"] = c.ID
 	c.fieldMap["created_at"] = c.CreatedAt
 	c.fieldMap["updated_at"] = c.UpdatedAt
@@ -166,6 +169,7 @@ func (c *content) fillFieldMap() {
 	c.fieldMap["type"] = c.Type
 	c.fieldMap["replace"] = c.Replace
 	c.fieldMap["origins"] = c.Origins
+	c.fieldMap["filename"] = c.Filename
 }
 
 func (c content) clone(db *gorm.DB) content {

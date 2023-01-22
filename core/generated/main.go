@@ -22,12 +22,12 @@ func main() {
 
 	dcsEstuary, ok := viper.Get("DCS_ESTUARY").(string)
 	if !ok {
-		log.Fatalf("Error while reading database config")
+		log.Fatalf("Error while reading Estuary database config")
 	}
 
 	dcsMetrics, ok := viper.Get("DCS_METRICS").(string)
 	if !ok {
-		log.Fatalf("Error while reading database config")
+		log.Fatalf("Error while reading Metrics database config")
 	}
 
 	setupMainDb(dcsEstuary)
@@ -105,7 +105,7 @@ func setupMainDb(dsn string) {
 	g.GenerateModel("content_deals")
 	g.GenerateModel("auth_tokens")
 	// ? Need to manually specify Autoretrieves otherwise it will use "autoretriefes" model name
-	g.GenerateModelAs("autoretrieves", "Autoretrieves")
+	g.GenerateModelAs("autoretrieves", "Autoretrieve")
 	g.GenerateModel("dealers")
 	g.GenerateModel("collection_refs")
 	g.GenerateModel("collections")

@@ -37,6 +37,8 @@ func newDfeRecord(db *gorm.DB) dfeRecord {
 	_dfeRecord.Content = field.NewInt64(tableName, "content")
 	_dfeRecord.MinerVersion = field.NewString(tableName, "miner_version")
 	_dfeRecord.UserID = field.NewInt64(tableName, "user_id")
+	_dfeRecord.DealProtocolVersion = field.NewString(tableName, "deal_protocol_version")
+	_dfeRecord.DealUUID = field.NewString(tableName, "deal_uuid")
 
 	_dfeRecord.fillFieldMap()
 
@@ -46,17 +48,19 @@ func newDfeRecord(db *gorm.DB) dfeRecord {
 type dfeRecord struct {
 	dfeRecordDo
 
-	ALL          field.Field
-	ID           field.Int64
-	CreatedAt    field.Time
-	UpdatedAt    field.Time
-	DeletedAt    field.Field
-	Miner        field.String
-	Phase        field.String
-	Message      field.String
-	Content      field.Int64
-	MinerVersion field.String
-	UserID       field.Int64
+	ALL                 field.Field
+	ID                  field.Int64
+	CreatedAt           field.Time
+	UpdatedAt           field.Time
+	DeletedAt           field.Field
+	Miner               field.String
+	Phase               field.String
+	Message             field.String
+	Content             field.Int64
+	MinerVersion        field.String
+	UserID              field.Int64
+	DealProtocolVersion field.String
+	DealUUID            field.String
 
 	fieldMap map[string]field.Expr
 }
@@ -83,6 +87,8 @@ func (d *dfeRecord) updateTableName(table string) *dfeRecord {
 	d.Content = field.NewInt64(table, "content")
 	d.MinerVersion = field.NewString(table, "miner_version")
 	d.UserID = field.NewInt64(table, "user_id")
+	d.DealProtocolVersion = field.NewString(table, "deal_protocol_version")
+	d.DealUUID = field.NewString(table, "deal_uuid")
 
 	d.fillFieldMap()
 
@@ -99,7 +105,7 @@ func (d *dfeRecord) GetFieldByName(fieldName string) (field.OrderExpr, bool) {
 }
 
 func (d *dfeRecord) fillFieldMap() {
-	d.fieldMap = make(map[string]field.Expr, 10)
+	d.fieldMap = make(map[string]field.Expr, 12)
 	d.fieldMap["id"] = d.ID
 	d.fieldMap["created_at"] = d.CreatedAt
 	d.fieldMap["updated_at"] = d.UpdatedAt
@@ -110,6 +116,8 @@ func (d *dfeRecord) fillFieldMap() {
 	d.fieldMap["content"] = d.Content
 	d.fieldMap["miner_version"] = d.MinerVersion
 	d.fieldMap["user_id"] = d.UserID
+	d.fieldMap["deal_protocol_version"] = d.DealProtocolVersion
+	d.fieldMap["deal_uuid"] = d.DealUUID
 }
 
 func (d dfeRecord) clone(db *gorm.DB) dfeRecord {

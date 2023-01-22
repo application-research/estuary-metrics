@@ -46,6 +46,8 @@ func newContentDeal(db *gorm.DB) contentDeal {
 	_contentDeal.DealUUID = field.NewString(tableName, "deal_uuid")
 	_contentDeal.UserID = field.NewInt64(tableName, "user_id")
 	_contentDeal.Slashed = field.NewBool(tableName, "slashed")
+	_contentDeal.DealProtocolVersion = field.NewString(tableName, "deal_protocol_version")
+	_contentDeal.MinerVersion = field.NewString(tableName, "miner_version")
 
 	_contentDeal.fillFieldMap()
 
@@ -55,26 +57,28 @@ func newContentDeal(db *gorm.DB) contentDeal {
 type contentDeal struct {
 	contentDealDo
 
-	ALL              field.Field
-	ID               field.Int64
-	CreatedAt        field.Time
-	UpdatedAt        field.Time
-	DeletedAt        field.Field
-	Content          field.Int64
-	PropCid          field.Bytes
-	Miner            field.String
-	DealID           field.Int64
-	Failed           field.Bool
-	FailedAt         field.Time
-	DtChan           field.String
-	Verified         field.Bool
-	SealedAt         field.Time
-	OnChainAt        field.Time
-	TransferStarted  field.Time
-	TransferFinished field.Time
-	DealUUID         field.String
-	UserID           field.Int64
-	Slashed          field.Bool
+	ALL                 field.Field
+	ID                  field.Int64
+	CreatedAt           field.Time
+	UpdatedAt           field.Time
+	DeletedAt           field.Field
+	Content             field.Int64
+	PropCid             field.Bytes
+	Miner               field.String
+	DealID              field.Int64
+	Failed              field.Bool
+	FailedAt            field.Time
+	DtChan              field.String
+	Verified            field.Bool
+	SealedAt            field.Time
+	OnChainAt           field.Time
+	TransferStarted     field.Time
+	TransferFinished    field.Time
+	DealUUID            field.String
+	UserID              field.Int64
+	Slashed             field.Bool
+	DealProtocolVersion field.String
+	MinerVersion        field.String
 
 	fieldMap map[string]field.Expr
 }
@@ -110,6 +114,8 @@ func (c *contentDeal) updateTableName(table string) *contentDeal {
 	c.DealUUID = field.NewString(table, "deal_uuid")
 	c.UserID = field.NewInt64(table, "user_id")
 	c.Slashed = field.NewBool(table, "slashed")
+	c.DealProtocolVersion = field.NewString(table, "deal_protocol_version")
+	c.MinerVersion = field.NewString(table, "miner_version")
 
 	c.fillFieldMap()
 
@@ -126,7 +132,7 @@ func (c *contentDeal) GetFieldByName(fieldName string) (field.OrderExpr, bool) {
 }
 
 func (c *contentDeal) fillFieldMap() {
-	c.fieldMap = make(map[string]field.Expr, 19)
+	c.fieldMap = make(map[string]field.Expr, 21)
 	c.fieldMap["id"] = c.ID
 	c.fieldMap["created_at"] = c.CreatedAt
 	c.fieldMap["updated_at"] = c.UpdatedAt
@@ -146,6 +152,8 @@ func (c *contentDeal) fillFieldMap() {
 	c.fieldMap["deal_uuid"] = c.DealUUID
 	c.fieldMap["user_id"] = c.UserID
 	c.fieldMap["slashed"] = c.Slashed
+	c.fieldMap["deal_protocol_version"] = c.DealProtocolVersion
+	c.fieldMap["miner_version"] = c.MinerVersion
 }
 
 func (c contentDeal) clone(db *gorm.DB) contentDeal {

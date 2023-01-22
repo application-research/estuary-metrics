@@ -33,7 +33,6 @@ func newUser(db *gorm.DB) user {
 	_user.DeletedAt = field.NewField(tableName, "deleted_at")
 	_user.UUID = field.NewString(tableName, "uuid")
 	_user.Username = field.NewString(tableName, "username")
-	_user.Salt = field.NewString(tableName, "salt")
 	_user.PassHash = field.NewString(tableName, "pass_hash")
 	_user.UserEmail = field.NewString(tableName, "user_email")
 	_user.Perm = field.NewInt64(tableName, "perm")
@@ -41,6 +40,7 @@ func newUser(db *gorm.DB) user {
 	_user.Address = field.NewString(tableName, "address")
 	_user.StorageDisabled = field.NewBool(tableName, "storage_disabled")
 	_user.DID = field.NewString(tableName, "d_id")
+	_user.Salt = field.NewString(tableName, "salt")
 
 	_user.fillFieldMap()
 
@@ -57,7 +57,6 @@ type user struct {
 	DeletedAt       field.Field
 	UUID            field.String
 	Username        field.String
-	Salt            field.String
 	PassHash        field.String
 	UserEmail       field.String
 	Perm            field.Int64
@@ -65,6 +64,7 @@ type user struct {
 	Address         field.String
 	StorageDisabled field.Bool
 	DID             field.String
+	Salt            field.String
 
 	fieldMap map[string]field.Expr
 }
@@ -87,7 +87,6 @@ func (u *user) updateTableName(table string) *user {
 	u.DeletedAt = field.NewField(table, "deleted_at")
 	u.UUID = field.NewString(table, "uuid")
 	u.Username = field.NewString(table, "username")
-	u.Salt = field.NewString(table, "salt")
 	u.PassHash = field.NewString(table, "pass_hash")
 	u.UserEmail = field.NewString(table, "user_email")
 	u.Perm = field.NewInt64(table, "perm")
@@ -95,6 +94,7 @@ func (u *user) updateTableName(table string) *user {
 	u.Address = field.NewString(table, "address")
 	u.StorageDisabled = field.NewBool(table, "storage_disabled")
 	u.DID = field.NewString(table, "d_id")
+	u.Salt = field.NewString(table, "salt")
 
 	u.fillFieldMap()
 
@@ -118,7 +118,6 @@ func (u *user) fillFieldMap() {
 	u.fieldMap["deleted_at"] = u.DeletedAt
 	u.fieldMap["uuid"] = u.UUID
 	u.fieldMap["username"] = u.Username
-	u.fieldMap["salt"] = u.Salt
 	u.fieldMap["pass_hash"] = u.PassHash
 	u.fieldMap["user_email"] = u.UserEmail
 	u.fieldMap["perm"] = u.Perm
@@ -126,6 +125,7 @@ func (u *user) fillFieldMap() {
 	u.fieldMap["address"] = u.Address
 	u.fieldMap["storage_disabled"] = u.StorageDisabled
 	u.fieldMap["d_id"] = u.DID
+	u.fieldMap["salt"] = u.Salt
 }
 
 func (u user) clone(db *gorm.DB) user {

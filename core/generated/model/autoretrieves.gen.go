@@ -10,10 +10,10 @@ import (
 	"gorm.io/gorm"
 )
 
-const TableNameAutoretrieves = "autoretrieves"
+const TableNameAutoretrieve = "autoretrieves"
 
-// Autoretrieves mapped from table <autoretrieves>
-type Autoretrieves struct {
+// Autoretrieve mapped from table <autoretrieves>
+type Autoretrieve struct {
 	ID                int64          `gorm:"column:id;primaryKey;autoIncrement:true" json:"id"`
 	CreatedAt         time.Time      `gorm:"column:created_at" json:"created_at"`
 	UpdatedAt         time.Time      `gorm:"column:updated_at" json:"updated_at"`
@@ -27,7 +27,7 @@ type Autoretrieves struct {
 	PeerID            string         `gorm:"column:peer_id" json:"peer_id"`
 }
 
-// TableName Autoretrieves's table name
-func (*Autoretrieves) TableName() string {
-	return TableNameAutoretrieves
+// TableName Autoretrieve's table name
+func (*Autoretrieve) TableName() string {
+	return TableNameAutoretrieve
 }
