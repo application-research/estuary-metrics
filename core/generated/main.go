@@ -104,7 +104,8 @@ func setupMainDb(dsn string) {
 	g.GenerateModel("contents")
 	g.GenerateModel("content_deals")
 	g.GenerateModel("auth_tokens")
-	g.GenerateModel("autoretrieves")
+	// ? Need to manually specify Autoretrieves otherwise it will use "autoretriefes" model name
+	g.GenerateModelAs("autoretrieves", "Autoretrieves")
 	g.GenerateModel("dealers")
 	g.GenerateModel("collection_refs")
 	g.GenerateModel("collections")
