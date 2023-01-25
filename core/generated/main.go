@@ -1,7 +1,6 @@
 package main
 
 import (
-	"fmt"
 	"log"
 
 	"github.com/application-research/estuary-metrics/core/generated/model"
@@ -36,11 +35,10 @@ func main() {
 
 func setupMetricsDb(dsn string) {
 
-	fmt.Println(dsn)
 	// specify the output directory (default: "./query")
 	// ### if you want to query without context constrain, set mode gen.WithoutContext ###
 	g := gen.NewGenerator(gen.Config{
-		OutPath: "generated/query",
+		OutPath: "generated/query/metrics_db",
 		Mode:    gen.WithoutContext | gen.WithDefaultQuery | gen.WithQueryInterface,
 	})
 	db, _ := gorm.Open(postgres.Open(dsn), &gorm.Config{})
@@ -59,7 +57,7 @@ func setupMainDb(dsn string) {
 	// specify the output directory (default: "./query")
 	// ### if you want to query without context constrain, set mode gen.WithoutContext ###
 	g := gen.NewGenerator(gen.Config{
-		OutPath: "generated/query",
+		OutPath: "generated/query/estuary_db",
 		Mode:    gen.WithoutContext | gen.WithDefaultQuery | gen.WithQueryInterface,
 		//if you want the nullable field generation property to be pointer type, set FieldNullable true
 		/* FieldNullable: true,*/
