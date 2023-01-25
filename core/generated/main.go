@@ -3,7 +3,7 @@ package main
 import (
 	"log"
 
-	"github.com/application-research/estuary-metrics/core/generated/model"
+	"github.com/application-research/estuary-metrics/core/generated/query/model"
 	"github.com/spf13/viper"
 	"gorm.io/driver/postgres"
 	"gorm.io/gen"

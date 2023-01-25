@@ -16,7 +16,7 @@ import (
 
 	"gorm.io/plugin/dbresolver"
 
-	"github.com/application-research/estuary-metrics/core/generated/model"
+	"github.com/application-research/estuary-metrics/core/generated/query/model"
 )
 
 func newInviteCode(db *gorm.DB) inviteCode {

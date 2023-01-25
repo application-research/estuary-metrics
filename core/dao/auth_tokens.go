@@ -4,10 +4,10 @@ import (
 	"context"
 	"time"
 
-	model "github.com/application-research/estuary-metrics/core/generated/model"
+	model "github.com/application-research/estuary-metrics/core/generated/query/model"
+	"github.com/gofrs/uuid"
 
 	"github.com/guregu/null"
-	"github.com/satori/go.uuid"
 )
 
 var (
