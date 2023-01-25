@@ -1,12 +1,13 @@
 package main
 
 import (
-	"github.com/application-research/estuary-metrics/core/generated/model"
+	"log"
+
+	"github.com/application-research/estuary-metrics/core/generated/query/model"
 	"github.com/spf13/viper"
 	"gorm.io/driver/postgres"
 	"gorm.io/gen"
 	"gorm.io/gorm"
-	"log"
 )
 
 func main() {
@@ -18,19 +19,45 @@ func main() {
 		log.Fatalf("Error while reading config file %s", err)
 	}
 
-	dbHost, okHost := viper.Get("DB_HOST").(string)
-	dbUser, okUser := viper.Get("DB_USER").(string)
-	dbPass, okPass := viper.Get("DB_PASS").(string)
-	dbName, okName := viper.Get("DB_NAME").(string)
-	dbPort, okPort := viper.Get("DB_PORT").(string)
-	if !okHost || !okUser || !okPass || !okName || !okPort {
-		log.Fatalf("Error while reading database config")
+	dcsEstuary, ok := viper.Get("DCS_ESTUARY").(string)
+	if !ok {
+		log.Fatalf("Error while reading Estuary database config")
 	}
+
+	dcsMetrics, ok := viper.Get("DCS_METRICS").(string)
+	if !ok {
+		log.Fatalf("Error while reading Metrics database config")
+	}
+
+	setupMainDb(dcsEstuary)
+	setupMetricsDb(dcsMetrics)
+}
+
+func setupMetricsDb(dsn string) {
 
 	// specify the output directory (default: "./query")
 	// ### if you want to query without context constrain, set mode gen.WithoutContext ###
 	g := gen.NewGenerator(gen.Config{
-		OutPath: "generated/query",
+		OutPath: "generated/query/metrics_db",
+		Mode:    gen.WithoutContext | gen.WithDefaultQuery | gen.WithQueryInterface,
+	})
+	db, _ := gorm.Open(postgres.Open(dsn), &gorm.Config{})
+	g.UseDB(db)
+
+	// @jcace
+	// For first run - comment out the "ApplyBasic" lines, and only run GenerateModel
+	// Then subsequent migrations, leave ApplyBasic commented in
+	g.ApplyBasic(model.RetrievalEvent{})
+	g.GenerateModel("retrieval_events")
+
+	g.Execute()
+}
+
+func setupMainDb(dsn string) {
+	// specify the output directory (default: "./query")
+	// ### if you want to query without context constrain, set mode gen.WithoutContext ###
+	g := gen.NewGenerator(gen.Config{
+		OutPath: "generated/query/estuary_db",
 		Mode:    gen.WithoutContext | gen.WithDefaultQuery | gen.WithQueryInterface,
 		//if you want the nullable field generation property to be pointer type, set FieldNullable true
 		/* FieldNullable: true,*/
@@ -45,10 +72,6 @@ func main() {
 		//if you need unit tests for query code, set WithUnitTest true
 		/* WithUnitTest: true, */
 	})
-
-	// reuse the database connection in Project or create a connection here
-	// if you want to use GenerateModel/GenerateModelAs, UseDB is necessary or it will panic
-	dsn := "host=" + dbHost + " user=" + dbUser + " password=" + dbPass + " dbname=" + dbName + " port=" + dbPort + " sslmode=disable TimeZone=Asia/Shanghai"
 	db, _ := gorm.Open(postgres.Open(dsn), &gorm.Config{})
 	g.UseDB(db)
 
@@ -79,7 +102,8 @@ func main() {
 	g.GenerateModel("contents")
 	g.GenerateModel("content_deals")
 	g.GenerateModel("auth_tokens")
-	g.GenerateModel("autoretrieves")
+	// ? Need to manually specify Autoretrieves otherwise it will use "autoretriefes" model name
+	g.GenerateModelAs("autoretrieves", "Autoretrieve")
 	g.GenerateModel("dealers")
 	g.GenerateModel("collection_refs")
 	g.GenerateModel("collections")
