@@ -1,12 +1,13 @@
 package main
 
 import (
+	"log"
+
 	"github.com/application-research/estuary-metrics/core/generated/model"
 	"github.com/spf13/viper"
 	"gorm.io/driver/postgres"
 	"gorm.io/gen"
 	"gorm.io/gorm"
-	"log"
 )
 
 func main() {
@@ -48,7 +49,7 @@ func main() {
 
 	// reuse the database connection in Project or create a connection here
 	// if you want to use GenerateModel/GenerateModelAs, UseDB is necessary or it will panic
-	dsn := "host=" + dbHost + " user=" + dbUser + " password=" + dbPass + " dbname=" + dbName + " port=" + dbPort + " sslmode=disable TimeZone=Asia/Shanghai"
+	dsn := "host=" + dbHost + " user=" + dbUser + " password=" + dbPass + " dbname=" + dbName + " port=" + dbPort + " sslmode=prefer TimeZone=Asia/Shanghai"
 	db, _ := gorm.Open(postgres.Open(dsn), &gorm.Config{})
 	g.UseDB(db)
 
